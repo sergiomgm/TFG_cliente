@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+         id="WebApp_ID" version="3.0">
+
+    <display-name>TFG_cliente</display-name>
+
+
+    <!-- ********* WELLCOME ********* -->
+
+    <welcome-file-list>
+        <welcome-file>views/index.xhtml</welcome-file>
+    </welcome-file-list>
+
+
+    <!-- ********* CONTEXTO DE DESPLIEGUE ********* -->
+    <context-param>
+        <param-name>javax.faces.PROJECT_STAGE</param-name>
+        <param-value>Development</param-value>
+        <!--
+        <param-value>Development</param-value>
+        <param-value>Production</param-value>
+        -->
+    </context-param>
+
+
+
+
+    <!-- **************************************** -->
+    <!-- ********* CONFIGURACIÓN DE JSF ********* -->
+    <!-- **************************************** -->
+
+    <servlet>
+        <servlet-name>Faces Servlet</servlet-name>
+        <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>Faces Servlet</servlet-name>
+        <url-pattern>/faces/*</url-pattern>
+        <url-pattern>*.xhtml</url-pattern>
+    </servlet-mapping>
+
+    <context-param>
+        <description>State saving method: 'client' or 'server' (=default). See JSF Specification 2.5.2</description>
+        <param-name>javax.faces.STATE_SAVING_METHOD</param-name>
+        <param-value>client</param-value>
+    </context-param>
+    <context-param>
+        <param-name>javax.servlet.jsp.jstl.fmt.localizationContext</param-name>
+        <param-value>resources.application</param-value>
+    </context-param>
+    <listener>
+        <listener-class>com.sun.faces.config.ConfigureListener</listener-class>
+    </listener>
+
+
+    <!-- **************************************** -->
+    <!-- ******** CONFIGURACIÓN DE JAAS ********* -->
+    <!-- **************************************** -->
+
+    <!-- ********* ROLES ********* -->
+
+    <security-role>
+        <description>Administrador</description>
+        <role-name>admin</role-name>
+    </security-role>
+
+
+    <security-role>
+        <description>Usuario</description>
+        <role-name>user</role-name>
+    </security-role>
+
+    <security-role>
+        <description>SuperUsuario</description>
+        <role-name>superuser</role-name>
+    </security-role>
+
+
+
+    <!-- ********* RESTRICCIONES DE RECURSOS ********* -->
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>Admin</web-resource-name>
+            <url-pattern>/views/admin/*</url-pattern>
+        </web-resource-collection>
+
+        <auth-constraint>
+            <role-name>admin</role-name>
+            <role-name>superuser</role-name>
+        </auth-constraint>
+    </security-constraint>
+
+
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>User</web-resource-name>
+            <url-pattern>/views/user/*</url-pattern>
+        </web-resource-collection>
+
+        <auth-constraint>
+            <role-name>user</role-name>
+            <role-name>superuser</role-name>
+        </auth-constraint>
+    </security-constraint>
+
+
+    <!-- ********* CONFIGURACIÓN DE LOGIN ********* -->
+
+    <login-config>
+        <auth-method>FORM</auth-method>
+        <form-login-config>
+            <form-login-page>/views/Login/login.html</form-login-page>
+            <form-error-page>/views/error.xhtml</form-error-page>
+        </form-login-config>
+    </login-config>
+
+
+</web-app>

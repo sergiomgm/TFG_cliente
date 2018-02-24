@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Context>
+    <Realm className="org.apache.catalina.realm.JAASRealm"
+           appName="TFG_cliente"
+           userClassNames="com.rodrigo.TFG_cliente.presentacion.seguridad.jaas.UserPrincipal"
+           roleClassNames="com.rodrigo.TFG_cliente.presentacion.seguridad.jaas.RolePrincipal"/>
+</Context>
