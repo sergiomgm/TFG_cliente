@@ -8,7 +8,7 @@ public interface Proxy {
 
     final String HOST = "http://localhost" ;
 
-    final String PORT = "55556";
+    final String PORT = "55555";
 
     final String APP_URI = "/TFG_server/services";
 
