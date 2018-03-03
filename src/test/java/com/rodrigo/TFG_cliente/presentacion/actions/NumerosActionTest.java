@@ -1,5 +1,6 @@
 package com.rodrigo.TFG_cliente.presentacion.actions;
 
+import com.rodrigo.TFG_cliente.Negocio.Modulo_Empleado.Excepciones.EmpleadoException;
 import com.rodrigo.TFG_cliente.presentacion.proxy.Excepciones.ProxyException;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -33,6 +34,8 @@ class NumerosActionTest {
             log.error("Se lanzo ex: " + e.getMessage());
             log.error(e.getStackTrace().toString());
             fail("Se lanzo ex: " + e.getMessage());
+        } catch (EmpleadoException e) {
+            e.printStackTrace();
         }
 
 

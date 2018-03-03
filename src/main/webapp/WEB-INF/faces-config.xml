@@ -53,7 +53,7 @@
         <from-view-id>/views/index.xhtml</from-view-id>
         <navigation-case>
             <from-outcome>a_user</from-outcome>
-            <to-view-id>/views/user/user.xhtml</to-view-id>
+            <to-view-id>/views/empleado/empleado.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
     </navigation-rule>
@@ -93,8 +93,8 @@
 
     <navigation-rule>
         <navigation-case>
-            <from-outcome>user</from-outcome>
-            <to-view-id>/views/user/user.xhtml</to-view-id>
+            <from-outcome>empleado</from-outcome>
+            <to-view-id>/views/empleado/empleado.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
 

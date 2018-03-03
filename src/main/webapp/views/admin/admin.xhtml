@@ -10,6 +10,7 @@
 <h:head>
     <title>Indice</title>
     <h:outputStylesheet library="css" name="style.css"  />
+    #{numerosAction.viewRequest = "admin"}
 </h:head>
 
 <h:body>
@@ -20,6 +21,13 @@
     <h3>.xhtml</h3>
     <h2> Hola: #{request.getRemoteUser()}</h2>
 
+    <br/>
+
+    <h2>Tus datos:</h2>
+
+        #{numerosAction.empleado}
+
+    <br/>
     <br/>
 
     <div class="red">This is red color</div>
@@ -40,7 +48,7 @@
 
     <h:form prependId="false">
         <p>
-            <h:commandButton value="listar Usuario" action="#{numerosAction.listarUsuarios}"/>
+            <h:commandButton value="listar Empleado" action="#{numerosAction.listarEmpleados}"/>
         </p>
 
     </h:form>

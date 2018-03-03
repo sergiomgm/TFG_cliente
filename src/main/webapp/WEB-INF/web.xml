@@ -65,18 +65,18 @@
 
     <security-role>
         <description>Administrador</description>
-        <role-name>admin</role-name>
+        <role-name>ADMIN</role-name>
     </security-role>
 
 
     <security-role>
-        <description>Usuario</description>
-        <role-name>user</role-name>
+        <description>Empleado</description>
+        <role-name>EMPLEADO</role-name>
     </security-role>
 
     <security-role>
         <description>SuperUsuario</description>
-        <role-name>superuser</role-name>
+        <role-name>SUPERUSER</role-name>
     </security-role>
 
 
@@ -89,8 +89,8 @@
         </web-resource-collection>
 
         <auth-constraint>
-            <role-name>admin</role-name>
-            <role-name>superuser</role-name>
+            <role-name>ADMIN</role-name>
+            <role-name>SUPERUSER</role-name>
         </auth-constraint>
     </security-constraint>
 
@@ -98,12 +98,12 @@
     <security-constraint>
         <web-resource-collection>
             <web-resource-name>User</web-resource-name>
-            <url-pattern>/views/user/*</url-pattern>
+            <url-pattern>/views/empleado/*</url-pattern>
         </web-resource-collection>
 
         <auth-constraint>
-            <role-name>user</role-name>
-            <role-name>superuser</role-name>
+            <role-name>EMPLEADO</role-name>
+            <role-name>SUPERUSER</role-name>
         </auth-constraint>
     </security-constraint>
 
