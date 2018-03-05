@@ -3,7 +3,6 @@ package com.rodrigo.TFG_cliente.presentacion.Proxy.imp;
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Empleado.Entidad.Empleado;
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Empleado.Entidad.Rol;
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Empleado.Excepciones.EmpleadoException;
-import com.rodrigo.TFG_cliente.Negocio.Modulo_Empleado.Excepciones.EmpleadoNullException;
 import com.rodrigo.TFG_cliente.presentacion.Proxy.Excepciones.ProxyException;
 import com.rodrigo.TFG_cliente.presentacion.Utils.EmailValidatorTest;
 import org.junit.jupiter.api.AfterEach;
@@ -16,7 +15,6 @@ import org.junit.jupiter.params.provider.MethodSource;
 import org.junit.jupiter.params.provider.ValueSource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import sun.util.locale.provider.LocaleServiceProviderPool;
 
 import static org.junit.jupiter.api.Assertions.*;
 
