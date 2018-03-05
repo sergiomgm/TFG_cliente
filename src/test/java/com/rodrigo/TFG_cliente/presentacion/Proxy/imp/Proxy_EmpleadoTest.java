@@ -3,18 +3,20 @@ package com.rodrigo.TFG_cliente.presentacion.Proxy.imp;
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Empleado.Entidad.Empleado;
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Empleado.Entidad.Rol;
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Empleado.Excepciones.EmpleadoException;
-import com.rodrigo.TFG_cliente.Negocio.Modulo_Empleado.Excepciones.EmpleadoLoginErroneo;
-import com.rodrigo.TFG_cliente.presentacion.proxy.Excepciones.ProxyException;
-import com.rodrigo.TFG_cliente.presentacion.proxy.imp.Proxy_Empleado;
-import org.junit.jupiter.api.*;
+import com.rodrigo.TFG_cliente.Negocio.Modulo_Empleado.Excepciones.EmpleadoNullException;
+import com.rodrigo.TFG_cliente.presentacion.Proxy.Excepciones.ProxyException;
+import com.rodrigo.TFG_cliente.presentacion.Utils.EmailValidatorTest;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.junit.jupiter.params.provider.ValueSource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.util.List;
+import sun.util.locale.provider.LocaleServiceProviderPool;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -80,30 +82,129 @@ class Proxy_EmpleadoTest {
 
     }
 
-    @Test
-    void crearEmpleado() {
-        log.info("crearUserTest");
-        Empleado user = new Empleado("juan", "1234");
 
-        Empleado nuevo = proxy.crearEmpleado(user);
+    /******************************************************************
+     ********************   TEST CREAR EMPLEADO   *********************
+     ******************************************************************/
 
-        log.debug(user.toString());
-        log.debug(nuevo.toString());
 
-        assertNotNull(nuevo);
-        assertNotNull(nuevo.getId());
+    @ParameterizedTest
+    @CsvSource({"Admin, 1234, ADMIN", "rodri, 1234, EMPLEADO", "emple,1234, EMPLEADO"})
+    void crearEmpleado(String nombre, String pass, String rol) throws EmpleadoException {
 
-        assertTrue(nuevo.getId() instanceof Long);
-        assertEquals(nuevo.getNombre().toString(), user.getNombre().toString());
-        assertEquals(nuevo.getPassword().toString(), user.getPassword().toString());
+        Empleado e1 = new Empleado(nombre, pass, Rol.valueOf(rol));
+        log.debug("e1.getRol() = '" + e1.getRol() + "'");
+        
+        Empleado empleCreado = proxy.crearEmpleado(e1);
+        
+
+        assertNotNull(empleCreado);
+
+        e1.setId(empleCreado.getId());
+        assertTrue(empleCreado.equalsWithOutVersion(e1));
+
+
+        proxy.eliminarEmpleado(empleCreado);
     }
 
 
     @Test
+    void crearEmpleadoExistente() throws EmpleadoException {
+
+        /*Empleado e1 = new Empleado("juan", "1234", Rol.valueOf("EMPLEADO"));
+
+        log.info("Creando empleado 1");
+        e1 = Proxy.crearEmpleado(e1);*/
+
+
+        Throwable exception = assertThrows(EmpleadoException.class, () -> {
+
+            Empleado e2 = e1;
+
+            log.info("Creando empleado 2");
+            e2 = proxy.crearEmpleado(e2);
+
+        });
+
+
+        /*Proxy.eliminarEmpleado(e1);*/
+    }
+
+    @Test
+    void crearEmpleadoNull() {
+
+
+        Throwable exception = assertThrows(EmpleadoException.class, () -> {
+            Empleado empleCreado;
+            empleCreado = proxy.crearEmpleado(null);
+
+            assertNull(empleCreado);
+
+        });
+
+
+        log.error("Mensaje excepcion: " + exception.getMessage());
+        log.error("EXCEPCION!!", exception);
+
+
+
+    }
+
+
+    @Test
+    void crearEmpleadoVacio() {
+
+        Throwable exception = assertThrows(EmpleadoException.class, () -> {
+
+            Empleado empleCreado = proxy.crearEmpleado(new Empleado());
+
+        });
+
+        log.info("Excepcion capturada:" + exception.getMessage());
+    }
+
+
+    @Test
+    void crearEmpleadoEmailNull() {
+
+
+        log.info("forzando email = null");
+        Throwable ex1 = assertThrows(EmpleadoException.class, () -> {
+
+            e1.setEmail(null);
+            log.debug("e1= " + e1);
+            Empleado empleCreado = proxy.crearEmpleado(e1);
+
+        });
+
+        log.info("Excepcion capturada:" + ex1.getMessage());
+
+    }
+
+    @Test
+    void crearEmpleadoEmailVacio() {
+
+
+        log.info("forzando email = ''");
+        Throwable ex2 = assertThrows(EmpleadoException.class, () -> {
+
+            e1.setEmail("");
+            log.debug("e1= " + e1);
+            Empleado empleCreado = proxy.crearEmpleado(e1);
+
+        });
+        log.info("Excepcion capturada:" + ex2.getMessage());
+
+
+    }
+
+
+/*
+    @Test
     void buscarEmpleadoByID() {
         log.info("BuscarUserTest");
-        Empleado nuevo = proxy.crearEmpleado(new Empleado("test2", "1234"));
-        Empleado userB = proxy.buscarEmpleadoByID(nuevo.getId());
+        Empleado nuevo = Proxy.crearEmpleado(new Empleado("test2", "1234"));
+        Empleado userB = Proxy.buscarEmpleadoByID(nuevo.getId());
 
         log.info(userB.toString());
 
@@ -121,14 +222,14 @@ class Proxy_EmpleadoTest {
         log.info("EliminarUser Test");
 
         Empleado u = new Empleado("Eliminar", "pass");
-        u = proxy.crearEmpleado(u);
+        u = Proxy.crearEmpleado(u);
         log.debug("Creado: " + u.toString());
 
-        Boolean resutl = proxy.eliminarEmpleado(u);
+        Boolean resutl = Proxy.eliminarEmpleado(u);
         log.info("Eliminado: " + resutl);
         assertTrue(resutl);
 
-        assertNull(proxy.buscarEmpleadoByID(u.getId()));
+        assertNull(Proxy.buscarEmpleadoByID(u.getId()));
 
 
     }
@@ -139,10 +240,11 @@ class Proxy_EmpleadoTest {
     void listarEmpleados() {
         log.info("ListarUsersTest");
 
-        List lista = proxy.listarEmpleados();
+        List lista = Proxy.listarEmpleados();
         assertNotNull(lista);
 
     }
+*/
 
 
 
@@ -232,7 +334,7 @@ class Proxy_EmpleadoTest {
     void loginEmpleadoInexistenteTest() {
 
         log.info("Login empleado inexistente");
-        Throwable ex1 = assertThrows(EmpleadoLoginErroneo.class, () -> {
+        Throwable ex1 = assertThrows(EmpleadoException.class, () -> {
 
             boolean login = proxy.loginEmpleado("kajsdnflaf@gmail.com", "1234");
             assertFalse(login);
@@ -393,11 +495,9 @@ class Proxy_EmpleadoTest {
 
 
 
-   /* public static Object[][] InvalidEmailProvider() {
+    public static Object[][] InvalidEmailProvider() {
         return EmailValidatorTest.InvalidEmailProvider();
-    }*/
-
-
+    }
 
 
 

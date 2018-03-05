@@ -1,13 +1,9 @@
 package com.rodrigo.TFG_cliente.presentacion.actions;
 
-import java.io.Serializable;
-import java.security.Principal;
-import java.util.List;
-
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Empleado.Entidad.Empleado;
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Empleado.Excepciones.EmpleadoException;
-import com.rodrigo.TFG_cliente.presentacion.proxy.Excepciones.ProxyException;
-import com.rodrigo.TFG_cliente.presentacion.proxy.imp.Proxy_Empleado;
+import com.rodrigo.TFG_cliente.presentacion.Proxy.Excepciones.ProxyException;
+import com.rodrigo.TFG_cliente.presentacion.Proxy.imp.Proxy_Empleado;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -15,6 +11,9 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
+import java.io.Serializable;
+import java.security.Principal;
+import java.util.List;
 
 @ManagedBean(name = "numerosAction")
 @SessionScoped
@@ -37,29 +36,23 @@ public class NumerosAction implements Serializable {
     public NumerosAction() throws ProxyException, EmpleadoException {
         log.info("En constructor de Bean [NumerosAction]");
         proxyEmpleado = new Proxy_Empleado();
-        Principal principal = FacesContext.getCurrentInstance().getExternalContext().getUserPrincipal();
-        log.debug("principal = '" + principal + "'");;
 
 
-        // get login from principal
-        String email = principal.getName();
-        log.debug("login = '" + email + "'");
-        
-        //get all informations of empleado from EJB : UserFacade
-        //empleado= userFacade.findByLogin(login);
+        try {
+            Principal principal = FacesContext.getCurrentInstance().getExternalContext().getUserPrincipal();
+            String email = principal.getName();
+            empleado = proxyEmpleado.buscarByEmail(email);
+            log.debug("empleado = '" + empleado + "'");
+        } catch (NullPointerException e) {
+            log.error("No se pudo cargar el empleado de la sesión.");
+        }
 
-        empleado = proxyEmpleado.buscarByEmail(email);
-
-        log.debug("empleado = '" + empleado + "'");
     }
-
-
-
 
 
     public String saludar() {
 
-        
+
         log.info("Nombre: " + nombre);
         saludo = proxyEmpleado.saludar(this.nombre);
 
@@ -83,9 +76,6 @@ public class NumerosAction implements Serializable {
         log.info("Redirigiendo a vista...");
         return "admin";
     }
-
-
-
 
 
     public String getNombre() {

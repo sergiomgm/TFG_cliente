@@ -1,19 +1,12 @@
 package com.rodrigo.TFG_cliente.presentacion.actions;
 
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Empleado.Excepciones.EmpleadoException;
-import com.rodrigo.TFG_cliente.presentacion.proxy.Excepciones.ProxyException;
+import com.rodrigo.TFG_cliente.presentacion.Proxy.Excepciones.ProxyException;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import static java.time.Duration.ofMillis;
-import static java.time.Duration.ofMinutes;
-
-
-import java.net.MalformedURLException;
 
 import static org.junit.jupiter.api.Assertions.*;
 

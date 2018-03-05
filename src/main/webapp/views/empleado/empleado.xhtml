@@ -2,7 +2,7 @@
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core">
+>
 
 
 <h:head>
@@ -13,15 +13,22 @@
 <h:body>
 
 
-<h1>Hola User</h1>
+<h1>Hola <h:outputText value="#{numerosAction.empleado.rol}"/></h1>
 
     <h3>.xhtml</h3>
     <h2> Hola: <h:outputText value="#{numerosAction.empleado.nombre}"/></h2>
     <h3> ID: <h:outputText value="#{numerosAction.empleado.id}"/></h3>
 
 
+    <h2> Email: #{request.getRemoteUser()}</h2>
 
-    <h2> Tu rol: #{request.getRemoteUser()}</h2>
+    <br/>
+
+    <h2>Tus datos completos:</h2>
+
+    #{numerosAction.empleado}
+
+    <br/>
 
     <br/>
     <a href="${pageContext.request.contextPath}/logout">Logout</a>

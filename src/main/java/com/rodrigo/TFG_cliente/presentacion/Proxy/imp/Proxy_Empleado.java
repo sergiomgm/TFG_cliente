@@ -1,10 +1,10 @@
-package com.rodrigo.TFG_cliente.presentacion.proxy.imp;
+package com.rodrigo.TFG_cliente.presentacion.Proxy.imp;
 
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Empleado.Entidad.Empleado;
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Empleado.Excepciones.EmpleadoException;
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Empleado.Serv_aplicacion.IBroker_SA_Empleado;
-import com.rodrigo.TFG_cliente.presentacion.proxy.Excepciones.ProxyException;
-import com.rodrigo.TFG_cliente.presentacion.proxy.Proxy;
+import com.rodrigo.TFG_cliente.presentacion.Proxy.Excepciones.ProxyException;
+import com.rodrigo.TFG_cliente.presentacion.Proxy.Proxy;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -63,7 +63,7 @@ public class Proxy_Empleado implements Proxy, IBroker_SA_Empleado {
 
 
     @Override
-    public Empleado crearEmpleado(Empleado empleadoNuevo) {
+    public Empleado crearEmpleado(Empleado empleadoNuevo) throws EmpleadoException {
         return portEmpleados.crearEmpleado(empleadoNuevo);
     }
 

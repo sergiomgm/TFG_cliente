@@ -1,6 +1,6 @@
-package com.rodrigo.TFG_cliente.presentacion.proxy;
+package com.rodrigo.TFG_cliente.presentacion.Proxy;
 
-import com.rodrigo.TFG_cliente.presentacion.proxy.Excepciones.ProxyException;
+import com.rodrigo.TFG_cliente.presentacion.Proxy.Excepciones.ProxyException;
 
 import java.net.MalformedURLException;
 

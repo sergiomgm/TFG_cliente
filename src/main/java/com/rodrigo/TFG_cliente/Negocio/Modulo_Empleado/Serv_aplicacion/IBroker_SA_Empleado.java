@@ -15,7 +15,7 @@ import java.util.List;
 public interface IBroker_SA_Empleado {
 
     @WebMethod(operationName="crearEmpleado")
-    public Empleado crearEmpleado(@WebParam(name = "Empleado") Empleado empleadoNuevo);
+    public Empleado crearEmpleado(@WebParam(name = "Empleado") Empleado empleadoNuevo)  throws EmpleadoException;;
 
     @WebMethod(operationName="buscarByID")
     public Empleado buscarEmpleadoByID(@WebParam(name = "id") Long id);
