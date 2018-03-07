@@ -1,9 +1,9 @@
 package com.rodrigo.TFG_cliente.presentacion.actions;
 
+import com.rodrigo.TFG_cliente.Negocio.Modulo_Empleado.Delegado.Delegado_Empleado;
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Empleado.Entidad.Empleado;
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Empleado.Excepciones.EmpleadoException;
 import com.rodrigo.TFG_cliente.presentacion.Proxy.Excepciones.ProxyException;
-import com.rodrigo.TFG_cliente.presentacion.Proxy.imp.Proxy_Empleado;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -27,7 +27,6 @@ public class NumerosAction implements Serializable {
 
     private Empleado empleado;
 
-    private Proxy_Empleado proxyEmpleado;
 
     private String saludo;
 
@@ -35,13 +34,12 @@ public class NumerosAction implements Serializable {
 
     public NumerosAction() throws ProxyException, EmpleadoException {
         log.info("En constructor de Bean [NumerosAction]");
-        proxyEmpleado = new Proxy_Empleado();
 
 
         try {
             Principal principal = FacesContext.getCurrentInstance().getExternalContext().getUserPrincipal();
             String email = principal.getName();
-            empleado = proxyEmpleado.buscarByEmail(email);
+            empleado = Delegado_Empleado.getInstance().buscarByEmail(email);
             log.debug("empleado = '" + empleado + "'");
         } catch (NullPointerException e) {
             log.error("No se pudo cargar el empleado de la sesión.");
@@ -54,7 +52,7 @@ public class NumerosAction implements Serializable {
 
 
         log.info("Nombre: " + nombre);
-        saludo = proxyEmpleado.saludar(this.nombre);
+        saludo = Delegado_Empleado.getInstance().saludar(this.nombre);
 
         log.info("Saludo: " + saludo);
         log.info("Redirigiendo a vista...");
@@ -67,7 +65,7 @@ public class NumerosAction implements Serializable {
 
         log.info("listar");
 
-        lista = proxyEmpleado.listarEmpleados();
+        lista = Delegado_Empleado.getInstance().listarEmpleados();
 
         if (lista.size() >= 1) {
             log.info("--- Lista con Users ---");

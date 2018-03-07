@@ -1,4 +1,4 @@
-package com.rodrigo.TFG_cliente.presentacion.Proxy.imp;
+package com.rodrigo.TFG_cliente.Negocio.Modulo_Empleado.Delegado;
 
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Empleado.Entidad.Empleado;
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Empleado.Entidad.Rol;
@@ -16,14 +16,14 @@ import org.junit.jupiter.params.provider.ValueSource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.net.MalformedURLException;
+
 import static org.junit.jupiter.api.Assertions.*;
 
-class Proxy_EmpleadoTest {
+class Delegado_EmpleadoImplTest {
 
 
-    private final static Logger log = LoggerFactory.getLogger(Proxy_EmpleadoTest.class);
-
-    private static Proxy_Empleado proxy;
+    private final static Logger log = LoggerFactory.getLogger(Delegado_EmpleadoImplTest.class);
 
     private Empleado e1;
 
@@ -35,23 +35,14 @@ class Proxy_EmpleadoTest {
 
     @BeforeAll
     static void initSA() {
-        try {
-            proxy = new Proxy_Empleado();
-        } catch (ProxyException e) {
-            log.error("Error al crear Proxy_Empleado");
-            log.error(e.getMessage());
-            log.error(e.getStackTrace().toString());
-
-            fail("Error al crear Proxy_Empleado");
-        }
     }
 
     @BeforeEach
     void iniciarContexto() throws EmpleadoException {
         e1 = new Empleado("empleado", "1234", Rol.valueOf("EMPLEADO"));
         log.info("Creando empleado ");
-        if (proxy.buscarByEmail(e1.getEmail()) == null) {
-            e1 = proxy.crearEmpleado(e1);
+        if (Delegado_Empleado.getInstance().buscarByEmail(e1.getEmail()) == null) {
+            e1 = Delegado_Empleado.getInstance().crearEmpleado(e1);
         }
     }
 
@@ -60,25 +51,10 @@ class Proxy_EmpleadoTest {
     void finalizarContexto() {
 
         log.info("Eliminado empleado");
-        proxy.eliminarEmpleado(e1);
+        Delegado_Empleado.getInstance().eliminarEmpleado(e1);
     }
     
 
-    @Test
-    void initProxy() {
-
-        try {
-            proxy.initProxy();
-        } catch (ProxyException e) {
-
-            log.error("Error al iniaciar Proxy_Empleado");
-            log.error(e.getMessage());
-            log.error(e.getStackTrace().toString());
-
-            fail("Error al iniciar Proxy_Empleado");
-        }
-
-    }
 
 
     /******************************************************************
@@ -93,7 +69,7 @@ class Proxy_EmpleadoTest {
         Empleado e1 = new Empleado(nombre, pass, Rol.valueOf(rol));
         log.debug("e1.getRol() = '" + e1.getRol() + "'");
         
-        Empleado empleCreado = proxy.crearEmpleado(e1);
+        Empleado empleCreado = Delegado_Empleado.getInstance().crearEmpleado(e1);
         
 
         assertNotNull(empleCreado);
@@ -102,7 +78,7 @@ class Proxy_EmpleadoTest {
         assertTrue(empleCreado.equalsWithOutVersion(e1));
 
 
-        proxy.eliminarEmpleado(empleCreado);
+        Delegado_Empleado.getInstance().eliminarEmpleado(empleCreado);
     }
 
 
@@ -112,7 +88,7 @@ class Proxy_EmpleadoTest {
         /*Empleado e1 = new Empleado("juan", "1234", Rol.valueOf("EMPLEADO"));
 
         log.info("Creando empleado 1");
-        e1 = Proxy.crearEmpleado(e1);*/
+        e1 = DelegadoDelNegocio.crearEmpleado(e1);*/
 
 
         Throwable exception = assertThrows(EmpleadoException.class, () -> {
@@ -120,12 +96,12 @@ class Proxy_EmpleadoTest {
             Empleado e2 = e1;
 
             log.info("Creando empleado 2");
-            e2 = proxy.crearEmpleado(e2);
+            e2 = Delegado_Empleado.getInstance().crearEmpleado(e2);
 
         });
 
 
-        /*Proxy.eliminarEmpleado(e1);*/
+        /*DelegadoDelNegocio.eliminarEmpleado(e1);*/
     }
 
     @Test
@@ -134,7 +110,7 @@ class Proxy_EmpleadoTest {
 
         Throwable exception = assertThrows(EmpleadoException.class, () -> {
             Empleado empleCreado;
-            empleCreado = proxy.crearEmpleado(null);
+            empleCreado = Delegado_Empleado.getInstance().crearEmpleado(null);
 
             assertNull(empleCreado);
 
@@ -154,7 +130,7 @@ class Proxy_EmpleadoTest {
 
         Throwable exception = assertThrows(EmpleadoException.class, () -> {
 
-            Empleado empleCreado = proxy.crearEmpleado(new Empleado());
+            Empleado empleCreado = Delegado_Empleado.getInstance().crearEmpleado(new Empleado());
 
         });
 
@@ -171,7 +147,7 @@ class Proxy_EmpleadoTest {
 
             e1.setEmail(null);
             log.debug("e1= " + e1);
-            Empleado empleCreado = proxy.crearEmpleado(e1);
+            Empleado empleCreado = Delegado_Empleado.getInstance().crearEmpleado(e1);
 
         });
 
@@ -188,7 +164,7 @@ class Proxy_EmpleadoTest {
 
             e1.setEmail("");
             log.debug("e1= " + e1);
-            Empleado empleCreado = proxy.crearEmpleado(e1);
+            Empleado empleCreado = Delegado_Empleado.getInstance().crearEmpleado(e1);
 
         });
         log.info("Excepcion capturada:" + ex2.getMessage());
@@ -201,8 +177,8 @@ class Proxy_EmpleadoTest {
     @Test
     void buscarEmpleadoByID() {
         log.info("BuscarUserTest");
-        Empleado nuevo = Proxy.crearEmpleado(new Empleado("test2", "1234"));
-        Empleado userB = Proxy.buscarEmpleadoByID(nuevo.getId());
+        Empleado nuevo = DelegadoDelNegocio.crearEmpleado(new Empleado("test2", "1234"));
+        Empleado userB = DelegadoDelNegocio.buscarEmpleadoByID(nuevo.getId());
 
         log.info(userB.toString());
 
@@ -220,14 +196,14 @@ class Proxy_EmpleadoTest {
         log.info("EliminarUser Test");
 
         Empleado u = new Empleado("Eliminar", "pass");
-        u = Proxy.crearEmpleado(u);
+        u = DelegadoDelNegocio.crearEmpleado(u);
         log.debug("Creado: " + u.toString());
 
-        Boolean resutl = Proxy.eliminarEmpleado(u);
+        Boolean resutl = DelegadoDelNegocio.eliminarEmpleado(u);
         log.info("Eliminado: " + resutl);
         assertTrue(resutl);
 
-        assertNull(Proxy.buscarEmpleadoByID(u.getId()));
+        assertNull(DelegadoDelNegocio.buscarEmpleadoByID(u.getId()));
 
 
     }
@@ -238,7 +214,7 @@ class Proxy_EmpleadoTest {
     void listarEmpleados() {
         log.info("ListarUsersTest");
 
-        List lista = Proxy.listarEmpleados();
+        List lista = DelegadoDelNegocio.listarEmpleados();
         assertNotNull(lista);
 
     }
@@ -255,7 +231,7 @@ class Proxy_EmpleadoTest {
         String str = "Hola " + nombre + ", un saludo desde el servidor CXF :)";
 
 
-        String saludo = proxy.saludar(nombre);
+        String saludo = Delegado_Empleado.getInstance().saludar(nombre);
 
         log.info("str = '" + str + "'");
         log.info("saludo = '" + saludo + "'");
@@ -275,7 +251,7 @@ class Proxy_EmpleadoTest {
 
         String str = "Hola " + nombre + ", un saludo desde el servidor CXF :)";
 
-        String saludo = proxy.saludar(nombre);
+        String saludo = Delegado_Empleado.getInstance().saludar(nombre);
 
         log.info("str = '" + str + "'");
         log.info("saludo = '" + saludo + "'");
@@ -304,7 +280,7 @@ class Proxy_EmpleadoTest {
 
 
         log.info("Login: {email='" + email + ", pass='" + pass + "'}");
-        Boolean result = proxy.loginEmpleado(email, pass);
+        Boolean result = Delegado_Empleado.getInstance().loginEmpleado(email, pass);
 
         log.debug("result = '" + result + "'");
         assertTrue(result);
@@ -317,7 +293,7 @@ class Proxy_EmpleadoTest {
         log.info("Login email erroneo");
         Throwable ex1 = assertThrows(EmpleadoException.class, () -> {
 
-            boolean login = proxy.loginEmpleado("kajsdnflaf", "1234");
+            boolean login = Delegado_Empleado.getInstance().loginEmpleado("kajsdnflaf", "1234");
 
             assertFalse(login);
 
@@ -334,7 +310,7 @@ class Proxy_EmpleadoTest {
         log.info("Login empleado inexistente");
         Throwable ex1 = assertThrows(EmpleadoException.class, () -> {
 
-            boolean login = proxy.loginEmpleado("kajsdnflaf@gmail.com", "1234");
+            boolean login = Delegado_Empleado.getInstance().loginEmpleado("kajsdnflaf@gmail.com", "1234");
             assertFalse(login);
 
         });
@@ -349,7 +325,7 @@ class Proxy_EmpleadoTest {
         log.info("Login email null");
         Throwable ex1 = assertThrows(EmpleadoException.class, () -> {
 
-            boolean login = proxy.loginEmpleado(null, "1234");
+            boolean login = Delegado_Empleado.getInstance().loginEmpleado(null, "1234");
 
             assertFalse(login);
 
@@ -361,7 +337,7 @@ class Proxy_EmpleadoTest {
         log.info("Login email vacio");
         Throwable ex2 = assertThrows(EmpleadoException.class, () -> {
 
-            boolean login = proxy.loginEmpleado("", "1234");
+            boolean login = Delegado_Empleado.getInstance().loginEmpleado("", "1234");
 
             assertFalse(login);
 
@@ -378,7 +354,7 @@ class Proxy_EmpleadoTest {
         log.info("Login pass null");
         Throwable ex1 = assertThrows(EmpleadoException.class, () -> {
 
-            boolean login = proxy.loginEmpleado("kajsdnflaf", null);
+            boolean login = Delegado_Empleado.getInstance().loginEmpleado("kajsdnflaf", null);
             assertFalse(login);
 
         });
@@ -388,7 +364,7 @@ class Proxy_EmpleadoTest {
         log.info("Login pass vacia");
         Throwable ex2 = assertThrows(EmpleadoException.class, () -> {
 
-            boolean login = proxy.loginEmpleado("kajsdnflaf", "");
+            boolean login = Delegado_Empleado.getInstance().loginEmpleado("kajsdnflaf", "");
             assertFalse(login);
 
         });
@@ -410,14 +386,14 @@ class Proxy_EmpleadoTest {
         String email = e1.getEmail();
 
         log.info("Creando empleado");
-        nuevo = proxy.crearEmpleado(e1);
+        nuevo = Delegado_Empleado.getInstance().crearEmpleado(e1);
 
         log.info("buscnado empleado");
-        e1 = proxy.buscarByEmail(email);
+        e1 = Delegado_Empleado.getInstance().buscarByEmail(email);
 
         assertTrue(e1.equalsWithOutVersion(nuevo));
 
-        proxy.eliminarEmpleado(nuevo);
+        Delegado_Empleado.getInstance().eliminarEmpleado(nuevo);
 
     }
 
@@ -425,11 +401,11 @@ class Proxy_EmpleadoTest {
     void buscarByEmailInexistente() throws EmpleadoException {
 
 
-        Empleado e2 = proxy.buscarByEmail("emailInexistente@gmail.com");
+        Empleado e2 = Delegado_Empleado.getInstance().buscarByEmail("emailInexistente@gmail.com");
 
         assertNull(e2);
 
-        proxy.eliminarEmpleado(e2);
+        Delegado_Empleado.getInstance().eliminarEmpleado(e2);
 
 
     }
@@ -444,7 +420,7 @@ class Proxy_EmpleadoTest {
         Throwable ex1 = assertThrows(EmpleadoException.class, () -> {
 
             for (String temp : Email) {
-                proxy.buscarByEmail(temp);
+                Delegado_Empleado.getInstance().buscarByEmail(temp);
             }
 
 
@@ -460,7 +436,7 @@ class Proxy_EmpleadoTest {
 
         Throwable ex1 = assertThrows(EmpleadoException.class, () -> {
 
-            Empleado e2 = proxy.buscarByEmail("");
+            Empleado e2 = Delegado_Empleado.getInstance().buscarByEmail("");
 
 
         });
@@ -474,7 +450,7 @@ class Proxy_EmpleadoTest {
     void buscarByEmailNull() {
         Throwable ex1 = assertThrows(EmpleadoException.class, () -> {
 
-            Empleado e2 = proxy.buscarByEmail(null);
+            Empleado e2 = Delegado_Empleado.getInstance().buscarByEmail(null);
 
 
         });

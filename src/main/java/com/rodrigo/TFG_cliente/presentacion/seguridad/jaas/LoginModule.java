@@ -1,9 +1,8 @@
 package com.rodrigo.TFG_cliente.presentacion.seguridad.jaas;
 
+import com.rodrigo.TFG_cliente.Negocio.Modulo_Empleado.Delegado.Delegado_Empleado;
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Empleado.Entidad.Empleado;
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Empleado.Excepciones.EmpleadoException;
-import com.rodrigo.TFG_cliente.presentacion.Proxy.Excepciones.ProxyException;
-import com.rodrigo.TFG_cliente.presentacion.Proxy.imp.Proxy_Empleado;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -54,12 +53,11 @@ public class LoginModule implements javax.security.auth.spi.LoginModule {
 
             //TODO  Validar el email con la clase pertinente
             if (email != null && password != null) {
-                Proxy_Empleado proxy_empleado = new Proxy_Empleado();
-                loginOk = proxy_empleado.loginEmpleado(email, password);
+                loginOk = Delegado_Empleado.getInstance().loginEmpleado(email, password);
 
                 if (loginOk) {
                     log.info("LOGIN CORRECTO");
-                    Empleado emple = proxy_empleado.buscarByEmail(email);
+                    Empleado emple = Delegado_Empleado.getInstance().buscarByEmail(email);
                     login = emple.getEmail();
                     userGroups = new ArrayList<String>();
                     userGroups.add(emple.getRol().toString());
@@ -81,10 +79,6 @@ public class LoginModule implements javax.security.auth.spi.LoginModule {
             log.error("Error en login: " + e.getMessage());
             log.error(e.getStackTrace().toString());
             throw new LoginException(e.getMessage());
-        } catch (ProxyException e) {
-            log.error("Error en login: " + e.getMessage());
-            log.error(e.getStackTrace().toString());
-            throw new LoginException("Authentication failed");
         } catch (EmpleadoException e) {
             log.error("Error en login: " + e.getMessage());
             log.error(e.getStackTrace().toString());

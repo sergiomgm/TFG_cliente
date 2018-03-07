@@ -1,10 +1,10 @@
-package com.rodrigo.TFG_cliente.presentacion.Proxy.imp;
+package com.rodrigo.TFG_cliente.Negocio.Modulo_Empleado.Delegado.impl;
 
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Empleado.Entidad.Empleado;
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Empleado.Excepciones.EmpleadoException;
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Empleado.Serv_aplicacion.IBroker_SA_Empleado;
+import com.rodrigo.TFG_cliente.Negocio.Modulo_Empleado.Delegado.Delegado_Empleado;
 import com.rodrigo.TFG_cliente.presentacion.Proxy.Excepciones.ProxyException;
-import com.rodrigo.TFG_cliente.presentacion.Proxy.Proxy;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -14,51 +14,41 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.List;
 
-public class Proxy_Empleado implements Proxy, IBroker_SA_Empleado {
+public class Delegado_EmpleadoImpl extends Delegado_Empleado {
 
-    private final static Logger log = LoggerFactory.getLogger(Proxy_Empleado.class);
-
-    private final String URL_WSDL = HOST + ":" + PORT + APP_URI +  "/SA_Empleado?wsdl";
-
-    private final String NAMESPACE_URI = "http://impl.Serv_aplicacion.Modulo_Empleado.Negocio.TFG_server.rodrigo.com/";
-
-    private final String SERVICE_NAME = "Broker_SA_EmpleadoImpl";
-
+    private final static Logger log = LoggerFactory.getLogger(Delegado_EmpleadoImpl.class);
 
     private IBroker_SA_Empleado portEmpleados;
 
 
-    public Proxy_Empleado() throws ProxyException {
-        initProxy();
-    }
-
-    public void initProxy() throws ProxyException {
+    public Delegado_EmpleadoImpl() throws ProxyException {
+        log.info("Creando DelegadoDelNegocio");
 
 
-        QName SERVICE_USUARIOS = new QName(NAMESPACE_URI, SERVICE_NAME);
+        log.debug("Creando Qname del servicio");
+        QName SERVICE_EMPLEADO = new QName(NAMESPACE_URI, SERVICE_NAME);
 
-        log.debug("preURL");
-
-        URL wsdlURLEmpleados = null;
-
+        log.debug("Creando URL_WSDL de enlace");
+        log.debug("URL_WSDL: " + URL_WSDL);
+        URL wsdlURLEmpleados;
         try {
             wsdlURLEmpleados = new URL(URL_WSDL);
         } catch (MalformedURLException e) {
-            log.error(e.getMessage());
-            log.error(e.getStackTrace().toString());
+            log.error("Error al crear el WSDL", e);
 
             throw new ProxyException("Error al conectar con servicio Empleado");
         }
 
 
-        log.debug("Pre Service ss");
-        Service ssEmpleados = Service.create(wsdlURLEmpleados, SERVICE_USUARIOS);
-        log.debug("pre port");
+        log.debug("Creando servicio Empleado");
+        Service ssEmpleados = Service.create(wsdlURLEmpleados, SERVICE_EMPLEADO);
 
 
+        log.debug("Creando puerto de enlace para el servicio");
         portEmpleados = ssEmpleados.getPort(IBroker_SA_Empleado.class);
-        log.debug("Post port");
 
+
+        log.info("DelegadoDelNegocio creado");
     }
 
 
