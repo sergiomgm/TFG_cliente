@@ -23,6 +23,6 @@ public interface SA_Usuario {
 
     Boolean loginUsuario(String email, String pass) throws UsuarioException;
 
-    Usuario buscarByEmail(String email) throws UsuarioException, UsuarioFieldNullException;
+    Usuario buscarByEmail(String email) throws UsuarioException;
 
 }

@@ -70,8 +70,8 @@
 
 
     <security-role>
-        <description>Empleado</description>
-        <role-name>EMPLEADO</role-name>
+        <description>Usuario</description>
+        <role-name>USUARIO</role-name>
     </security-role>
 
     <security-role>
@@ -98,11 +98,11 @@
     <security-constraint>
         <web-resource-collection>
             <web-resource-name>User</web-resource-name>
-            <url-pattern>/views/usuario/*</url-pattern>
+            <url-pattern>/views/empleado/*</url-pattern>
         </web-resource-collection>
 
         <auth-constraint>
-            <role-name>EMPLEADO</role-name>
+            <role-name>USUARIO</role-name>
             <role-name>SUPERUSER</role-name>
         </auth-constraint>
     </security-constraint>

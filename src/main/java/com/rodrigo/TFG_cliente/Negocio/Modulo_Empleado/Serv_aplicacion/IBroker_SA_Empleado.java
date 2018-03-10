@@ -10,19 +10,19 @@ import javax.jws.WebService;
 import java.util.List;
 
 @WebService(
-        targetNamespace = "http://impl.Serv_aplicacion.Modulo_Usuario.Negocio.TFG_server.rodrigo.com/",
+        targetNamespace = "http://impl.Serv_aplicacion.Modulo_Empleado.Negocio.TFG_server.rodrigo.com/",
         name = "Broker_SA_EmpleadoImpl")
 public interface IBroker_SA_Empleado {
 
     @WebMethod(operationName="crearEmpleado")
-    public Empleado crearEmpleado(@WebParam(name = "Usuario") Empleado empleadoNuevo)  throws EmpleadoException;;
+    public Empleado crearEmpleado(@WebParam(name = "Empleado") Empleado empleadoNuevo)  throws EmpleadoException;;
 
     @WebMethod(operationName="buscarByID")
     public Empleado buscarEmpleadoByID(@WebParam(name = "id") Long id);
 
 
     @WebMethod(operationName="eliminarEmpleado")
-    public boolean eliminarEmpleado(@WebParam(name = "Usuario") Empleado empleadoEliminar) ;
+    public boolean eliminarEmpleado(@WebParam(name = "Empleado") Empleado empleadoEliminar) ;
 
 
     @WebMethod(operationName="listarEmpleados")

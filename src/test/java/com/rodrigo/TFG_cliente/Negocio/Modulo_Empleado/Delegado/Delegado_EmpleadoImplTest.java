@@ -3,7 +3,6 @@ package com.rodrigo.TFG_cliente.Negocio.Modulo_Empleado.Delegado;
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Empleado.Entidad.Empleado;
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Empleado.Entidad.Rol;
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Empleado.Excepciones.EmpleadoException;
-import com.rodrigo.TFG_cliente.Presentacion.Proxy.Excepciones.ProxyException;
 import com.rodrigo.TFG_cliente.Presentacion.Utils.EmailValidatorTest;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
@@ -15,8 +14,6 @@ import org.junit.jupiter.params.provider.MethodSource;
 import org.junit.jupiter.params.provider.ValueSource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.net.MalformedURLException;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -53,7 +50,7 @@ class Delegado_EmpleadoImplTest {
         log.info("Eliminado empleado");
         Delegado_Empleado.getInstance().eliminarEmpleado(e1);
     }
-    
+
 
 
 
@@ -68,9 +65,9 @@ class Delegado_EmpleadoImplTest {
 
         Empleado e1 = new Empleado(nombre, pass, Rol.valueOf(rol));
         log.debug("e1.getRol() = '" + e1.getRol() + "'");
-        
+
         Empleado empleCreado = Delegado_Empleado.getInstance().crearEmpleado(e1);
-        
+
 
         assertNotNull(empleCreado);
 

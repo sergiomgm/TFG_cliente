@@ -1,8 +1,10 @@
 package com.rodrigo.TFG_cliente.Presentacion.actions;
 
+import com.rodrigo.TFG_cliente.Negocio.FactoriaSA.FactoriaSA;
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Empleado.Delegado.Delegado_Empleado;
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Empleado.Entidad.Empleado;
-import com.rodrigo.TFG_cliente.Negocio.Modulo_Empleado.Excepciones.EmpleadoException;
+import com.rodrigo.TFG_cliente.Negocio.Modulo_Usuario.Entidad.Usuario;
+import com.rodrigo.TFG_cliente.Negocio.Modulo_Usuario.Excepciones.UsuarioException;
 import com.rodrigo.TFG_cliente.Presentacion.Proxy.Excepciones.ProxyException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,19 +30,22 @@ public class NumerosAction implements Serializable {
     private Empleado empleado;
 
 
+    private Usuario usuario;
+
+
     private String saludo;
 
     List<Empleado> lista;
 
-    public NumerosAction() throws ProxyException, EmpleadoException {
+    public NumerosAction() throws ProxyException, UsuarioException {
         log.info("En constructor de Bean [NumerosAction]");
 
 
         try {
             Principal principal = FacesContext.getCurrentInstance().getExternalContext().getUserPrincipal();
             String email = principal.getName();
-            empleado = Delegado_Empleado.getInstance().buscarByEmail(email);
-            log.debug("empleado = '" + empleado + "'");
+            usuario = FactoriaSA.getInstance().crearSAUsuario().buscarByEmail(email);
+            log.debug("usuario = '" + usuario + "'");
         } catch (NullPointerException e) {
             log.error("No se pudo cargar el empleado de la sesión.");
         }
@@ -116,6 +121,15 @@ public class NumerosAction implements Serializable {
 
     public void setEmpleado(Empleado empleado) {
         this.empleado = empleado;
+    }
+
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
     }
 
 }

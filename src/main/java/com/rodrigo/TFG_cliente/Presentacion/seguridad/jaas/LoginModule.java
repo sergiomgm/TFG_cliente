@@ -1,14 +1,16 @@
 package com.rodrigo.TFG_cliente.Presentacion.seguridad.jaas;
 
-import com.rodrigo.TFG_cliente.Negocio.Modulo_Empleado.Delegado.Delegado_Empleado;
-import com.rodrigo.TFG_cliente.Negocio.Modulo_Empleado.Entidad.Empleado;
-import com.rodrigo.TFG_cliente.Negocio.Modulo_Empleado.Excepciones.EmpleadoException;
+import com.rodrigo.TFG_cliente.Negocio.FactoriaSA.FactoriaSA;
+import com.rodrigo.TFG_cliente.Negocio.Modulo_Usuario.Entidad.Usuario;
+import com.rodrigo.TFG_cliente.Negocio.Modulo_Usuario.Excepciones.UsuarioException;
+import com.rodrigo.TFG_cliente.Negocio.Utils.EmailValidator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.security.auth.Subject;
 import javax.security.auth.callback.*;
 import javax.security.auth.login.LoginException;
+import javax.validation.constraints.Email;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -52,15 +54,15 @@ public class LoginModule implements javax.security.auth.spi.LoginModule {
             log.info("name = '" + email + "' -- " + " password = '" + password + "'");
 
             //TODO  Validar el email con la clase pertinente
-            if (email != null && password != null) {
-                loginOk = Delegado_Empleado.getInstance().loginEmpleado(email, password);
+            if (new EmailValidator().validate(email)) {
+                loginOk = FactoriaSA.getInstance().crearSAUsuario().loginUsuario(email, password);
 
                 if (loginOk) {
                     log.info("LOGIN CORRECTO");
-                    Empleado emple = Delegado_Empleado.getInstance().buscarByEmail(email);
-                    login = emple.getEmail();
+                    Usuario usuario = FactoriaSA.getInstance().crearSAUsuario().buscarByEmail(email);
+                    login = usuario.getEmail();
                     userGroups = new ArrayList<String>();
-                    userGroups.add(emple.getRol().toString());
+                    userGroups.add(usuario.getRol().toString());
                     log.debug("name = " + email);
                 }
 
@@ -79,7 +81,7 @@ public class LoginModule implements javax.security.auth.spi.LoginModule {
             log.error("Error en login: " + e.getMessage());
             log.error(e.getStackTrace().toString());
             throw new LoginException(e.getMessage());
-        } catch (EmpleadoException e) {
+        } catch (UsuarioException e) {
             log.error("Error en login: " + e.getMessage());
             log.error(e.getStackTrace().toString());
             throw new LoginException("Authentication failed");
