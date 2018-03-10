@@ -19,4 +19,4 @@ El proyecto contiene pruebas para ver el funcionamiento dentro del marco de trab
  
  ## Funcionamiento
  
- Tiene un pantalla de inicio con dos enlaes a recursos (empleado.xhtml y admin.xhtml) y 3 roles (hardcodeados para mayor comodidad) (el empleado, el admin y un superusuario que puede acceder a ambos), si al intentar accede a un recurso no se está logueado te fuerza el login, de ser correcto te permite acceder y hacer logout, si no da error.
+ Tiene un pantalla de inicio con dos enlaes a recursos (usuario.xhtml y admin.xhtml) y 3 roles (hardcodeados para mayor comodidad) (el usuario, el admin y un superusuario que puede acceder a ambos), si al intentar accede a un recurso no se está logueado te fuerza el login, de ser correcto te permite acceder y hacer logout, si no da error.

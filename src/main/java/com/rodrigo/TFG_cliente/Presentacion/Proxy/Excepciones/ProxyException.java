@@ -1,4 +1,4 @@
-package com.rodrigo.TFG_cliente.presentacion.Proxy.Excepciones;
+package com.rodrigo.TFG_cliente.Presentacion.Proxy.Excepciones;
 
 public class ProxyException extends Exception {
 

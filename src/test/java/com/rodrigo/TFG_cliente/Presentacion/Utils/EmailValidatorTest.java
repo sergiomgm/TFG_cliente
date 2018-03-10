@@ -1,4 +1,4 @@
-package com.rodrigo.TFG_cliente.presentacion.Utils;
+package com.rodrigo.TFG_cliente.Presentacion.Utils;
 
 import com.rodrigo.TFG_cliente.Negocio.Utils.EmailValidator;
 import org.junit.jupiter.api.BeforeAll;

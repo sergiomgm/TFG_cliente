@@ -1,6 +1,6 @@
 package com.rodrigo.TFG_cliente.Negocio;
 
-import com.rodrigo.TFG_cliente.presentacion.Proxy.Excepciones.ProxyException;
+import com.rodrigo.TFG_cliente.Presentacion.Proxy.Excepciones.ProxyException;
 
 import java.net.MalformedURLException;
 

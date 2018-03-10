@@ -3,8 +3,8 @@ package com.rodrigo.TFG_cliente.Negocio.Modulo_Empleado.Delegado;
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Empleado.Entidad.Empleado;
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Empleado.Entidad.Rol;
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Empleado.Excepciones.EmpleadoException;
-import com.rodrigo.TFG_cliente.presentacion.Proxy.Excepciones.ProxyException;
-import com.rodrigo.TFG_cliente.presentacion.Utils.EmailValidatorTest;
+import com.rodrigo.TFG_cliente.Presentacion.Proxy.Excepciones.ProxyException;
+import com.rodrigo.TFG_cliente.Presentacion.Utils.EmailValidatorTest;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -85,7 +85,7 @@ class Delegado_EmpleadoImplTest {
     @Test
     void crearEmpleadoExistente() throws EmpleadoException {
 
-        /*Empleado e1 = new Empleado("juan", "1234", Rol.valueOf("EMPLEADO"));
+        /*Usuario e1 = new Usuario("juan", "1234", Rol.valueOf("EMPLEADO"));
 
         log.info("Creando empleado 1");
         e1 = DelegadoDelNegocio.crearEmpleado(e1);*/
@@ -177,8 +177,8 @@ class Delegado_EmpleadoImplTest {
     @Test
     void buscarEmpleadoByID() {
         log.info("BuscarUserTest");
-        Empleado nuevo = DelegadoDelNegocio.crearEmpleado(new Empleado("test2", "1234"));
-        Empleado userB = DelegadoDelNegocio.buscarEmpleadoByID(nuevo.getId());
+        Usuario nuevo = DelegadoDelNegocio.crearEmpleado(new Usuario("test2", "1234"));
+        Usuario userB = DelegadoDelNegocio.buscarEmpleadoByID(nuevo.getId());
 
         log.info(userB.toString());
 
@@ -195,7 +195,7 @@ class Delegado_EmpleadoImplTest {
     void eliminarEmpleado() {
         log.info("EliminarUser Test");
 
-        Empleado u = new Empleado("Eliminar", "pass");
+        Usuario u = new Usuario("Eliminar", "pass");
         u = DelegadoDelNegocio.crearEmpleado(u);
         log.debug("Creado: " + u.toString());
 

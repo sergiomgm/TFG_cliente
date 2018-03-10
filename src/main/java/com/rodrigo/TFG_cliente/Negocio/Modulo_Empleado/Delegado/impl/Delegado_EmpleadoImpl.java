@@ -4,7 +4,7 @@ import com.rodrigo.TFG_cliente.Negocio.Modulo_Empleado.Entidad.Empleado;
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Empleado.Excepciones.EmpleadoException;
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Empleado.Serv_aplicacion.IBroker_SA_Empleado;
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Empleado.Delegado.Delegado_Empleado;
-import com.rodrigo.TFG_cliente.presentacion.Proxy.Excepciones.ProxyException;
+import com.rodrigo.TFG_cliente.Presentacion.Proxy.Excepciones.ProxyException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -36,11 +36,11 @@ public class Delegado_EmpleadoImpl extends Delegado_Empleado {
         } catch (MalformedURLException e) {
             log.error("Error al crear el WSDL", e);
 
-            throw new ProxyException("Error al conectar con servicio Empleado");
+            throw new ProxyException("Error al conectar con servicio Usuario");
         }
 
 
-        log.debug("Creando servicio Empleado");
+        log.debug("Creando servicio Usuario");
         Service ssEmpleados = Service.create(wsdlURLEmpleados, SERVICE_EMPLEADO);
 
 

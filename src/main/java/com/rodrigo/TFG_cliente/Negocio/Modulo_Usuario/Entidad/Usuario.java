@@ -1,28 +1,45 @@
-package com.rodrigo.TFG_cliente.Negocio.Modulo_Empleado.Entidad;
+package com.rodrigo.TFG_cliente.Negocio.Modulo_Usuario.Entidad;
 
-
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
+import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Objects;
 
 
-@XmlRootElement(name = "Usuario")
-public class Empleado implements Serializable {
+@Entity
+@NamedQueries({
+        @NamedQuery(name = "Usuario.listar", query = "FROM Usuario"),
+        @NamedQuery(name = "Usuario.buscarPorEmail", query = "from Usuario e where e.email = :email")
 
-    protected Long id;
+})
+public class Usuario implements Serializable {
 
+    @GeneratedValue(strategy = GenerationType.AUTO) //IDENTITY
+    @Column()
+    @Id protected Long id;
+
+    @NotBlank
+    @Column(nullable = false)
     private String nombre;
 
+
+    @NotBlank
+    @Column(nullable = false, unique = true)
+    @Email
     protected String email;
 
 
+    @Column(nullable = false)
     private String password;
 
+    @NotNull
+    @Column(nullable = false)
     private Rol rol;
 
 
-    protected long version;
+    @Version protected long version;
 
 
     /****************************
@@ -30,7 +47,7 @@ public class Empleado implements Serializable {
      ****************************/
 
 
-    public Empleado(String nombre, String password, Rol rol) {
+    public Usuario(String nombre, String password, Rol rol) {
         this.nombre = nombre;
         this.password = password;
         this.email = nombre.toLowerCase().concat("@gmail.com");
@@ -39,16 +56,16 @@ public class Empleado implements Serializable {
 
 
     /** Constructor
-     *  Rol por defecto = Rol.EMPLEADO
+     *  Rol por defecto = Rol.USUARIO
      * */
-    public Empleado(String nombre, String password) {
+    public Usuario(String nombre, String password) {
         this.nombre = nombre;
         this.password = password;
-        this.rol = Rol.EMPLEADO;
+        this.rol = Rol.USUARIO;
         this.email = nombre.toLowerCase().concat("@gmail.com");
     }
 
-    public Empleado(Long id, String nombre, String password, String email, Rol rol, long version) {
+    public Usuario(Long id, String nombre, String password, String email, Rol rol, long version) {
         this.id = id;
         this.nombre = nombre;
         this.password = password;
@@ -57,7 +74,7 @@ public class Empleado implements Serializable {
         this.version = version;
     }
 
-    public Empleado(String nombre, String password, String email, Rol rol) {
+    public Usuario(String nombre, String password, String email, Rol rol) {
         this.nombre = nombre;
         this.password = password;
         this.rol = rol;
@@ -65,14 +82,13 @@ public class Empleado implements Serializable {
 
     }
 
-    public Empleado() {
+    public Usuario() {
     }
 
     /****************************
      **** GETTERS AND SETTERS ***
      ****************************/
 
-    @XmlElement(name = "id", required = true)
     public Long getId() {
         return id;
     }
@@ -81,7 +97,6 @@ public class Empleado implements Serializable {
         this.id = id;
     }
 
-    @XmlElement(name = "nombre", required = true)
     public String getNombre() {
         return nombre;
     }
@@ -90,7 +105,6 @@ public class Empleado implements Serializable {
         this.nombre = nombre;
     }
 
-    @XmlElement(name = "password", required = true)
     public String getPassword() {
         return password;
     }
@@ -99,7 +113,6 @@ public class Empleado implements Serializable {
         this.password = password;
     }
 
-    @XmlElement(name = "rol", required = true)
     public Rol getRol() {
         return rol;
     }
@@ -108,7 +121,6 @@ public class Empleado implements Serializable {
         this.rol = rol;
     }
 
-    @XmlElement(name = "version", required = true)
     public long getVersion() {
         return version;
     }
@@ -117,7 +129,6 @@ public class Empleado implements Serializable {
         this.version = version;
     }
 
-    @XmlElement(name = "email", required = true)
     public String getEmail() { return email;}
 
     public void setEmail(String email) {this.email = email;}
@@ -144,25 +155,25 @@ public class Empleado implements Serializable {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Empleado)) return false;
-        Empleado empleado = (Empleado) o;
-        return getVersion() == empleado.getVersion() &&
-                Objects.equals(getId(), empleado.getId()) &&
-                Objects.equals(getNombre(), empleado.getNombre()) &&
-                Objects.equals(getEmail(), empleado.getEmail()) &&
-                Objects.equals(getPassword(), empleado.getPassword()) &&
-                getRol() == empleado.getRol();
+        if (!(o instanceof Usuario)) return false;
+        Usuario usuario = (Usuario) o;
+        return getVersion() == usuario.getVersion() &&
+                Objects.equals(getId(), usuario.getId()) &&
+                Objects.equals(getNombre(), usuario.getNombre()) &&
+                Objects.equals(getEmail(), usuario.getEmail()) &&
+                Objects.equals(getPassword(), usuario.getPassword()) &&
+                getRol() == usuario.getRol();
     }
 
     public boolean equalsWithOutVersion(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Empleado)) return false;
-        Empleado empleado = (Empleado) o;
-        return  Objects.equals(getId(), empleado.getId()) &&
-                Objects.equals(getNombre(), empleado.getNombre()) &&
-                Objects.equals(getEmail(), empleado.getEmail()) &&
-                Objects.equals(getPassword(), empleado.getPassword()) &&
-                Objects.equals(getRol(), empleado.getRol());
+        if (!(o instanceof Usuario)) return false;
+        Usuario usuario = (Usuario) o;
+        return  Objects.equals(getId(), usuario.getId()) &&
+                Objects.equals(getNombre(), usuario.getNombre()) &&
+                Objects.equals(getEmail(), usuario.getEmail()) &&
+                Objects.equals(getPassword(), usuario.getPassword()) &&
+                Objects.equals(getRol(), usuario.getRol());
     }
 
     @Override

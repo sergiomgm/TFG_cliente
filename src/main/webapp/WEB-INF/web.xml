@@ -98,7 +98,7 @@
     <security-constraint>
         <web-resource-collection>
             <web-resource-name>User</web-resource-name>
-            <url-pattern>/views/empleado/*</url-pattern>
+            <url-pattern>/views/usuario/*</url-pattern>
         </web-resource-collection>
 
         <auth-constraint>

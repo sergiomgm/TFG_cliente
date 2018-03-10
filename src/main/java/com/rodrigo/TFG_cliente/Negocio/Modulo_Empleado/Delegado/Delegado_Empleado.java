@@ -4,7 +4,7 @@ import com.rodrigo.TFG_cliente.Negocio.Modulo_Empleado.Delegado.impl.Delegado_Em
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Empleado.Entidad.Empleado;
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Empleado.Excepciones.EmpleadoException;
 import com.rodrigo.TFG_cliente.Negocio.DelegadoDelNegocio;
-import com.rodrigo.TFG_cliente.presentacion.Proxy.Excepciones.ProxyException;
+import com.rodrigo.TFG_cliente.Presentacion.Proxy.Excepciones.ProxyException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -14,9 +14,9 @@ public abstract class Delegado_Empleado implements DelegadoDelNegocio {
 
     private final static Logger log = LoggerFactory.getLogger(Delegado_Empleado.class);
 
-    protected final String URL_WSDL = HOST + ":" + PORT + APP_URI +  "/SA_Empleado?wsdl";
+    protected final String URL_WSDL = HOST + ":" + PORT + APP_URI +  "/SA_Usuario?wsdl";
 
-    protected final String NAMESPACE_URI = "http://impl.Serv_aplicacion.Modulo_Empleado.Negocio.TFG_server.rodrigo.com/";
+    protected final String NAMESPACE_URI = "http://impl.Serv_aplicacion.Modulo_Usuario.Negocio.TFG_server.rodrigo.com/";
 
     protected final String SERVICE_NAME = "Broker_SA_EmpleadoImpl";
 

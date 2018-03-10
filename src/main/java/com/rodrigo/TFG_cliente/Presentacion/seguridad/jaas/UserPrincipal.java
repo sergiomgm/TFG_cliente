@@ -1,12 +1,12 @@
-package com.rodrigo.TFG_cliente.presentacion.seguridad.jaas;
+package com.rodrigo.TFG_cliente.Presentacion.seguridad.jaas;
 
 import java.security.Principal;
 
-public class RolePrincipal implements Principal {
-	
+public class UserPrincipal implements Principal {
+
 	private String name;
 	
-	public RolePrincipal(String name) {
+	public UserPrincipal(String name) {
 		super();
 		this.name = name;
 	}

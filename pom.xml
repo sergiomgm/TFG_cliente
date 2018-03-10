@@ -22,6 +22,7 @@
         <spring.version>4.0.0.RELEASE</spring.version> <!-- ERROR: 4.3.12.RELEASE -->
         <cxf.version>3.2.1</cxf.version>
         <jaxb.version>2.2.11</jaxb.version>
+        <hibernate.version>4.2.21.Final</hibernate.version>
         <slf4j.version>1.5.8</slf4j.version>
         <junit.version>5.0.2</junit.version>
     </properties>
@@ -222,7 +223,90 @@
         <!-- +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
 
 
-		<!-- ************************************ -->
+
+        <!-- ************************************ -->
+        <!-- **********  DEPENDENCIAS  ********** -->
+        <!-- **********  PERSISTENCIA  ********** -->
+        <!-- ************************************ -->
+
+
+        <!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>8.0.8-dmr</version>
+            <!-- <version>6.0.6</version>-->
+            <!-- <version>5.1.39</version> --> <!-- * -->
+        </dependency>
+
+
+        <!-- https://mvnrepository.com/artifact/javax.validation/validation-api -->
+        <dependency>
+            <groupId>javax.validation</groupId>
+            <artifactId>validation-api</artifactId>
+            <version>2.0.0.Final</version>
+            <!-- <version>1.1.0</version> --><!-- * -->
+        </dependency>
+
+
+
+
+        <!-- ************************************ -->
+        <!-- **********  DEPENDENCIAS  ********** -->
+        <!-- ***********  HIBERNATE  ************ -->
+        <!-- ************************************ -->
+
+        <!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-core -->
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-core</artifactId>
+            <version>${hibernate.version}</version>
+        </dependency>
+
+
+        <!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-entitymanager -->
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-entitymanager</artifactId>
+            <!-- <version>${hibernate.version}</version> -->
+            <version>${hibernate.version}</version>
+        </dependency>
+
+
+        <dependency>
+            <groupId>org.eclipse.persistence</groupId>
+            <artifactId>javax.persistence</artifactId>
+            <version>2.1.0</version>
+            <scope>provided</scope>
+        </dependency>
+
+
+        <dependency>
+            <groupId>javax.persistence</groupId>
+            <artifactId>persistence-api</artifactId>
+            <version>1.0.2</version>
+            <scope>compile</scope>
+        </dependency>
+
+
+
+        <!-- https://mvnrepository.com/artifact/org.hibernate.validator/hibernate-validator -->
+        <dependency>
+            <groupId>org.hibernate.validator</groupId>
+            <artifactId>hibernate-validator</artifactId>
+            <version>6.0.5.Final</version>
+            <!-- <version>6.0.0.Alpha1</version> --><!-- * -->
+        </dependency>
+
+
+
+
+
+
+
+
+
+        <!-- ************************************ -->
         <!-- **********  DEPENDENCIAS  ********** -->
         <!-- *************  LOGS  ************* -->
         <!-- ************************************ -->
@@ -277,6 +361,13 @@
     </dependencies>
 
 
+    <!-- ************************************************************************************************** -->
+    <!-- ******************************************              ****************************************** -->
+    <!-- *****************************************  REPOSITORIOS  ***************************************** -->
+    <!-- ******************************************              ****************************************** -->
+    <!-- ************************************************************************************************** -->
+
+
 
     <repositories>
         <repository>
@@ -293,6 +384,28 @@
 
     <build>
         <finalName>TFG_cliente</finalName>
+
+
+        <resources>
+            <resource>
+                <directory>src/main/java/META-INF</directory>
+                <targetPath>META-INF</targetPath>
+                <includes>
+                    <include>persistence.xml</include>
+                </includes>
+            </resource>
+            <resource>
+                <directory>src/main/resources</directory>
+                <targetPath>resources</targetPath>
+                <includes>
+                    <include>log4j.properties</include>
+                </includes>
+            </resource>
+        </resources>
+
+
+
+
         <plugins>
 
             <plugin>
