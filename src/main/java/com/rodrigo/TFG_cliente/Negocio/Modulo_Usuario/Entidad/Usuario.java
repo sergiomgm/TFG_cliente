@@ -1,10 +1,16 @@
 package com.rodrigo.TFG_cliente.Negocio.Modulo_Usuario.Entidad;
 
+import org.hibernate.annotations.ColumnTransformer;
+import sun.misc.BASE64Decoder;
+import sun.misc.BASE64Encoder;
+
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.io.IOException;
 import java.io.Serializable;
+import java.util.Base64;
 import java.util.Objects;
 
 
@@ -30,7 +36,8 @@ public class Usuario implements Serializable {
     @Email
     protected String email;
 
-
+    @ColumnTransformer(read = "pgp_sym_decrypt(password, ‘mySecretKey’)",
+            write = "pgp_sym_encrypt(?, ‘mySecretKey’)")
     @Column(nullable = false)
     private String password;
 
@@ -49,9 +56,54 @@ public class Usuario implements Serializable {
 
     public Usuario(String nombre, String password, Rol rol) {
         this.nombre = nombre;
-        this.password = password;
+
+
         this.email = nombre.toLowerCase().concat("@gmail.com");
         this.rol = rol;
+
+/*
+
+        System.out.println("password = " + password);
+
+        System.out.println("decoder...");
+        byte[] decode = null;
+        BASE64Decoder decoder = new BASE64Decoder();
+        try {
+            decode = decoder.decodeBuffer(password);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        System.out.println("decoder = " + decoder);
+        this.password = new String(decode);
+        System.out.println("this.password = " + this.password);
+        
+
+        //return decode;
+
+
+        System.out.println("encoder...");
+        BASE64Encoder encoder = new BASE64Encoder();
+
+        String encode = null;
+        encode = encoder.encode(new byte[]{Byte.parseByte(this.password)});
+
+*/
+
+        System.out.println("password = [" + password + "]");
+        // Encode data on your side using BASE64
+        byte[] bytesEncoded = Base64.getEncoder().encode(password.getBytes());
+        System.out.println("encoded pass is [" + new String(bytesEncoded) + "]");
+
+        this.password = new String(bytesEncoded);
+
+        // Decode data on other side, by processing encoded data
+        byte[] valueDecoded = Base64.getDecoder().decode(this.password);
+        System.out.println("Decoded pass is [" + new String(valueDecoded) + "]");
+
+        System.out.println("this.password = [" + this.password + "]");
+        //this.password = encode;
+
     }
 
 

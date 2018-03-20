@@ -1,8 +1,11 @@
-# Ejemplo JSF-JAAS
+# TFG_cliente
 
-Proyecto de ejemplo para practicar y aprender a usar JSF con JAAS.
+Proyecto con el frontend de mi TFG, usa como freamework principal JSF y consume los servicios expuestos por el backend con **JAX-WS** y **JAX-RS** (con la implementación **CXF**) usando servicios **SOAP** y **REST**.
 
-El proyecto contiene pruebas para ver el funcionamiento dentro del marco de trabajo del TFG de Ingeniería del Software. Está destinado a ser una aplicación cliente con una conexión a negocio mediante JAX-WS y JAX-RS.
+Está montado con **Maven** y se usa **Jenkins** para hacer pruebas iniciales con la Integración Continua y **JUnit** para las pruebas unitarias. Posterior mente se usará **JMeter** para las pruebas de carga.
+
+El proyecto forma parte de mi TFG [Trabajo de Final de Grado](https://hunzagit.github.io/Portfolio-Online/#TFG) de Ingeniería del Software.
+
 
 ## Entorno
 
@@ -14,9 +17,19 @@ El proyecto contiene pruebas para ver el funcionamiento dentro del marco de trab
  - **JSTL** 1.2
  - **Apache Tomcat** 8.5.23
  - **Maven** 3.3.9
+ - **Hibernate** 4.2.21
+ - **MySQL** 5.0.11
+ - **Jenkins** 2.92
  - **IntelliJ IDEA** 2017.3
  
+
+## Branches
+
+La rama **Development** contiene el código que se está desarrollando y que no ha pasado satisfactoriamente todas las pruebas.
+La rama **master** contiene el codigo que ha pasado satisfactoriamente las pruebas, todo ello gestionado por Jenkins.
+
  
- ## Funcionamiento
- 
- Tiene un pantalla de inicio con dos enlaes a recursos (usuario.xhtml y admin.xhtml) y 3 roles (hardcodeados para mayor comodidad) (el usuario, el admin y un superusuario que puede acceder a ambos), si al intentar accede a un recurso no se está logueado te fuerza el login, de ser correcto te permite acceder y hacer logout, si no da error.
+## Dependencias
+
+Esta aplicacion depende de la [aplicación backend](https://github.com/hunzaGit/TFG_server) que expone los servicios del negocio con **WSDL** y **REST**;
+

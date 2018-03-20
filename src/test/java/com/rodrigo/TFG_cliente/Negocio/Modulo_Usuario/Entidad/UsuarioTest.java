@@ -1,5 +1,6 @@
 package com.rodrigo.TFG_cliente.Negocio.Modulo_Usuario.Entidad;
 
+import com.rodrigo.TFG_cliente.Negocio.Modulo_Empleado.Entidad.Empleado;
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Usuario.Excepciones.UsuarioException;
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Usuario.Serv_aplicacion.impl.SA_UsuarioImpl;
 import org.junit.jupiter.api.BeforeAll;
@@ -89,4 +90,12 @@ class UsuarioTest {
         log.debug("resutl = '" + resutl + "'");
     }
 
+
+    @Test
+    void constructoraUsuarioTest() {
+        Usuario user = new Usuario("rodri", "1234", Rol.valueOf("ADMIN"));
+
+        log.debug("user = '" + user + "'");;
+
+    }
 }
