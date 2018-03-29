@@ -22,6 +22,7 @@
         <spring.version>4.0.0.RELEASE</spring.version> <!-- ERROR: 4.3.12.RELEASE -->
         <cxf.version>3.2.1</cxf.version>
         <jaxb.version>2.2.11</jaxb.version>
+        <moxy.version>2.4.1</moxy.version>
         <hibernate.version>4.2.21.Final</hibernate.version>
         <slf4j.version>1.5.8</slf4j.version>
         <junit.version>5.0.2</junit.version>
@@ -198,14 +199,13 @@
             <version>${jaxb.version}</version>
         </dependency>
 
+
         <dependency>
             <groupId>com.sun.xml.bind</groupId>
             <artifactId>jaxb-xjc</artifactId>
             <version>${jaxb.version}</version>
         </dependency>
 
-
-        <!-- +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
 
         <dependency>
             <groupId>org.apache.cxf</groupId>
@@ -220,7 +220,13 @@
             <version>${cxf.version}</version>
         </dependency>
 
-        <!-- +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+
+        <!-- https://mvnrepository.com/artifact/org.eclipse.persistence/org.eclipse.persistence.moxy -->
+        <dependency>
+            <groupId>org.eclipse.persistence</groupId>
+            <artifactId>org.eclipse.persistence.moxy</artifactId>
+            <version>${moxy.version}</version>
+        </dependency>
 
 
 
@@ -374,6 +380,10 @@
             <id>maven2</id>
             <url>https://repo.maven.apache.org/maven2</url>
         </repository>
+        <repository>
+            <id>EclipseLink Repo</id>
+            <url>http://download.eclipse.org/rt/eclipselink/maven.repo</url>
+        </repository>
     </repositories>
 
 
@@ -399,6 +409,7 @@
                 <targetPath>resources</targetPath>
                 <includes>
                     <include>log4j.properties</include>
+                    <include>jaxb.properties</include>
                 </includes>
             </resource>
         </resources>

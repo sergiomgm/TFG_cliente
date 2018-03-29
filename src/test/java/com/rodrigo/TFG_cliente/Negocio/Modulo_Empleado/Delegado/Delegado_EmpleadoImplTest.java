@@ -1,6 +1,7 @@
 package com.rodrigo.TFG_cliente.Negocio.Modulo_Empleado.Delegado;
 
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Empleado.Entidad.Empleado;
+import com.rodrigo.TFG_cliente.Negocio.Modulo_Empleado.Entidad.EmpleadoTCompleto;
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Empleado.Entidad.Rol;
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Empleado.Excepciones.EmpleadoException;
 import com.rodrigo.TFG_cliente.Presentacion.Utils.EmailValidatorTest;
@@ -36,7 +37,7 @@ class Delegado_EmpleadoImplTest {
 
     @BeforeEach
     void iniciarContexto() throws EmpleadoException {
-        e1 = new Empleado("empleado", "1234", Rol.valueOf("EMPLEADO"));
+        e1 = new EmpleadoTCompleto("empleado", "1234", Rol.valueOf("EMPLEADO"));
         log.info("Creando empleado ");
         if (Delegado_Empleado.getInstance().buscarByEmail(e1.getEmail()) == null) {
             e1 = Delegado_Empleado.getInstance().crearEmpleado(e1);
@@ -63,7 +64,7 @@ class Delegado_EmpleadoImplTest {
     @CsvSource({"Admin, 1234, ADMIN", "rodri, 1234, EMPLEADO", "emple,1234, EMPLEADO"})
     void crearEmpleado(String nombre, String pass, String rol) throws EmpleadoException {
 
-        Empleado e1 = new Empleado(nombre, pass, Rol.valueOf(rol));
+        Empleado e1 = new EmpleadoTCompleto(nombre, pass, Rol.valueOf(rol));
         log.debug("e1.getRol() = '" + e1.getRol() + "'");
 
         Empleado empleCreado = Delegado_Empleado.getInstance().crearEmpleado(e1);
@@ -127,7 +128,7 @@ class Delegado_EmpleadoImplTest {
 
         Throwable exception = assertThrows(EmpleadoException.class, () -> {
 
-            Empleado empleCreado = Delegado_Empleado.getInstance().crearEmpleado(new Empleado());
+            Empleado empleCreado = Delegado_Empleado.getInstance().crearEmpleado(new EmpleadoTCompleto());
 
         });
 
@@ -377,9 +378,9 @@ class Delegado_EmpleadoImplTest {
      ******************************************************************/
 
     @ParameterizedTest
-    @CsvSource({"Admin, 1234, ADMIN", "rodri, 1234, EMPLEADO", "emple,1234, EMPLEADO"})
+    @CsvSource({"Administrador, 1234, ADMIN", "rodri, 1234, EMPLEADO", "emple,1234, EMPLEADO"})
     void buscarByEmail(String nombre, String pass, String rol) throws EmpleadoException {
-        Empleado nuevo, e1 = new Empleado(nombre, pass, Rol.valueOf(rol));
+        Empleado nuevo, e1 = new EmpleadoTCompleto(nombre, pass, Rol.valueOf(rol));
         String email = e1.getEmail();
 
         log.info("Creando empleado");
@@ -389,6 +390,23 @@ class Delegado_EmpleadoImplTest {
         e1 = Delegado_Empleado.getInstance().buscarByEmail(email);
 
         assertTrue(e1.equalsWithOutVersion(nuevo));
+
+        Delegado_Empleado.getInstance().eliminarEmpleado(nuevo);
+
+    }
+
+    //@Test
+    //void pruebaNuevoBuscarByEmail() throws EmpleadoException {
+    public static void main(String[] args) throws EmpleadoException {
+
+        Empleado nuevo = null, e1 = new EmpleadoTCompleto("admin", "1234", Rol.ADMIN);
+        String email = e1.getEmail();
+
+        log.info("buscnado empleado");
+        e1 = Delegado_Empleado.getInstance().buscarByEmail(email);
+
+        log.debug("e1 = '" + e1 + "'");
+        //assertTrue(e1.equalsWithOutVersion(nuevo));
 
         Delegado_Empleado.getInstance().eliminarEmpleado(nuevo);
 
