@@ -102,11 +102,11 @@ public class Delegado_DepartamentoImpl extends Delegado_Departamento {
 
         System.out.println("urlFinal = [" + urlFinal +"]");
 
-        Departamento res = cliente
+        Departamento[] res = cliente
                 .target(urlFinal)
-                .path(id.toString())
+                .path("")
                 .request()
-                .get(Departamento.class);
+                .get(Departamento[].class);
 
         System.out.println("res = [" + res + "]");
 
