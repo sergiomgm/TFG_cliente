@@ -2,9 +2,12 @@ package com.rodrigo.TFG_cliente.Negocio.Modulo_Empleado.Entidad;
 
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Departamento.Entidad.Departamento;
+import com.rodrigo.TFG_cliente.Negocio.Modulo_Proyecto.Entidad.EmpleadoProyecto;
 import com.sun.xml.bind.CycleRecoverable;
 import org.eclipse.persistence.oxm.annotations.XmlClassExtractor;
 
@@ -48,8 +51,8 @@ public abstract class Empleado implements Serializable, CycleRecoverable {
 
     protected Departamento departamento;
 
-    //@OneToMany(mappedBy = "proyecto")
-    //protected List<EmpleadoProyecto> proyectos;
+//    protected List<EmpleadoProyecto> proyectos = null;
+    protected List<EmpleadoProyecto> proyectos  = new ArrayList<>();
 
     protected long version;
 
@@ -189,6 +192,15 @@ public abstract class Empleado implements Serializable, CycleRecoverable {
     }
 
 
+    public List<EmpleadoProyecto> getProyectos() {
+        return proyectos;
+    }
+
+    public void setProyectos(List<EmpleadoProyecto> proyectos) {
+        this.proyectos = proyectos;
+    }
+
+
     /****************************
      ****** OTHER METHODS *******
      ****************************/
@@ -196,12 +208,13 @@ public abstract class Empleado implements Serializable, CycleRecoverable {
     @Override
     public String toString() {
         return "Empleado{" +
-                "  id=" + id +
+                "id=" + id +
                 ", nombre='" + nombre + '\'' +
+                ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
-                ", mail='" + email + '\'' +
-                ", rol='" + rol + '\'' +
+                ", rol=" + rol +
                 ", dept='" + departamento.getSiglas() + '\'' +
+                ", proySize=" + proyectos.size() +
                 ", version=" + version +
                 '}';
     }

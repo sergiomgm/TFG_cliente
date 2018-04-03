@@ -399,16 +399,20 @@ class Delegado_EmpleadoImplTest {
     //void pruebaNuevoBuscarByEmail() throws EmpleadoException {
     public static void main(String[] args) throws EmpleadoException {
 
-        Empleado nuevo = null, e1 = new EmpleadoTCompleto("admin", "1234", Rol.ADMIN);
+        Empleado nuevo = null, e1 = new EmpleadoTCompleto("emple1", "1234", Rol.ADMIN);
         String email = e1.getEmail();
 
         log.info("buscnado empleado");
         e1 = Delegado_Empleado.getInstance().buscarByEmail(email);
 
+        log.info("*********************************************************");
+        log.info("*********************************************************");
         log.debug("e1 = '" + e1 + "'");
+        log.info("*********************************************************");
+        log.info("*********************************************************");
         //assertTrue(e1.equalsWithOutVersion(nuevo));
 
-        Delegado_Empleado.getInstance().eliminarEmpleado(nuevo);
+        //Delegado_Departamento.getInstance().eliminarEmpleado(nuevo);
 
     }
 

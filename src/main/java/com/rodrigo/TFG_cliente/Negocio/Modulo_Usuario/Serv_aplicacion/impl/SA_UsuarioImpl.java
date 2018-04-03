@@ -236,10 +236,12 @@ public class SA_UsuarioImpl implements SA_Usuario {
 
                     log.info("Buscando usuario...");
                     try {
+
                         emple = (Usuario) em
                                 .createNamedQuery("Usuario.buscarPorEmail")
                                 .setParameter("email", email)
                                 .getSingleResult();
+
 
 
                     } catch (NoResultException e) {

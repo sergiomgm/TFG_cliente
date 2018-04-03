@@ -20,13 +20,13 @@ import org.slf4j.LoggerFactory;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class SA_UsuarioTest {
+class SA_UsuarioImplTest {
 
     static SA_Usuario sa;
 
     private Usuario e1;
 
-    final static Logger log = LoggerFactory.getLogger(SA_UsuarioTest.class);
+    final static Logger log = LoggerFactory.getLogger(SA_UsuarioImplTest.class);
 
 
     /*******************************************************************
@@ -36,15 +36,18 @@ class SA_UsuarioTest {
     @BeforeAll
     static void initSA() {
         log.info("Creando SA...");
-        sa = FactoriaSA.getInstance().crearSAUsuario();
+        sa = FactoriaSA.getInstance().crearSA_Usuario();
     }
 
     @BeforeEach
     void iniciarContexto() throws UsuarioException {
         e1 = new Usuario("usuario", "1234", Rol.valueOf("USUARIO"));
         log.info("Creando usuario ");
-        if (sa.buscarByEmail(e1.getEmail()) == null) {
+        Usuario aux = sa.buscarByEmail(e1.getEmail());
+        if ( aux == null) {
             e1 = sa.crearUsuario(e1);
+        }else{
+            e1 = aux;
         }
     }
 
@@ -259,7 +262,7 @@ class SA_UsuarioTest {
     //@ParameterizedTest(name = "-> {0}, {1}")
     //@CsvSource({"usuario, 1234, USUARIO", "admin, 1234, ADMIN"})
     @Test
-    void loginTest() throws UsuarioException {
+    void loginUsuarioTest() throws UsuarioException {
         String email = e1.getEmail();
         String pass = e1.getPassword();
 

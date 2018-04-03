@@ -1,6 +1,7 @@
 package com.rodrigo.TFG_cliente.Presentacion.seguridad.jaas;
 
 import com.rodrigo.TFG_cliente.Negocio.FactoriaSA.FactoriaSA;
+import com.rodrigo.TFG_cliente.Negocio.Modulo_Usuario.Entidad.Rol;
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Usuario.Entidad.Usuario;
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Usuario.Excepciones.UsuarioException;
 import com.rodrigo.TFG_cliente.Negocio.Utils.EmailValidator;
@@ -10,7 +11,6 @@ import org.slf4j.LoggerFactory;
 import javax.security.auth.Subject;
 import javax.security.auth.callback.*;
 import javax.security.auth.login.LoginException;
-import javax.validation.constraints.Email;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -55,14 +55,16 @@ public class LoginModule implements javax.security.auth.spi.LoginModule {
 
             //TODO  Validar el email con la clase pertinente
             if (new EmailValidator().validate(email)) {
-                loginOk = FactoriaSA.getInstance().crearSAUsuario().loginUsuario(email, password);
+                loginOk = FactoriaSA.getInstance().crearSA_Usuario().loginUsuario(email, password);
 
                 if (loginOk) {
                     log.info("LOGIN CORRECTO");
-                    Usuario usuario = FactoriaSA.getInstance().crearSAUsuario().buscarByEmail(email);
-                    login = usuario.getEmail();
+                    //Usuario usuario = FactoriaSA.getInstance().crearSA_Usuario().buscarByEmail(email);
+                    //login = usuario.getEmail();
+                    login = email;
                     userGroups = new ArrayList<String>();
-                    userGroups.add(usuario.getRol().toString());
+//                    userGroups.add(usuario.getRol().toString());
+                    userGroups.add(Rol.ADMIN.toString());
                     log.debug("name = " + email);
                 }
 

@@ -1,14 +1,11 @@
 package com.rodrigo.TFG_cliente.Negocio.Modulo_Usuario.Entidad;
 
 import org.hibernate.annotations.ColumnTransformer;
-import sun.misc.BASE64Decoder;
-import sun.misc.BASE64Encoder;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import java.io.IOException;
 import java.io.Serializable;
 import java.util.Base64;
 import java.util.Objects;
@@ -24,7 +21,8 @@ public class Usuario implements Serializable {
 
     @GeneratedValue(strategy = GenerationType.AUTO) //IDENTITY
     @Column()
-    @Id protected Long id;
+    @Id
+    protected Long id;
 
     @NotBlank
     @Column(nullable = false)
@@ -36,8 +34,8 @@ public class Usuario implements Serializable {
     @Email
     protected String email;
 
-    @ColumnTransformer(read = "pgp_sym_decrypt(password, ‘mySecretKey’)",
-            write = "pgp_sym_encrypt(?, ‘mySecretKey’)")
+//    @ColumnTransformer(read = "pgp_sym_decrypt(password, ‘mySecretKey’)",
+//            write = "pgp_sym_encrypt(?, ‘mySecretKey’)")
     @Column(nullable = false)
     private String password;
 
@@ -46,7 +44,8 @@ public class Usuario implements Serializable {
     private Rol rol;
 
 
-    @Version protected long version;
+    @Version
+    protected long version;
 
 
     /****************************
@@ -57,59 +56,16 @@ public class Usuario implements Serializable {
     public Usuario(String nombre, String password, Rol rol) {
         this.nombre = nombre;
 
-
         this.email = nombre.toLowerCase().concat("@gmail.com");
         this.rol = rol;
-
-/*
-
-        System.out.println("password = " + password);
-
-        System.out.println("decoder...");
-        byte[] decode = null;
-        BASE64Decoder decoder = new BASE64Decoder();
-        try {
-            decode = decoder.decodeBuffer(password);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        System.out.println("decoder = " + decoder);
-        this.password = new String(decode);
-        System.out.println("this.password = " + this.password);
-        
-
-        //return decode;
-
-
-        System.out.println("encoder...");
-        BASE64Encoder encoder = new BASE64Encoder();
-
-        String encode = null;
-        encode = encoder.encode(new byte[]{Byte.parseByte(this.password)});
-
-*/
-
-        System.out.println("password = [" + password + "]");
-        // Encode data on your side using BASE64
-        byte[] bytesEncoded = Base64.getEncoder().encode(password.getBytes());
-        System.out.println("encoded pass is [" + new String(bytesEncoded) + "]");
-
-        this.password = new String(bytesEncoded);
-
-        // Decode data on other side, by processing encoded data
-        byte[] valueDecoded = Base64.getDecoder().decode(this.password);
-        System.out.println("Decoded pass is [" + new String(valueDecoded) + "]");
-
-        System.out.println("this.password = [" + this.password + "]");
-        //this.password = encode;
-
+        setPassword(password);
     }
 
 
-    /** Constructor
-     *  Rol por defecto = Rol.USUARIO
-     * */
+    /**
+     * Constructor
+     * Rol por defecto = Rol.USUARIO
+     */
     public Usuario(String nombre, String password) {
         this.nombre = nombre;
         this.password = password;
@@ -157,12 +113,30 @@ public class Usuario implements Serializable {
         this.nombre = nombre;
     }
 
+    /** Retorna la password desencriptada
+     *
+     * @return password
+     */
     public String getPassword() {
-        return password;
+        // Decode data on other side, by processing encoded data
+        byte[] valueDecoded = Base64.getDecoder().decode(this.password);
+        System.out.println("this.password = [" + this.password + "]");
+        System.out.println("Decoded pass is [" + new String(valueDecoded) + "]");
+        return new String(valueDecoded);
     }
 
+    /** Acutaliza la password y la mantiene encripotada
+     *
+     * @param password
+     */
     public void setPassword(String password) {
-        this.password = password;
+        System.out.println("password = [" + password + "]");
+        // Encode data on your side using BASE64
+        byte[] bytesEncoded = Base64.getEncoder().encode(password.getBytes());
+        System.out.println("encoded pass is [" + new String(bytesEncoded) + "]");
+
+        this.password = new String(bytesEncoded);
+        //this.password = password;
     }
 
     public Rol getRol() {
@@ -181,10 +155,13 @@ public class Usuario implements Serializable {
         this.version = version;
     }
 
-    public String getEmail() { return email;}
+    public String getEmail() {
+        return email;
+    }
 
-    public void setEmail(String email) {this.email = email;}
-
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
 
     /****************************
@@ -221,7 +198,7 @@ public class Usuario implements Serializable {
         if (this == o) return true;
         if (!(o instanceof Usuario)) return false;
         Usuario usuario = (Usuario) o;
-        return  Objects.equals(getId(), usuario.getId()) &&
+        return Objects.equals(getId(), usuario.getId()) &&
                 Objects.equals(getNombre(), usuario.getNombre()) &&
                 Objects.equals(getEmail(), usuario.getEmail()) &&
                 Objects.equals(getPassword(), usuario.getPassword()) &&

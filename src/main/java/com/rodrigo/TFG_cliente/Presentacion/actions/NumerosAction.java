@@ -44,7 +44,7 @@ public class NumerosAction implements Serializable {
         try {
             Principal principal = FacesContext.getCurrentInstance().getExternalContext().getUserPrincipal();
             String email = principal.getName();
-            usuario = FactoriaSA.getInstance().crearSAUsuario().buscarByEmail(email);
+            usuario = FactoriaSA.getInstance().crearSA_Usuario().buscarByEmail(email);
             log.debug("usuario = '" + usuario + "'");
         } catch (NullPointerException e) {
             log.error("No se pudo cargar el empleado de la sesión.");

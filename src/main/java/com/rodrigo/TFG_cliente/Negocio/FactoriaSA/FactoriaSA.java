@@ -12,6 +12,6 @@ public abstract class FactoriaSA {
     }
 
 
-    public abstract SA_Usuario crearSAUsuario();
+    public abstract SA_Usuario crearSA_Usuario();
 
 }

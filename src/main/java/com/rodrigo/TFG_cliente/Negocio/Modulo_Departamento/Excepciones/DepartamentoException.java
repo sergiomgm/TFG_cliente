@@ -1,0 +1,17 @@
+package com.rodrigo.TFG_cliente.Negocio.Modulo_Departamento.Excepciones;
+
+public class DepartamentoException extends Exception{
+    public DepartamentoException(String message) {
+        super(message);
+    }
+
+
+    public DepartamentoException(Throwable cause) {
+        super(cause);
+    }
+
+
+    public DepartamentoException(String message, Throwable cause) {
+        super(message, cause);
+    }
+}
