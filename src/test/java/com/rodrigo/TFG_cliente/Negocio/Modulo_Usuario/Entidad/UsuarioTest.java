@@ -1,6 +1,5 @@
 package com.rodrigo.TFG_cliente.Negocio.Modulo_Usuario.Entidad;
 
-import com.rodrigo.TFG_cliente.Negocio.Modulo_Empleado.Entidad.Empleado;
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Usuario.Excepciones.UsuarioException;
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Usuario.Serv_aplicacion.impl.SA_UsuarioImpl;
 import org.junit.jupiter.api.BeforeAll;

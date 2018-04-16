@@ -1,7 +1,8 @@
 package com.rodrigo.TFG_cliente.Negocio.Modulo_Proyecto.Entidad;
 
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Empleado.Entidad.*;
-import com.sun.xml.bind.CycleRecoverable;
+import org.eclipse.persistence.oxm.annotations.XmlCustomizer;
+import org.eclipse.persistence.oxm.annotations.XmlInverseReference;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -10,9 +11,10 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.io.Serializable;
 
-@XmlRootElement(name = "EmpleadoProyecto")
+@XmlRootElement/*(name = "EmpleadoProyecto")*/
 @XmlAccessorType(XmlAccessType.FIELD)
-public class EmpleadoProyecto implements Serializable, CycleRecoverable {
+@XmlCustomizer(EmpleadoProyectoCustomizer.class)
+public class EmpleadoProyecto implements Serializable/*, CycleRecoverable*/ {
 
     private final static Logger log = LoggerFactory.getLogger(EmpleadoProyecto.class);
 
@@ -20,6 +22,7 @@ public class EmpleadoProyecto implements Serializable, CycleRecoverable {
 
     private ClavesEmpleadoProyecto id = new ClavesEmpleadoProyecto();
 
+    @XmlInverseReference(mappedBy = "proyectos")
     private Empleado empleado;
 
     private Proyecto proyecto;
@@ -112,12 +115,25 @@ public class EmpleadoProyecto implements Serializable, CycleRecoverable {
         this.version = version;
     }
 
+
     @Override
+    public String toString() {
+        return "EmpleadoProyecto{" +
+                "id=" + id +
+                ", empleado=" + empleado +
+                ", proyecto=" + proyecto +
+                ", horas=" + horas +
+                ", version=" + version +
+                '}';
+    }
+
+
+/*    @Override
     public Object onCycleDetected(Context context) {
 
         log.info("EmpleadoProyecto.onCycleDetected");
 
         EmpleadoProyecto ep = new EmpleadoProyecto(this);
         return null;
-    }
+    }*/
 }

@@ -2,7 +2,7 @@ package com.rodrigo.TFG_cliente.Negocio.Modulo_Proyecto.Entidad;
 
 
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Empleado.Entidad.Empleado;
-import com.sun.xml.bind.CycleRecoverable;
+import org.eclipse.persistence.oxm.annotations.XmlInverseReference;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -15,15 +15,12 @@ import javax.xml.bind.annotation.XmlRootElement;
 import java.io.Serializable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 
-@XmlRootElement(name = "Proyecto")
+@XmlRootElement/*(name = "Proyecto")*/
 @XmlAccessorType(XmlAccessType.FIELD)
-public class Proyecto implements Serializable, CycleRecoverable {
+public class Proyecto implements Serializable/*, CycleRecoverable*/ {
 
 
     private final static Logger log = LoggerFactory.getLogger(Proyecto.class);
@@ -46,8 +43,9 @@ public class Proyecto implements Serializable, CycleRecoverable {
     private Date fechaFin;
 
 
-//    private List<EmpleadoProyecto> empleados = null;
-    private List<EmpleadoProyecto> empleados = new ArrayList<>();
+    //    private List<EmpleadoProyecto> empleados = null;
+    @XmlInverseReference(mappedBy = "proyecto")
+    private Collection<EmpleadoProyecto> empleados;
 
 
     protected long version;
@@ -104,7 +102,8 @@ public class Proyecto implements Serializable, CycleRecoverable {
         this.empleados = empleados;
     }
 
-    /** Copia el proyecto con:
+    /**
+     * Copia el proyecto con:
      * - El listado de empleados vacio
      *
      * @param p proyecto
@@ -160,7 +159,7 @@ public class Proyecto implements Serializable, CycleRecoverable {
         this.fechaFin = fechaFin;
     }
 
-    public List<EmpleadoProyecto> getEmpleados() {
+    public Collection<EmpleadoProyecto> getEmpleados() {
         return empleados;
     }
 
@@ -177,7 +176,6 @@ public class Proyecto implements Serializable, CycleRecoverable {
     }
 
 
-
     /****************************
      ********** METODOS *********
      ****************************/
@@ -189,7 +187,7 @@ public class Proyecto implements Serializable, CycleRecoverable {
         if (e.getProyectos().add(ep)) {
             if (this.empleados.add(ep)) {
                 ok = true;
-            }else{
+            } else {
                 e.getProyectos().remove(ep);
             }
 
@@ -211,7 +209,7 @@ public class Proyecto implements Serializable, CycleRecoverable {
                 ", descripcion='" + descripcion + '\'' +
                 ", fechaInicio=" + fechaInicio +
                 ", fechaFin=" + fechaFin +
-                ", empleados=" + empleados +
+                ", empleadosSize=" + ((empleados==null)?"null":empleados.size()) +
                 ", version=" + version +
                 '}';
     }
@@ -250,7 +248,7 @@ public class Proyecto implements Serializable, CycleRecoverable {
                 getFechaInicio(), getFechaFin(), getEmpleados(), getVersion());
     }
 
-    @Override
+   /* @Override
     public Object onCycleDetected(Context context) {
         // Context provides access to the Marshaller being used:
         //log.info("JAXB Marshaller is: " + cycleRecoveryContext.getMarshaller());
@@ -258,6 +256,6 @@ public class Proyecto implements Serializable, CycleRecoverable {
         log.info("Proyecto.onCycleDetected");
         Proyecto p = new Proyecto(this);
         return null;
-    }
+    }*/
 }
 

@@ -36,11 +36,11 @@ public class Delegado_EmpleadoImpl extends Delegado_Empleado {
         } catch (MalformedURLException e) {
             log.error("Error al crear el WSDL", e);
 
-            throw new ProxyException("Error al conectar con servicio Usuario");
+            throw new ProxyException("Error al conectar con servicio Empleado");
         }
 
 
-        log.debug("Creando servicio Usuario");
+        log.debug("Creando servicio Empleado");
         Service ssEmpleados = Service.create(wsdlURLEmpleados, SERVICE_EMPLEADO);
 
 
@@ -58,8 +58,8 @@ public class Delegado_EmpleadoImpl extends Delegado_Empleado {
     }
 
     @Override
-    public Empleado buscarEmpleadoByID(Long id) {
-        return portEmpleados.buscarEmpleadoByID(id);
+    public Empleado buscarByID(Long id) {
+        return portEmpleados.buscarByID(id);
     }
 
     @Override

@@ -2,15 +2,17 @@ package com.rodrigo.TFG_cliente.Negocio.Modulo_Empleado.Entidad;
 
 
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Departamento.Entidad.Departamento;
+import org.eclipse.persistence.oxm.annotations.XmlDiscriminatorValue;
 
 import javax.validation.constraints.NotBlank;
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.*;
 import java.io.Serializable;
 
-@XmlRootElement(name ="EmpleadoTCompleto")
+@XmlRootElement
+//@XmlRootElement/*(name = "EmpleadoTCompleto")*/
 @XmlAccessorType(XmlAccessType.FIELD)
+@XmlDiscriminatorValue("EmpleadoTCompleto")
+//@XmlType/*(name = "EmpleadoTCompleto")*/
 public class EmpleadoTCompleto extends Empleado implements Serializable {
 
 
@@ -19,9 +21,11 @@ public class EmpleadoTCompleto extends Empleado implements Serializable {
      ****************************/
 
     @NotBlank
+//    @XmlAttribute
     private int antiguedad = 0;
 
     @NotBlank
+//    @XmlAttribute
     private int sueldoBase = 1200;
 
 
@@ -42,6 +46,12 @@ public class EmpleadoTCompleto extends Empleado implements Serializable {
         this.departamento = d;
     }
 
+    /** Copia el empleado con:
+     * - Departamento vacio
+     * - Lista de proyectos vacia
+     *
+     * @param e EmpeladoTCompleto
+     */
     public EmpleadoTCompleto(EmpleadoTCompleto e) {
         super(e);
         antiguedad = e.antiguedad;
@@ -88,12 +98,13 @@ public class EmpleadoTCompleto extends Empleado implements Serializable {
                 "} " + super.toString();
     }
 
-    @Override
+    /*@Override
     public Object onCycleDetected(Context cycleRecoveryContext) {
         // Context provides access to the Marshaller being used:
         //System.out.println("JAXB Marshaller is: " + cycleRecoveryContext.getMarshaller());
+        System.out.println(" -------- EmpleadoTCompleto.onCycleDetected -------- ");
 
         EmpleadoTCompleto e = new EmpleadoTCompleto(this);
         return e;
-    }
+    }*/
 }

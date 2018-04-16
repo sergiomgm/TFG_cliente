@@ -2,16 +2,19 @@ package com.rodrigo.TFG_cliente.Negocio.Modulo_Empleado.Entidad;
 
 
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Departamento.Entidad.Departamento;
+import org.eclipse.persistence.oxm.annotations.XmlDiscriminatorValue;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.validation.constraints.NotBlank;
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.*;
 import java.io.Serializable;
-import java.util.ArrayList;
 
-@XmlRootElement(name = "EmpleadoTParcial")
+@XmlRootElement
+//@XmlRootElement/*(name = "EmpleadoTParcial")*/
 @XmlAccessorType(XmlAccessType.FIELD)
+@XmlDiscriminatorValue("EmpleadoTParcial")
+//@XmlType/*(name = "EmpleadoTParcial")*/
 public class EmpleadoTParcial extends Empleado implements Serializable {
 
     /****************************
@@ -19,10 +22,15 @@ public class EmpleadoTParcial extends Empleado implements Serializable {
      ****************************/
 
     @NotBlank
+//    @XmlAttribute
     private int horasJornada = 5;
 
     @NotBlank
+//    @XmlAttribute
     private int precioHora = 10;
+
+
+    private final static Logger log = LoggerFactory.getLogger(EmpleadoTParcial.class);
 
 
 
@@ -43,11 +51,16 @@ public class EmpleadoTParcial extends Empleado implements Serializable {
         this.departamento = d;
     }
 
+    /** Copia el empleado con:
+     * - Departamento vacio
+     * - Lista de proyectos vacia
+     *
+     * @param e EmpleadoTParcial
+     */
     public EmpleadoTParcial(EmpleadoTParcial e) {
         super(e);
         this.horasJornada = e.horasJornada;
         this.precioHora = e.precioHora;
-
     }
 
 
@@ -91,13 +104,17 @@ public class EmpleadoTParcial extends Empleado implements Serializable {
                 "} " + super.toString();
     }
 
-    @Override
+    /*@Override
     public Object onCycleDetected(Context cycleRecoveryContext) {
         // Context provides access to the Marshaller being used:
         //System.out.println("JAXB Marshaller is: " + cycleRecoveryContext.getMarshaller());
 
+        System.out.println(" -------- EmpleadoTParcial.onCycleDetected -------- ");
+
+
         EmpleadoTParcial e = new EmpleadoTParcial(this);
-        e.getDepartamento().setEmpleados(new ArrayList<Empleado>());
+        //e.getDepartamento().setEmpleados(new ArrayList<Empleado>());
+
         return e;
-    }
+    }*/
 }

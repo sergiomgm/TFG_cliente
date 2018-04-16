@@ -1,19 +1,17 @@
 package com.rodrigo.TFG_cliente.Negocio.Modulo_Departamento.Entidad;
 
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Empleado.Entidad.Empleado;
-import com.sun.xml.bind.CycleRecoverable;
+import com.rodrigo.TFG_cliente.Negocio.Modulo_Empleado.Entidad.EmpleadoTCompleto;
+import com.rodrigo.TFG_cliente.Negocio.Modulo_Empleado.Entidad.EmpleadoTParcial;
 
 import javax.xml.bind.annotation.*;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 
-@XmlRootElement(name = "Departamento")
+@XmlRootElement/*(name = "Departamento")*/
 @XmlAccessorType(XmlAccessType.FIELD)
-public class Departamento implements Serializable, CycleRecoverable {
+public class Departamento implements Serializable/*, CycleRecoverable*/ {
 
     protected long id;
 
@@ -22,7 +20,12 @@ public class Departamento implements Serializable, CycleRecoverable {
 
     private String siglas;
 
-    private List<Empleado> empleados = new ArrayList<Empleado>();
+    /*@XmlElements({ //Con esto hace que se guarde la lista como -->
+            @XmlElement(name = "EmpleadoTParcial", type = EmpleadoTParcial.class), //<empleados xsi:type="empleadoTParcial">
+            @XmlElement(name = "EmpleadoTCompleto", type = EmpleadoTCompleto.class) //<empleados xsi:type="empleadoTCompleto">
+    })*/
+    @XmlElementRef
+    private Collection<Empleado> empleados;
 
     protected long version;
 
@@ -61,6 +64,21 @@ public class Departamento implements Serializable, CycleRecoverable {
         this.siglas = d.siglas;
         this.version = d.version;
     }
+
+
+
+
+    /****************************
+     ********** METODOS *********
+     ****************************/
+
+    public double calcularNominaMes(){
+
+        return empleados.stream()
+                .map(Empleado::calcularNominaMes)
+                .reduce(0.0,(acum, val)->acum + val);
+    }
+
 
 
     /****************************
@@ -107,7 +125,7 @@ public class Departamento implements Serializable, CycleRecoverable {
 
     //@XmlElement
 
-    public List<Empleado> getEmpleados() {
+    public Collection<Empleado> getEmpleados() {
         return empleados;
     }
 
@@ -125,7 +143,7 @@ public class Departamento implements Serializable, CycleRecoverable {
                 "  id=" + id +
                 ", nombre='" + nombre + '\'' +
                 ", siglas='" + siglas + '\'' +
-                ", EmpleadosSize='" + empleados.size() + '\'' +
+                ", EmpleadosSize='" +((empleados==null)?"null":empleados.size()) + '\'' +
                 ", version=" + version +
                 '}';
     }
@@ -157,7 +175,7 @@ public class Departamento implements Serializable, CycleRecoverable {
     }
 
 
-    @Override
+   /* @Override
     public Object onCycleDetected(Context cycleRecoveryContext) {
         // Context provides access to the Marshaller being used:
         //System.out.println("JAXB Marshaller is: " + cycleRecoveryContext.getMarshaller());
@@ -166,7 +184,7 @@ public class Departamento implements Serializable, CycleRecoverable {
         //p.id = this.id;
         Departamento p = new Departamento(this);
         return p;
-    }
+    }*/
 
 }
 

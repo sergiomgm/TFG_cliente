@@ -39,7 +39,7 @@ public abstract class Delegado_Empleado implements DelegadoDelNegocio {
 
     public abstract Empleado crearEmpleado(Empleado empleadoNuevo) throws EmpleadoException;
 
-    public abstract Empleado buscarEmpleadoByID(Long id);
+    public abstract Empleado buscarByID(Long id);
 
     public abstract boolean eliminarEmpleado(Empleado empleadoEliminar);
 

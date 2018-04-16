@@ -1,8 +1,11 @@
 package com.rodrigo.TFG_cliente.Negocio.Modulo_Proyecto.Entidad;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
 import java.io.Serializable;
 import java.util.Objects;
 
+@XmlAccessorType(XmlAccessType.FIELD)
 public class ClavesEmpleadoProyecto implements Serializable {
 
 
@@ -41,6 +44,15 @@ public class ClavesEmpleadoProyecto implements Serializable {
     public void setIdProyecto(Long idProyecto) {
         this.idProyecto = idProyecto;
     }
+
+    @Override
+    public String toString() {
+        return "ClavesEmpleadoProyecto{" +
+                "idEmpleado=" + idEmpleado +
+                ", idProyecto=" + idProyecto +
+                '}';
+    }
+
 
     @Override
     public boolean equals(Object o) {

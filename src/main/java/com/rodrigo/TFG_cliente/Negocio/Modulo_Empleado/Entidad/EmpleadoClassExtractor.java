@@ -9,9 +9,11 @@ public class EmpleadoClassExtractor extends ClassExtractor {
 
     @Override
     public Class extractClassFromRow(Record record, Session session) {
+        System.out.println("---------- EmpleadoClassExtractor  ------------");
+        System.out.println("record = [" + record + "]");
+        System.out.println("session = [" + session + "]");
+        System.out.println("-----------------------------------------------");
 
-        System.out.println("EmpleadoClassExtractor");
-        System.out.println("88888888888888888888888888888888");
         if (null != record.get("@horasJornada")) {
             return EmpleadoTParcial.class;
         } else if (null != record.get("@antiguedad")) {
