@@ -6,12 +6,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.*;
 import java.io.Serializable;
 
-//@XmlRootElement
+@XmlRootElement
 //@XmlRootElement/*(name = "EmpleadoTParcial")*/
 @XmlAccessorType(XmlAccessType.FIELD)
+//@XmlType(name = "empleadoTParcial")
 //@XmlDiscriminatorValue("EmpleadoTParcial")
 //@XmlType/*(name = "EmpleadoTParcial")*/
 public class EmpleadoTParcial extends Empleado implements Serializable {
@@ -20,11 +22,11 @@ public class EmpleadoTParcial extends Empleado implements Serializable {
      ********* ATRIBUTOS ********
      ****************************/
 
-    @NotBlank
+    @NotNull
 //    @XmlAttribute
     private int horasJornada = 5;
 
-    @NotBlank
+    @NotNull
 //    @XmlAttribute
     private int precioHora = 10;
 

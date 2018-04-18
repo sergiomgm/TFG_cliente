@@ -20,6 +20,8 @@ import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.ws.rs.client.Client;
+import javax.ws.rs.client.ClientBuilder;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
@@ -125,6 +127,53 @@ public class Marshal_Unmarshal_SOAPTest {
 
 
     }
+
+
+
+    @Test
+    void EmpleadoRESTTest() throws JAXBException {
+
+        log.info("******************************************************");
+        log.info("************  UNMARSHAL EMPLEADO  ***************");
+        log.info("******************************************************");
+
+        Client cliente = ClientBuilder.newBuilder().newClient();
+        Long id = 20L;
+
+        log.info("Delegado_DepartamentoImpl.buscarDepartamentoByID");
+        log.info("id = [" + id + "]");
+
+        String URL = "http://localhost" +":" + "55555" + "/TFG_server/services" + "/SA_EmpleadoREST" + "/empleado";
+        String urlFinal = URL + "";
+
+        System.out.println("urlFinal = [" + urlFinal + id.toString() +"]");
+
+        Empleado empleREST = cliente
+                .target(urlFinal)
+                .path(id.toString())
+                .request()
+                .get(Empleado.class);
+
+
+        System.out.println("***********************************************");
+        System.out.println("***********************************************");
+        System.out.println();
+
+        System.out.println("empleREST = [" + empleREST + "]");
+
+        System.out.println();
+
+        empleREST.getProyectos().stream().forEach(ep -> System.out.println(ep.getProyecto()));
+
+        System.out.println();
+        System.out.println("***********************************************");
+        System.out.println("***********************************************");
+
+
+    }
+
+
+
 
 
 

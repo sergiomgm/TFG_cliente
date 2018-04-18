@@ -5,12 +5,14 @@ import com.rodrigo.TFG_cliente.Negocio.Modulo_Departamento.Entidad.Departamento;
 import org.eclipse.persistence.oxm.annotations.XmlDiscriminatorValue;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.*;
 import java.io.Serializable;
 
 //@XmlRootElement
 //@XmlRootElement/*(name = "EmpleadoTCompleto")*/
 @XmlAccessorType(XmlAccessType.FIELD)
+//@XmlType(name = "empleadoTCompleto")
 //@XmlDiscriminatorValue("EmpleadoTCompleto")
 //@XmlType/*(name = "EmpleadoTCompleto")*/
 public class EmpleadoTCompleto extends Empleado implements Serializable {
@@ -20,11 +22,11 @@ public class EmpleadoTCompleto extends Empleado implements Serializable {
      ********* ATRIBUTOS ********
      ****************************/
 
-    @NotBlank
+    @NotNull
 //    @XmlAttribute
     private int antiguedad = 0;
 
-    @NotBlank
+    @NotNull
 //    @XmlAttribute
     private int sueldoBase = 1200;
 

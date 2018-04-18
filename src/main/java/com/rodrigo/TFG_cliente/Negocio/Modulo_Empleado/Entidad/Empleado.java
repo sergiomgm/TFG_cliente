@@ -11,7 +11,7 @@ import java.io.Serializable;
 import java.util.Collection;
 import java.util.Objects;
 
-//@XmlRootElement
+@XmlRootElement
 //@XmlRootElement(name = "Empleado", namespace = "Empleado")
 @XmlAccessorType(XmlAccessType.FIELD)
 //@XmlClassExtractor(EmpleadoClassExtractor.class)
