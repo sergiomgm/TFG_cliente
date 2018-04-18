@@ -24,7 +24,7 @@ public class Departamento implements Serializable/*, CycleRecoverable*/ {
             @XmlElement(name = "EmpleadoTParcial", type = EmpleadoTParcial.class), //<empleados xsi:type="empleadoTParcial">
             @XmlElement(name = "EmpleadoTCompleto", type = EmpleadoTCompleto.class) //<empleados xsi:type="empleadoTCompleto">
     })*/
-    @XmlElementRef
+//    @XmlElementRef
     private Collection<Empleado> empleados;
 
     protected long version;

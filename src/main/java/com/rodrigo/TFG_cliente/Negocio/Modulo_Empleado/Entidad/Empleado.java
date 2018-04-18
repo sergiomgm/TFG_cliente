@@ -2,8 +2,6 @@ package com.rodrigo.TFG_cliente.Negocio.Modulo_Empleado.Entidad;
 
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Departamento.Entidad.Departamento;
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Proyecto.Entidad.EmpleadoProyecto;
-import org.eclipse.persistence.oxm.annotations.XmlClassExtractor;
-import org.eclipse.persistence.oxm.annotations.XmlDiscriminatorNode;
 import org.eclipse.persistence.oxm.annotations.XmlInverseReference;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,22 +14,17 @@ import java.util.Objects;
 //@XmlRootElement
 //@XmlRootElement(name = "Empleado", namespace = "Empleado")
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlClassExtractor(EmpleadoClassExtractor.class)
+//@XmlClassExtractor(EmpleadoClassExtractor.class)
 //@XmlTransient
-@XmlDiscriminatorNode("@tipo")
+//@XmlDiscriminatorNode("@tipo")
 //@XmlCustomizer(EmpleadoCustomizer.class)
 //@XmlType/*(name = "Empleado")*/
-@XmlSeeAlso({
-        EmpleadoTCompleto.class,
-        EmpleadoTParcial.class
-})
+@XmlSeeAlso({EmpleadoTCompleto.class, EmpleadoTParcial.class})
 public abstract class Empleado implements Serializable/*, CycleRecoverable*/ {
 
     /****************************
      ********* ATRIBUTOS ********
      ****************************/
-
-
 
 
     private final static Logger log = LoggerFactory.getLogger(Empleado.class);
@@ -58,8 +51,6 @@ public abstract class Empleado implements Serializable/*, CycleRecoverable*/ {
 
     //@XmlInverseReference(mappedBy = "empleado")
     protected Collection<EmpleadoProyecto> proyectos;
-
-
 
 
     protected long version;
@@ -109,7 +100,8 @@ public abstract class Empleado implements Serializable/*, CycleRecoverable*/ {
 
     }
 
-    /** Copia el empleado con:
+    /**
+     * Copia el empleado con:
      * - Departamento vacio
      * - Lista de proyectos vacia
      *
@@ -216,7 +208,6 @@ public abstract class Empleado implements Serializable/*, CycleRecoverable*/ {
      ****************************/
 
 
-
     @Override
     public String toString() {
         return "Empleado{" +
@@ -225,8 +216,8 @@ public abstract class Empleado implements Serializable/*, CycleRecoverable*/ {
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
                 ", rol=" + rol +
-                ", dept='" + ((departamento==null)?"null": departamento.getSiglas()) + '\'' +
-                ", proySize=" +((proyectos==null)?"0": proyectos.size()) +
+                ", dept='" + ((departamento == null) ? "null" : departamento.getSiglas()) + '\'' +
+                ", proySize=" + ((proyectos == null) ? "0" : proyectos.size()) +
                 ", version=" + version +
                 '}';
     }

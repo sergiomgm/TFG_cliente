@@ -8,10 +8,10 @@ import javax.validation.constraints.NotBlank;
 import javax.xml.bind.annotation.*;
 import java.io.Serializable;
 
-@XmlRootElement
+//@XmlRootElement
 //@XmlRootElement/*(name = "EmpleadoTCompleto")*/
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlDiscriminatorValue("EmpleadoTCompleto")
+//@XmlDiscriminatorValue("EmpleadoTCompleto")
 //@XmlType/*(name = "EmpleadoTCompleto")*/
 public class EmpleadoTCompleto extends Empleado implements Serializable {
 

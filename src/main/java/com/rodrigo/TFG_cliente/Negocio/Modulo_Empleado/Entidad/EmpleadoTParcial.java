@@ -2,7 +2,6 @@ package com.rodrigo.TFG_cliente.Negocio.Modulo_Empleado.Entidad;
 
 
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Departamento.Entidad.Departamento;
-import org.eclipse.persistence.oxm.annotations.XmlDiscriminatorValue;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -10,10 +9,10 @@ import javax.validation.constraints.NotBlank;
 import javax.xml.bind.annotation.*;
 import java.io.Serializable;
 
-@XmlRootElement
+//@XmlRootElement
 //@XmlRootElement/*(name = "EmpleadoTParcial")*/
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlDiscriminatorValue("EmpleadoTParcial")
+//@XmlDiscriminatorValue("EmpleadoTParcial")
 //@XmlType/*(name = "EmpleadoTParcial")*/
 public class EmpleadoTParcial extends Empleado implements Serializable {
 
