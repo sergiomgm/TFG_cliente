@@ -1,7 +1,8 @@
 package com.rodrigo.TFG_cliente.Negocio.Modulo_Departamento.Delegado.impl;
 
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Departamento.Delegado.Delegado_Departamento;
-import com.rodrigo.TFG_cliente.Negocio.Modulo_Departamento.Entidad.Departamento;
+import com.rodrigo.TFG_cliente.Negocio.Modulo_Departamento.Entidad.Transfers.TDepartamento;
+import com.rodrigo.TFG_cliente.Negocio.Modulo_Departamento.Entidad.Transfers.TDepartamentoCompleto;
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Departamento.Excepciones.DepartamentoException;
 import com.rodrigo.TFG_cliente.Presentacion.Proxy.Excepciones.ProxyException;
 import org.slf4j.Logger;
@@ -32,7 +33,7 @@ public class Delegado_DepartamentoImpl extends Delegado_Departamento {
 
 
     @Override
-    public Departamento crearDepartamento(Departamento departamentoNuevo) throws DepartamentoException {
+    public TDepartamento crearDepartamento(TDepartamento departamentoNuevo) throws DepartamentoException {
 
         log.info("Delegado_DepartamentoImpl.crearDepartamento");
         log.info("departamentoNuevo = [" + departamentoNuevo + "]");
@@ -45,7 +46,7 @@ public class Delegado_DepartamentoImpl extends Delegado_Departamento {
                 .request()
                 .put(Entity.xml(departamentoNuevo));
 
-        Departamento dept = (Departamento) res.getEntity();
+        TDepartamento dept = (TDepartamento) res.getEntity();
 
         System.out.println("res = [" + res + "]");
 
@@ -55,7 +56,7 @@ public class Delegado_DepartamentoImpl extends Delegado_Departamento {
     }
 
     @Override
-    public Departamento buscarDepartamentoByID(Long id) {
+    public TDepartamentoCompleto buscarDepartamentoByID(Long id) {
         log.info("Delegado_DepartamentoImpl.buscarDepartamentoByID");
         log.info("id = [" + id + "]");
 
@@ -63,11 +64,11 @@ public class Delegado_DepartamentoImpl extends Delegado_Departamento {
 
         System.out.println("urlFinal = [" + urlFinal + id.toString() +"]");
 
-        Departamento res = cliente
+        TDepartamentoCompleto res = cliente
                 .target(urlFinal)
                 .path(id.toString())
                 .request()
-                .get(Departamento.class);
+                .get(TDepartamentoCompleto.class);
 
         System.out.println("res = [" + res + "]");
 
@@ -76,16 +77,16 @@ public class Delegado_DepartamentoImpl extends Delegado_Departamento {
     }
 
     @Override
-    public boolean eliminarDepartamento(Long id) {
+    public boolean eliminarDepartamento(TDepartamento departEliminar) {
         log.info("Delegado_DepartamentoImpl.eliminarDepartamento");
-        log.info("id = [" + id + "]");
+        log.info("id = [" + departEliminar + "]");
         String urlFinal = URL + "";
 
-        System.out.println("urlFinal = [" + urlFinal + id.toString() +"]");
+        System.out.println("urlFinal = [" + urlFinal + departEliminar.toString() +"]");
 
         Boolean res = cliente
                 .target(urlFinal)
-                .path(id.toString())
+                .path(departEliminar.toString())
                 .request()
                 .get(Boolean.class);
 
@@ -95,18 +96,18 @@ public class Delegado_DepartamentoImpl extends Delegado_Departamento {
     }
 
     @Override
-    public Departamento[] listarDepartamentos() {
+    public TDepartamento[] listarDepartamentos() {
         log.info("Delegado_DepartamentoImpl.listarDepartamentos");
 
         String urlFinal = URL + "/listar";
 
         System.out.println("urlFinal = [" + urlFinal +"]");
 
-        Departamento[] res = cliente
+        TDepartamento[] res = cliente
                 .target(urlFinal)
                 .path("")
                 .request()
-                .get(Departamento[].class);
+                .get(TDepartamento[].class);
 
         System.out.println("res = [" + res + "]");
 
@@ -140,71 +141,19 @@ public class Delegado_DepartamentoImpl extends Delegado_Departamento {
     }
 
 
-    @Override
-    public Departamento getDepartamentoCompleto(Long id){
-
-        String urlFinal = URL + "/deptCompleto/";
-
-        System.out.println("urlFinal = [" + urlFinal + id.toString() +"]");
-
-        Departamento res = cliente
-                .target(urlFinal)
-                .path(id.toString())
-                .request()
-                .get(Departamento.class);
-
-
-        System.out.println("res = [" + res + "]");
-        return res;
-    }
-
 
     @Override
-    public Departamento buscarByXXXXTest(Long id){
-        System.out.println("Delegado_DepartamentoImpl.buscarByXXXXTest");
-
-        String urlFinal = URL + "";
-
-        System.out.println("urlFinal = [" + urlFinal + id.toString() +"]");
-
-        Departamento res = cliente
-                .target(urlFinal)
-                .path(id.toString())
-                .request()
-                .get(Departamento.class);
-
-        System.out.println("res = [" + res + "]");
-
-
-
-         urlFinal = URL + "/bySiglas";
-
-        System.out.println("urlFinal = [" + urlFinal + "DdP" +"]");
-
-        Departamento res2 = cliente
-                .target(urlFinal)
-                .path("DdP")
-                .request()
-                .get(Departamento.class);
-
-
-        System.out.println("res2 = [" + res2 + "]");
-        return res;
-    }
-
-
-    @Override
-    public Departamento buscarBySiglas(String siglas) throws DepartamentoException {
+    public TDepartamentoCompleto buscarBySiglas(String siglas) throws DepartamentoException {
         log.info("Buscando por siglas: [" + siglas + "]");
         String urlFinal = URL + "/bySiglas";
 
         System.out.println("urlFinal = [" + urlFinal +"/"+ siglas +"]");
 
-        Departamento res = cliente
+        TDepartamentoCompleto res = cliente
                 .target(urlFinal)
                 .path(siglas)
                 .request()
-                .get(Departamento.class);
+                .get(TDepartamentoCompleto.class);
 
         System.out.println("res = [" + res + "]");
 
@@ -215,22 +164,6 @@ public class Delegado_DepartamentoImpl extends Delegado_Departamento {
 
 
 
-
-    public static class Main {
-
-
-        public static void main(String[] args) throws ProxyException {
-
-
-            Delegado_Departamento.getInstance().saludar("Claudia");
-
-            Delegado_Departamento.getInstance().getDepartamentoCompleto(3L);
-
-            Delegado_Departamento.getInstance().buscarByXXXXTest(3L);
-
-        }
-
-    }
 }
 
 

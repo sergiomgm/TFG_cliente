@@ -2,9 +2,9 @@ package com.rodrigo.TFG_cliente.Negocio.Modulo_Departamento.Delegado;
 
 import com.rodrigo.TFG_cliente.Negocio.DelegadoDelNegocio;
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Departamento.Delegado.impl.Delegado_DepartamentoImpl;
-import com.rodrigo.TFG_cliente.Negocio.Modulo_Departamento.Entidad.Departamento;
+import com.rodrigo.TFG_cliente.Negocio.Modulo_Departamento.Entidad.Transfers.TDepartamento;
+import com.rodrigo.TFG_cliente.Negocio.Modulo_Departamento.Entidad.Transfers.TDepartamentoCompleto;
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Departamento.Excepciones.DepartamentoException;
-import com.rodrigo.TFG_cliente.Presentacion.Proxy.Excepciones.ProxyException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -25,19 +25,17 @@ public abstract class Delegado_Departamento implements DelegadoDelNegocio {
         return ourInstance;
     }
 
-    public abstract Departamento crearDepartamento(Departamento departamentoNuevo) throws DepartamentoException;
+    public abstract TDepartamento crearDepartamento(TDepartamento departamentoNuevo) throws DepartamentoException;
 
-    public abstract Departamento buscarDepartamentoByID(Long id);
+    public abstract TDepartamentoCompleto buscarDepartamentoByID(Long id);
 
-    public abstract boolean eliminarDepartamento(Long id);
 
-    public abstract Departamento[] listarDepartamentos();
+    public abstract boolean eliminarDepartamento(TDepartamento departEliminar);
+
+    public abstract TDepartamento[] listarDepartamentos();
 
     public abstract String saludar(String nombre);
 
-    public abstract Departamento getDepartamentoCompleto(Long id);
 
-    public abstract Departamento buscarByXXXXTest(Long id);
-
-    public abstract Departamento buscarBySiglas(String siglas) throws DepartamentoException;
+    public abstract TDepartamentoCompleto buscarBySiglas(String siglas) throws DepartamentoException;
 }

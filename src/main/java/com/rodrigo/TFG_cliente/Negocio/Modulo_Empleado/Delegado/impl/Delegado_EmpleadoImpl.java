@@ -1,7 +1,11 @@
 package com.rodrigo.TFG_cliente.Negocio.Modulo_Empleado.Delegado.impl;
 
-import com.rodrigo.TFG_cliente.Negocio.Modulo_Empleado.Entidad.Empleado;
+import com.rodrigo.TFG_cliente.Negocio.Modulo_Empleado.Entidad.Transfers.TEmpleado;
+import com.rodrigo.TFG_cliente.Negocio.Modulo_Empleado.Entidad.Transfers.TEmpleadoCompleto;
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Empleado.Excepciones.EmpleadoException;
+import com.rodrigo.TFG_cliente.Negocio.Modulo_Empleado.Excepciones.EmpleadoFieldInvalidException;
+import com.rodrigo.TFG_cliente.Negocio.Modulo_Empleado.Excepciones.EmpleadoLoginErroneo;
+import com.rodrigo.TFG_cliente.Negocio.Modulo_Empleado.Excepciones.EmpleadoYaExisteExcepcion;
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Empleado.Serv_aplicacion.IBroker_SA_Empleado;
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Empleado.Delegado.Delegado_Empleado;
 import com.rodrigo.TFG_cliente.Presentacion.Proxy.Excepciones.ProxyException;
@@ -16,7 +20,7 @@ import java.util.List;
 
 public class Delegado_EmpleadoImpl extends Delegado_Empleado {
 
-    private final static Logger log = LoggerFactory.getLogger(Delegado_EmpleadoImpl.class);
+    private static Logger log = LoggerFactory.getLogger(Delegado_EmpleadoImpl.class);
 
     private IBroker_SA_Empleado portEmpleados;
 
@@ -53,22 +57,22 @@ public class Delegado_EmpleadoImpl extends Delegado_Empleado {
 
 
     @Override
-    public Empleado crearEmpleado(Empleado empleadoNuevo) throws EmpleadoException {
+    public TEmpleadoCompleto crearEmpleado(TEmpleado empleadoNuevo) throws EmpleadoYaExisteExcepcion, EmpleadoFieldInvalidException, EmpleadoException{
         return portEmpleados.crearEmpleado(empleadoNuevo);
     }
 
     @Override
-    public Empleado buscarByID(Long id) {
+    public TEmpleadoCompleto buscarByID(Long id) throws EmpleadoException {
         return portEmpleados.buscarByID(id);
     }
 
     @Override
-    public boolean eliminarEmpleado(Empleado empleadoEliminar) {
+    public boolean eliminarEmpleado(TEmpleado empleadoEliminar) throws EmpleadoFieldInvalidException, EmpleadoException {
         return portEmpleados.eliminarEmpleado(empleadoEliminar);
     }
 
     @Override
-    public List<Empleado> listarEmpleados() {
+    public List<TEmpleado> listarEmpleados() {
         return portEmpleados.listarEmpleados();
     }
 
@@ -78,13 +82,18 @@ public class Delegado_EmpleadoImpl extends Delegado_Empleado {
     }
 
     @Override
-    public boolean loginEmpleado(String email, String pass) throws EmpleadoException {
+    public boolean loginEmpleado(String email, String pass) throws EmpleadoLoginErroneo, EmpleadoFieldInvalidException, EmpleadoException {
         return portEmpleados.loginEmpleado(email, pass);
     }
 
     @Override
-    public Empleado buscarByEmail(String email) throws EmpleadoException {
+    public TEmpleadoCompleto buscarByEmail(String email) throws EmpleadoFieldInvalidException, EmpleadoException {
         return portEmpleados.buscarByEmail(email);
     }
 
+
+    @Override
+    public TEmpleadoCompleto buscarByIDTransfer(Long id) throws EmpleadoFieldInvalidException, EmpleadoException {
+        return portEmpleados.buscarByIDTransfer(id);
+    }
 }

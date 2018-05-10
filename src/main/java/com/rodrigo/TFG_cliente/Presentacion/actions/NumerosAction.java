@@ -2,7 +2,7 @@ package com.rodrigo.TFG_cliente.Presentacion.actions;
 
 import com.rodrigo.TFG_cliente.Negocio.FactoriaSA.FactoriaSA;
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Empleado.Delegado.Delegado_Empleado;
-import com.rodrigo.TFG_cliente.Negocio.Modulo_Empleado.Entidad.Empleado;
+import com.rodrigo.TFG_cliente.Negocio.Modulo_Empleado.Entidad.Transfers.TEmpleado;
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Usuario.Entidad.Usuario;
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Usuario.Excepciones.UsuarioException;
 import com.rodrigo.TFG_cliente.Presentacion.Proxy.Excepciones.ProxyException;
@@ -27,7 +27,7 @@ public class NumerosAction implements Serializable {
     @ManagedProperty(value = "#{viewBean}")
     private String viewRequest;
 
-    private Empleado empleado;
+    private TEmpleado empleado;
 
 
     private Usuario usuario;
@@ -35,7 +35,7 @@ public class NumerosAction implements Serializable {
 
     private String saludo;
 
-    List<Empleado> lista;
+    List<TEmpleado> lista;
 
     public NumerosAction() throws ProxyException, UsuarioException {
         log.info("En constructor de Bean [NumerosAction]");
@@ -99,11 +99,11 @@ public class NumerosAction implements Serializable {
         this.saludo = saludo;
     }
 
-    public List<Empleado> getLista() {
+    public List<TEmpleado> getLista() {
         return lista;
     }
 
-    public void setLista(List<Empleado> lista) {
+    public void setLista(List<TEmpleado> lista) {
         this.lista = lista;
     }
 
@@ -115,11 +115,11 @@ public class NumerosAction implements Serializable {
         this.viewRequest = viewRequest;
     }
 
-    public Empleado getEmpleado() {
+    public TEmpleado getEmpleado() {
         return empleado;
     }
 
-    public void setEmpleado(Empleado empleado) {
+    public void setEmpleado(TEmpleado empleado) {
         this.empleado = empleado;
     }
 

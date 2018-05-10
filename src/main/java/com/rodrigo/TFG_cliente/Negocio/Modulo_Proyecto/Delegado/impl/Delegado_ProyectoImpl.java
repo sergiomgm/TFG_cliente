@@ -1,13 +1,20 @@
 package com.rodrigo.TFG_cliente.Negocio.Modulo_Proyecto.Delegado.impl;
 
+import com.rodrigo.TFG_cliente.Negocio.Modulo_Empleado.Entidad.Transfers.TEmpleado;
+import com.rodrigo.TFG_cliente.Negocio.Modulo_Proyecto.Entidad.Transfers.TEmpleadoProyecto;
+import com.rodrigo.TFG_cliente.Negocio.Modulo_Proyecto.Entidad.Transfers.TProyecto;
+import com.rodrigo.TFG_cliente.Negocio.Modulo_Proyecto.Entidad.Transfers.TProyectoCompleto;
+import com.rodrigo.TFG_cliente.Negocio.Modulo_Proyecto.Excepciones.ProyectoFieldInvalidException;
+import com.rodrigo.TFG_cliente.Negocio.Modulo_Proyecto.Excepciones.ProyectoYaExistenteException;
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Proyecto.Serv_aplicacion.IBroker_SA_Proyecto;
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Proyecto.Delegado.Delegado_Proyecto;
-import com.rodrigo.TFG_cliente.Negocio.Modulo_Proyecto.Entidad.Proyecto;
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Proyecto.Excepciones.ProyectoException;
 import com.rodrigo.TFG_cliente.Presentacion.Proxy.Excepciones.ProxyException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.jws.WebMethod;
+import javax.jws.WebParam;
 import javax.xml.namespace.QName;
 import javax.xml.ws.Service;
 import java.net.MalformedURLException;
@@ -53,22 +60,34 @@ public class Delegado_ProyectoImpl extends Delegado_Proyecto {
 
 
     @Override
-    public Proyecto crearProyecto(Proyecto proyectoNuevo) throws ProyectoException {
+    public TProyecto crearProyecto(TProyecto proyectoNuevo) throws ProyectoYaExistenteException, ProyectoFieldInvalidException, ProyectoException {
         return portProyecto.crearProyecto(proyectoNuevo);
     }
 
     @Override
-    public Proyecto buscarByID(Long id) {
+    public TProyectoCompleto buscarByID(Long id) throws ProyectoFieldInvalidException, ProyectoException {
         return portProyecto.buscarByID(id);
     }
 
     @Override
-    public boolean eliminarProyecto(Proyecto proyectoEliminar) {
+    public TProyectoCompleto buscarByNombre( String nombre) throws ProyectoFieldInvalidException, ProyectoException{
+        return portProyecto.buscarByNombre(nombre);
+
+    }
+
+
+    @Override
+    public boolean eliminarProyecto(TProyecto proyectoEliminar) throws ProyectoFieldInvalidException, ProyectoException {
         return portProyecto.eliminarProyecto(proyectoEliminar);
     }
 
     @Override
-    public List<Proyecto> listarProyectos() {
+    public List<TProyecto> listarProyectos() {
         return portProyecto.listarProyectos();
     }
+
+    public TEmpleadoProyecto añadirEmpleadoAProyecto(TEmpleado e, TProyecto p, int horas) {
+        return portProyecto.añadirEmpleadoAProyecto(e, p, horas);
+    }
+
 }

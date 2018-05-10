@@ -1,8 +1,12 @@
 package com.rodrigo.TFG_cliente.Negocio.Modulo_Empleado.Serv_aplicacion;
 
 
-import com.rodrigo.TFG_cliente.Negocio.Modulo_Empleado.Entidad.Empleado;
+import com.rodrigo.TFG_cliente.Negocio.Modulo_Empleado.Entidad.Transfers.TEmpleado;
+import com.rodrigo.TFG_cliente.Negocio.Modulo_Empleado.Entidad.Transfers.TEmpleadoCompleto;
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Empleado.Excepciones.EmpleadoException;
+import com.rodrigo.TFG_cliente.Negocio.Modulo_Empleado.Excepciones.EmpleadoFieldInvalidException;
+import com.rodrigo.TFG_cliente.Negocio.Modulo_Empleado.Excepciones.EmpleadoLoginErroneo;
+import com.rodrigo.TFG_cliente.Negocio.Modulo_Empleado.Excepciones.EmpleadoYaExisteExcepcion;
 
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
@@ -14,28 +18,36 @@ import java.util.List;
         name = "Broker_SA_EmpleadoImpl")
 public interface IBroker_SA_Empleado {
 
+
     @WebMethod(operationName="crearEmpleado")
-    public Empleado crearEmpleado(@WebParam(name = "Empleado") Empleado empleadoNuevo)  throws EmpleadoException;;
+    public TEmpleadoCompleto crearEmpleado(@WebParam(name = "Empleado") TEmpleado empleadoNuevo) throws EmpleadoYaExisteExcepcion, EmpleadoFieldInvalidException, EmpleadoException;
 
     @WebMethod(operationName="buscarByID")
-    public Empleado buscarByID(@WebParam(name = "id") Long id);
+    public TEmpleadoCompleto buscarByID(@WebParam(name = "id") Long id) throws EmpleadoFieldInvalidException,  EmpleadoException;
 
 
     @WebMethod(operationName="eliminarEmpleado")
-    public boolean eliminarEmpleado(@WebParam(name = "Empleado") Empleado empleadoEliminar) ;
+    public boolean eliminarEmpleado(@WebParam(name = "empleadoEliminar") TEmpleado empleadoEliminar) throws EmpleadoFieldInvalidException, EmpleadoException;
 
 
     @WebMethod(operationName="listarEmpleados")
-    public List<Empleado> listarEmpleados();
+    public List<TEmpleado> listarEmpleados();
 
     @WebMethod(operationName="saludar")
     public String saludar(@WebParam(name="nombre") String nombre);
 
     @WebMethod(operationName="loginEmpleado")
-    public boolean loginEmpleado(String email, String pass) throws EmpleadoException;
+    public boolean loginEmpleado(String email, String pass) throws EmpleadoLoginErroneo, EmpleadoFieldInvalidException, EmpleadoException;
 
     @WebMethod(operationName="buscarByEmail")
-    public Empleado buscarByEmail(String email) throws EmpleadoException;
+    public TEmpleadoCompleto buscarByEmail(String email) throws EmpleadoFieldInvalidException, EmpleadoException;
+
+
+
+    @WebMethod(operationName="buscarByIDTransfer")
+    public TEmpleadoCompleto buscarByIDTransfer(@WebParam(name = "id") Long id) throws EmpleadoException;
+
+
 
 
 }

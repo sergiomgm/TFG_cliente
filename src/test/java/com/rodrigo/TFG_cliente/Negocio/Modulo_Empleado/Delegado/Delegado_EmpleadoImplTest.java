@@ -1,9 +1,22 @@
 package com.rodrigo.TFG_cliente.Negocio.Modulo_Empleado.Delegado;
 
-import com.rodrigo.TFG_cliente.Negocio.Modulo_Empleado.Entidad.Empleado;
-import com.rodrigo.TFG_cliente.Negocio.Modulo_Empleado.Entidad.EmpleadoTCompleto;
+import com.rodrigo.TFG_cliente.Negocio.Modulo_Departamento.Delegado.Delegado_Departamento;
+import com.rodrigo.TFG_cliente.Negocio.Modulo_Departamento.Entidad.Transfers.TDepartamentoCompleto;
+import com.rodrigo.TFG_cliente.Negocio.Modulo_Departamento.Excepciones.DepartamentoException;
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Empleado.Entidad.Rol;
+import com.rodrigo.TFG_cliente.Negocio.Modulo_Empleado.Entidad.Transfers.TEmpleado;
+import com.rodrigo.TFG_cliente.Negocio.Modulo_Empleado.Entidad.Transfers.TEmpleadoCompleto;
+import com.rodrigo.TFG_cliente.Negocio.Modulo_Empleado.Entidad.Transfers.TEmpleadoTCompleto;
+import com.rodrigo.TFG_cliente.Negocio.Modulo_Empleado.Entidad.Transfers.TEmpleadoTParcial;
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Empleado.Excepciones.EmpleadoException;
+import com.rodrigo.TFG_cliente.Negocio.Modulo_Empleado.Excepciones.EmpleadoFieldInvalidException;
+import com.rodrigo.TFG_cliente.Negocio.Modulo_Empleado.Excepciones.EmpleadoLoginErroneo;
+import com.rodrigo.TFG_cliente.Negocio.Modulo_Empleado.Excepciones.EmpleadoYaExisteExcepcion;
+import com.rodrigo.TFG_cliente.Negocio.Modulo_Proyecto.Delegado.Delegado_Proyecto;
+import com.rodrigo.TFG_cliente.Negocio.Modulo_Proyecto.Entidad.Transfers.TEmpleadoProyecto;
+import com.rodrigo.TFG_cliente.Negocio.Modulo_Proyecto.Entidad.Transfers.TProyectoCompleto;
+import com.rodrigo.TFG_cliente.Negocio.Modulo_Proyecto.Excepciones.ProyectoException;
+import com.rodrigo.TFG_cliente.Presentacion.Proxy.Excepciones.ProxyException;
 import com.rodrigo.TFG_cliente.Presentacion.Utils.EmailValidatorTest;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
@@ -12,47 +25,87 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.MethodSource;
-import org.junit.jupiter.params.provider.ValueSource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class Delegado_EmpleadoImplTest {
 
+    static Delegado_Empleado deleg;
 
-    private final static Logger log = LoggerFactory.getLogger(Delegado_EmpleadoImplTest.class);
+    static private TEmpleadoCompleto e1;
+    static TEmpleadoCompleto empleCompleto;
+    //    static Empleado emple2;
+    static TDepartamentoCompleto dept;
+    static TProyectoCompleto proy1;
 
-    private Empleado e1;
+    final static Logger log = LoggerFactory.getLogger(Delegado_EmpleadoImplTest.class);
 
 
-
-    /******************************************************************
-     **********************   METODO INICIALES   **********************
-     ******************************************************************/
+    /*******************************************************************
+     **********************   METODOS INICIALES   **********************
+     *******************************************************************/
 
     @BeforeAll
-    static void initSA() {
+    static void initSA() throws DepartamentoException, EmpleadoException, ProyectoException, ProxyException {
+        log.info("Creando Delegado...");
+        deleg = Delegado_Empleado.getInstance();
+
+
+//        empleCompleto = new EmpleadoTParcial("empleCompleto", "1234", Rol.ADMIN);
+        empleCompleto = deleg.buscarByID(20L);
+
+//        dept1 = FactoriaSA.getInstance().crearSA_Departamento().buscarBySiglas(dept1.getSiglas());
+
+        dept = Delegado_Departamento.getInstance().buscarBySiglas("DdP");
+
+        proy1 = Delegado_Proyecto.getInstance().buscarByID(1L);
+
+
+
+        /*//dept = new Departamento("Ingenieria del Software");
+        dept = FactoriaSA.getInstance().crearSA_Departamento().buscarByID(3L);
+
+        e1 = new EmpleadoTCompleto("empleTest", "1234", Rol.EMPLEADO, dept);
+
+        //dept = FactoriaSA.getInstance().crearSA_Departamento().buscarByID(1L);
+        //dept = FactoriaSA.getInstance().crearSA_Departamento().crearDepartamento(dept);
+
+        dept.getEmpleados().add(e1);
+        e1.setDepartamento(dept);
+
+        e1 = FactoriaSA.getInstance().crearSA_Empleado().buscarByEmail(e1.getEmail());*/
     }
 
     @BeforeEach
     void iniciarContexto() throws EmpleadoException {
-        e1 = new EmpleadoTCompleto("empleado", "1234", Rol.valueOf("EMPLEADO"));
+
+        String nombre = "empleTest";
+
         log.info("Creando empleado ");
-        if (Delegado_Empleado.getInstance().buscarByEmail(e1.getEmail()) == null) {
-            e1 = Delegado_Empleado.getInstance().crearEmpleado(e1);
-        }
+        TEmpleadoCompleto aux = deleg.buscarByEmail(nombre.toLowerCase().concat("@gmail.com"));
+
+        if (aux == null) {
+            e1 = deleg.crearEmpleado(new TEmpleadoTCompleto(nombre, "1234", Rol.EMPLEADO, dept.getId()));
+
+        } else
+            e1 = aux;
     }
 
 
     @AfterEach
-    void finalizarContexto() {
+    void finalizarContexto() throws EmpleadoException {
 
+       /* assertFalse(deleg.transactionIsActive(), "Transacción no cerrada");
+
+        assertFalse(deleg.emIsOpen(), "Entity Manager no cerrado");
+*/
         log.info("Eliminado empleado");
-        Delegado_Empleado.getInstance().eliminarEmpleado(e1);
+        deleg.eliminarEmpleado(e1.getEmpleado());
     }
-
-
 
 
     /******************************************************************
@@ -61,45 +114,49 @@ class Delegado_EmpleadoImplTest {
 
 
     @ParameterizedTest
-    @CsvSource({"Admin, 1234, ADMIN", "rodri, 1234, EMPLEADO", "emple,1234, EMPLEADO"})
+    @CsvSource({"crear1, 1234, ADMIN", "crear2, 1234, EMPLEADO", "crear3, 1234, EMPLEADO"})
     void crearEmpleado(String nombre, String pass, String rol) throws EmpleadoException {
 
-        Empleado e1 = new EmpleadoTCompleto(nombre, pass, Rol.valueOf(rol));
-        log.debug("e1.getRol() = '" + e1.getRol() + "'");
 
-        Empleado empleCreado = Delegado_Empleado.getInstance().crearEmpleado(e1);
+        TEmpleadoTParcial e = new TEmpleadoTParcial(nombre, pass, Rol.valueOf(rol), dept.getId());
 
+        TEmpleadoCompleto empleCreado = deleg.crearEmpleado(e);
+
+
+        e.setId(empleCreado.getEmpleado().getId());
+        log.debug("empleCreado = '" + empleCreado + "'");
+        log.debug("e1          = '" + e + "'");
 
         assertNotNull(empleCreado);
+        assertNotNull(empleCreado.getEmpleado().getId());
 
-        e1.setId(empleCreado.getId());
-        assertTrue(empleCreado.equalsWithOutVersion(e1));
+        assertEquals(e.toString(), empleCreado.getEmpleado().toString());
 
 
-        Delegado_Empleado.getInstance().eliminarEmpleado(empleCreado);
+        deleg.eliminarEmpleado(empleCreado.getEmpleado());
     }
 
 
     @Test
     void crearEmpleadoExistente() throws EmpleadoException {
 
-        /*Usuario e1 = new Usuario("juan", "1234", Rol.valueOf("EMPLEADO"));
+        /*Empleado e1 = new EmpleadoTParcial("juan", "1234", Rol.valueOf(rol), dept);
 
         log.info("Creando empleado 1");
-        e1 = DelegadoDelNegocio.crearEmpleado(e1);*/
+        e1 = deleg.crearEmpleado(e1);*/
 
 
-        Throwable exception = assertThrows(EmpleadoException.class, () -> {
+        Throwable exception = assertThrows(EmpleadoYaExisteExcepcion.class, () -> {
 
-            Empleado e2 = e1;
+            TEmpleadoCompleto e2 = e1;
 
             log.info("Creando empleado 2");
-            e2 = Delegado_Empleado.getInstance().crearEmpleado(e2);
+            e2 = deleg.crearEmpleado(e2.getEmpleado());
 
         });
 
 
-        /*DelegadoDelNegocio.eliminarEmpleado(e1);*/
+        /*deleg.eliminarEmpleado(e1);*/
     }
 
     @Test
@@ -107,18 +164,14 @@ class Delegado_EmpleadoImplTest {
 
 
         Throwable exception = assertThrows(EmpleadoException.class, () -> {
-            Empleado empleCreado;
-            empleCreado = Delegado_Empleado.getInstance().crearEmpleado(null);
+            TEmpleadoCompleto empleCreado;
+            empleCreado = deleg.crearEmpleado(null);
 
             assertNull(empleCreado);
 
         });
 
-
-        log.error("Mensaje excepcion: " + exception.getMessage());
-        log.error("EXCEPCION!!", exception);
-
-
+        log.error("----  EXCEPCION! ----", exception);
 
     }
 
@@ -128,7 +181,7 @@ class Delegado_EmpleadoImplTest {
 
         Throwable exception = assertThrows(EmpleadoException.class, () -> {
 
-            Empleado empleCreado = Delegado_Empleado.getInstance().crearEmpleado(new EmpleadoTCompleto());
+            TEmpleadoCompleto empleCreado = deleg.crearEmpleado(new TEmpleadoTParcial());
 
         });
 
@@ -143,9 +196,9 @@ class Delegado_EmpleadoImplTest {
         log.info("forzando email = null");
         Throwable ex1 = assertThrows(EmpleadoException.class, () -> {
 
-            e1.setEmail(null);
+            e1.getEmpleado().setEmail(null);
             log.debug("e1= " + e1);
-            Empleado empleCreado = Delegado_Empleado.getInstance().crearEmpleado(e1);
+            TEmpleadoCompleto empleCreado = deleg.crearEmpleado(e1.getEmpleado());
 
         });
 
@@ -160,9 +213,9 @@ class Delegado_EmpleadoImplTest {
         log.info("forzando email = ''");
         Throwable ex2 = assertThrows(EmpleadoException.class, () -> {
 
-            e1.setEmail("");
-            log.debug("e1= " + e1);
-            Empleado empleCreado = Delegado_Empleado.getInstance().crearEmpleado(e1);
+            e1.getEmpleado().setEmail("");
+            log.debug("e1 = '" + e1 + "'");
+            TEmpleadoCompleto empleCreado = deleg.crearEmpleado(e1.getEmpleado());
 
         });
         log.info("Excepcion capturada:" + ex2.getMessage());
@@ -171,96 +224,134 @@ class Delegado_EmpleadoImplTest {
     }
 
 
-/*
+    /******************************************************************
+     ******************   TEST BUSCAR EMPLEADO ID  ********************
+     ******************************************************************/
+
+
     @Test
-    void buscarEmpleadoByID() {
-        log.info("BuscarUserTest");
-        Usuario nuevo = DelegadoDelNegocio.crearEmpleado(new Usuario("test2", "1234"));
-        Usuario userB = DelegadoDelNegocio.buscarEmpleadoByID(nuevo.getId());
+    void buscarByID() throws EmpleadoException {
+        log.info("SA_EmpleadoImplTest.buscarUsuarioByID");
 
-        log.info(userB.toString());
-
+        TEmpleadoCompleto e = deleg.buscarByID(e1.getEmpleado().getId());
+        log.info(e.toString());
 
 
-        assertNotNull(userB);
-        assertEquals(nuevo.getId(), userB.getId());
-        assertEquals(nuevo.getNombre(), userB.getNombre());
+        assertNotNull(e);
+        assertEquals(e.getEmpleado().getId(), e1.getEmpleado().getId());
+        assertEquals(e.getEmpleado().getNombre(), e1.getEmpleado().getNombre());
+        assertEquals(e.toString(), e1.toString());
+
+        //deleg.eliminarEmpleado(nuevo);
 
     }
 
 
     @Test
-    void eliminarEmpleado() {
-        log.info("EliminarUser Test");
+    void buscarByIDNegativo() throws EmpleadoException {
+        log.info("SA_EmpleadoImplTest.buscarByIDNegativo");
 
-        Usuario u = new Usuario("Eliminar", "pass");
-        u = DelegadoDelNegocio.crearEmpleado(u);
-        log.debug("Creado: " + u.toString());
+        Throwable ex2 = assertThrows(EmpleadoException.class, () -> {
 
-        Boolean resutl = DelegadoDelNegocio.eliminarEmpleado(u);
-        log.info("Eliminado: " + resutl);
-        assertTrue(resutl);
+            TEmpleadoCompleto e = deleg.buscarByID(-2L);
 
-        assertNull(DelegadoDelNegocio.buscarEmpleadoByID(u.getId()));
+
+        });
+        log.info("Excepcion capturada:" + ex2.getMessage());
+
+    }
+
+    @Test
+    void buscarByIDCero() throws EmpleadoException {
+        log.info("SA_EmpleadoImplTest.buscarByIDCero");
+
+        Throwable ex2 = assertThrows(EmpleadoException.class, () -> {
+
+            TEmpleadoCompleto e = deleg.buscarByID(0L);
+
+
+        });
+        log.info("Excepcion capturada:" + ex2.getMessage());
 
 
     }
 
 
+    @Test
+    void buscarByIDInexixtente() throws EmpleadoException {
+        log.info("SA_EmpleadoImplTest.buscarByIDInexixtente");
+
+        TEmpleadoCompleto buscado = deleg.buscarByID(30000L);
+
+        assertNull(buscado);
+
+    }
+
+
+    /******************************************************************
+     ******************   TEST ELIMINAR EMPLEADO   ********************
+     ******************************************************************/
+
 
     @Test
-    void listarEmpleados() {
+    void eliminarEmpleado() throws EmpleadoException {
+        log.info("SA_EmpleadoImplTest.eliminarEmpleado");
+
+
+        log.info("Creando empleado");
+        TEmpleadoCompleto e = deleg.crearEmpleado(new TEmpleadoTParcial("Eliminar4", "pass", Rol.EMPLEADO, dept.getId()));
+
+        log.info("Asignando proyecto a empleado");
+        TEmpleadoProyecto ep = Delegado_Proyecto.getInstance().añadirEmpleadoAProyecto(e.getEmpleado(), proy1.getProyecto(), 5);
+
+        proy1.agregarEmpleadoProyecto(ep, e.getEmpleado());
+        e.agregarEmpleadoProyecto(ep, proy1.getProyecto());
+
+        log.info("Eliminando empleado");
+        boolean resutl = deleg.eliminarEmpleado(e.getEmpleado());
+
+        log.debug("resutl = '" + resutl + "'");
+
+
+        assertNull(deleg.buscarByID(e.getId()));
+
+    }
+
+
+    /******************************************************************
+     *******************   TEST LISTAR EMPLEADOS   ********************
+     ******************************************************************/
+
+
+    @Test
+    void listarUsuarios() {
         log.info("ListarUsersTest");
 
-        List lista = DelegadoDelNegocio.listarEmpleados();
+        List<TEmpleado> lista = deleg.listarEmpleados();
+
         assertNotNull(lista);
 
-    }
-*/
-
-
-
-    @ParameterizedTest(name = "#{index} con [{arguments}]")
-    @ValueSource(strings = { "Rodrigo", "Claudia", "Antonio" })
-    void saludar(String nombre) {
-
-        log.info("nombre = [" + nombre + "]");
-
-        String str = "Hola " + nombre + ", un saludo desde el servidor CXF :)";
-
-
-        String saludo = Delegado_Empleado.getInstance().saludar(nombre);
-
-        log.info("str = '" + str + "'");
-        log.info("saludo = '" + saludo + "'");
-
-        assertNotNull(saludo);
-
-
-        assertEquals(saludo, str);
+        log.info("************************************************************");
+        log.info("************************************************************");
+        lista.stream().forEach(System.out::println);
+        log.info("************************************************************");
+        log.info("************************************************************");
 
     }
 
+/*
     @Test
-    void saludarNull() {
+    void saludo() {
+        log.info("---- SA_EmpleadoImplTest.saludo ---- ");
 
-        String nombre = null;
-        log.info("nombre = [" + nombre + "]");
-
+        String nombre = "Rodrigo";
         String str = "Hola " + nombre + ", un saludo desde el servidor CXF :)";
 
-        String saludo = Delegado_Empleado.getInstance().saludar(nombre);
+        assertNotNull(deleg.saludar(nombre));
 
-        log.info("str = '" + str + "'");
-        log.info("saludo = '" + saludo + "'");
-
-        assertNotNull(saludo);
-
-        assertEquals(saludo, str);
-
+        assertTrue(deleg.saludar(nombre).equals(str));
     }
-
-
+    */
 
 
     /******************************************************************
@@ -268,17 +359,16 @@ class Delegado_EmpleadoImplTest {
      ******************************************************************/
 
 
-
     //@ParameterizedTest(name = "-> {0}, {1}")
     //@CsvSource({"emple, 1234, EMPLEADO", "admin, 1234, ADMIN"})
     @Test
     void loginTest() throws EmpleadoException {
         String email = e1.getEmail();
-        String pass = e1.getPassword();
+        String pass = e1.getEmpleado().getPassword();
 
 
         log.info("Login: {email='" + email + ", pass='" + pass + "'}");
-        Boolean result = Delegado_Empleado.getInstance().loginEmpleado(email, pass);
+        Boolean result = deleg.loginEmpleado(email, pass);
 
         log.debug("result = '" + result + "'");
         assertTrue(result);
@@ -289,9 +379,9 @@ class Delegado_EmpleadoImplTest {
     void loginParamErroneosTest() {
 
         log.info("Login email erroneo");
-        Throwable ex1 = assertThrows(EmpleadoException.class, () -> {
+        Throwable ex1 = assertThrows(EmpleadoFieldInvalidException.class, () -> {
 
-            boolean login = Delegado_Empleado.getInstance().loginEmpleado("kajsdnflaf", "1234");
+            boolean login = deleg.loginEmpleado("kajsdnflaf", "1234");
 
             assertFalse(login);
 
@@ -306,9 +396,9 @@ class Delegado_EmpleadoImplTest {
     void loginEmpleadoInexistenteTest() {
 
         log.info("Login empleado inexistente");
-        Throwable ex1 = assertThrows(EmpleadoException.class, () -> {
+        Throwable ex1 = assertThrows(EmpleadoLoginErroneo.class, () -> {
 
-            boolean login = Delegado_Empleado.getInstance().loginEmpleado("kajsdnflaf@gmail.com", "1234");
+            boolean login = deleg.loginEmpleado("kajsdnflaf@gmail.com", "1234");
             assertFalse(login);
 
         });
@@ -321,9 +411,9 @@ class Delegado_EmpleadoImplTest {
     void loginEmailNulloVacioTest() {
 
         log.info("Login email null");
-        Throwable ex1 = assertThrows(EmpleadoException.class, () -> {
+        Throwable ex1 = assertThrows(EmpleadoFieldInvalidException.class, () -> {
 
-            boolean login = Delegado_Empleado.getInstance().loginEmpleado(null, "1234");
+            boolean login = deleg.loginEmpleado(null, "1234");
 
             assertFalse(login);
 
@@ -333,9 +423,9 @@ class Delegado_EmpleadoImplTest {
 
 
         log.info("Login email vacio");
-        Throwable ex2 = assertThrows(EmpleadoException.class, () -> {
+        Throwable ex2 = assertThrows(EmpleadoFieldInvalidException.class, () -> {
 
-            boolean login = Delegado_Empleado.getInstance().loginEmpleado("", "1234");
+            boolean login = deleg.loginEmpleado("", "1234");
 
             assertFalse(login);
 
@@ -350,9 +440,9 @@ class Delegado_EmpleadoImplTest {
     void loginPassNulloVacioTest() {
 
         log.info("Login pass null");
-        Throwable ex1 = assertThrows(EmpleadoException.class, () -> {
+        Throwable ex1 = assertThrows(EmpleadoFieldInvalidException.class, () -> {
 
-            boolean login = Delegado_Empleado.getInstance().loginEmpleado("kajsdnflaf", null);
+            boolean login = deleg.loginEmpleado("kajsdnflaf", null);
             assertFalse(login);
 
         });
@@ -360,9 +450,9 @@ class Delegado_EmpleadoImplTest {
         log.info("Excepcion capturada:" + ex1.getMessage());
 
         log.info("Login pass vacia");
-        Throwable ex2 = assertThrows(EmpleadoException.class, () -> {
+        Throwable ex2 = assertThrows(EmpleadoFieldInvalidException.class, () -> {
 
-            boolean login = Delegado_Empleado.getInstance().loginEmpleado("kajsdnflaf", "");
+            boolean login = deleg.loginEmpleado("kajsdnflaf", "");
             assertFalse(login);
 
         });
@@ -372,64 +462,70 @@ class Delegado_EmpleadoImplTest {
     }
 
 
-
     /******************************************************************
      *******************   TEST BUSCAR BY EMAIL   *********************
      ******************************************************************/
 
     @ParameterizedTest
-    @CsvSource({"rodri, 1234, EMPLEADO", "emple,1234, EMPLEADO"})
+    @CsvSource({"buscar1, 1234, EMPLEADO", "buscar2, 1234, EMPLEADO"})
     void buscarByEmail(String nombre, String pass, String rol) throws EmpleadoException {
-        //Empleado nuevo, e1 = new EmpleadoTCompleto(nombre, pass, Rol.valueOf(rol));
+        TEmpleadoCompleto nuevo, e1 = new TEmpleadoCompleto(new TEmpleadoTParcial(nombre, pass, Rol.valueOf(rol), dept.getId()), dept.getDepartamento());
+        dept.getEmpleados().put(e1.getId(), e1.getEmpleado());
+
         String email = e1.getEmail();
 
-//        log.info("Creando empleado");
-//        nuevo = Delegado_Proyecto.getInstance().crearEmpleado(e1);
+        log.info("Creando empleado");
+        nuevo = deleg.crearEmpleado(e1.getEmpleado());
 
         log.info("buscnado empleado");
-        e1 = Delegado_Empleado.getInstance().buscarByEmail(email);
+        e1 = deleg.buscarByEmail(email);
 
-        log.debug("e1 = '" + e1 + "'");
-//        assertTrue(e1.equalsWithOutVersion(nuevo));
+        assertEquals(e1.toString(), nuevo.toString());
 
-        //Delegado_Proyecto.getInstance().eliminarEmpleado(nuevo);
+        deleg.eliminarEmpleado(nuevo.getEmpleado());
 
     }
 
-    //@Test
-    //void pruebaNuevoBuscarByEmail() throws EmpleadoException {
-    public static void main(String[] args) throws EmpleadoException {
-
-        Empleado nuevo = null, e1 = new EmpleadoTCompleto("emple1", "1234", Rol.ADMIN);
+    /*public static void main(String[] args) throws EmpleadoException, DepartamentoException {
+        initSA();
+        Empleado nuevo, e1 = new EmpleadoTParcial("empleado", "1234", Rol.EMPLEADO, dept);
         String email = e1.getEmail();
 
-        log.info("buscnado empleado");
-        e1 = Delegado_Empleado.getInstance().buscarByEmail(email);
+        //log.info("Creando empleado");
+        //nuevo = deleg.crearEmpleado(e1);
 
-        log.info("*********************************************************");
-        log.info("*********************************************************");
-        log.debug("e1 = '" + e1 + "'");
-        log.info("*********************************************************");
-        log.info("*********************************************************");
+        log.info("buscnado empleado");
+        e1 = deleg.buscarByEmail(email);
+
+    }*/
+
+/*    @Test
+    void buscarByEmailSimple() throws EmpleadoException {
+        Empleado nuevo, e1 = new EmpleadoTParcial("administrador", "1234", Rol.ADMIN, dept);
+        String email = e1.getEmail();
+
+        log.info("Creando empleado");
+        //nuevo = deleg.crearEmpleado(e1);
+
+        log.info("buscnado empleado");
+        e1 = deleg.buscarByEmail(email);
+
         //assertTrue(e1.equalsWithOutVersion(nuevo));
 
-        //Delegado_Departamento.getInstance().eliminarEmpleado(nuevo);
+        //deleg.eliminarEmpleado(nuevo);
 
-    }
+    }*/
 
     @Test
     void buscarByEmailInexistente() throws EmpleadoException {
 
 
-        Empleado e2 = Delegado_Empleado.getInstance().buscarByEmail("emailInexistente@gmail.com");
+        TEmpleadoCompleto e2 = deleg.buscarByEmail("emailInexistente@gmail.com");
 
         assertNull(e2);
 
-        Delegado_Empleado.getInstance().eliminarEmpleado(e2);
-
 
     }
-
 
 
     @ParameterizedTest
@@ -437,10 +533,10 @@ class Delegado_EmpleadoImplTest {
     void buscarByEmailIncorrecto(String[] Email) {
 
 
-        Throwable ex1 = assertThrows(EmpleadoException.class, () -> {
+        Throwable ex1 = assertThrows(EmpleadoFieldInvalidException.class, () -> {
 
             for (String temp : Email) {
-                Delegado_Empleado.getInstance().buscarByEmail(temp);
+                deleg.buscarByEmail(temp);
             }
 
 
@@ -454,9 +550,9 @@ class Delegado_EmpleadoImplTest {
     @Test
     void buscarByEmailVacio() {
 
-        Throwable ex1 = assertThrows(EmpleadoException.class, () -> {
+        Throwable ex1 = assertThrows(EmpleadoFieldInvalidException.class, () -> {
 
-            Empleado e2 = Delegado_Empleado.getInstance().buscarByEmail("");
+            TEmpleadoCompleto e2 = deleg.buscarByEmail("");
 
 
         });
@@ -468,9 +564,9 @@ class Delegado_EmpleadoImplTest {
 
     @Test
     void buscarByEmailNull() {
-        Throwable ex1 = assertThrows(EmpleadoException.class, () -> {
+        Throwable ex1 = assertThrows(EmpleadoFieldInvalidException.class, () -> {
 
-            Empleado e2 = Delegado_Empleado.getInstance().buscarByEmail(null);
+            TEmpleadoCompleto e2 = deleg.buscarByEmail(null);
 
 
         });
@@ -480,19 +576,13 @@ class Delegado_EmpleadoImplTest {
     }
 
 
-
-
-
     /******************************************************************
      *********************   METODOS AUXILIARES   *********************
      ******************************************************************/
 
 
-
     public static Object[][] InvalidEmailProvider() {
         return EmailValidatorTest.InvalidEmailProvider();
     }
-
-
 
 }

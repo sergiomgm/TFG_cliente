@@ -1,16 +1,20 @@
 package com.rodrigo.TFG_cliente.Negocio.Modulo_Empleado.Delegado;
 
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Empleado.Delegado.impl.Delegado_EmpleadoImpl;
-import com.rodrigo.TFG_cliente.Negocio.Modulo_Empleado.Entidad.Empleado;
+import com.rodrigo.TFG_cliente.Negocio.Modulo_Empleado.Entidad.Transfers.TEmpleado;
+import com.rodrigo.TFG_cliente.Negocio.Modulo_Empleado.Entidad.Transfers.TEmpleadoCompleto;
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Empleado.Excepciones.EmpleadoException;
 import com.rodrigo.TFG_cliente.Negocio.DelegadoDelNegocio;
+import com.rodrigo.TFG_cliente.Negocio.Modulo_Empleado.Excepciones.EmpleadoFieldInvalidException;
+import com.rodrigo.TFG_cliente.Negocio.Modulo_Empleado.Excepciones.EmpleadoLoginErroneo;
+import com.rodrigo.TFG_cliente.Negocio.Modulo_Empleado.Excepciones.EmpleadoYaExisteExcepcion;
 import com.rodrigo.TFG_cliente.Presentacion.Proxy.Excepciones.ProxyException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.List;
 
-public abstract class Delegado_Empleado implements DelegadoDelNegocio {
+public abstract class Delegado_Empleado implements DelegadoDelNegocio{
 
     private final static Logger log = LoggerFactory.getLogger(Delegado_Empleado.class);
 
@@ -37,17 +41,29 @@ public abstract class Delegado_Empleado implements DelegadoDelNegocio {
         return ourInstance;
     }
 
-    public abstract Empleado crearEmpleado(Empleado empleadoNuevo) throws EmpleadoException;
 
-    public abstract Empleado buscarByID(Long id);
+    
+    public abstract TEmpleadoCompleto crearEmpleado(TEmpleado empleadoNuevo) throws EmpleadoYaExisteExcepcion, EmpleadoFieldInvalidException, EmpleadoException;
 
-    public abstract boolean eliminarEmpleado(Empleado empleadoEliminar);
+    
+    public abstract TEmpleadoCompleto buscarByID(Long id) throws EmpleadoFieldInvalidException, EmpleadoException;
 
-    public abstract List<Empleado> listarEmpleados();
+    
+    public abstract boolean eliminarEmpleado(TEmpleado empleadoEliminar) throws EmpleadoFieldInvalidException, EmpleadoException ;
 
-    public abstract String saludar(String nombre);
+    
+    public abstract List<TEmpleado> listarEmpleados();
 
-    public abstract boolean loginEmpleado(String email, String pass) throws EmpleadoException;
+    
+    public abstract String saludar(String nombre) ;
 
-    public abstract Empleado buscarByEmail(String email) throws EmpleadoException;
+    
+    public abstract boolean loginEmpleado(String email, String pass) throws EmpleadoLoginErroneo, EmpleadoFieldInvalidException, EmpleadoException;
+
+    
+    public abstract TEmpleadoCompleto buscarByEmail(String email) throws EmpleadoFieldInvalidException, EmpleadoException ;
+
+
+    
+    public abstract TEmpleadoCompleto buscarByIDTransfer(Long id) throws EmpleadoFieldInvalidException, EmpleadoException ;
 }

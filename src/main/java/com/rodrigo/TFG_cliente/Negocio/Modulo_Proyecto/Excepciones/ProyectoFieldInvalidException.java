@@ -2,7 +2,7 @@ package com.rodrigo.TFG_cliente.Negocio.Modulo_Proyecto.Excepciones;
 
 import org.hibernate.PropertyValueException;
 
-public class ProyectoFieldNullException extends ProyectoException {
+public class ProyectoFieldInvalidException extends ProyectoException {
 
 
     private String message;
@@ -10,22 +10,24 @@ public class ProyectoFieldNullException extends ProyectoException {
     private String propertyName;
 
 
+    public ProyectoFieldInvalidException(String message) {
+        super(message);
+    }
 
-    public ProyectoFieldNullException(PropertyValueException cause) {
+
+    public ProyectoFieldInvalidException(PropertyValueException cause) {
         super(cause);
 
         //Nombre de la entidad
         String[] arr = cause.getEntityName().split("\\.");
-        this.entityName = arr[arr.length-1];
+        this.entityName = arr[arr.length - 1];
 
         //nombre del atributo de la clase
         arr = cause.getPropertyName().split("\\.");
-        this.propertyName = arr[arr.length-1];
+        this.propertyName = arr[arr.length - 1];
 
         this.message = String.format("Error en el atributo %s.%s", entityName, propertyName);
     }
-
-
 
 
     public String getPropertyName() {
