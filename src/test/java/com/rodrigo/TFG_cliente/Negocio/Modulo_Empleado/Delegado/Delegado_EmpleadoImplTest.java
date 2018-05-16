@@ -77,7 +77,7 @@ class Delegado_EmpleadoImplTest {
         dept.getEmpleados().add(e1);
         e1.setDepartamento(dept);
 
-        e1 = FactoriaSA.getInstance().crearSA_Empleado().buscarByEmail(e1.getEmail());*/
+        e1 = FactoriaSA.getInstance().crearSA_Empleado().buscarByEmail(e1.getSiglas());*/
     }
 
     @BeforeEach
@@ -104,7 +104,7 @@ class Delegado_EmpleadoImplTest {
         assertFalse(deleg.emIsOpen(), "Entity Manager no cerrado");
 */
         log.info("Eliminado empleado");
-        deleg.eliminarEmpleado(e1.getEmpleado());
+        deleg.eliminarEmpleado(e1.getEmpleado().getId());
     }
 
 
@@ -133,7 +133,7 @@ class Delegado_EmpleadoImplTest {
         assertEquals(e.toString(), empleCreado.getEmpleado().toString());
 
 
-        deleg.eliminarEmpleado(empleCreado.getEmpleado());
+        deleg.eliminarEmpleado(empleCreado.getEmpleado().getId());
     }
 
 
@@ -308,7 +308,7 @@ class Delegado_EmpleadoImplTest {
         e.agregarEmpleadoProyecto(ep, proy1.getProyecto());
 
         log.info("Eliminando empleado");
-        boolean resutl = deleg.eliminarEmpleado(e.getEmpleado());
+        boolean resutl = deleg.eliminarEmpleado(e.getEmpleado().getId());
 
         log.debug("resutl = '" + resutl + "'");
 
@@ -482,14 +482,14 @@ class Delegado_EmpleadoImplTest {
 
         assertEquals(e1.toString(), nuevo.toString());
 
-        deleg.eliminarEmpleado(nuevo.getEmpleado());
+        deleg.eliminarEmpleado(nuevo.getEmpleado().getId());
 
     }
 
     /*public static void main(String[] args) throws EmpleadoException, DepartamentoException {
         initSA();
         Empleado nuevo, e1 = new EmpleadoTParcial("empleado", "1234", Rol.EMPLEADO, dept);
-        String email = e1.getEmail();
+        String email = e1.getSiglas();
 
         //log.info("Creando empleado");
         //nuevo = deleg.crearEmpleado(e1);
@@ -502,7 +502,7 @@ class Delegado_EmpleadoImplTest {
 /*    @Test
     void buscarByEmailSimple() throws EmpleadoException {
         Empleado nuevo, e1 = new EmpleadoTParcial("administrador", "1234", Rol.ADMIN, dept);
-        String email = e1.getEmail();
+        String email = e1.getSiglas();
 
         log.info("Creando empleado");
         //nuevo = deleg.crearEmpleado(e1);

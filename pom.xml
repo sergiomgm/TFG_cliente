@@ -265,12 +265,12 @@
         </dependency>
 
 
-        <!-- https://mvnrepository.com/artifact/org.eclipse.persistence/org.eclipse.persistence.moxy -->
-        <dependency>
-            <groupId>org.eclipse.persistence</groupId>
-            <artifactId>org.eclipse.persistence.moxy</artifactId>
-            <version>${moxy.version}</version>
-        </dependency>
+        <!--&lt;!&ndash; https://mvnrepository.com/artifact/org.eclipse.persistence/org.eclipse.persistence.moxy &ndash;&gt;-->
+        <!--<dependency>-->
+            <!--<groupId>org.eclipse.persistence</groupId>-->
+            <!--<artifactId>org.eclipse.persistence.moxy</artifactId>-->
+            <!--<version>${moxy.version}</version>-->
+        <!--</dependency>-->
 
 
 

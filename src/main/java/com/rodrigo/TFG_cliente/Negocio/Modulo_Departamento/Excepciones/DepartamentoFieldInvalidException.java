@@ -2,7 +2,7 @@ package com.rodrigo.TFG_cliente.Negocio.Modulo_Departamento.Excepciones;
 
 import org.hibernate.PropertyValueException;
 
-public class DepartamentoFieldNullException extends DepartamentoException {
+public class DepartamentoFieldInvalidException extends DepartamentoException {
 
 
 
@@ -10,8 +10,17 @@ public class DepartamentoFieldNullException extends DepartamentoException {
     private String entityName;
     private String propertyName;
 
+    public DepartamentoFieldInvalidException() {
+        super("Atributo invalido");
+    }
 
-    public DepartamentoFieldNullException(PropertyValueException cause) {
+
+    public DepartamentoFieldInvalidException(String message) {
+        super(message);
+        this.message = message;
+    }
+
+    public DepartamentoFieldInvalidException(PropertyValueException cause) {
         super(cause);
 
         //Nombre de la entidad

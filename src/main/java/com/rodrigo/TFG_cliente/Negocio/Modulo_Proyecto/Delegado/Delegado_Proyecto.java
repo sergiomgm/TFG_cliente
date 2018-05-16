@@ -53,7 +53,7 @@ public abstract class Delegado_Proyecto implements DelegadoDelNegocio {
     public abstract TProyectoCompleto buscarByNombre(String nombre) throws ProyectoFieldInvalidException, ProyectoException;
 
 
-    public abstract boolean eliminarProyecto(TProyecto proyectoEliminar) throws ProyectoFieldInvalidException, ProyectoException;
+    public abstract boolean eliminarProyecto(Long id) throws ProyectoFieldInvalidException, ProyectoException;
 
     public abstract List<TProyecto> listarProyectos();
 

@@ -59,13 +59,13 @@ public class LoginModule implements javax.security.auth.spi.LoginModule {
 
                 if (loginOk) {
                     log.info("LOGIN CORRECTO");
-                    //Usuario usuario = FactoriaSA.getInstance().crearSA_Usuario().buscarByEmail(email);
-                    //login = usuario.getEmail();
-                    login = email;
+                    Usuario usuario = FactoriaSA.getInstance().crearSA_Usuario().buscarByEmail(email);
+                    login = usuario.getEmail();
+//                    login = email;
                     userGroups = new ArrayList<String>();
-//                    userGroups.add(usuario.getRol().toString());
-                    userGroups.add(Rol.ADMIN.toString());
-                    log.debug("name = " + email);
+                    userGroups.add(usuario.getRol().toString());
+//                    userGroups.add(Rol.ADMIN.toString());
+                    log.info("name = " + email);
                 }
 
                 return loginOk;

@@ -1,8 +1,11 @@
 package com.rodrigo.TFG_cliente.Presentacion.actions;
 
 import com.rodrigo.TFG_cliente.Negocio.FactoriaSA.FactoriaSA;
+import com.rodrigo.TFG_cliente.Negocio.Modulo_Departamento.Delegado.Delegado_Departamento;
+import com.rodrigo.TFG_cliente.Negocio.Modulo_Departamento.Entidad.Transfers.TDepartamento;
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Empleado.Delegado.Delegado_Empleado;
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Empleado.Entidad.Transfers.TEmpleado;
+import com.rodrigo.TFG_cliente.Negocio.Modulo_Empleado.Excepciones.EmpleadoException;
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Usuario.Entidad.Usuario;
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Usuario.Excepciones.UsuarioException;
 import com.rodrigo.TFG_cliente.Presentacion.Proxy.Excepciones.ProxyException;
@@ -15,6 +18,7 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import java.io.Serializable;
 import java.security.Principal;
+import java.util.Arrays;
 import java.util.List;
 
 @ManagedBean(name = "numerosAction")
@@ -27,21 +31,29 @@ public class NumerosAction implements Serializable {
     @ManagedProperty(value = "#{viewBean}")
     private String viewRequest;
 
-    private TEmpleado empleado;
+    private Long id;
 
+    private TEmpleado empleado;
 
     private Usuario usuario;
 
+    private String nombre;
 
     private String saludo;
 
     List<TEmpleado> lista;
+
+
+
+    private String mensajeERROR;
+    private TDepartamento[] listaDepart;
 
     public NumerosAction() throws ProxyException, UsuarioException {
         log.info("En constructor de Bean [NumerosAction]");
 
 
         try {
+
             Principal principal = FacesContext.getCurrentInstance().getExternalContext().getUserPrincipal();
             String email = principal.getName();
             usuario = FactoriaSA.getInstance().crearSA_Usuario().buscarByEmail(email);
@@ -66,6 +78,28 @@ public class NumerosAction implements Serializable {
         return viewRequest;
     }
 
+
+    public String buscarById() {
+
+
+        log.info("id: " + id);
+        try {
+             empleado = Delegado_Empleado.getInstance().buscarByID(id).getEmpleado();
+            log.info("empleado = '" + empleado + "'");
+            mensajeERROR = null;
+        } catch (EmpleadoException e) {
+
+            log.error("****** EXCEPCION!!! ");
+            log.error(e.getMessage());
+            mensajeERROR = e.getMessage();
+            empleado = null;
+
+        }
+        return viewRequest;
+    }
+
+
+
     public String listarEmpleados() {
 
         log.info("listar");
@@ -81,6 +115,22 @@ public class NumerosAction implements Serializable {
     }
 
 
+
+    public String listarDepartamentos() {
+
+        log.info("listar departamentos");
+
+        listaDepart = Delegado_Departamento.getInstance().listarDepartamentos();
+
+        if (listaDepart.length >= 1) {
+            log.info("--- Lista con depart ---");
+            Arrays.stream(listaDepart).forEach(System.out::println);
+        }
+
+        log.info("Redirigiendo a vista...");
+        return viewRequest;
+    }
+
     public String getNombre() {
         return nombre;
     }
@@ -89,7 +139,7 @@ public class NumerosAction implements Serializable {
         this.nombre = nombre;
     }
 
-    private String nombre;
+
 
     public String getSaludo() {
         return saludo;
@@ -132,4 +182,28 @@ public class NumerosAction implements Serializable {
         this.usuario = usuario;
     }
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getMensajeERROR() {
+        return mensajeERROR;
+    }
+
+    public void setMensajeERROR(String mensajeERROR) {
+        this.mensajeERROR = mensajeERROR;
+    }
+
+    public TDepartamento[] getListaDepart() {
+        return listaDepart;
+    }
+
+    public void setListaDepart(TDepartamento[] listaDepart) {
+        this.listaDepart = listaDepart;
+    }
 }
+

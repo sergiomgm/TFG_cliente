@@ -4,6 +4,7 @@ import com.rodrigo.TFG_cliente.Negocio.Modulo_Empleado.Entidad.Transfers.TEmplea
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Proyecto.Entidad.Transfers.TEmpleadoProyecto;
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Proyecto.Entidad.Transfers.TProyecto;
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Proyecto.Entidad.Transfers.TProyectoCompleto;
+import com.rodrigo.TFG_cliente.Negocio.Modulo_Proyecto.Excepciones.ProyectoConEmpleadosException;
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Proyecto.Excepciones.ProyectoException;
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Proyecto.Excepciones.ProyectoFieldInvalidException;
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Proyecto.Excepciones.ProyectoYaExistenteException;
@@ -29,7 +30,7 @@ public interface IBroker_SA_Proyecto {
     TProyectoCompleto buscarByNombre(@WebParam(name = "nombre") String nombre) throws ProyectoFieldInvalidException, ProyectoException;
 
     @WebMethod(operationName="eliminarProyecto")
-    public boolean eliminarProyecto(@WebParam(name = "Proyecto") TProyecto proyectoEliminar) throws ProyectoFieldInvalidException, ProyectoException;
+    public boolean eliminarProyecto(@WebParam(name = "id") Long id) throws ProyectoConEmpleadosException, ProyectoFieldInvalidException, ProyectoException;
 
 
     @WebMethod(operationName="listarProyectos")

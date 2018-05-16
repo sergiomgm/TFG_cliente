@@ -97,4 +97,32 @@ class UsuarioTest {
         log.debug("user = '" + user + "'");;
 
     }
+
+
+    @Test
+    void getPasswordTest() {
+
+        Usuario user = new Usuario("rodri", "1234", Rol.valueOf("ADMIN"));
+        log.info("user.getPassword() = '" + user.getPassword() + "'");
+        
+        assertEquals(user.getPassword(), "1234");
+
+    }
+
+
+    @Test
+    void setPasswordTest() {
+
+        Usuario user = new Usuario("rodri", "1234", Rol.valueOf("ADMIN"));
+        log.info("user.getPassword() = '" + user.getPassword() + "'");
+
+        user.setPassword("0987");
+
+        log.info("user.getPassword() = '" + user.getPassword() + "'");
+
+        assertEquals(user.getPassword(), "0987");
+
+    }
+
+
 }

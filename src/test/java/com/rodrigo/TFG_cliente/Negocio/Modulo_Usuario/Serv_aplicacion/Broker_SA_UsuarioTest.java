@@ -181,7 +181,7 @@ class Broker_SA_UsuarioTest {
         Usuario e = new Usuario("test2", "1234");
         Usuario nuevo = null;
 
-        nuevo = b.buscarByEmail(e.getEmail());
+        nuevo = b.buscarByEmail(e.getSiglas());
         if (nuevo == null) {
             //nuevo = b.crearUsuario(e);
         }
@@ -206,7 +206,7 @@ class Broker_SA_UsuarioTest {
         Usuario u = new Usuario("Eliminar", "pass");
 
 
-        if (!b.buscarByEmail(u.getEmail()).equalsWithOutVersion(u)) {
+        if (!b.buscarByEmail(u.getSiglas()).equalsWithOutVersion(u)) {
             //u = b.crearUsuario(u);
         }
 

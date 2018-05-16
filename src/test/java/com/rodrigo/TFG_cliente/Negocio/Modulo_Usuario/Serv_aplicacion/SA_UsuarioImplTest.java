@@ -187,7 +187,7 @@ class SA_UsuarioImplTest {
         Usuario e = new Usuario("test2", "1234");
         Usuario nuevo = null;
 
-        nuevo = sa.buscarByEmail(e.getEmail());
+        nuevo = sa.buscarByEmail(e.getSiglas());
         if (nuevo == null) {
             //nuevo = sa.crearUsuario(e);
         }
@@ -212,7 +212,7 @@ class SA_UsuarioImplTest {
         Usuario u = new Usuario("Eliminar", "pass");
 
 
-        if (!sa.buscarByEmail(u.getEmail()).equalsWithOutVersion(u)) {
+        if (!sa.buscarByEmail(u.getSiglas()).equalsWithOutVersion(u)) {
             //u = sa.crearUsuario(u);
         }
 

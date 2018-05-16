@@ -6,7 +6,7 @@
    <empleados tipo="EmpleadoTParcial">
       <id>20</id>
       <nombre>empleado</nombre>
-      <email>empleado@gmail.com</email>
+      <siglas>empleado@gmail.com</siglas>
       <password>1234</password>
       <rol>EMPLEADO</rol>
       <version>0</version>
@@ -16,7 +16,7 @@
    <empleados tipo="EmpleadoTCompleto">
       <id>21</id>
       <nombre>admin</nombre>
-      <email>admin@gmail.com</email>
+      <siglas>admin@gmail.com</siglas>
       <password>1234</password>
       <rol>ADMIN</rol>
       <proyectos>
@@ -40,7 +40,7 @@
    <empleados tipo="EmpleadoTParcial">
       <id>23</id>
       <nombre>emple1</nombre>
-      <email>emple1@gmail.com</email>
+      <siglas>emple1@gmail.com</siglas>
       <password>1234</password>
       <rol>ADMIN</rol>
       <proyectos>

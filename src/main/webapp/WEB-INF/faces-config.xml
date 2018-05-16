@@ -16,7 +16,8 @@
 
     <managed-bean>
         <managed-bean-name>controladorClientPageAction</managed-bean-name>
-        <managed-bean-class>com.rodrigo.TFG_cliente.Presentacion.actions.ControladorClientPageAction</managed-bean-class>
+        <managed-bean-class>com.rodrigo.TFG_cliente.Presentacion.actions.ControladorClientPageAction
+        </managed-bean-class>
         <managed-bean-scope>application</managed-bean-scope>
     </managed-bean>
     <!--
@@ -54,12 +55,40 @@
         </navigation-case>
     </navigation-rule>
 
+    <navigation-rule>
+        <from-view-id>/views/index.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>a_modulo_usuario</from-outcome>
+            <to-view-id>/views/Modulo_Usuario/vista_usuario.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
+
 
     <navigation-rule>
         <from-view-id>/views/index.xhtml</from-view-id>
         <navigation-case>
             <from-outcome>a_admin</from-outcome>
             <to-view-id>/views/admin/admin.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/views/index.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>a_modulo_administrador</from-outcome>
+            <to-view-id>/views/Modulo_Administrador/vista_admin.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+
+    </navigation-rule>
+
+    <navigation-rule>
+        <from-view-id>/views/index.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>a_admin2</from-outcome>
+            <to-view-id>/views/Modulo_Administrador/vista_admin.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
     </navigation-rule>

@@ -11,6 +11,8 @@
 
     <welcome-file-list>
         <welcome-file>views/index.xhtml</welcome-file>
+        <!--<welcome-file>views/Modulo_Administrador/vista_admin.xhtml</welcome-file>-->
+        <!--<welcome-file>views/Modulo_Usuario/vista_usuario.xhtml</welcome-file>-->
     </welcome-file-list>
 
 
@@ -23,8 +25,6 @@
         <param-value>Production</param-value>
         -->
     </context-param>
-
-
 
 
     <!-- **************************************** -->
@@ -80,12 +80,12 @@
     </security-role>
 
 
-
     <!-- ********* RESTRICCIONES DE RECURSOS ********* -->
     <security-constraint>
         <web-resource-collection>
             <web-resource-name>Admin</web-resource-name>
-            <url-pattern>/views/admin/*</url-pattern>
+            <!--<url-pattern>/views/admin/*</url-pattern>-->
+            <url-pattern>/views/Modulo_Administrador/*</url-pattern>
         </web-resource-collection>
 
         <auth-constraint>
@@ -98,7 +98,8 @@
     <security-constraint>
         <web-resource-collection>
             <web-resource-name>User</web-resource-name>
-            <url-pattern>/views/empleado/*</url-pattern>
+            <!--<url-pattern>/views/empleado/*</url-pattern>-->
+            <url-pattern>/views/Modulo_Usuario/*</url-pattern>
         </web-resource-collection>
 
         <auth-constraint>

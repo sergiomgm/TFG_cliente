@@ -120,20 +120,20 @@ public class Usuario implements Serializable {
     public String getPassword() {
         // Decode data on other side, by processing encoded data
         byte[] valueDecoded = Base64.getDecoder().decode(this.password);
-        System.out.println("this.password = [" + this.password + "]");
-        System.out.println("Decoded pass is [" + new String(valueDecoded) + "]");
+//        System.out.println("this.password = [" + this.password + "]");
+//        System.out.println("Decoded pass is [" + new String(valueDecoded) + "]");
         return new String(valueDecoded);
     }
 
-    /** Acutaliza la password y la mantiene encripotada
+    /** Acutaliza la password y la mantiene encriptada
      *
      * @param password
      */
     public void setPassword(String password) {
-        System.out.println("password = [" + password + "]");
+//        System.out.println("password = [" + password + "]");
         // Encode data on your side using BASE64
         byte[] bytesEncoded = Base64.getEncoder().encode(password.getBytes());
-        System.out.println("encoded pass is [" + new String(bytesEncoded) + "]");
+//        System.out.println("encoded pass is [" + new String(bytesEncoded) + "]");
 
         this.password = new String(bytesEncoded);
         //this.password = password;
@@ -173,7 +173,7 @@ public class Usuario implements Serializable {
         return "Usuario{" +
                 "  id=" + id +
                 ", nombre='" + nombre + '\'' +
-                ", password='" + password + '\'' +
+                ", password='" + getPassword() + '\'' +
                 ", mail='" + email + '\'' +
                 ", rol='" + rol + '\'' +
                 ", version=" + version +

@@ -49,7 +49,7 @@ public abstract class Delegado_Empleado implements DelegadoDelNegocio{
     public abstract TEmpleadoCompleto buscarByID(Long id) throws EmpleadoFieldInvalidException, EmpleadoException;
 
     
-    public abstract boolean eliminarEmpleado(TEmpleado empleadoEliminar) throws EmpleadoFieldInvalidException, EmpleadoException ;
+    public abstract boolean eliminarEmpleado(Long id) throws EmpleadoFieldInvalidException, EmpleadoException ;
 
     
     public abstract List<TEmpleado> listarEmpleados();

@@ -43,6 +43,15 @@ public class TEmpleadoTParcial extends TEmpleado {
         this.precioHora = precioHora;
     }
 
+    public TEmpleadoTParcial( String nombre, String email, String password,
+                             Rol rol, Long departamento, int horasJornada, int precioHora) {
+
+        super(nombre, email, password, rol, departamento);
+
+        this.horasJornada = horasJornada;
+        this.precioHora = precioHora;
+    }
+
 
 
     public int getHorasJornada() {

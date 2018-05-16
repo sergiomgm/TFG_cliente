@@ -33,6 +33,12 @@ public class TEmpleadoTCompleto extends TEmpleado {
         this.sueldoBase = sueldoBase;
     }
 
+    public TEmpleadoTCompleto(String nombre, String email, String password, Rol rol, Long departamento, int antiguedad, int sueldoBase) {
+        super(nombre, email, password, rol, departamento);
+        this.antiguedad = antiguedad;
+        this.sueldoBase = sueldoBase;
+    }
+
     public int getAntiguedad() {
         return antiguedad;
     }

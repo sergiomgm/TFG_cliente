@@ -188,8 +188,8 @@ public class SA_UsuarioImpl implements SA_Usuario {
     }
 
     public Boolean loginUsuario(String email, String pass) throws UsuarioException {
-        Usuario emple = null;
-        log.debug("email = '" + email + "'");
+        Usuario user = null;
+        log.info("email = '" + email + "'");
 
 
         //Validacion del email
@@ -237,21 +237,21 @@ public class SA_UsuarioImpl implements SA_Usuario {
                     log.info("Buscando usuario...");
                     try {
 
-                        emple = (Usuario) em
+                        user = (Usuario) em
                                 .createNamedQuery("Usuario.buscarPorEmail")
                                 .setParameter("email", email)
                                 .getSingleResult();
-
+                        log.info("user = '" + user + "'");
 
 
                     } catch (NoResultException e) {
                         log.info("Usuario con email '" + email + "' no encontrado");
-                        emple = null;
+                        user = null;
                     }
                     /*if (result.size() > 0) {
                         emple = (Usuario) result.get(0);
                     }*/
-                    log.debug("emple = '" + emple + "'");
+                    log.debug("emple = '" + user + "'");
 
                 }
                 log.debug("Terminando transacción...");
@@ -279,14 +279,30 @@ public class SA_UsuarioImpl implements SA_Usuario {
         }
 
 
-        if (emple == null) {
+        if (user == null) {
             throw new UsuarioLoginErroneo("Datos loginUsuario incorrectos");
         }
 
-        log.info("Comporbando credenciales");
+        log.info("**********************************");
+        log.info("***  COMPROBANDO CREDENCIALES  ***");
+        log.info("**********************************");
+        log.info("");
 
-        if (email != null && emple.getEmail().equals(email) &&
-                pass != null && emple.getPassword().equals(pass)) {
+        log.info("**********************************");
+
+        log.info("email input = '" + email + "'");
+        log.info("pass input = '" + pass + "'");
+        log.info("----------");
+        log.info("email user = '" + user.getEmail() + "'");
+        log.info("pass user = '" + user.getPassword() + "'");
+        log.info("----------");
+        log.info("email --> " + (user.getEmail().equals(email)) );
+        log.info("pass --> " + (user.getPassword().equals(pass)) );
+        log.info("**********************************");
+
+
+        if (email != null && user.getEmail().equals(email) &&
+                pass != null && user.getPassword().equals(pass)) {
 
             log.info("LOGIN CORRECTO");
             return true;

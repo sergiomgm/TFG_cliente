@@ -2,7 +2,7 @@
 <EmpleadoTParcial tipo="EmpleadoTParcial">
    <id>23</id>
    <nombre>emple1</nombre>
-   <email>emple1@gmail.com</email>
+   <siglas>emple1@gmail.com</siglas>
    <password>1234</password>
    <rol>ADMIN</rol>
    <proyectos>

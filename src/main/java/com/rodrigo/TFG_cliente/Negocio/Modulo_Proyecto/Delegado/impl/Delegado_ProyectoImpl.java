@@ -77,8 +77,8 @@ public class Delegado_ProyectoImpl extends Delegado_Proyecto {
 
 
     @Override
-    public boolean eliminarProyecto(TProyecto proyectoEliminar) throws ProyectoFieldInvalidException, ProyectoException {
-        return portProyecto.eliminarProyecto(proyectoEliminar);
+    public boolean eliminarProyecto(Long id) throws ProyectoFieldInvalidException, ProyectoException {
+        return portProyecto.eliminarProyecto(id);
     }
 
     @Override

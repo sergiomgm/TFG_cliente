@@ -2,8 +2,10 @@ package com.rodrigo.TFG_cliente.Negocio.Modulo_Departamento.Entidad.Transfers;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlRootElement;
 import java.util.Arrays;
 
+@XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
 public class TDepartamento {
 
@@ -12,6 +14,10 @@ public class TDepartamento {
     private String nombre;
 
     private String siglas;
+
+    private double nominaMes;
+
+
 
 
     public TDepartamento() {
@@ -32,6 +38,13 @@ public class TDepartamento {
     }
 
 
+
+    public TDepartamento(long id, String nombre, String siglas, double nominaMes) {
+        this.id = id;
+        this.nombre = nombre;
+        this.siglas = siglas;
+        this.nominaMes = nominaMes;
+    }
 
 
 
@@ -64,12 +77,21 @@ public class TDepartamento {
     }
 
 
+    public double getNominaMes() {
+        return nominaMes;
+    }
+
+    public void setNominaMes(double nominaMes) {
+        this.nominaMes = nominaMes;
+    }
+
     @Override
     public String toString() {
         return "TDepartamento{" +
                 "id=" + id +
                 ", nombre='" + nombre + '\'' +
                 ", siglas='" + siglas + '\'' +
+                ", nominaMes=" + nominaMes +
                 '}';
     }
 }

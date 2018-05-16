@@ -67,8 +67,8 @@ public class Delegado_EmpleadoImpl extends Delegado_Empleado {
     }
 
     @Override
-    public boolean eliminarEmpleado(TEmpleado empleadoEliminar) throws EmpleadoFieldInvalidException, EmpleadoException {
-        return portEmpleados.eliminarEmpleado(empleadoEliminar);
+    public boolean eliminarEmpleado(Long id) throws EmpleadoFieldInvalidException, EmpleadoException {
+        return portEmpleados.eliminarEmpleado(id);
     }
 
     @Override

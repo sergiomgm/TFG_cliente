@@ -9,7 +9,7 @@ import java.util.HashMap;
 
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
-public class TDepartamentoCompleto extends TDepartamento {
+public class TDepartamentoCompleto {
 
 
     private TDepartamento departamento;
@@ -44,8 +44,15 @@ public class TDepartamentoCompleto extends TDepartamento {
         return departamento.getId();
     }
 
+    public void setId(Long id){
+        departamento.setId(id);
+    }
+
     public String getSiglas(){ return departamento.getSiglas();}
 
+    public void setSiglas(String siglas){
+        departamento.setSiglas(siglas);
+    }
 
     public TDepartamento getDepartamento() {
         return departamento;

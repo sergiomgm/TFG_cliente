@@ -1,6 +1,5 @@
 package com.rodrigo.TFG_cliente.Negocio.Modulo_Proyecto.Delegado;
 
-import com.rodrigo.TFG_cliente.Negocio.FactoriaSA.FactoriaSA;
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Departamento.Delegado.Delegado_Departamento;
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Departamento.Entidad.Transfers.TDepartamentoCompleto;
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Departamento.Excepciones.DepartamentoException;
@@ -10,6 +9,7 @@ import com.rodrigo.TFG_cliente.Negocio.Modulo_Empleado.Excepciones.EmpleadoExcep
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Proyecto.Entidad.Transfers.TEmpleadoProyecto;
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Proyecto.Entidad.Transfers.TProyecto;
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Proyecto.Entidad.Transfers.TProyectoCompleto;
+import com.rodrigo.TFG_cliente.Negocio.Modulo_Proyecto.Excepciones.ProyectoConEmpleadosException;
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Proyecto.Excepciones.ProyectoException;
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Proyecto.Excepciones.ProyectoFieldInvalidException;
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Proyecto.Excepciones.ProyectoYaExistenteException;
@@ -26,39 +26,39 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class Broker_SA_ProyectoImplTest {
+class Delegado_ProyectoImplTest {
 
 
-        static Delegado_Proyecto b;
+    static Delegado_Proyecto deleg;
 
-        static private TProyecto p1;
-        static TProyectoCompleto p2;
-        //    static Proyecto emple2;
-        static TDepartamentoCompleto dept;
+    static private TProyecto p1;
+    static TProyectoCompleto p2;
+    //    static Proyecto emple2;
+    static TDepartamentoCompleto dept;
 
-        static TEmpleadoCompleto emple1;
+    static TEmpleadoCompleto emple1;
 
-        final static Logger log = LoggerFactory.getLogger(Broker_SA_ProyectoImplTest.class);
+    final static Logger log = LoggerFactory.getLogger(Delegado_ProyectoImplTest.class);
 
 
-        /*******************************************************************
-         **********************   METODOS INICIALES   **********************
-         *******************************************************************/
+    /*******************************************************************
+     **********************   METODOS INICIALES   **********************
+     *******************************************************************/
 
-        @BeforeAll
-        static void initSA() throws DepartamentoException, ProyectoException, EmpleadoException {
-            log.info("Creando SA...");
-            b = Delegado_Proyecto.getInstance();
+    @BeforeAll
+    static void initSA() throws DepartamentoException, ProyectoException, EmpleadoException {
+        log.info("Creando Delegado...");
+        deleg = Delegado_Proyecto.getInstance();
 
 
 //        p2 = new ProyectoTParcial("p2", "1234", Rol.ADMIN);
-            p2 = b.buscarByNombre("Proy1");
+        p2 = deleg.buscarByNombre("Proy1");
 
 //        dept1 = FactoriaSA.getInstance().crearSA_Departamento().buscarBySiglas(dept1.getSiglas());
 
-            dept = Delegado_Departamento.getInstance().buscarBySiglas("DdP");
+        dept = Delegado_Departamento.getInstance().buscarBySiglas("DdP");
 
-            emple1 = Delegado_Empleado.getInstance().buscarByID(20L);
+        emple1 = Delegado_Empleado.getInstance().buscarByID(20L);
 
 
 
@@ -73,8 +73,8 @@ class Broker_SA_ProyectoImplTest {
         dept.getProyectos().add(p1);
         p1.setDepartamento(dept);
 
-        p1 = FactoriaSA.getInstance().crearSA_Proyecto().buscarByEmail(p1.getEmail());*/
-        }
+        p1 = FactoriaSA.getInstance().crearSA_Proyecto().buscarByEmail(p1.getSiglas());*/
+    }
 
     @BeforeEach
     void iniciarContexto() throws ProyectoException {
@@ -83,10 +83,10 @@ class Broker_SA_ProyectoImplTest {
 
         log.info("Creando proyecto ");
 
-        TProyectoCompleto aux = b.buscarByNombre(nombre);
+        TProyectoCompleto aux = deleg.buscarByNombre(nombre);
 
         if (aux == null) {
-            p1 = b.crearProyecto(new TProyecto(nombre));
+            p1 = deleg.crearProyecto(new TProyecto(nombre));
         } else
             p1 = aux.getProyecto();
     }
@@ -95,12 +95,12 @@ class Broker_SA_ProyectoImplTest {
     @AfterEach
     void finalizarContexto() throws ProyectoException {
 
-       /* assertFalse(b.transactionIsActive(), "Transacción no cerrada");
+       /* assertFalse(deleg.transactionIsActive(), "Transacción no cerrada");
 
-        assertFalse(b.emIsOpen(), "Entity Manager no cerrado");
+        assertFalse(deleg.emIsOpen(), "Entity Manager no cerrado");
 */
         log.info("Eliminado proyecto");
-        b.eliminarProyecto(p1);
+        deleg.eliminarProyecto(p1.getId());
     }
 
 
@@ -116,7 +116,7 @@ class Broker_SA_ProyectoImplTest {
 
         TProyecto p = new TProyecto(nombre);
 
-        TProyecto proyCreado = b.crearProyecto(p);
+        TProyecto proyCreado = deleg.crearProyecto(p);
 
 
         p.setId(proyCreado.getId());
@@ -129,7 +129,7 @@ class Broker_SA_ProyectoImplTest {
         assertEquals(p.toString(), proyCreado.toString());
 
 
-        b.eliminarProyecto(proyCreado);
+        deleg.eliminarProyecto(proyCreado.getId());
     }
 
 
@@ -139,7 +139,7 @@ class Broker_SA_ProyectoImplTest {
         /*Proyecto p1 = new ProyectoTParcial("juan", "1234", Rol.valueOf(rol), dept);
 
         log.info("Creando proyecto 1");
-        p1 = b.crearProyecto(p1);*/
+        p1 = deleg.crearProyecto(p1);*/
 
 
         Throwable exception = assertThrows(ProyectoYaExistenteException.class, () -> {
@@ -147,12 +147,12 @@ class Broker_SA_ProyectoImplTest {
             TProyecto e2 = p1;
 
             log.info("Creando proyecto 2");
-            e2 = b.crearProyecto(e2);
+            e2 = deleg.crearProyecto(e2);
 
         });
 
 
-        /*b.eliminarProyecto(p1);*/
+        /*deleg.eliminarProyecto(p1);*/
     }
 
     @Test
@@ -161,7 +161,7 @@ class Broker_SA_ProyectoImplTest {
 
         Throwable exception = assertThrows(ProyectoFieldInvalidException.class, () -> {
             TProyecto proyCreado;
-            proyCreado = b.crearProyecto(null);
+            proyCreado = deleg.crearProyecto(null);
 
             assertNull(proyCreado);
 
@@ -177,7 +177,7 @@ class Broker_SA_ProyectoImplTest {
 
         Throwable exception = assertThrows(ProyectoFieldInvalidException.class, () -> {
 
-            TProyecto proyCreado = b.crearProyecto(new TProyecto());
+            TProyecto proyCreado = deleg.crearProyecto(new TProyecto());
 
         });
 
@@ -194,7 +194,7 @@ class Broker_SA_ProyectoImplTest {
 
             p1.setNombre(null);
             log.debug("p1= " + p1);
-            TProyecto proyCreado = b.crearProyecto(p1);
+            TProyecto proyCreado = deleg.crearProyecto(p1);
 
         });
 
@@ -211,7 +211,7 @@ class Broker_SA_ProyectoImplTest {
 
             p1.setNombre("");
             log.debug("p1 = '" + p1 + "'");
-            TProyecto proyCreado = b.crearProyecto(p1);
+            TProyecto proyCreado = deleg.crearProyecto(p1);
 
         });
         log.info("Excepcion capturada:" + ex2.getMessage());
@@ -229,7 +229,7 @@ class Broker_SA_ProyectoImplTest {
     void buscarByID() throws ProyectoException {
         log.info("SA_ProyectoImplTest.buscarUsuarioByID");
 
-        TProyectoCompleto p = b.buscarByID(p1.getId());
+        TProyectoCompleto p = deleg.buscarByID(p1.getId());
         log.info(p.toString());
 
 
@@ -253,7 +253,7 @@ class Broker_SA_ProyectoImplTest {
         assertTrue(p.getProyecto().getFechaFin().getDate() == p1.getFechaFin().getDate());
 
 
-        //b.eliminarProyecto(nuevo);
+        //deleg.eliminarProyecto(nuevo);
 
     }
 
@@ -264,7 +264,7 @@ class Broker_SA_ProyectoImplTest {
 
         Throwable ex2 = assertThrows(ProyectoFieldInvalidException.class, () -> {
 
-            TProyectoCompleto e = b.buscarByID(-2L);
+            TProyectoCompleto e = deleg.buscarByID(-2L);
 
 
         });
@@ -278,7 +278,7 @@ class Broker_SA_ProyectoImplTest {
 
         Throwable ex2 = assertThrows(ProyectoFieldInvalidException.class, () -> {
 
-            TProyectoCompleto e = b.buscarByID(0L);
+            TProyectoCompleto e = deleg.buscarByID(0L);
 
 
         });
@@ -292,7 +292,7 @@ class Broker_SA_ProyectoImplTest {
     void buscarByIDInexixtente() throws ProyectoException {
         log.info("SA_ProyectoImplTest.buscarByIDInexixtente");
 
-        TProyectoCompleto buscado = b.buscarByID(30000L);
+        TProyectoCompleto buscado = deleg.buscarByID(30000L);
 
         assertNull(buscado);
 
@@ -309,17 +309,17 @@ class Broker_SA_ProyectoImplTest {
 
 
         log.info("Creando proyecto");
-        TProyecto p = b.crearProyecto(new TProyecto("Eliminar3"));
+        TProyecto p = deleg.crearProyecto(new TProyecto("Eliminar3"));
 
         if (p != null) {
 
             log.info("Eliminando proyecto");
-            boolean resutl = b.eliminarProyecto(p);
+            boolean resutl = deleg.eliminarProyecto(p.getId());
 
             log.debug("resutl = '" + resutl + "'");
-            assertNull(b.buscarByID(p.getId()));
+            assertNull(deleg.buscarByID(p.getId()));
 
-        }else
+        } else
             fail("Proyecto no creado");
 
 
@@ -333,21 +333,23 @@ class Broker_SA_ProyectoImplTest {
 
         log.info("Creando proyecto");
         TProyectoCompleto p = new TProyectoCompleto();
-        p.setProyecto(b.crearProyecto(new TProyecto("Eliminar2")));
+        p.setProyecto(deleg.crearProyecto(new TProyecto("Eliminar2")));
 
-        log.info("Asignando empleado a proyecto");
+        log.info("Asignando empleado a proyecto en BBDD");
         TEmpleadoProyecto ep = Delegado_Proyecto.getInstance().añadirEmpleadoAProyecto(emple1.getEmpleado(), p.getProyecto(), 5);
 
+        log.info("Asignando empleado a proyecto en transfers");
         emple1.agregarEmpleadoProyecto(ep, p.getProyecto());
         p.agregarEmpleadoProyecto(ep, emple1.getEmpleado());
 
-        log.info("Eliminando proyecto");
-        boolean resutl = b.eliminarProyecto(p.getProyecto());
+        log.info("Eliminando proyecto con empleado");
+
+        boolean resutl = deleg.eliminarProyecto(p.getProyecto().getId());
 
         log.debug("resutl = '" + resutl + "'");
 
 
-        assertNull(b.buscarByID(p.getId()));
+        assertNull(deleg.buscarByID(p.getId()));
 
     }
 
@@ -356,7 +358,7 @@ class Broker_SA_ProyectoImplTest {
 
 
         Throwable exception = assertThrows(ProyectoException.class, () -> {
-            boolean proy = b.eliminarProyecto(null);
+            boolean proy = deleg.eliminarProyecto(null);
 
             assertNull(proy);
 
@@ -376,7 +378,7 @@ class Broker_SA_ProyectoImplTest {
 
         Throwable exception = assertThrows(ProyectoFieldInvalidException.class, () -> {
 
-            boolean result = b.eliminarProyecto(proy);
+            boolean result = deleg.eliminarProyecto(proy.getId());
 
         });
 
@@ -394,7 +396,7 @@ class Broker_SA_ProyectoImplTest {
     void listarProyectos() {
         log.info("ListarUsersTest");
 
-        List<TProyecto> lista = b.listarProyectos();
+        List<TProyecto> lista = deleg.listarProyectos();
 
         assertNotNull(lista);
 
@@ -420,10 +422,10 @@ class Broker_SA_ProyectoImplTest {
         String nombre1 = p1.getNombre();
 
         log.info("Creando proyecto");
-        nuevo = b.crearProyecto(p1.getProyecto());
+        nuevo = deleg.crearProyecto(p1.getProyecto());
 
         log.info("buscnado proyecto");
-        p1 = b.buscarByNombre(nombre1);
+        p1 = deleg.buscarByNombre(nombre1);
 
 
 //        assertEquals(p1.getProyecto().toString(), nuevo.toString());
@@ -441,7 +443,7 @@ class Broker_SA_ProyectoImplTest {
         assertTrue(nuevo.getFechaFin().getDate() == p1.getProyecto().getFechaFin().getDate());
 
 
-        b.eliminarProyecto(nuevo);
+        deleg.eliminarProyecto(nuevo.getId());
 
     }
 
@@ -450,7 +452,7 @@ class Broker_SA_ProyectoImplTest {
     void buscarByNombreInexistente() throws ProyectoException {
 
 
-        TProyectoCompleto e2 = b.buscarByNombre("awdffafgasgfsgag");
+        TProyectoCompleto e2 = deleg.buscarByNombre("awdffafgasgfsgag");
 
         assertNull(e2);
 
@@ -462,7 +464,7 @@ class Broker_SA_ProyectoImplTest {
 
         Throwable ex1 = assertThrows(ProyectoFieldInvalidException.class, () -> {
 
-            TProyectoCompleto e2 = b.buscarByNombre("");
+            TProyectoCompleto e2 = deleg.buscarByNombre("");
 
 
         });
@@ -476,7 +478,7 @@ class Broker_SA_ProyectoImplTest {
     void buscarByNombreNull() {
         Throwable ex1 = assertThrows(ProyectoFieldInvalidException.class, () -> {
 
-            TProyectoCompleto e2 = b.buscarByNombre(null);
+            TProyectoCompleto e2 = deleg.buscarByNombre(null);
 
 
         });
