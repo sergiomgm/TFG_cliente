@@ -3,7 +3,9 @@ package com.rodrigo.TFG_cliente.Presentacion.Modulo_Empleado.Action;
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Departamento.Excepciones.DepartamentoException;
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Empleado.Entidad.Transfers.TEmpleadoCompleto;
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Empleado.Excepciones.EmpleadoException;
+import com.rodrigo.TFG_cliente.Negocio.Modulo_Proyecto.Entidad.Transfers.TProyectoCompleto;
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Proyecto.Excepciones.ProyectoException;
+import com.rodrigo.TFG_cliente.Presentacion.Modulo_Proyecto.Action.ProyectoAction;
 import com.rodrigo.TFG_cliente.Presentacion.Proxy.Excepciones.ProxyException;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
@@ -46,11 +48,18 @@ public class EmpleadoActionTest {
 
         EmpleadoAction ea = new EmpleadoAction();
 
-        ea.setEmail("empleado@gmail.com");
+        ea.setId(20L);
 
-        String view = ea.buscarByEmail();
+        String view = ea.buscarById();
+
 
         TEmpleadoCompleto ec = ea.getEmpleadoCompleto();
+
+
+//        ProyectoAction pa = new ProyectoAction();
+//        pa.setId(1L);
+//        String view = pa.buscarById();
+//        TProyectoCompleto ec = pa.getProyectoCompleto();
 
 
     }

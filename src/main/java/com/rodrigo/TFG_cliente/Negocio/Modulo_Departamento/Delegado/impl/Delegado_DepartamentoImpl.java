@@ -1,5 +1,6 @@
 package com.rodrigo.TFG_cliente.Negocio.Modulo_Departamento.Delegado.impl;
 
+import com.rodrigo.TFG_cliente.Negocio.Modulo_Departamento.Delegado.Authenticator;
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Departamento.Delegado.Delegado_Departamento;
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Departamento.Entidad.Transfers.TDepartamento;
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Departamento.Entidad.Transfers.TDepartamentoCompleto;
@@ -27,7 +28,10 @@ public class Delegado_DepartamentoImpl extends Delegado_Departamento {
         log.info("Creando DelegadoDelNegocio");
 
         log.info("Creando cliente");
-        cliente = ClientBuilder.newBuilder().newClient();
+        cliente = ClientBuilder
+                .newBuilder()
+                .newClient()
+                .register(new Authenticator("user", "pass"));
 
         log.info("DelegadoDelNegocio creado");
     }
@@ -78,7 +82,7 @@ public class Delegado_DepartamentoImpl extends Delegado_Departamento {
 
         String urlFinal = URL + "";
 
-        System.out.println("urlFinal = [" + urlFinal + id.toString() + "]");
+        System.out.println("urlFinal = [" + urlFinal + "/" +  id.toString() + "]");
 
 
         try {

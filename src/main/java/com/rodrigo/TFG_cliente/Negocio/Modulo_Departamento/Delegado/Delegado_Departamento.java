@@ -14,7 +14,8 @@ public abstract class Delegado_Departamento implements DelegadoDelNegocio {
 
     protected final String SERVICE_NAME = "/departamento";
 
-    protected final String URL = HOST + ":" + PORT + APP_URI +  "/SA_Departamento" + SERVICE_NAME;
+//    protected final String URL = HOST + ":" + PORT + APP_URI +  "/SA_Departamento" + SERVICE_NAME;
+    protected final String URL = "https://localhost" + ":" + 8443 + APP_URI +  "/SA_Departamento" + SERVICE_NAME;
 
 
 

@@ -14,22 +14,39 @@ import org.slf4j.LoggerFactory;
 
 import java.util.List;
 
-public abstract class Delegado_Empleado implements DelegadoDelNegocio{
+public abstract class Delegado_Empleado implements DelegadoDelNegocio {
 
     private final static Logger log = LoggerFactory.getLogger(Delegado_Empleado.class);
 
-    protected final String URL_WSDL = HOST + ":" + PORT + APP_URI +  "/SA_Empleado?wsdl";
+//    protected final String URL_WSDL = HOST + ":" + PORT + APP_URI + "/SA_Empleado?wsdl";
+    protected final String URL_WSDL = "https://localhost" + ":" + 8443 + APP_URI + "/SA_Empleado?wsdl";
 
     protected final String NAMESPACE_URI = "http://impl.Serv_aplicacion.Modulo_Empleado.Negocio.TFG_server.rodrigo.com/";
 
     protected final String SERVICE_NAME = "Broker_SA_EmpleadoImpl";
 
 
-
     private static Delegado_Empleado ourInstance;
 
     static {
+
+//        //for localhost testing only
+//        javax.net.ssl.HttpsURLConnection.setDefaultHostnameVerifier(
+//                new javax.net.ssl.HostnameVerifier() {
+//
+//                    public boolean verify(String hostname,
+//                                          javax.net.ssl.SSLSession sslSession) {
+//                        log.info("en metodo de control LOCALHOST");
+//                        if (hostname.equals("localhost")) {
+//                            return true;
+//                        }
+//                        return false;
+//                    }
+//                });
+
+
         try {
+            log.info("Delegado_Empleado.static initializer");
             ourInstance = new Delegado_EmpleadoImpl();
         } catch (ProxyException e) {
             log.error("Error al crear el DelegadoDelNegocio", e);
@@ -38,32 +55,31 @@ public abstract class Delegado_Empleado implements DelegadoDelNegocio{
 
 
     public static Delegado_Empleado getInstance() {
+        log.info("retornando instancia ");
         return ourInstance;
     }
 
 
-    
     public abstract TEmpleadoCompleto crearEmpleado(TEmpleado empleadoNuevo) throws EmpleadoYaExisteExcepcion, EmpleadoFieldInvalidException, EmpleadoException;
 
-    
+
     public abstract TEmpleadoCompleto buscarByID(Long id) throws EmpleadoFieldInvalidException, EmpleadoException;
 
-    
-    public abstract boolean eliminarEmpleado(Long id) throws EmpleadoFieldInvalidException, EmpleadoException ;
 
-    
+    public abstract boolean eliminarEmpleado(Long id) throws EmpleadoFieldInvalidException, EmpleadoException;
+
+
     public abstract List<TEmpleado> listarEmpleados();
 
-    
-    public abstract String saludar(String nombre) ;
 
-    
+    public abstract String saludar(String nombre);
+
+
     public abstract boolean loginEmpleado(String email, String pass) throws EmpleadoLoginErroneo, EmpleadoFieldInvalidException, EmpleadoException;
 
-    
-    public abstract TEmpleadoCompleto buscarByEmail(String email) throws EmpleadoFieldInvalidException, EmpleadoException ;
+
+    public abstract TEmpleadoCompleto buscarByEmail(String email) throws EmpleadoFieldInvalidException, EmpleadoException;
 
 
-    
-    public abstract TEmpleadoCompleto buscarByIDTransfer(Long id) throws EmpleadoFieldInvalidException, EmpleadoException ;
+    public abstract TEmpleadoCompleto buscarByIDTransfer(Long id) throws EmpleadoFieldInvalidException, EmpleadoException;
 }
