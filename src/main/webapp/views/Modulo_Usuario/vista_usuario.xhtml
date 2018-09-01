@@ -305,19 +305,19 @@
 
                 <!--************   ALERT ERROR *****************-->
                 <!--<br/>
-                <c:if test="#{EmpleadoAction.mensajeSuccess != null}">
+                <c:if test="#{EmpleadoBean.mensajeSuccess != null}">
                     <div class="alert alert-success">
-                        <strong>Emple: </strong><h:outputText value="#{EmpleadoAction.mensajeSuccess}"/>
+                        <strong>Emple: </strong><h:outputText value="#{EmpleadoBean.mensajeSuccess}"/>
                     </div>
                 </c:if>
-                <c:if test="#{EmpleadoAction.mensajeWarning != null}">
+                <c:if test="#{EmpleadoBean.mensajeWarning != null}">
                     <div class="alert alert-warning">
-                        <strong>Emple: </strong><h:outputText value="#{EmpleadoAction.mensajeWarning}"/>
+                        <strong>Emple: </strong><h:outputText value="#{EmpleadoBean.mensajeWarning}"/>
                     </div>
                 </c:if>
-                <c:if test="#{EmpleadoAction.hayError == true}">
+                <c:if test="#{EmpleadoBean.hayError == true}">
                     <div class="alert alert-danger">
-                        <strong>Emple: </strong><h:outputText value="#{EmpleadoAction.mensajeError}"/>
+                        <strong>Emple: </strong><h:outputText value="#{EmpleadoBean.mensajeError}"/>
                     </div>
                 </c:if>
                 -->
@@ -471,19 +471,19 @@
                 <!--************   ALERT ERROR *****************-->
                 <!--
                 <br/>
-                <c:if test="#{DepartamentoAction.mensajeSuccess != null}">
+                <c:if test="#{DepartamentoBean.mensajeSuccess != null}">
                     <div class="alert alert-success">
-                        <strong>Depart: </strong><h:outputText value="#{DepartamentoAction.mensajeSuccess}"/>
+                        <strong>Depart: </strong><h:outputText value="#{DepartamentoBean.mensajeSuccess}"/>
                     </div>
                 </c:if>
-                <c:if test="#{DepartamentoAction.mensajeWarning != null}">
+                <c:if test="#{DepartamentoBean.mensajeWarning != null}">
                     <div class="alert alert-warning">
-                        <strong>Depart: </strong><h:outputText value="#{DepartamentoAction.mensajeWarning}"/>
+                        <strong>Depart: </strong><h:outputText value="#{DepartamentoBean.mensajeWarning}"/>
                     </div>
                 </c:if>
-                <c:if test="#{DepartamentoAction.hayError}">
+                <c:if test="#{DepartamentoBean.hayError}">
                     <div class="alert alert-danger">
-                        <strong>Depart: </strong><h:outputText value="#{DepartamentoAction.mensajeError}"/>
+                        <strong>Depart: </strong><h:outputText value="#{DepartamentoBean.mensajeError}"/>
                     </div>
                 </c:if>
                 <br/>-->
@@ -656,19 +656,19 @@
             <!--************   ALERTS *****************-->
             <!--
             <br/>
-            <c:if test="#{ProyectoAction.mensajeSuccess != null}">
+            <c:if test="#{ProyectoBean.mensajeSuccess != null}">
                 <div class="alert alert-success">
-                    <strong>Proy: </strong><h:outputText value="#{ProyectoAction.mensajeSuccess}"/>
+                    <strong>Proy: </strong><h:outputText value="#{ProyectoBean.mensajeSuccess}"/>
                 </div>
             </c:if>
-            <c:if test="#{ProyectoAction.mensajeWarning != null}">
+            <c:if test="#{ProyectoBean.mensajeWarning != null}">
                 <div class="alert alert-warning">
-                    <strong>Proy: </strong><h:outputText value="#{ProyectoAction.mensajeWarning}"/>
+                    <strong>Proy: </strong><h:outputText value="#{ProyectoBean.mensajeWarning}"/>
                 </div>
             </c:if>
-            <c:if test="#{ProyectoAction.hayError}">
+            <c:if test="#{ProyectoBean.hayError}">
                 <div class="alert alert-danger">
-                    <strong>Proy: </strong><h:outputText value="#{ProyectoAction.mensajeError}"/>
+                    <strong>Proy: </strong><h:outputText value="#{ProyectoBean.mensajeError}"/>
                 </div>
             </c:if>
             <br/>

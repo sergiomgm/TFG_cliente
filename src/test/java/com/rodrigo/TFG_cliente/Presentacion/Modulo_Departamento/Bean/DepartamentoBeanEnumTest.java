@@ -1,4 +1,4 @@
-package com.rodrigo.TFG_cliente.Presentacion.Modulo_Departamento.Action;
+package com.rodrigo.TFG_cliente.Presentacion.Modulo_Departamento.Bean;
 
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Departamento.Excepciones.DepartamentoException;
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Empleado.Excepciones.EmpleadoException;
@@ -10,14 +10,10 @@ import org.junit.jupiter.api.BeforeEach;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
-import java.io.Serializable;
 
+public class DepartamentoBeanEnumTest {
 
-public class DepartamentoActionTest  {
-
-    private final static Logger log = LoggerFactory.getLogger(DepartamentoActionTest.class);
+    private final static Logger log = LoggerFactory.getLogger(DepartamentoBeanEnumTest.class);
 
 
 

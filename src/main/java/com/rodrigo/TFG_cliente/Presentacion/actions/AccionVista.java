@@ -4,24 +4,31 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import java.io.Serializable;
 
-@ManagedBean(name = "Action")
+@ManagedBean(name = "AccionVista")
 @SessionScoped
-public class Action implements Serializable {
+public class AccionVista implements Serializable {
 
 
-    protected static Accion accion = null;
+    private static AccionEnum accion = null;
 
 
-    protected static boolean hayError;
+    private static boolean hayError;
 
-    protected static String mensajeError;
+    private static String mensajeError;
 
-    protected static String mensajeSuccess;
+    private static String mensajeSuccess;
 
-    protected static String mensajeWarning;
+    private static String mensajeWarning;
+
+    public void inicializarAtributos() {
+        hayError = false;
+        mensajeError = null;
+        mensajeWarning = null;
+        mensajeSuccess = null;
+    }
 
 
-    public enum Accion {
+    public enum AccionEnum {
 
         ACCION_BUSCAR_EMPLEADO_ID,
         ACCION_BUSCAR_EMPLEADO_EMAIL,
@@ -71,36 +78,49 @@ public class Action implements Serializable {
 
     }
 
+    public static AccionEnum getAccion() {
+        return accion;
+    }
 
-    public boolean getHayError() {
+    public static void setAccion(AccionEnum accion) {
+        AccionVista.accion = accion;
+    }
+
+    public static boolean getHayError() {
         return hayError;
     }
 
-    public void setHayError(boolean hayError) {
-        this.hayError = hayError;
+    public static void setHayError(boolean hayError) {
+        AccionVista.hayError = hayError;
     }
 
-    public String getMensajeError() {
+    public static String getMensajeError() {
         return mensajeError;
     }
 
-    public void setMensajeError(String mensajeError) {
-        this.mensajeError = mensajeError;
+    public static void setMensajeError(String mensajeError) {
+        AccionVista.mensajeError = mensajeError;
     }
 
-    public String getMensajeSuccess() {
+    public static String getMensajeSuccess() {
         return mensajeSuccess;
     }
 
-    public void setMensajeSuccess(String mensajeSuccess) {
-        this.mensajeSuccess = mensajeSuccess;
+    public static void setMensajeSuccess(String mensajeSuccess) {
+        AccionVista.mensajeSuccess = mensajeSuccess;
     }
 
-    public String getMensajeWarning() {
+    public static String getMensajeWarning() {
         return mensajeWarning;
     }
 
-    public void setMensajeWarning(String mensajeWarning) {
-        this.mensajeWarning = mensajeWarning;
+    public static void setMensajeWarning(String mensajeWarning) {
+        AccionVista.mensajeWarning = mensajeWarning;
+    }
+
+
+    @Override
+    public String toString() {
+        return accion.toString();
     }
 }

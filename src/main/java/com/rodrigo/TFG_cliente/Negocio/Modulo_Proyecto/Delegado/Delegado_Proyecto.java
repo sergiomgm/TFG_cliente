@@ -1,6 +1,5 @@
 package com.rodrigo.TFG_cliente.Negocio.Modulo_Proyecto.Delegado;
 
-import com.rodrigo.TFG_cliente.Negocio.DelegadoDelNegocio;
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Empleado.Entidad.Transfers.TEmpleado;
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Proyecto.Delegado.impl.Delegado_ProyectoImpl;
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Proyecto.Entidad.Transfers.TEmpleadoProyecto;
@@ -13,13 +12,20 @@ import com.rodrigo.TFG_cliente.Presentacion.Proxy.Excepciones.ProxyException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.jws.WebMethod;
-import javax.jws.WebParam;
 import java.util.List;
 
-public abstract class Delegado_Proyecto implements DelegadoDelNegocio {
+public abstract class Delegado_Proyecto  {
 
     private final static Logger log = LoggerFactory.getLogger(Delegado_Proyecto.class);
+
+    String HOST = "http://localhost" ;
+//    String HOST = "https://127.0.0.1" ;
+
+    String PORT = "8080";
+//    String PORT = "8443";
+
+    String APP_URI = "/TFG_server/services";
+
 
     protected final String URL_WSDL = HOST + ":" + PORT + APP_URI +  "/SA_Proyecto?wsdl";
 

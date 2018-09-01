@@ -2,47 +2,71 @@
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core">
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
 
 
 <h:head>
     <title>Indice</title>
-
+    <h:outputStylesheet library="css" name="style.css"/>
+    <h:outputStylesheet library="css" name="bootstrap.min.css"/>
 </h:head>
 
-<h:body>
+<h:body styleClass="body">
+    <br/>
+    <div class="container">
+        <c:if test="#{request.getRemoteUser() != null}">
+            <div class="row border accionesBox">
+
+                <div class="text-right textoHeader">
+                    <!--admin@ucm.es -->
+                    <strong>#{request.getRemoteUser()}</strong> -- <a href="#{request.contextPath}/logout">Logout</a>
+                </div>
+            </div>
+        </c:if>
 
 
-    <h1>TFG cliente </h1>
-    <h2>JSF con JAX-WS (CXF)</h2>
+        <div id="" class="row text-center tablaNavegacion tablaIndex">
+            <div class="border accionesBox text-center">
 
-    <h2> <small><strong>Rol:</strong> #{request.getRemoteUser()} </small></h2>
-    <h:link value="indice" outcome="indice"/>
+                <div class="titulo">
+                    <h2 align="center">TFG - Rodrigo de Miguel González</h2>
+                </div>
 
-    <h:form>
-        <h:commandLink value="MÓDULO DE USUARIO" action="a_modulo_usuario"/><br/>
-        <h:commandLink value="MÓDULO DE ADMINISTRADOR" action="a_modulo_administrador"/><br/>
-        <br/>
-        <hr/>
-        <hr/>
-        <br/>
-        <h:commandLink value="User" action="a_user"/><br/>
-        <h:commandLink value="Admin" action="a_admin"/><br/>
-        <h:commandLink value="Admin2" action="a_admin2"/><br/>
-        <a href="${pageContext.request.contextPath}/logout">Logout</a><br/>
-        <p/>
+                <div class="acciones ">
+                    <h:form styleClass="form-group" prependId="false">
+                        <h:commandButton styleClass="btn btn-primary botonIndex " value="USUARIO"
+                                         action="a_modulo_usuario"/>
+                        <h:commandButton styleClass="btn btn-primary botonIndex" value="ADMINISTRADOR"
+                                         action="a_modulo_administrador"/><br/>
+                    </h:form>
+                </div>
 
-        <h:commandLink value="A formulario" action="#{controladorClientPageAction.accion}">
-            <f:setPropertyActionListener target="#{controladorClientPageAction.evento}" value="#{eventos.FORMULARIO}" />
-        </h:commandLink>
+            </div>
+            <br/>
+        </div>
 
 
-    </h:form>
+        <div id="contenido">
 
 
+            <!--******************************************************************************************************************************-->
+            <!--******************************************************************************************************************************-->
+            <!--******************************************************************************************************************************-->
+
+
+        </div>
+        <!--************   ALERT ERROR *****************-->
+
+
+    </div>
+
+
+    <br/>
+    <br/>
 </h:body>
-
 
 </html>
 
- 	   

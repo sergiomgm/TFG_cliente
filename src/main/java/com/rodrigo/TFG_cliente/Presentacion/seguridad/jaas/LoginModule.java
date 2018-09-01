@@ -1,7 +1,6 @@
 package com.rodrigo.TFG_cliente.Presentacion.seguridad.jaas;
 
 import com.rodrigo.TFG_cliente.Negocio.FactoriaSA.FactoriaSA;
-import com.rodrigo.TFG_cliente.Negocio.Modulo_Usuario.Entidad.Rol;
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Usuario.Entidad.Usuario;
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Usuario.Excepciones.UsuarioException;
 import com.rodrigo.TFG_cliente.Negocio.Utils.EmailValidator;

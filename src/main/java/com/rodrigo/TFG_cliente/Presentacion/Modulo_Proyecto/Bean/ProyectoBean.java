@@ -1,15 +1,12 @@
-package com.rodrigo.TFG_cliente.Presentacion.Modulo_Proyecto.Action;
+package com.rodrigo.TFG_cliente.Presentacion.Modulo_Proyecto.Bean;
 
-import com.rodrigo.TFG_cliente.Negocio.Modulo_Departamento.Delegado.Delegado_Departamento;
-import com.rodrigo.TFG_cliente.Negocio.Modulo_Departamento.Excepciones.DepartamentoException;
-import com.rodrigo.TFG_cliente.Negocio.Modulo_Departamento.Excepciones.DepartamentoFieldInvalidException;
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Empleado.Entidad.Transfers.TEmpleado;
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Proyecto.Delegado.Delegado_Proyecto;
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Proyecto.Entidad.Transfers.TProyecto;
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Proyecto.Entidad.Transfers.TProyectoCompleto;
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Proyecto.Excepciones.ProyectoException;
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Proyecto.Excepciones.ProyectoFieldInvalidException;
-import com.rodrigo.TFG_cliente.Presentacion.actions.Action;
+import com.rodrigo.TFG_cliente.Presentacion.actions.AccionVista;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -19,18 +16,20 @@ import javax.faces.bean.SessionScoped;
 import java.io.Serializable;
 import java.util.List;
 
-@ManagedBean(name = "ProyectoAction")
+@ManagedBean(name = "ProyectoBean")
 @SessionScoped
-public class ProyectoAction extends Action implements Serializable {
+public class ProyectoBean  implements Serializable {
 
     /****************************
      ********  ATRIBUTOS  *******
      ****************************/
 
-    private final static Logger log = LoggerFactory.getLogger(ProyectoAction.class);
+    private final static Logger log = LoggerFactory.getLogger(ProyectoBean.class);
 
     @ManagedProperty(value = "#{viewBean}")
     private String viewRequest;
+
+    private AccionVista accionVista = new AccionVista();
 
 
     private Long id;
@@ -49,8 +48,8 @@ public class ProyectoAction extends Action implements Serializable {
 
 
     public String crearProyecto(TProyecto proyectoNuevo) {
-        super.accion = Accion.ACCION_CREAR_PROYECTO;
-        log.info(accion.toString());
+        accionVista.setAccion(AccionVista.AccionEnum.ACCION_CREAR_PROYECTO);
+        log.info(accionVista.toString());
         iniciarAtributos();
 
         log.info(viewRequest);
@@ -61,11 +60,11 @@ public class ProyectoAction extends Action implements Serializable {
 
 
     public String buscarById() {
-        super.accion = Accion.ACCION_BUSCAR_PROYECTO_ID;
-        System.out.println(accion);
-        Long id = this.id;
+        accionVista.setAccion(AccionVista.AccionEnum.ACCION_BUSCAR_PROYECTO_ID);
+        System.out.println(accionVista);
+//        Long id = this.id;
         log.info("id = '" + id + "'");
-        iniciarAtributos();
+//        iniciarAtributos();
 
         if (id != null && id > 0) {
 
@@ -73,24 +72,24 @@ public class ProyectoAction extends Action implements Serializable {
             try {
                 proyectoCompleto = Delegado_Proyecto.getInstance().buscarByID(id);
                 if (proyectoCompleto == null) {
-                    mensajeSuccess = "Proyecto no encontrado en la BBDD";
+                    accionVista.setMensajeWarning("Proyecto no encontrado en la BBDD");
                 }
             } catch (ProyectoFieldInvalidException e) {
                 e.printStackTrace();
 
-                hayError = true;
-                mensajeError = e.getMessage();
+                accionVista.setHayError(true);
+                accionVista.setMensajeError(e.getMessage());
 
             } catch (ProyectoException e) {
                 e.printStackTrace();
-                hayError = true;
-                mensajeError = e.getMessage();
+                accionVista.setHayError(true);
+                accionVista.setMensajeError(e.getMessage());
 
             }
 
         } else {
-            hayError = true;
-            mensajeError = "El ID debe ser un número positivo";
+            accionVista.setHayError(true);
+            accionVista.setMensajeError("El ID debe ser un número positivo");
         }
 
         System.out.println(viewRequest);
@@ -99,35 +98,35 @@ public class ProyectoAction extends Action implements Serializable {
 
 
     public String buscarByNombre() {
-        super.accion = Accion.ACCION_BUSCAR_PROYECTO_NOMBRE;
-        System.out.println(accion);
-        String nombre = this.nombre;
+        accionVista.setAccion(AccionVista.AccionEnum.ACCION_BUSCAR_PROYECTO_NOMBRE);
+        System.out.println(accionVista);
+//        String nombre = this.nombre;
         log.info("nombre = '" + nombre + "'");
-        iniciarAtributos();
+//        iniciarAtributos();
 
         if (nombre != null && !nombre.trim().equals("")) {
 
             try {
                 proyectoCompleto = Delegado_Proyecto.getInstance().buscarByNombre(nombre.trim());
                 if (proyectoCompleto == null) {
-                    mensajeSuccess = "Proyecto no encontrado en la BBDD";
+                    accionVista.setMensajeWarning("Proyecto no encontrado en la BBDD");
                 }
             } catch (ProyectoFieldInvalidException e) {
                 e.printStackTrace();
 
-                hayError = true;
-                mensajeError = e.getMessage();
+                accionVista.setHayError(true);
+                accionVista.setMensajeError(e.getMessage());
 
             } catch (ProyectoException e) {
                 e.printStackTrace();
-                hayError = true;
-                mensajeError = e.getMessage();
+                accionVista.setHayError(true);
+                accionVista.setMensajeError(e.getMessage());
 
             }
 
         } else {
-            hayError = true;
-            mensajeError = "Debe escribir un nombre.";
+            accionVista.setHayError(true);
+            accionVista.setMensajeError("Debe escribir un nombre.");
         }
 
         System.out.println(viewRequest);
@@ -136,10 +135,10 @@ public class ProyectoAction extends Action implements Serializable {
 
 
     public String eliminarProyecto() {
-        System.out.println(accion);
-        Long id = this.id;
+        System.out.println(accionVista);
+//        Long id = this.id;
         log.info("id = '" + id + "'");
-        iniciarAtributos();
+//        iniciarAtributos();
 
         if (id != null && id > 0) {
 
@@ -147,26 +146,26 @@ public class ProyectoAction extends Action implements Serializable {
             try {
                 boolean result  = Delegado_Proyecto.getInstance().eliminarProyecto(id);
                 if(result){
-                    mensajeSuccess = "Proyecto borrado correctamente";
+                    accionVista.setMensajeSuccess("Proyecto borrado correctamente");
                 }else{
-                    mensajeWarning = "Proyecto no se pudo borrar correctamente";
+                    accionVista.setMensajeWarning("Proyecto no se pudo borrar correctamente");
                 }
             } catch (ProyectoFieldInvalidException e) {
                 e.printStackTrace();
 
-                hayError = true;
-                mensajeError = e.getMessage();
+                accionVista.setHayError(true);
+                accionVista.setMensajeError(e.getMessage());
 
             } catch (ProyectoException e) {
                 e.printStackTrace();
-                hayError = true;
-                mensajeError = e.getMessage();
+                accionVista.setHayError(true);
+                accionVista.setMensajeError(e.getMessage());
 
             }
 
         } else {
-            hayError = true;
-            mensajeError = "El ID debe ser un número positivo";
+            accionVista.setHayError(true);
+            accionVista.setMensajeError("El ID debe ser un número positivo");
         }
 
         System.out.println(viewRequest);
@@ -175,9 +174,9 @@ public class ProyectoAction extends Action implements Serializable {
 
 
     public String listarProyectos() {
-        super.accion = Accion.ACCION_LISTAR_PROYECTOS;
-        log.info(accion.toString());
-        iniciarAtributos();
+        accionVista.setAccion(AccionVista.AccionEnum.ACCION_LISTAR_PROYECTOS);
+        log.info(accionVista.toString());
+//        iniciarAtributos();
 
         log.info(viewRequest);
 
@@ -189,9 +188,9 @@ public class ProyectoAction extends Action implements Serializable {
 
 
     public String añadirEmpleadoAProyecto(TEmpleado e, TProyecto p, int horas) {
-        super.accion = Accion.ACCION_AGREGAR_EMPLEADO_A_PROYECTO;
-        log.info(accion.toString());
-        iniciarAtributos();
+        accionVista.setAccion(AccionVista.AccionEnum.ACCION_AGREGAR_EMPLEADO_A_PROYECTO);
+        log.info(accionVista.toString());
+//        iniciarAtributos();
 
         log.info(viewRequest);
 
@@ -245,14 +244,17 @@ public class ProyectoAction extends Action implements Serializable {
         this.listaProyectos = listaProyectos;
     }
 
-    public String getAccion() {
-        return String.valueOf(super.accion);
+//    public String getAccionVista() {
+//        return String.valueOf(this.accionVista.getAccionVista());
+//    }
+    public AccionVista getAccionVista() {
+        return this.accionVista;
     }
 
     public String setAccion(String accion) {
         log.info(accion);
 
-        super.accion = Accion.valueOf(accion);
+        this.accionVista.setAccion(AccionVista.AccionEnum.valueOf(accion));
 
         iniciarAtributos();
         log.info(viewRequest);
@@ -267,10 +269,7 @@ public class ProyectoAction extends Action implements Serializable {
         this.proyectoCompleto = null;
         this.listaProyectos = null;
 
-        hayError = false;
-        mensajeSuccess = null;
-        mensajeWarning = null;
-        mensajeError = null;
+        this.accionVista.inicializarAtributos();
     }
 
 }

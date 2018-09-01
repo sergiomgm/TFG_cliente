@@ -10,9 +10,7 @@ import org.slf4j.LoggerFactory;
 
 import javax.ws.rs.BadRequestException;
 import javax.ws.rs.NotFoundException;
-import javax.ws.rs.client.Client;
-import javax.ws.rs.client.ClientBuilder;
-import javax.ws.rs.client.Entity;
+import javax.ws.rs.client.*;
 import javax.ws.rs.core.Response;
 
 
@@ -43,7 +41,7 @@ public class Delegado_DepartamentoImpl extends Delegado_Departamento {
         log.info("Delegado_DepartamentoImpl.crearDepartamento");
         log.info("departamentoNuevo = [" + departamentoNuevo + "]");
 
-        if(departamentoNuevo == null){
+        if (departamentoNuevo == null) {
             throw new DepartamentoFieldInvalidException();
         }
 
@@ -82,15 +80,14 @@ public class Delegado_DepartamentoImpl extends Delegado_Departamento {
 
         String urlFinal = URL + "";
 
-        System.out.println("urlFinal = [" + urlFinal + "/" +  id.toString() + "]");
+        System.out.println("urlFinal = [" + urlFinal + "/" + id.toString() + "]");
 
 
         try {
-            TDepartamentoCompleto dept = cliente
-                    .target(urlFinal)
-                    .path(id.toString())
-                    .request()
-                    .get(TDepartamentoCompleto.class);
+            WebTarget wt = cliente.target(urlFinal);
+            wt = wt.path(id.toString());
+            Invocation.Builder b = wt.request();
+            TDepartamentoCompleto dept = b.get(TDepartamentoCompleto.class);
 
             System.out.println("dept = [" + dept + "]");
             return dept;
@@ -137,7 +134,7 @@ public class Delegado_DepartamentoImpl extends Delegado_Departamento {
             throw new DepartamentoFieldInvalidException();
         } else if (res.getStatus() == Response.Status.NOT_FOUND.getStatusCode()) {
             throw new DepartamentoNoEncontradoException();
-        } else if(res.getStatus() == Response.Status.BAD_GATEWAY.getStatusCode()) {
+        } else if (res.getStatus() == Response.Status.BAD_GATEWAY.getStatusCode()) {
             throw new DepartamentoConEmpleadosException();
         }
         return result;

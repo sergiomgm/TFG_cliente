@@ -13,13 +13,13 @@ import com.rodrigo.TFG_cliente.Presentacion.Proxy.Excepciones.ProxyException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.jws.WebMethod;
-import javax.jws.WebParam;
 import javax.xml.namespace.QName;
+import javax.xml.ws.BindingProvider;
 import javax.xml.ws.Service;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.List;
+import java.util.Map;
 
 public class Delegado_ProyectoImpl extends Delegado_Proyecto {
 
@@ -31,15 +31,14 @@ public class Delegado_ProyectoImpl extends Delegado_Proyecto {
     public Delegado_ProyectoImpl() throws ProxyException {
         log.info("Creando DelegadoDelNegocio");
 
-
         log.debug("Creando Qname del servicio");
-        QName SERVICE_EMPLEADO = new QName(NAMESPACE_URI, SERVICE_NAME);
+        QName SERVICE_PROYECTO = new QName(NAMESPACE_URI, SERVICE_NAME);
 
         log.debug("Creando URL_WSDL de enlace");
         log.debug("URL_WSDL: " + URL_WSDL);
         URL wsdlURLProyectos;
         try {
-            wsdlURLProyectos = new URL(URL_WSDL);
+            wsdlURLProyectos = new URL("http://localhost:8080/TFG_server/wsdl/SA_Proyecto.wsdl");
         } catch (MalformedURLException e) {
             log.error("Error al crear el WSDL", e);
 
@@ -48,11 +47,22 @@ public class Delegado_ProyectoImpl extends Delegado_Proyecto {
 
 
         log.debug("Creando servicio Proyecto");
-        Service ssProyectos = Service.create(wsdlURLProyectos, SERVICE_EMPLEADO);
+        Service ssProyectos = Service.create(wsdlURLProyectos, SERVICE_PROYECTO);
 
 
         log.debug("Creando puerto de enlace para el servicio");
         portProyecto = ssProyectos.getPort(IBroker_SA_Proyecto.class);
+
+
+
+        log.info("Asignando usuario y contraseña");
+        //el servicio 2 requiere usuario y contraseña
+        Map<String, Object> req_ctx2= ((BindingProvider) portProyecto).getRequestContext();
+        req_ctx2.put(BindingProvider.USERNAME_PROPERTY, "usuario");
+        req_ctx2.put(BindingProvider.PASSWORD_PROPERTY, "contra");
+
+        String endPoint2= "https://localhost:8443/TFG_server/services/SA_Proyecto";
+        req_ctx2.put(BindingProvider.ENDPOINT_ADDRESS_PROPERTY, endPoint2);
 
 
         log.info("DelegadoDelNegocio creado");

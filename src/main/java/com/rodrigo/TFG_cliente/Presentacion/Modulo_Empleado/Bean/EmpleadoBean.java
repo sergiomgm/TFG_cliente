@@ -1,7 +1,5 @@
-package com.rodrigo.TFG_cliente.Presentacion.Modulo_Empleado.Action;
+package com.rodrigo.TFG_cliente.Presentacion.Modulo_Empleado.Bean;
 
-import com.rodrigo.TFG_cliente.Negocio.Modulo_Departamento.Delegado.Delegado_Departamento;
-import com.rodrigo.TFG_cliente.Negocio.Modulo_Departamento.Excepciones.DepartamentoException;
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Empleado.Delegado.Delegado_Empleado;
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Empleado.Entidad.Rol;
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Empleado.Entidad.Transfers.TEmpleado;
@@ -12,7 +10,7 @@ import com.rodrigo.TFG_cliente.Negocio.Modulo_Empleado.Excepciones.EmpleadoExcep
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Empleado.Excepciones.EmpleadoFieldInvalidException;
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Empleado.Excepciones.EmpleadoYaExisteExcepcion;
 import com.rodrigo.TFG_cliente.Negocio.Utils.EmailValidator;
-import com.rodrigo.TFG_cliente.Presentacion.actions.Action;
+import com.rodrigo.TFG_cliente.Presentacion.actions.AccionVista;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -25,9 +23,9 @@ import java.util.List;
 import java.util.Map;
 
 
-@ManagedBean(name = "EmpleadoAction")
+@ManagedBean(name = "EmpleadoBean")
 @SessionScoped
-public class EmpleadoAction extends Action implements Serializable {
+public class EmpleadoBean implements Serializable {
 
 
     /****************************
@@ -35,12 +33,14 @@ public class EmpleadoAction extends Action implements Serializable {
      ****************************/
 
 
-    final static Logger log = LoggerFactory.getLogger(EmpleadoAction.class);
+    final static Logger log = LoggerFactory.getLogger(EmpleadoBean.class);
 
 
     @ManagedProperty(value = "#{viewBean}")
     private String viewRequest;
 
+
+    private AccionVista accionVista = new AccionVista();
 
     private Long id;
 
@@ -84,17 +84,7 @@ public class EmpleadoAction extends Action implements Serializable {
 
 
     public String crearEmpleado() {
-        System.out.println(accion);
-
-        String email = this.email;
-        String nombre = this.nombre;
-        String password = this.password;
-        String rol = this.rol;
-        int antiguedad = this.antiguedad;
-        int sueldoBase = this.sueldoBase;
-        int horasJornada = this.horasJornada;
-        int precioHora = this.precioHora;
-        Long idDepart = this.idDepart;
+        System.out.println(accionVista);
         TEmpleado emple = null;
 
         if (nombre != null && nombre.trim() != "" &&
@@ -102,74 +92,67 @@ public class EmpleadoAction extends Action implements Serializable {
                 password != null && password.trim() != "" &&
                 rol != null && rol.trim() != "") {
 
-            try {
-                if (idDepart > 0L &&
-                        Delegado_Departamento.getInstance().buscarByID(idDepart).getDepartamento() != null) {
+
+            if (idDepart > 0L) {
 
 
-                    if (antiguedad > 0 && sueldoBase > 0) {
+                if (antiguedad > 0 && sueldoBase > 0) {
 
-                        emple = new TEmpleadoTCompleto(nombre, email, password, Rol.valueOf(rol), idDepart, antiguedad, sueldoBase);
-                    }else if (horasJornada > 0 && precioHora > 0) {
-                        emple = new TEmpleadoTParcial(nombre, email, password, Rol.valueOf(rol), idDepart, horasJornada, precioHora);
-                    }
-
-                    try {
-                        log.info("Creando Empleado en el sistema");
-                        empleadoCompleto = Delegado_Empleado.getInstance().crearEmpleado(emple);
-
-
-                    } catch (EmpleadoYaExisteExcepcion e) {
-                        e.printStackTrace();
-                        hayError = true;
-                        mensajeError = e.getMessage();
-
-                    } catch (EmpleadoFieldInvalidException e) {
-                        e.printStackTrace();
-                        hayError = true;
-                        mensajeError = e.getMessage();
-
-                    } catch (EmpleadoException e) {
-                        e.printStackTrace();
-                        hayError = true;
-                        mensajeError = e.getMessage();
-
-                    }
-                }else {
-                    mensajeWarning = "El departamento no existe en la BBDD";
+                    emple = new TEmpleadoTCompleto(nombre, email, password, Rol.valueOf(rol), idDepart, antiguedad, sueldoBase);
+                } else if (horasJornada > 0 && precioHora > 0) {
+                    emple = new TEmpleadoTParcial(nombre, email, password, Rol.valueOf(rol), idDepart, horasJornada, precioHora);
                 }
 
+                try {
+                    log.info("Creando Empleado en el sistema");
+                    empleadoCompleto = Delegado_Empleado.getInstance().crearEmpleado(emple);
 
-            } catch (DepartamentoException e) {
-                e.printStackTrace();
-                hayError = true;
-                mensajeError = e.getMessage();
+
+                } catch (EmpleadoYaExisteExcepcion e) {
+                    e.printStackTrace();
+                    accionVista.setHayError(true);
+                    accionVista.setMensajeError(e.getMessage());
+
+                } catch (EmpleadoFieldInvalidException e) {
+                    e.printStackTrace();
+                    accionVista.setHayError(true);
+                    accionVista.setMensajeError(e.getMessage());
+
+                } catch (EmpleadoException e) {
+                    e.printStackTrace();
+                    accionVista.setHayError(true);
+                    accionVista.setMensajeError(e.getMessage());
+
+                }
+            } else {
+                accionVista.setMensajeWarning("El departamento no existe en la BBDD");
             }
 
+
         }
-        if (hayError) {
+        if (accionVista.getHayError()) {
             if (emple instanceof TEmpleadoTCompleto)
-            accion = Accion.ACCION_CREAR_EMPLEADO_TIEMPO_COMPLETO;
+                accionVista.setAccion(AccionVista.AccionEnum.ACCION_CREAR_EMPLEADO_TIEMPO_COMPLETO);
             else
-            accion = Accion.ACCION_CREAR_EMPLEADO_TIEMPO_PARCIAL;
-        }else{
-            accion = Accion.ACCION_MOSTRAR_EMPLEADO;
-            mensajeSuccess = "Empleado creado correctamente";
+                accionVista.setAccion(AccionVista.AccionEnum.ACCION_CREAR_EMPLEADO_TIEMPO_PARCIAL);
+        } else {
+            accionVista.setAccion(AccionVista.AccionEnum.ACCION_MOSTRAR_EMPLEADO);
+            accionVista.setMensajeSuccess("Empleado creado correctamente");
+
         }
 
 
         System.out.println(viewRequest);
-        System.out.println("accion = [" + accion + "]");
+        System.out.println("accionVista = [" + accionVista + "]");
         return viewRequest;
     }
 
 
     public String buscarById() {
-        //super.accion = Accion.BUSCAR_EMPLEADO_ID;
-        System.out.println(accion);
-        Long id = this.id;
+        //super.accionVista = AccionEnum.BUSCAR_EMPLEADO_ID;
+        System.out.println(accionVista);
         log.info("id = '" + id + "'");
-        iniciarAtributos();
+//        iniciarAtributos();
 
         if (id != null && id > 0) {
 
@@ -177,44 +160,43 @@ public class EmpleadoAction extends Action implements Serializable {
             try {
                 empleadoCompleto = Delegado_Empleado.getInstance().buscarByID(id);
                 if (empleadoCompleto == null) {
-                    mensajeWarning = "Empleado no encontrado en la BBDD";
+                    accionVista.setMensajeWarning("Empleado no encontrado en la BBDD");
                 }
             } catch (EmpleadoFieldInvalidException e) {
                 e.printStackTrace();
 
-                hayError = true;
-                mensajeError = e.getMessage();
+                accionVista.setHayError(true);
+                accionVista.setMensajeError(e.getMessage());
 
             } catch (EmpleadoException e) {
                 e.printStackTrace();
-                hayError = true;
-                mensajeError = e.getMessage();
+                accionVista.setHayError(true);
+                accionVista.setMensajeError(e.getMessage());
 
             }
 
         } else {
-            hayError = true;
-            mensajeError = "El ID debe ser un número positivo";
+            accionVista.setHayError(true);
+            accionVista.setMensajeError("El ID debe ser un número positivo");
         }
 
         System.out.println("*********************");
-        System.out.println("hayError = [" + hayError + "]");
-        System.out.println("mensajeError = [" + mensajeError + "]");
+        System.out.println("hayError = [" + accionVista.getHayError() + "]");
+        System.out.println("mensajeError = [" + accionVista.getMensajeError() + "]");
         System.out.println("*********************");
 
-        accion = Accion.ACCION_MOSTRAR_EMPLEADO;
+        accionVista.setAccion(AccionVista.AccionEnum.ACCION_MOSTRAR_EMPLEADO);
         System.out.println(viewRequest);
-        System.out.println("accion = [" + accion + "]");
+        System.out.println("accionVista = [" + accionVista + "]");
         return viewRequest;
     }
 
 
     public String buscarByEmail() {
-        //super.accion = Accion.BUSCAR_EMPLEADO_ID;
-        System.out.println(accion);
-        String email = this.email;
+        //super.accionVista = AccionEnum.BUSCAR_EMPLEADO_ID;
+        System.out.println(accionVista);
         log.info("email = '" + email + "'");
-        iniciarAtributos();
+//        iniciarAtributos();
 
         if (email != null && (new EmailValidator().validate(email.trim()))) {
 
@@ -222,44 +204,43 @@ public class EmpleadoAction extends Action implements Serializable {
             try {
                 empleadoCompleto = Delegado_Empleado.getInstance().buscarByEmail(email.trim());
                 if (empleadoCompleto == null) {
-                    mensajeWarning = "Empleado no encontrado en la BBDD";
+                    accionVista.setMensajeWarning("Empleado no encontrado en la BBDD");
                 }
             } catch (EmpleadoFieldInvalidException e) {
                 e.printStackTrace();
 
-                hayError = true;
-                mensajeError = e.getMessage();
+                accionVista.setHayError(true);
+                accionVista.setMensajeError(e.getMessage());
 
             } catch (EmpleadoException e) {
                 e.printStackTrace();
-                hayError = true;
-                mensajeError = e.getMessage();
+                accionVista.setHayError(true);
+                accionVista.setMensajeError(e.getMessage());
 
             } catch (Exception e) {
                 log.error("EXCEPCION!!", e);
-                hayError = true;
-                mensajeError = "Ocurrió un error al buscar en el sistema.";
+                accionVista.setHayError(true);
+                accionVista.setMensajeError("Ocurrió un error al buscar en el sistema.");
             }
 
         } else {
-            hayError = true;
-            mensajeError = "El email en incorrecto.";
+            accionVista.setHayError(true);
+            accionVista.setMensajeError("El email en incorrecto.");
         }
 
-        accion = Accion.ACCION_MOSTRAR_EMPLEADO;
+        accionVista.setAccion(AccionVista.AccionEnum.ACCION_MOSTRAR_EMPLEADO);
         System.out.println(viewRequest);
-        System.out.println("accion = [" + accion + "]");
+        System.out.println("accionVista = [" + accionVista + "]");
 
         return viewRequest;
     }
 
 
     public String eliminarEmpleado() {
-        //super.accion = Accion.ELIMINAR_EMPLEADO;
-        System.out.println(accion);
-        Long id = this.id;
+        //super.accionVista = AccionEnum.ELIMINAR_EMPLEADO;
+        System.out.println(accionVista);
         log.info("id = '" + id + "'");
-        iniciarAtributos();
+//        iniciarAtributos();
 
         if (id != null && id > 0) {
 
@@ -267,26 +248,27 @@ public class EmpleadoAction extends Action implements Serializable {
             try {
                 boolean result = Delegado_Empleado.getInstance().eliminarEmpleado(id);
                 if (result) {
-                    mensajeSuccess = "Empleado borrado correctamente";
+                    accionVista.setMensajeSuccess("Empleado borrado correctamente");
                 } else {
-                    mensajeWarning = "Empleado no se pudo borrar correctamente";
+                    accionVista.setMensajeWarning("Empleado no se pudo borrar correctamente");
                 }
             } catch (EmpleadoFieldInvalidException e) {
                 e.printStackTrace();
 
-                hayError = true;
-                mensajeError = e.getMessage();
+                accionVista.setHayError(true);
+                accionVista.setMensajeError(e.getMessage());
 
             } catch (EmpleadoException e) {
                 e.printStackTrace();
-                hayError = true;
-                mensajeError = e.getMessage();
+                accionVista.setHayError(true);
+                accionVista.setMensajeError(e.getMessage());
+                accionVista.setMensajeError(e.getMessage());
 
             }
 
         } else {
-            hayError = true;
-            mensajeError = "El ID debe ser un número positivo";
+            accionVista.setHayError(true);
+            accionVista.setMensajeError("El ID debe ser un número positivo");
         }
 
         System.out.println(viewRequest);
@@ -295,9 +277,9 @@ public class EmpleadoAction extends Action implements Serializable {
 
 
     public String listarEmpleados() {
-        super.accion = Accion.ACCION_LISTAR_EMPLEADOS;
-        log.info(accion.toString());
-        iniciarAtributos();
+        accionVista.setAccion(AccionVista.AccionEnum.ACCION_LISTAR_EMPLEADOS);
+        log.info(accionVista.toString());
+//        iniciarAtributos();
 
         log.info(viewRequest);
 
@@ -422,14 +404,18 @@ public class EmpleadoAction extends Action implements Serializable {
         this.idDepart = idDepart;
     }
 
-    public String getAccion() {
-        return String.valueOf(super.accion);
+//    public String getAccionVista() {
+//        return String.valueOf(accionVista.getAccionVista());
+//    }
+
+    public AccionVista getAccionVista() {
+        return this.accionVista;
     }
 
     public String setAccion(String accion) {
         log.info(accion);
 
-        super.accion = Accion.valueOf(accion);
+        this.accionVista.setAccion(AccionVista.AccionEnum.valueOf(accion));
         iniciarAtributos();
 
         log.info(viewRequest);
@@ -454,10 +440,7 @@ public class EmpleadoAction extends Action implements Serializable {
 
         this.empleadoCompleto = null;
         this.listaEmpleados = null;
-        hayError = false;
-        mensajeError = null;
-        mensajeWarning = null;
-        mensajeSuccess = null;
+        accionVista.inicializarAtributos();
 
     }
 

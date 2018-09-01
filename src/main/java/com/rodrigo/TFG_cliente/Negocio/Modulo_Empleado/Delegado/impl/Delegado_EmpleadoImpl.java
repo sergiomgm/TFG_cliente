@@ -15,7 +15,6 @@ import org.slf4j.LoggerFactory;
 import javax.xml.namespace.QName;
 import javax.xml.ws.BindingProvider;
 import javax.xml.ws.Service;
-import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.List;
@@ -57,7 +56,6 @@ public class Delegado_EmpleadoImpl extends Delegado_Empleado {
 
         log.info("Creando puerto de enlace para el servicio");
         portEmpleados =  ssEmpleados.getPort(IBroker_SA_Empleado.class);
-
 
 
 

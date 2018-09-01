@@ -4,7 +4,6 @@ import com.rodrigo.TFG_cliente.Negocio.Modulo_Empleado.Delegado.impl.Delegado_Em
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Empleado.Entidad.Transfers.TEmpleado;
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Empleado.Entidad.Transfers.TEmpleadoCompleto;
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Empleado.Excepciones.EmpleadoException;
-import com.rodrigo.TFG_cliente.Negocio.DelegadoDelNegocio;
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Empleado.Excepciones.EmpleadoFieldInvalidException;
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Empleado.Excepciones.EmpleadoLoginErroneo;
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Empleado.Excepciones.EmpleadoYaExisteExcepcion;
@@ -14,9 +13,16 @@ import org.slf4j.LoggerFactory;
 
 import java.util.List;
 
-public abstract class Delegado_Empleado implements DelegadoDelNegocio {
+public abstract class Delegado_Empleado  {
 
     private final static Logger log = LoggerFactory.getLogger(Delegado_Empleado.class);
+    String HOST = "http://localhost" ;
+//    String HOST = "https://127.0.0.1" ;
+
+    String PORT = "8080";
+//    String PORT = "8443";
+
+    String APP_URI = "/TFG_server/services";
 
 //    protected final String URL_WSDL = HOST + ":" + PORT + APP_URI + "/SA_Empleado?wsdl";
     protected final String URL_WSDL = "https://localhost" + ":" + 8443 + APP_URI + "/SA_Empleado?wsdl";
