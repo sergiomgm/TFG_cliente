@@ -31,6 +31,13 @@ public class TDepartamento {
     }
 
 
+
+    public TDepartamento(String nombre, String siglas) {
+        this.nombre = nombre;
+        this.siglas = siglas;
+    }
+
+
     public TDepartamento(long id, String nombre, String siglas) {
         this.id = id;
         this.nombre = nombre;

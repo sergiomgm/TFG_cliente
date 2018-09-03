@@ -30,6 +30,12 @@ public class TProyecto {
     }
 
 
+    public TProyecto(Long id) {
+        this.id = id;
+    }
+
+
+
     public TProyecto(Long id, String nombre, String descripcion, Date fechaInicio, Date fechaFin) {
         this.id = id;
         this.nombre = nombre;

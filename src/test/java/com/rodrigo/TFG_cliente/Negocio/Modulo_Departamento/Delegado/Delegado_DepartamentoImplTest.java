@@ -5,7 +5,6 @@ import com.rodrigo.TFG_cliente.Negocio.Modulo_Departamento.Entidad.Transfers.TDe
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Departamento.Entidad.Transfers.TDepartamentoCompleto;
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Departamento.Excepciones.*;
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Empleado.Delegado.Delegado_Empleado;
-import com.rodrigo.TFG_cliente.Negocio.Modulo_Empleado.Entidad.Rol;
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Empleado.Entidad.Transfers.TEmpleadoCompleto;
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Empleado.Entidad.Transfers.TEmpleadoTCompleto;
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Empleado.Excepciones.EmpleadoException;
@@ -79,7 +78,7 @@ public class Delegado_DepartamentoImplTest {
         TEmpleadoCompleto auxE = Delegado_Empleado.getInstance().buscarByEmail(nombre.toLowerCase().concat("@gmail.com"));
 
         if (auxE == null) {
-            e1 = Delegado_Empleado.getInstance().crearEmpleado(new TEmpleadoTCompleto(nombre, "1234", Rol.EMPLEADO, d1.getId()));
+            e1 = Delegado_Empleado.getInstance().crearEmpleado(new TEmpleadoTCompleto(nombre, "1234", d1.getId()));
         } else
             e1 = auxE;
 
@@ -323,7 +322,7 @@ public class Delegado_DepartamentoImplTest {
         TEmpleadoCompleto auxE = Delegado_Empleado.getInstance().buscarByEmail(nombre.toLowerCase().concat("@gmail.com"));
 
         if (auxE == null) {
-            auxE = Delegado_Empleado.getInstance().crearEmpleado(new TEmpleadoTCompleto(nombre, "1234", Rol.EMPLEADO, d.getId()));
+            auxE = Delegado_Empleado.getInstance().crearEmpleado(new TEmpleadoTCompleto(nombre, "1234", d.getId()));
         }
 
         d = deleg.buscarBySiglas(d.getSiglas());

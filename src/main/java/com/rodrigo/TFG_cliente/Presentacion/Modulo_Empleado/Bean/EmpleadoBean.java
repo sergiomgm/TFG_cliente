@@ -1,7 +1,8 @@
 package com.rodrigo.TFG_cliente.Presentacion.Modulo_Empleado.Bean;
 
+import com.rodrigo.TFG_cliente.Negocio.Modulo_Departamento.Delegado.Delegado_Departamento;
+import com.rodrigo.TFG_cliente.Negocio.Modulo_Departamento.Entidad.Transfers.TDepartamento;
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Empleado.Delegado.Delegado_Empleado;
-import com.rodrigo.TFG_cliente.Negocio.Modulo_Empleado.Entidad.Rol;
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Empleado.Entidad.Transfers.TEmpleado;
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Empleado.Entidad.Transfers.TEmpleadoCompleto;
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Empleado.Entidad.Transfers.TEmpleadoTCompleto;
@@ -10,7 +11,7 @@ import com.rodrigo.TFG_cliente.Negocio.Modulo_Empleado.Excepciones.EmpleadoExcep
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Empleado.Excepciones.EmpleadoFieldInvalidException;
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Empleado.Excepciones.EmpleadoYaExisteExcepcion;
 import com.rodrigo.TFG_cliente.Negocio.Utils.EmailValidator;
-import com.rodrigo.TFG_cliente.Presentacion.actions.AccionVista;
+import com.rodrigo.TFG_cliente.Presentacion.AccionVista;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -50,18 +51,16 @@ public class EmpleadoBean implements Serializable {
 
     private String password;
 
-    private String rol;
 
+    private String antiguedad;
 
-    private int antiguedad;
+    private String sueldoBase;
 
-    private int sueldoBase;
+    private String horasJornada;
 
-    private int horasJornada;
+    private String precioHora;
 
-    private int precioHora;
-
-    private Long idDepart;
+    private String idDepart;
 
 
     private static Map<String, Object> roles;
@@ -75,7 +74,10 @@ public class EmpleadoBean implements Serializable {
 
     private TEmpleadoCompleto empleadoCompleto;
 
-    private List<TEmpleado> listaEmpleados;
+    private List<? extends TEmpleado> listaEmpleados;
+
+
+    private TDepartamento[] listaDepartamentos;
 
 
     /****************************
@@ -88,19 +90,29 @@ public class EmpleadoBean implements Serializable {
         TEmpleado emple = null;
 
         if (nombre != null && nombre.trim() != "" &&
-                email != null && new EmailValidator().validate(email.trim()) &&
-                password != null && password.trim() != "" &&
-                rol != null && rol.trim() != "") {
+                email != null && new EmailValidator().validate(email.trim())) {
 
 
-            if (idDepart > 0L) {
+            if (Long.valueOf(idDepart) > 0L) {
 
 
-                if (antiguedad > 0 && sueldoBase > 0) {
+                if (antiguedad != null && Long.valueOf(antiguedad) > 0 &&
+                        sueldoBase != null && Long.valueOf(sueldoBase) > 0) {
 
-                    emple = new TEmpleadoTCompleto(nombre, email, password, Rol.valueOf(rol), idDepart, antiguedad, sueldoBase);
-                } else if (horasJornada > 0 && precioHora > 0) {
-                    emple = new TEmpleadoTParcial(nombre, email, password, Rol.valueOf(rol), idDepart, horasJornada, precioHora);
+                    if (email != null && new EmailValidator().validate(email.trim())) {
+                        emple = new TEmpleadoTCompleto(nombre, email, password, Long.valueOf(idDepart), Long.valueOf(antiguedad).intValue(), Long.valueOf(sueldoBase).intValue());
+                    } else {
+                        emple = new TEmpleadoTCompleto(nombre, password, Long.valueOf(idDepart), Long.valueOf(antiguedad).intValue(), Long.valueOf(sueldoBase).intValue());
+                    }
+                } else if (horasJornada != null && Long.valueOf(horasJornada) > 0 &&
+                        precioHora != null && Long.valueOf(precioHora) > 0) {
+
+                    if (email != null && new EmailValidator().validate(email.trim())) {
+                        emple = new TEmpleadoTParcial(nombre, email, password, Long.valueOf(idDepart), Long.valueOf(horasJornada).intValue(), Long.valueOf(precioHora).intValue());
+                    } else {
+                        emple = new TEmpleadoTParcial(nombre, password, Long.valueOf(idDepart), Long.valueOf(horasJornada).intValue(), Long.valueOf(precioHora).intValue());
+                    }
+
                 }
 
                 try {
@@ -109,26 +121,28 @@ public class EmpleadoBean implements Serializable {
 
 
                 } catch (EmpleadoYaExisteExcepcion e) {
-                    e.printStackTrace();
+                    log.error("EXCEPCION!!", e);
                     accionVista.setHayError(true);
                     accionVista.setMensajeError(e.getMessage());
 
                 } catch (EmpleadoFieldInvalidException e) {
-                    e.printStackTrace();
+                    log.error("EXCEPCION!!", e);
                     accionVista.setHayError(true);
                     accionVista.setMensajeError(e.getMessage());
 
                 } catch (EmpleadoException e) {
-                    e.printStackTrace();
+                    log.error("EXCEPCION!!", e);
                     accionVista.setHayError(true);
                     accionVista.setMensajeError(e.getMessage());
 
                 }
             } else {
-                accionVista.setMensajeWarning("El departamento no existe en la BBDD");
+                accionVista.setMensajeWarning("El id de departamento debe ser positivo");
             }
 
 
+        } else {
+            accionVista.setHayError(true);
         }
         if (accionVista.getHayError()) {
             if (emple instanceof TEmpleadoTCompleto)
@@ -327,7 +341,7 @@ public class EmpleadoBean implements Serializable {
         this.email = email;
     }
 
-    public List<TEmpleado> getListaEmpleados() {
+    public List<? extends TEmpleado> getListaEmpleados() {
         return listaEmpleados;
     }
 
@@ -351,60 +365,60 @@ public class EmpleadoBean implements Serializable {
         this.password = password;
     }
 
-    public String getRol() {
-        return rol;
-    }
-
-    public void setRol(String rol) {
-        this.rol = rol;
-    }
-
     public Map<String, Object> getRoles() {
         return roles;
     }
 
 
-    public int getAntiguedad() {
+    public String getAntiguedad() {
         return antiguedad;
     }
 
-    public void setAntiguedad(int antiguedad) {
+    public void setAntiguedad(String antiguedad) {
         this.antiguedad = antiguedad;
     }
 
-    public int getSueldoBase() {
+    public String getSueldoBase() {
         return sueldoBase;
     }
 
-    public void setSueldoBase(int sueldoBase) {
+    public void setSueldoBase(String sueldoBase) {
         this.sueldoBase = sueldoBase;
     }
 
-    public int getHorasJornada() {
+    public String getHorasJornada() {
         return horasJornada;
     }
 
-    public void setHorasJornada(int horasJornada) {
+    public void setHorasJornada(String horasJornada) {
         this.horasJornada = horasJornada;
     }
 
-    public int getPrecioHora() {
+    public String getPrecioHora() {
         return precioHora;
     }
 
-    public void setPrecioHora(int precioHora) {
+    public void setPrecioHora(String precioHora) {
         this.precioHora = precioHora;
     }
 
-    public Long getIdDepart() {
+    public String getIdDepart() {
         return idDepart;
     }
 
-    public void setIdDepart(Long idDepart) {
+    public void setIdDepart(String idDepart) {
         this.idDepart = idDepart;
     }
 
-//    public String getAccionVista() {
+    public TDepartamento[] getListaDepartamentos() {
+        return listaDepartamentos;
+    }
+
+    public void setListaDepartamentos(TDepartamento[] listaDepartamentos) {
+        this.listaDepartamentos = listaDepartamentos;
+    }
+
+    //    public String getAccionVista() {
 //        return String.valueOf(accionVista.getAccionVista());
 //    }
 
@@ -415,8 +429,18 @@ public class EmpleadoBean implements Serializable {
     public String setAccion(String accion) {
         log.info(accion);
 
+        accionVista.inicializarAtributos();
         this.accionVista.setAccion(AccionVista.AccionEnum.valueOf(accion));
-        iniciarAtributos();
+
+        if (AccionVista.AccionEnum.valueOf(accion) == AccionVista.AccionEnum.ACCION_CREAR_EMPLEADO_TIEMPO_COMPLETO) {
+            listaDepartamentos = Delegado_Departamento.getInstance().listarDepartamentos();
+        }
+
+        if (AccionVista.AccionEnum.valueOf(accion) == AccionVista.AccionEnum.ACCION_CREAR_EMPLEADO_TIEMPO_PARCIAL) {
+            listaDepartamentos = Delegado_Departamento.getInstance().listarDepartamentos();
+        }
+
+
 
         log.info(viewRequest);
         return viewRequest;
@@ -430,12 +454,11 @@ public class EmpleadoBean implements Serializable {
 
         this.nombre = null;
         this.password = null;
-        this.rol = null;
-        this.antiguedad = 0;
-        this.sueldoBase = 0;
-        this.horasJornada = 0;
-        this.precioHora = 0;
-        this.idDepart = 0L;
+        this.antiguedad = null;
+        this.sueldoBase = null;
+        this.horasJornada = null;
+        this.precioHora = null;
+        this.idDepart = null;
 
 
         this.empleadoCompleto = null;

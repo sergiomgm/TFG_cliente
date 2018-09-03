@@ -327,7 +327,7 @@ class Delegado_ProyectoImplTest {
 
 
     @Test
-    void eliminarProyectoConEmpleados() throws ProyectoException {
+    void eliminarProyectoConEmpleados() throws ProyectoException, EmpleadoException {
         log.info("SA_ProyectoImplTest.eliminarProyecto");
 
 

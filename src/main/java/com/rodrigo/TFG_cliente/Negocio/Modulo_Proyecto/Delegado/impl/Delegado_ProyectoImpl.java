@@ -1,6 +1,7 @@
 package com.rodrigo.TFG_cliente.Negocio.Modulo_Proyecto.Delegado.impl;
 
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Empleado.Entidad.Transfers.TEmpleado;
+import com.rodrigo.TFG_cliente.Negocio.Modulo_Empleado.Excepciones.EmpleadoException;
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Proyecto.Entidad.Transfers.TEmpleadoProyecto;
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Proyecto.Entidad.Transfers.TProyecto;
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Proyecto.Entidad.Transfers.TProyectoCompleto;
@@ -85,7 +86,6 @@ public class Delegado_ProyectoImpl extends Delegado_Proyecto {
 
     }
 
-
     @Override
     public boolean eliminarProyecto(Long id) throws ProyectoFieldInvalidException, ProyectoException {
         return portProyecto.eliminarProyecto(id);
@@ -96,8 +96,15 @@ public class Delegado_ProyectoImpl extends Delegado_Proyecto {
         return portProyecto.listarProyectos();
     }
 
-    public TEmpleadoProyecto añadirEmpleadoAProyecto(TEmpleado e, TProyecto p, int horas) {
+    @Override
+    public TEmpleadoProyecto añadirEmpleadoAProyecto(TEmpleado e, TProyecto p, int horas) throws EmpleadoException, ProyectoException {
         return portProyecto.añadirEmpleadoAProyecto(e, p, horas);
+    }
+
+    @Override
+    public boolean eliminarEmpleadoAProyecto(Long idEmple, Long idProy) throws ProyectoException, EmpleadoException{
+        return portProyecto.eliminarEmpleadoAProyecto(idEmple, idProy);
+
     }
 
 }

@@ -47,23 +47,24 @@
 
                             <h2>Empleados</h2>
                         </div>
+                        <hr/>
                         <div class="acciones">
 
-                            <h:commandButton styleClass="btn btn-success" value="Buscar por ID"
+                            <h:commandButton styleClass="btn btn-primary" value="Buscar por ID"
                                              action="#{EmpleadoBean.setAccion('ACCION_BUSCAR_EMPLEADO_ID')}"
                             /> <br/>
-                            <h:commandButton styleClass="btn btn-success" value="Buscar por email"
+                            <h:commandButton styleClass="btn btn-primary" value="Buscar por email"
                                              action="#{EmpleadoBean.setAccion('ACCION_BUSCAR_EMPLEADO_EMAIL')}"
                             /> <br/>
-                            <h:commandButton styleClass="btn btn-success" value="Crear T Completo"
+                            <h:commandButton styleClass="btn btn-primary" value="Crear T Completo"
                                              action="#{EmpleadoBean.setAccion('ACCION_CREAR_EMPLEADO_TIEMPO_COMPLETO')}"/>
 
-                            <h:commandButton styleClass="btn btn-default" value="Crear T Parcial"
+                            <h:commandButton styleClass="btn btn-primary" value="Crear T Parcial"
                                              action="#{EmpleadoBean.setAccion('ACCION_CREAR_EMPLEADO_TIEMPO_PARCIAL')}"/><br/>
-                            <h:commandButton styleClass="btn btn-success" value="Eliminar"
+                            <h:commandButton styleClass="btn btn-primary" value="Eliminar"
                                              action="#{EmpleadoBean.setAccion('ACCION_ELIMINAR_EMPLEADO')}"
                             /><br/>
-                            <h:commandButton styleClass="btn btn-success" value="Listar"
+                            <h:commandButton styleClass="btn btn-primary" value="Listar"
                                              action="#{EmpleadoBean.listarEmpleados}"
                             /><br/>
                         </div>
@@ -77,20 +78,21 @@
 
                             <h2>Departamentos</h2>
                         </div>
+                        <hr/>
                         <div class="acciones">
-                            <h:commandButton styleClass="btn btn-success" value="Buscar por ID"
+                            <h:commandButton styleClass="btn btn-primary" value="Buscar por ID"
                                              action="#{DepartamentoBean.setAccion('ACCION_BUSCAR_DEPARTAMENTO_ID')}"
                             /><br/>
-                            <h:commandButton styleClass="btn btn-success" value="Buscar por siglas"
+                            <h:commandButton styleClass="btn btn-primary" value="Buscar por siglas"
                                              action="#{DepartamentoBean.setAccion('ACCION_BUSCAR_DEPARTAMENTO_SIGLAS')}"
                             /><br/>
-                            <h:commandButton styleClass="btn btn-default" value="Crear"
+                            <h:commandButton styleClass="btn btn-primary" value="Crear"
                                              action="#{DepartamentoBean.setAccion('ACCION_CREAR_DEPARTAMENTO')}"
                             /><br/>
-                            <h:commandButton styleClass="btn btn-success" value="Eliminar"
+                            <h:commandButton styleClass="btn btn-primary" value="Eliminar"
                                              action="#{DepartamentoBean.setAccion('ACCION_ELIMINAR_DEPARTAMENTO')}"
                             /><br/>
-                            <h:commandButton styleClass="btn btn-success" value="Listar"
+                            <h:commandButton styleClass="btn btn-primary" value="Listar"
                                              action="#{DepartamentoBean.listarDepartamentos}"
                             /><br/>
 
@@ -104,22 +106,30 @@
                         <div class="titulo">
                             <h2>Proyectos</h2>
                         </div>
+                        <hr/>
                         <div class="acciones">
-                            <h:commandButton styleClass="btn btn-success" value="Buscar por ID"
+                            <h:commandButton styleClass="btn btn-primary" value="Buscar por ID"
                                              action="#{ProyectoBean.setAccion('ACCION_BUSCAR_PROYECTO_ID')}"
                             /><br/>
-                            <h:commandButton styleClass="btn btn-success" value="Buscar por nombre"
+                            <h:commandButton styleClass="btn btn-primary" value="Buscar por nombre"
                                              action="#{ProyectoBean.setAccion('ACCION_BUSCAR_PROYECTO_NOMBRE')}"
                             /><br/>
-                            <h:commandButton styleClass="btn btn-default" value="Crear"
+                            <h:commandButton styleClass="btn btn-primary" value="Crear"
                                              action="#{ProyectoBean.setAccion('ACCION_CREAR_PROYECTO')}"
                             /><br/>
-                            <h:commandButton styleClass="btn btn-success" value="Eliminar"
+                            <h:commandButton styleClass="btn btn-primary" value="Eliminar"
                                              action="#{ProyectoBean.setAccion('ACCION_ELIMINAR_PROYECTO')}"
                             /><br/>
-                            <h:commandButton styleClass="btn btn-success" value="Listar"
+                            <h:commandButton styleClass="btn btn-primary" value="Listar"
                                              action="#{ProyectoBean.listarProyectos}"
                             /><br/>
+                            <hr/>
+
+                            <h:commandButton styleClass="btn btn-primary" value="Asignar empleado"
+                                             action="#{ProyectoBean.setAccion('ACCION_ASIGNAR_EMPELADO_A_PROYECTO')}"/>
+
+                            <h:commandButton styleClass="btn btn-primary" value="Eliminar empleado"
+                                             action="#{ProyectoBean.setAccion('ACCION_ELIMINAR_EMPLEADO_DE_PROYECTO')}"/>
 
                         </div>
                     </div>
@@ -128,7 +138,7 @@
         </div>
 
 
-        <div id="contenido">
+        <div id=" contenido">
 
             <!--******************************************************************************************************************************-->
             <!--******************************************************************************************************************************-->
@@ -150,9 +160,6 @@
                                 value="#{EmpleadoBean.empleadoCompleto.empleado.nombre}"/> <br/>
                             <strong>Email:</strong> <h:outputText
                                 value="#{EmpleadoBean.empleadoCompleto.empleado.email}"/> <br/>
-                            <strong>Rol: </strong><h:outputText
-                                value="#{EmpleadoBean.empleadoCompleto.empleado.rol}"/>
-                            <br/>
                             <strong>Departamento: </strong><h:outputText
                                 value="#{EmpleadoBean.empleadoCompleto.departamento.nombre}"/> (<h:outputText
                                 value="#{EmpleadoBean.empleadoCompleto.departamento.siglas}"/>) <br/>
@@ -209,8 +216,6 @@
                                 value="#{EmpleadoBean.empleadoCompleto.empleado.nombre}"/> <br/>
                             <strong>Email:</strong> <h:outputText
                                 value="#{EmpleadoBean.empleadoCompleto.empleado.email}"/> <br/>
-                            <strong>Rol: </strong><h:outputText
-                                value="#{EmpleadoBean.empleadoCompleto.empleado.rol}"/>
                             <br/>
                             <strong>Departamento: </strong><h:outputText
                                 value="#{EmpleadoBean.empleadoCompleto.departamento.nombre}"/> (<h:outputText
@@ -269,8 +274,6 @@
                                 value="#{EmpleadoBean.empleadoCompleto.empleado.nombre}"/> <br/>
                             <strong>Email:</strong> <h:outputText
                                 value="#{EmpleadoBean.empleadoCompleto.empleado.email}"/> <br/>
-                            <strong>Rol: </strong><h:outputText
-                                value="#{EmpleadoBean.empleadoCompleto.empleado.rol}"/>
                             <br/>
                             <strong>Departamento: </strong><h:outputText
                                 value="#{EmpleadoBean.empleadoCompleto.departamento.nombre}"/> (<h:outputText
@@ -306,55 +309,91 @@
 
                 <c:if test="#{EmpleadoBean.accionVista.getAccion() == 'ACCION_CREAR_EMPLEADO_TIEMPO_COMPLETO'}">
                     CREAR_EMPLEADO_TIEMPO_COMPLETO
+                    <div>
+                        <h:form styleClass="form-group" prependId="false">
+                            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 mostrarInfo">
 
-                    <h:form styleClass="form-group" prependId="false">
+                                <div class="form-inline">
+                                    Nombre: <h:inputText id="nombreEmpleTC" styleClass="form-control"
+                                                         value="#{EmpleadoBean.nombre}"
+                                                         required="true"
+                                                         requiredMessage="Nombre necesario."
+                                                         a:autofocus="true"/>
+                                    <h:message for="nombreEmpleTC" errorClass="red"/>
+                                </div>
+                                <br/>
+                                <div class="form-inline">
+                                    Email: <h:inputText id="emailempleTC" styleClass="form-control"
+                                                        value="#{EmpleadoBean.email}" required="false"
+                                                        requiredMessage="Email necesario."/>
+                                    <small><strong>Automático:</strong> 'nombre@gmail.com'
+                                    </small>
+                                    <!--- <h:message for="emailempleTC" errorClass="red"/>-->
+                                </div>
+                                <br/>
+                                <div class="form-inline">
+                                    Password: <h:inputText id="PassempleTC" styleClass="form-control"
+                                                           value="#{EmpleadoBean.password}" required="true"
+                                                           requiredMessage="Password necesaria."/>
+                                    <h:message for="PassempleTC" errorClass="red"/>
+                                    <br/>
+                                </div>
 
+                                <br/>
+                                <div class="form-inline">
+                                    Departamento: <h:inputText id="departempleTC" styleClass="form-control"
+                                                               value="#{EmpleadoBean.idDepart}"
+                                                               required="true"
+                                                               requiredMessage="ID departamento necesario."/>
+                                    <h:message for="departempleTC" errorClass="red"/>
+                                    <br/>
+                                </div>
+                                <br/>
+                                <div class="form-inline">
+                                    Antiguedad: <h:inputText id="antiguedadEmpleTC" styleClass="form-control"
+                                                             value="#{EmpleadoBean.antiguedad}" required="true"
+                                                             requiredMessage="Años antiguedad necesarios."/>
+                                    <h:message for="antiguedadEmpleTC" errorClass="red"/>
+                                </div>
+                                <br/>
+                                <div class="form-inline">
+                                    Sueldo Base: <h:inputText id="sueldoempleTC" styleClass="form-control"
+                                                              value="#{EmpleadoBean.sueldoBase}" required="true"
+                                                              requiredMessage="Sueldo base necesario."/>
+                                    <h:message for="sueldoempleTC" errorClass="red"/>
+                                    <br/>
+                                </div>
+                                <br/>
+                                <h:commandButton styleClass="btn btn-primary" value="Crear empleado"
+                                                 action="#{EmpleadoBean.crearEmpleado}"/>
 
-                        <div class="form-inline">
-                            Nombre: <h:inputText id="nombreEmple" styleClass="form-control"
-                                                 value="#{EmpleadoBean.nombre}"
-                                                 required="true"
-                                                 requiredMessage="Nombre necesario."
-                                                 a:autofocus="true"/>
-                            <h:message for="nombreEmple" errorClass="red"/>
-                        </div>
-                        <br/>
-                        <div class="form-inline">
-                            Email: <h:inputText styleClass="form-control" value="#{EmpleadoBean.email}"/>
-                        </div>
-                        <br/>
-                        <div class="form-inline">
-                            Password: <h:inputText styleClass="form-control" value="#{EmpleadoBean.password}"/> <br/>
-                        </div>
-                        <br/>
-                        <div class="form-inline">
-                            Rol:
-                            <h:selectOneMenu value="#{EmpleadoBean.rol}">
-                                <f:selectItems value="#{EmpleadoBean.roles}"/>
-                            </h:selectOneMenu>
-                            <br/>
-                        </div>
-                        <br/>
-                        <div class="form-inline">
-                            Departamento: <h:inputText styleClass="form-control" value="#{EmpleadoBean.idDepart}"/>
-                            <br/>
-                        </div>
-                        <br/>
-                        <div class="form-inline">
-                            Antiguedad: <h:inputText styleClass="form-control" value="#{EmpleadoBean.antiguedad}"/>
-                        </div>
-                        <br/>
-                        <div class="form-inline">
-                            Sueldo Base: <h:inputText styleClass="form-control" value="#{EmpleadoBean.sueldoBase}"/>
-                            <br/>
-                        </div>
-                        <br/>
-                        <h:commandButton styleClass="btn btn-primary" value="Crear empleado"
-                                         action="#{EmpleadoBean.crearEmpleado}"/>
+                            </div>
+                        </h:form>
+                        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 mostrarInfo">
+                            <div><h3>Lista Departamentos</h3></div>
+                            <hr/>
+                            <ul>
+                                <ui:repeat value="#{EmpleadoBean.listaDepartamentos}" var="itemD">
 
+                                    <li>
+                                        <div>
+                                            <strong>[#</strong><h:outputText
+                                                value="#{itemD.id}"/><strong>] - </strong>
+                                            <h:outputText value="#{itemD.nombre}"/>
+                                            <br/>
+                                            <strong>Siglas: </strong> <h:outputText
+                                                value="#{itemD.siglas}"/> <br/>
+                                            <strong>Nomina Mes: </strong> <h:outputText
+                                                value="#{itemD.nominaMes}"/> <br/>
 
-                    </h:form>
+                                        </div>
+                                    </li>
+                                    <br/>
+                                </ui:repeat>
+                            </ul>
 
+                        </div>
+                    </div>
 
                 </c:if>
 
@@ -366,36 +405,91 @@
 
                 <c:if test="#{EmpleadoBean.accionVista.getAccion() == 'ACCION_CREAR_EMPLEADO_TIEMPO_PARCIAL'}">
                     CREAR_EMPLEADO_TIEMPO_PARCIAL
+                    <div>
+                        <h:form styleClass="form-group" prependId="false">
+                            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 mostrarInfo">
 
-                    <h:form styleClass="form-group" prependId="false">
+                                <div class="form-inline">
+                                    Nombre: <h:inputText id="nombreEmpleTP" styleClass="form-control"
+                                                         value="#{EmpleadoBean.nombre}"
+                                                         required="true"
+                                                         requiredMessage="Nombre necesario."
+                                                         a:autofocus="true"/>
+                                    <h:message for="nombreEmpleTP" errorClass="red"/>
+                                </div>
+                                <br/>
+                                <div class="form-inline">
+                                    Email: <h:inputText id="emailempleTP" styleClass="form-control"
+                                                        value="#{EmpleadoBean.email}" required="true"
+                                                        requiredMessage="Email necesario."/>
+                                    <h:message for="emailempleTP" errorClass="red"/>
+                                </div>
+                                <br/>
+                                <div class="form-inline">
+                                    Password: <h:inputText id="PassempleTP" styleClass="form-control"
+                                                           value="#{EmpleadoBean.password}" required="true"
+                                                           requiredMessage="Password necesaria."/>
+                                    <h:message for="PassempleTP" errorClass="red"/>
+                                    <br/>
+                                </div>
 
+                                <br/>
+                                <div class="form-inline">
+                                    Departamento: <h:inputText id="departempleTP" styleClass="form-control"
+                                                               value="#{EmpleadoBean.idDepart}"
+                                                               required="true"
+                                                               requiredMessage="ID departamento necesario."/>
+                                    <h:message for="departempleTP" errorClass="red"/>
+                                    <br/>
+                                </div>
+                                <br/>
+                                <div class="form-inline">
+                                    Horas de Jornada: <h:inputText id="horasJornadaEmpleTP" styleClass="form-control"
+                                                                   value="#{EmpleadoBean.horasJornada}" required="true"
+                                                                   requiredMessage="horasJornada necesarias."/>
+                                    <h:message for="horasJornadaEmpleTP" errorClass="red"/>
+                                </div>
+                                <br/>
+                                <div class="form-inline">
+                                    Precio de la hora: <h:inputText id="precioHoraempleTP" styleClass="form-control"
+                                                                    value="#{EmpleadoBean.precioHora}" required="true"
+                                                                    requiredMessage="Precio de la hora necesario."/>
+                                    <h:message for="precioHoraempleTP" errorClass="red"/>
+                                    <br/>
+                                </div>
+                                <br/>
+                                <h:commandButton styleClass="btn btn-primary" value="Crear empleado"
+                                                 action="#{EmpleadoBean.crearEmpleado}"/>
 
-                        Nombre: <h:inputText styleClass="form-control" value="#{EmpleadoBean.nombre}"
-                                             a:autofocus="true"/>
-                        Email: <h:inputText styleClass="form-control" value="#{EmpleadoBean.email}"/>
-                        Password: <h:inputText styleClass="form-control" value="#{EmpleadoBean.password}"/> <br/>
-                        Rol:
-                        <h:selectOneMenu value="#{EmpleadoBean.rol}">
-                            <f:selectItems value="#{EmpleadoBean.roles}"/>
-                        </h:selectOneMenu>
-                        <div class="form-inline">
-                            Departamento: <h:inputText styleClass="form-control" value="#{EmpleadoBean.idDepart}"/>
-                            <br/>
+                            </div>
+                        </h:form>
+                        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 mostrarInfo">
+                            <div><h3>Lista Departamentos</h3></div>
+                            <hr/>
+                            <ul>
+                                <ui:repeat value="#{EmpleadoBean.listaDepartamentos}" var="itemD">
+
+                                    <li>
+                                        <div>
+                                            <strong>[#</strong><h:outputText
+                                                value="#{itemD.id}"/><strong>] - </strong>
+                                            <h:outputText value="#{itemD.nombre}"/>
+                                            <br/>
+                                            <strong>Siglas: </strong> <h:outputText
+                                                value="#{itemD.siglas}"/> <br/>
+                                            <strong>Nomina Mes: </strong> <h:outputText
+                                                value="#{itemD.nominaMes}"/> <br/>
+
+                                        </div>
+                                    </li>
+                                    <br/>
+                                </ui:repeat>
+                            </ul>
+
                         </div>
-                        <br/>
-                        Horas de jornada: <h:inputText styleClass="form-control"
-                                                       value="#{EmpleadoBean.horasJornada}"/> <br/>
-                        Precio por hora: <h:inputText styleClass="form-control" value="#{EmpleadoBean.precioHora}"/>
-                        <br/>
-
-                        <br/>
-                        <br/>
-                        <h:commandButton styleClass="btn btn-primary" value="Crear"
-                                         action="#{EmpleadoBean.crearEmpleado}"/>
 
 
-                    </h:form>
-
+                    </div>
 
                 </c:if>
 
@@ -435,13 +529,46 @@
 
                     <c:if test="#{EmpleadoBean.listaEmpleados != null}">
                         <div class="mostrarInfo">
-                            <ol>
+                            <ul>
                                 <ui:repeat value="#{EmpleadoBean.listaEmpleados}" var="itemE">
 
-                                    <li>#{itemE}</li>
+                                    <li>
+                                        <div>
+                                            <strong>[#</strong><h:outputText value="#{itemE.id}"/><strong>] - </strong>
+                                            <h:outputText
+                                                    value="#{itemE.nombre}"/>
+                                            <br/>
+                                            <strong>Email: </strong> <h:outputText value="#{itemE.email}"/>
+                                            <br/>
+                                            <strong>Departamento: </strong> <h:outputText
+                                                value="#{itemE.departamento}"/>
 
+                                            <c:if test="#{itemE.sueldoBase != null}">
+
+                                                <strong>Sueldo Base: </strong>
+                                                <h:outputText value="#{itemE.sueldoBase}"/>
+                                                <br/>
+                                                <strong>Antiguedad: </strong>
+                                                <h:outputText value="#{itemE.antiguedad}"/>
+                                                <br/>
+
+                                            </c:if>
+
+                                            <c:if test="#{itemE.horasJornada != null}">
+
+                                                <strong>Horas de jornada: </strong>
+                                                <h:outputText value="#{itemE.horasJornada}"/>
+                                                <br/>
+                                                <strong>Precio hora: </strong>
+                                                <h:outputText value="#{itemE.precioHora}"/>
+                                                <br/>
+                                            </c:if>
+
+                                        </div>
+                                    </li>
+                                    <br/>
                                 </ui:repeat>
-                            </ol>
+                            </ul>
                         </div>
                     </c:if>
 
@@ -497,7 +624,6 @@
 
                                         <li>[#<h:outputText value="#{entry.value.id}"/>]
                                             <h:outputText value="#{entry.value.nombre}"/> -
-                                            <h:outputText value="#{entry.value.rol}"/> -
                                         </li>
                                     </ui:repeat>
                                 </ul>
@@ -557,7 +683,50 @@
 
                                         <li>[#<h:outputText value="#{entry.value.id}"/>]
                                             <h:outputText value="#{entry.value.nombre}"/> -
-                                            <h:outputText value="#{entry.value.rol}"/>
+                                        </li>
+                                    </ui:repeat>
+                                </ul>
+                            </c:if>
+                            <c:if test="#{DepartamentoBean.departamentoCompleto.empleados.size() == 0}">
+                                <strong>Empleados: </strong> No tiene empleados asignados.
+                            </c:if>
+                        </div>
+                    </c:if>
+
+
+                </c:if>
+
+
+                <!--******************************************************************************************************************************-->
+                <!--******************************************************************************************************************************-->
+                <!--******************************************************************************************************************************-->
+
+
+                <c:if test="#{DepartamentoBean.accionVista.getAccion() == 'ACCION_MOSTRAR_DEPARTAMENTO'}">
+                    MOSTRAR_DEPARTAMENTO
+
+                    <c:if test="#{DepartamentoBean.departamentoCompleto != null}">
+                        <div class="mostrarInfo">
+                            <strong>ID: </strong><h:outputText
+                                value="#{DepartamentoBean.departamentoCompleto.departamento.id}"/>
+                            <br/>
+                            <strong>Nombre: </strong><h:outputText
+                                value="#{DepartamentoBean.departamentoCompleto.departamento.nombre}"/> <br/>
+                            <strong>Siglas: </strong> <h:outputText
+                                value="#{DepartamentoBean.departamentoCompleto.departamento.siglas}"/> <br/>
+                            <strong>Nomina mensual: </strong><h:outputText
+                                value="#{DepartamentoBean.departamentoCompleto.departamento.nominaMes}"/> €
+                            <br/>
+
+                            <c:if test="#{DepartamentoBean.departamentoCompleto.empleados.size() > 0}">
+                                <strong>Empleados:</strong>
+                                <ul>
+                                    <ui:repeat
+                                            value="#{DepartamentoBean.departamentoCompleto.empleados.entrySet().toArray()}"
+                                            var="entry">
+
+                                        <li>[#<h:outputText value="#{entry.value.id}"/>]
+                                            <h:outputText value="#{entry.value.nombre}"/> -
                                         </li>
                                     </ui:repeat>
                                 </ul>
@@ -579,6 +748,35 @@
 
                 <c:if test="#{DepartamentoBean.accionVista.getAccion() == 'ACCION_CREAR_DEPARTAMENTO'}">
                     CREAR_DEPARTAMENTO
+
+
+                    <h:form styleClass="form-group" prependId="false">
+                        <div class="mostrarInfo">
+
+                            <div class="form-inline">
+                                Nombre: <h:inputText id="nombreDepart" styleClass="form-control"
+                                                     value="#{DepartamentoBean.nombre}"
+                                                     required="true"
+                                                     requiredMessage="Nombre necesario."
+                                                     a:autofocus="true"/>
+                                <h:message for="nombreDepart" errorClass="red"/>
+                            </div>
+                            <br/>
+                            <div class="form-inline">
+                                Siglas: <h:inputText id="siglasDepart" styleClass="form-control"
+                                                     value="#{DepartamentoBean.siglas}" required="false"
+                                                     requiredMessage="Siglas necesario."/>
+                                <small><strong>Automático:</strong>Iniciales del nombre.</small>
+                                <!-- <h:message for="siglasDepart" errorClass="red"/> -->
+                            </div>
+
+                            <br/>
+                            <h:commandButton styleClass="btn btn-primary" value="Crear Departamento"
+                                             action="#{DepartamentoBean.crearDepartamento}"/>
+
+                        </div>
+                    </h:form>
+
                 </c:if>
 
 
@@ -617,13 +815,25 @@
 
                     <c:if test="#{DepartamentoBean.listaDepartamentos != null}">
                         <div class="mostrarInfo">
-                            <ol>
+                            <ul>
                                 <ui:repeat value="#{DepartamentoBean.listaDepartamentos}" var="itemD">
 
-                                    <li>#{itemD}</li>
+                                    <li>
+                                        <div>
+                                            <strong>[#</strong><h:outputText
+                                                value="#{itemD.id}"/><strong>] - </strong>
+                                            <h:outputText value="#{itemD.nombre}"/>
+                                            <br/>
+                                            <strong>Siglas: </strong> <h:outputText
+                                                value="#{itemD.siglas}"/> <br/>
+                                            <strong>Nomina Mes: </strong> <h:outputText
+                                                value="#{itemD.nominaMes}"/> <br/>
 
+                                        </div>
+                                    </li>
+                                    <br/>
                                 </ui:repeat>
-                            </ol>
+                            </ul>
                         </div>
                     </c:if>
 
@@ -658,6 +868,42 @@
                     </div>
 
 
+                </c:if>
+
+
+                <!--******************************************************************************************************************************-->
+                <!--******************************************************************************************************************************-->
+                <!--******************************************************************************************************************************-->
+
+
+                <c:if test="#{ProyectoBean.accionVista.getAccion() == 'ACCION_BUSCAR_PROYECTO_NOMBRE'}">
+                    BUSCAR_PROYECTO_NOMBRE
+
+                    <div class="form-inline">
+
+                        <h:form class="form-group" prependId="false">
+                            <p>
+                                Nombre proyecto: <h:inputText styleClass="form-control"
+                                                              value="#{ProyectoBean.nombre}"
+                                                              a:autofocus="true"/>
+                                <h:commandButton styleClass="btn btn-primary" value="Buscar"
+                                                 action="#{ProyectoBean.buscarByNombre}"/>
+
+                            </p>
+                        </h:form>
+                    </div>
+
+
+                </c:if>
+
+                <!--******************************************************************************************************************************-->
+                <!--******************************************************************************************************************************-->
+                <!--******************************************************************************************************************************-->
+
+
+                <c:if test="#{DepartamentoBean.accionVista.getAccion() == 'ACCION_MOSTRAR_PROYECTO'}">
+                    MOSTRAR_PROYECTO
+
                     <c:if test="#{ProyectoBean.proyectoCompleto != null}">
                         <div class="mostrarInfo">
                             <strong>ID: </strong><h:outputText
@@ -687,7 +933,6 @@
 
                                         <li>[#<h:outputText value="#{entry.value.id}"/>]
                                             <h:outputText value="#{entry.value.nombre}"/> -
-                                            <h:outputText value="#{entry.value.rol}"/>
                                         </li>
 
                                     </ui:repeat>
@@ -701,76 +946,6 @@
 
 
                 </c:if>
-
-
-                <!--******************************************************************************************************************************-->
-                <!--******************************************************************************************************************************-->
-                <!--******************************************************************************************************************************-->
-
-
-                <c:if test="#{ProyectoBean.accionVista.getAccion() == 'ACCION_BUSCAR_PROYECTO_NOMBRE'}">
-                    BUSCAR_PROYECTO_NOMBRE
-
-                    <div class="form-inline">
-
-                        <h:form class="form-group" prependId="false">
-                            <p>
-                                Nombre proyecto: <h:inputText styleClass="form-control"
-                                                              value="#{ProyectoBean.nombre}"
-                                                              a:autofocus="true"/>
-                                <h:commandButton styleClass="btn btn-primary" value="Buscar"
-                                                 action="#{ProyectoBean.buscarByNombre}"/>
-
-                            </p>
-                        </h:form>
-                    </div>
-
-
-                    <c:if test="#{ProyectoBean.proyectoCompleto != null}">
-                        <div class="mostrarInfo">
-                            <strong>ID: </strong><h:outputText
-                                value="#{ProyectoBean.proyectoCompleto.proyecto.id}"/>
-                            <br/>
-                            <strong>Nombre: </strong><h:outputText
-                                value="#{ProyectoBean.proyectoCompleto.proyecto.nombre}"/> <br/>
-                            <strong>Inicio: </strong>
-                            <h:outputText value="#{ProyectoBean.proyectoCompleto.proyecto.fechaInicio}">
-                                <f:convertDateTime pattern="dd-MM-yyyy" type="date"/>
-                            </h:outputText> <br/>
-
-                            <strong>Fin: </strong>
-                            <h:outputText value="#{ProyectoBean.proyectoCompleto.proyecto.fechaFin}">
-                                <f:convertDateTime pattern="dd-MM-yyyy" type="date"/>
-                            </h:outputText> <br/>
-
-                            <strong>Descripción: </strong> <h:outputText
-                                value="#{ProyectoBean.proyectoCompleto.proyecto.descripcion}"/> <br/>
-
-
-                            <c:if test="#{ProyectoBean.proyectoCompleto.empleados.size() > 0}">
-                                <strong>Empleados:</strong>
-                                <ul>
-                                    <ui:repeat
-                                            value="#{ProyectoBean.proyectoCompleto.empleados.entrySet().toArray()}"
-                                            var="entry">
-
-                                        <li>[#<h:outputText value="#{entry.value.id}"/>]
-                                            <h:outputText value="#{entry.value.nombre}"/> -
-                                            <h:outputText value="#{entry.value.rol}"/>
-                                        </li>
-
-                                    </ui:repeat>
-                                </ul>
-                            </c:if>
-                            <c:if test="#{ProyectoBean.proyectoCompleto.empleados.size() == 0}">
-                                <strong>Empleados: </strong> No tiene empleados asignados.
-                            </c:if>
-                        </div>
-                    </c:if>
-
-
-                </c:if>
-
 
                 <!--******************************************************************************************************************************-->
                 <!--******************************************************************************************************************************-->
@@ -779,6 +954,61 @@
 
                 <c:if test="#{ProyectoBean.accionVista.getAccion() == 'ACCION_CREAR_PROYECTO'}">
                     CREAR_PROYECTO
+
+
+                    <h:form styleClass="form-group" prependId="false">
+                        <div class="mostrarInfo">
+
+                            <div class="form-inline">
+                                Nombre: <h:inputText id="nombreProy" styleClass="form-control"
+                                                     value="#{ProyectoBean.nombre}"
+                                                     required="true"
+                                                     requiredMessage="Nombre necesario."
+                                                     a:autofocus="true"/>
+                                <h:message for="nombreProy" errorClass="red"/>
+                            </div>
+                            <br/>
+                            <div class="form-inline">
+                                Fecha Inicio: <h:inputText id="FechaInicioProy" styleClass="form-control"
+                                                           value="#{ProyectoBean.fechaInicio}"
+                                                           required="true"
+                                                           requiredMessage="fecha inicio necesaria."
+                                                           a:placeholder="dd-mm-yyyy">
+                                <f:convertDateTime pattern="dd-mm-yyyy"/>
+                            </h:inputText>
+                                <h:message for="FechaInicioProy" errorClass="red"/>
+                            </div>
+                            <br/>
+                            <div class="form-inline">
+                                Fecha Fin: <h:inputText id="FechaFinProy" styleClass="form-control"
+                                                        value="#{ProyectoBean.fechafin}"
+                                                        required="true"
+                                                        requiredMessage="Fecha fin necesaria."
+                                                        a:placeholder="dd-mm-yyyy">
+
+                                <f:convertDateTime pattern="dd-mm-yyyy"/>
+                            </h:inputText>
+
+                                <h:message for="FechaFinProy" errorClass="red"/>
+                            </div>
+                            <br/>
+                            <div class="form-inline">
+                                Descripción: <h:inputTextarea id="descripProy" styleClass="form-control"
+                                                              value="#{ProyectoBean.descripcion}"
+                                                              required="true"
+                                                              requiredMessage="Descripción necesaria."
+                                                              row="13" col="10"/>
+                                <h:message for="descripProy" errorClass="red"/>
+                            </div>
+
+                            <br/>
+                            <h:commandButton styleClass="btn btn-primary" value="Crear Proyecto"
+                                             action="#{ProyectoBean.crearProyecto}"/>
+
+                        </div>
+                    </h:form>
+
+
                 </c:if>
 
 
@@ -816,31 +1046,290 @@
 
                     <c:if test="#{ProyectoBean.listaProyectos != null}">
                         <div class="mostrarInfo">
-                            <ol>
+                            <ul>
                                 <ui:repeat value="#{ProyectoBean.listaProyectos}" var="itemP">
 
-                                    <li>#{itemP}</li>
+                                    <li>
+                                        <div>
+                                            <strong>[#</strong><h:outputText value="#{itemP.id}"/><strong>] - </strong>
+                                            <h:outputText
+                                                    value="#{itemP.nombre}"/> <br/>
+                                            <strong>Fechas: </strong>
+                                            <h:outputText
+                                                    value="#{itemP.fechaInicio}">
+                                                <f:convertDateTime pattern="dd-MM-yyyy" type="date"/>
+                                            </h:outputText>
+                                            -
+                                            <h:outputText
+                                                    value="#{itemP.fechaFin}">
+                                                <f:convertDateTime pattern="dd-MM-yyyy" type="date"/>
+                                            </h:outputText>
+                                            <br/>
 
+                                            <strong>Descripción: </strong> <h:outputText
+                                                value="#{itemP.descripcion}"/> <br/>
+
+
+                                        </div>
+                                    </li>
+                                    <br/>
                                 </ui:repeat>
-                            </ol>
+                            </ul>
                         </div>
                     </c:if>
+                </c:if>
+
+
+                <!--******************************************************************************************************************************-->
+                <!--******************************************************************************************************************************-->
+                <!--******************************************************************************************************************************-->
+
+
+                <c:if test="#{ProyectoBean.accionVista.getAccion() == 'ACCION_ASIGNAR_EMPELADO_A_PROYECTO'}">
+                    ASIGNAR_EMPELADO_A_PROYECTO
+                    <h:form styleClass="form-group col-md-12" prependId="false">
+                        <div class="form-inline mostrarInfo">
+                            ID empleado: <h:inputText id="idEmple_empleProy" styleClass="form-control"
+                                                      value="#{ProyectoBean.idEmpleado}"
+                                                      required="true"
+                                                      requiredMessage="ID necesario."
+                                                      a:autofocus="true"/>
+                            <h:message for="idEmple_empleProy" errorClass="red"/>
+
+                            ID proyecto: <h:inputText id="idproy_empleProy" styleClass="form-control"
+                                                      value="#{ProyectoBean.idProyecto}"
+                                                      required="true"
+                                                      requiredMessage="ID necesario."
+                                                      a:autofocus="true"/>
+                            <h:message for="idproy_empleProy" errorClass="red"/>
+
+                            Horas: <h:inputText id="horas_empleProy" styleClass="form-control"
+                                                value="#{ProyectoBean.horas}"
+                                                required="true"
+                                                requiredMessage="Horas necesarias."
+                                                a:autofocus="true"/>
+                            <h:message for="horas_empleProy" errorClass="red"/>
+
+
+                            <h:commandButton styleClass="btn btn-primary" value="Agregar empleado a proyecto"
+                                             action="#{ProyectoBean.añadirEmpleadoAProyecto}"/>
+
+                        </div>
+                        <br/>
+                        <div>
+                            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 mostrarInfo">
+                                <div><h3>Lista Empleados</h3></div>
+                                <hr/>
+                                <ul>
+                                    <ui:repeat value="#{ProyectoBean.listaEmpleados}" var="itemE">
+
+                                        <li>
+                                            <div>
+                                                <strong>[#</strong><h:outputText
+                                                    value="#{itemE.id}"/><strong>] - </strong>
+                                                <h:outputText
+                                                        value="#{itemE.nombre}"/>
+                                                <br/>
+                                                <strong>Email: </strong> <h:outputText value="#{itemE.email}"/>
+                                                <br/>
+                                                <strong>Departamento: </strong> <h:outputText
+                                                    value="#{itemE.departamento}"/>
+
+                                                <c:if test="#{itemE.sueldoBase != null}">
+
+                                                    <strong>Sueldo Base: </strong>
+                                                    <h:outputText value="#{itemE.sueldoBase}"/>
+                                                    <br/>
+                                                    <strong>Antiguedad: </strong>
+                                                    <h:outputText value="#{itemE.antiguedad}"/>
+                                                    <br/>
+
+                                                </c:if>
+
+                                                <c:if test="#{itemE.horasJornada != null}">
+
+                                                    <strong>Horas de jornada: </strong>
+                                                    <h:outputText value="#{itemE.horasJornada}"/>
+                                                    <br/>
+                                                    <strong>Precio hora: </strong>
+                                                    <h:outputText value="#{itemE.precioHora}"/>
+                                                    <br/>
+                                                </c:if>
+
+                                            </div>
+                                        </li>
+                                        <br/>
+                                    </ui:repeat>
+                                </ul>
+                            </div>
+                            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 mostrarInfo">
+                                <div><h3>Lista Proyectos</h3></div>
+                                <hr/>
+                                <ul>
+                                    <ui:repeat value="#{ProyectoBean.listaProyectos}" var="itemP">
+
+                                        <li>
+                                            <div>
+                                                <strong>[#</strong><h:outputText
+                                                    value="#{itemP.id}"/><strong>] - </strong>
+                                                <h:outputText
+                                                        value="#{itemP.nombre}"/> <br/>
+                                                <strong>Fechas: </strong>
+                                                <h:outputText
+                                                        value="#{itemP.fechaInicio}">
+                                                    <f:convertDateTime pattern="dd-MM-yyyy" type="date"/>
+                                                </h:outputText>
+                                                -
+                                                <h:outputText
+                                                        value="#{itemP.fechaFin}">
+                                                    <f:convertDateTime pattern="dd-MM-yyyy" type="date"/>
+                                                </h:outputText>
+                                                <br/>
+
+                                                <strong>Descripción: </strong> <h:outputText
+                                                    value="#{itemP.descripcion}"/> <br/>
+
+
+                                            </div>
+                                        </li>
+                                        <br/>
+                                    </ui:repeat>
+                                </ul>
+                            </div>
+                        </div>
+
+                    </h:form>
+                </c:if>
+
+
+                <!--******************************************************************************************************************************-->
+                <!--******************************************************************************************************************************-->
+                <!--******************************************************************************************************************************-->
+
+
+                <c:if test="#{ProyectoBean.accionVista.getAccion() == 'ACCION_ELIMINAR_EMPLEADO_DE_PROYECTO'}">
+                    ELIMINAR_EMPLEADO_DE_PROYECTO
+                    <h:form styleClass="form-group col-md-12" prependId="false">
+                        <div class="form-inline mostrarInfo">
+                            ID empleado: <h:inputText id="idEmple_empleProyElim" styleClass="form-control"
+                                                      value="#{ProyectoBean.idEmpleado}"
+                                                      required="true"
+                                                      requiredMessage="ID necesario."
+                                                      a:autofocus="true"/>
+                            <h:message for="idEmple_empleProyElim" errorClass="red"/>
+
+                            ID proyecto: <h:inputText id="idproy_empleProyElim" styleClass="form-control"
+                                                      value="#{ProyectoBean.idProyecto}"
+                                                      required="true"
+                                                      requiredMessage="ID necesario."
+                                                      a:autofocus="true"/>
+                            <h:message for="idproy_empleProyElim" errorClass="red"/>
+
+
+                            <h:commandButton styleClass="btn btn-primary" value="Eliminar empleado de proyecto"
+                                             action="#{ProyectoBean.eliminarEmpleadoAProyecto}"/>
+
+                        </div>
+                        <br/>
+                        <div>
+                            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 mostrarInfo">
+                                <div><h3>Lista Empleados</h3></div>
+                                <hr/>
+                                <ul>
+                                    <ui:repeat value="#{ProyectoBean.listaEmpleados}" var="itemE">
+
+                                        <li>
+                                            <div>
+                                                <strong>[#</strong><h:outputText
+                                                    value="#{itemE.id}"/><strong>] - </strong>
+                                                <h:outputText
+                                                        value="#{itemE.nombre}"/>
+                                                <br/>
+                                                <strong>Email: </strong> <h:outputText value="#{itemE.email}"/>
+                                                <br/>
+                                                <strong>Departamento: </strong> <h:outputText
+                                                    value="#{itemE.departamento}"/>
+
+                                                <c:if test="#{itemE.sueldoBase != null}">
+
+                                                    <strong>Sueldo Base: </strong>
+                                                    <h:outputText value="#{itemE.sueldoBase}"/>
+                                                    <br/>
+                                                    <strong>Antiguedad: </strong>
+                                                    <h:outputText value="#{itemE.antiguedad}"/>
+                                                    <br/>
+
+                                                </c:if>
+
+                                                <c:if test="#{itemE.horasJornada != null}">
+
+                                                    <strong>Horas de jornada: </strong>
+                                                    <h:outputText value="#{itemE.horasJornada}"/>
+                                                    <br/>
+                                                    <strong>Precio hora: </strong>
+                                                    <h:outputText value="#{itemE.precioHora}"/>
+                                                    <br/>
+                                                </c:if>
+
+                                            </div>
+                                        </li>
+                                        <br/>
+                                    </ui:repeat>
+                                </ul>
+                            </div>
+                            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 mostrarInfo">
+                                <div><h3>Lista Proyectos</h3></div>
+                                <hr/>
+                                <ul>
+                                    <ui:repeat value="#{ProyectoBean.listaProyectos}" var="itemP">
+
+                                        <li>
+                                            <div>
+                                                <strong>[#</strong><h:outputText
+                                                    value="#{itemP.id}"/><strong>] - </strong>
+                                                <h:outputText
+                                                        value="#{itemP.nombre}"/> <br/>
+                                                <strong>Fechas: </strong>
+                                                <h:outputText
+                                                        value="#{itemP.fechaInicio}">
+                                                    <f:convertDateTime pattern="dd-MM-yyyy" type="date"/>
+                                                </h:outputText>
+                                                -
+                                                <h:outputText
+                                                        value="#{itemP.fechaFin}">
+                                                    <f:convertDateTime pattern="dd-MM-yyyy" type="date"/>
+                                                </h:outputText>
+                                                <br/>
+
+                                                <strong>Descripción: </strong> <h:outputText
+                                                    value="#{itemP.descripcion}"/> <br/>
+
+
+                                            </div>
+                                        </li>
+                                        <br/>
+                                    </ui:repeat>
+                                </ul>
+
+                            </div>
+                        </div>
+
+                    </h:form>
                 </c:if>
 
 
                 <!--************   ALERTS *****************-->
 
 
-            </div>
+            </div> <!-- fin infoProyectos -->
 
-        </div>
+        </div> <!-- fin contenido -->
+
+
+        <br/>
+
         <!--************   ALERT ERROR *****************-->
-
-
         <div id="alerts">
-
-
-            <!--************   ALERT ERROR ACCION *****************-->
 
             <c:if test="#{ AccionVista.getMensajeSuccess() != null}">
                 <div class="alert alert-success">
@@ -860,12 +1349,11 @@
             <br/>
         </div>
 
-    </div>
 
+    </div> <!-- fin container -->
 
     <br/>
     <br/>
 </h:body>
 
 </html>
-

@@ -1,6 +1,7 @@
 package com.rodrigo.TFG_cliente.Negocio.Modulo_Proyecto.Delegado;
 
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Empleado.Entidad.Transfers.TEmpleado;
+import com.rodrigo.TFG_cliente.Negocio.Modulo_Empleado.Excepciones.EmpleadoException;
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Proyecto.Delegado.impl.Delegado_ProyectoImpl;
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Proyecto.Entidad.Transfers.TEmpleadoProyecto;
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Proyecto.Entidad.Transfers.TProyecto;
@@ -63,7 +64,9 @@ public abstract class Delegado_Proyecto  {
 
     public abstract List<TProyecto> listarProyectos();
 
-    public abstract TEmpleadoProyecto añadirEmpleadoAProyecto( TEmpleado e, TProyecto p, int horas);
+    public abstract TEmpleadoProyecto añadirEmpleadoAProyecto( TEmpleado e, TProyecto p, int horas) throws ProyectoException, EmpleadoException;
+
+    public abstract boolean eliminarEmpleadoAProyecto(Long idEmple, Long idProy) throws ProyectoException, EmpleadoException;
 
 
 }

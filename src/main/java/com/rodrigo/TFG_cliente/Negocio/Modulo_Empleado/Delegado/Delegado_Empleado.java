@@ -78,12 +78,6 @@ public abstract class Delegado_Empleado  {
     public abstract List<TEmpleado> listarEmpleados();
 
 
-    public abstract String saludar(String nombre);
-
-
-    public abstract boolean loginEmpleado(String email, String pass) throws EmpleadoLoginErroneo, EmpleadoFieldInvalidException, EmpleadoException;
-
-
     public abstract TEmpleadoCompleto buscarByEmail(String email) throws EmpleadoFieldInvalidException, EmpleadoException;
 
 

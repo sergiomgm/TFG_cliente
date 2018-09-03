@@ -1,4 +1,4 @@
-package com.rodrigo.TFG_cliente.Presentacion.actions;
+package com.rodrigo.TFG_cliente.Presentacion;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -48,6 +48,7 @@ public class AccionVista implements Serializable {
 
         ACCION_BUSCAR_DEPARTAMENTO_ID,
         ACCION_BUSCAR_DEPARTAMENTO_SIGLAS,
+        ACCION_MOSTRAR_DEPARTAMENTO,
         ACCION_CREAR_DEPARTAMENTO,
         ACCION_ELIMINAR_DEPARTAMENTO,
         ACCION_LISTAR_DEPARTAMENTOS,
@@ -65,15 +66,19 @@ public class AccionVista implements Serializable {
         ACCION_CREAR_PROYECTO,
         ACCION_ELIMINAR_PROYECTO,
         ACCION_LISTAR_PROYECTOS,
-        ACCION_AGREGAR_EMPLEADO_A_PROYECTO,
+        //ACCION_AGREGAR_EMPLEADO_A_PROYECTO,
 
 
         BUSCAR_PROYECTO_ID,
         BUSCAR_PROYECTO_NOMBRE,
+        ACCION_MOSTRAR_PROYECTO,
         CREAR_PROYECTO,
         ELIMINAR_PROYECTO,
         LISTAR_PROYECTOS,
-        AGREGAR_EMPLEADO_A_PROYECTO
+        AGREGAR_EMPLEADO_A_PROYECTO,
+
+        ACCION_ASIGNAR_EMPELADO_A_PROYECTO,
+        ACCION_ELIMINAR_EMPLEADO_DE_PROYECTO
 
 
     }

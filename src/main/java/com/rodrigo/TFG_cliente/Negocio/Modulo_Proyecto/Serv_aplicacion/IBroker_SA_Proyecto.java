@@ -1,6 +1,7 @@
 package com.rodrigo.TFG_cliente.Negocio.Modulo_Proyecto.Serv_aplicacion;
 
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Empleado.Entidad.Transfers.TEmpleado;
+import com.rodrigo.TFG_cliente.Negocio.Modulo_Empleado.Excepciones.EmpleadoException;
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Proyecto.Entidad.Transfers.TEmpleadoProyecto;
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Proyecto.Entidad.Transfers.TProyecto;
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Proyecto.Entidad.Transfers.TProyectoCompleto;
@@ -38,7 +39,10 @@ public interface IBroker_SA_Proyecto {
 
 
     @WebMethod(operationName="añadirEmpleadoAProyecto")
-    TEmpleadoProyecto añadirEmpleadoAProyecto(@WebParam(name = "e") TEmpleado e, @WebParam(name = "p") TProyecto p, @WebParam(name = "horas") int horas);
+    TEmpleadoProyecto añadirEmpleadoAProyecto(@WebParam(name = "e") TEmpleado e, @WebParam(name = "p") TProyecto p, @WebParam(name = "horas") int horas)  throws ProyectoException, EmpleadoException;;
+
+    @WebMethod(operationName="eliminarEmpleadoAProyecto")
+    boolean eliminarEmpleadoAProyecto(Long idEmple, Long idProy) throws ProyectoException, EmpleadoException;
 
 
 }

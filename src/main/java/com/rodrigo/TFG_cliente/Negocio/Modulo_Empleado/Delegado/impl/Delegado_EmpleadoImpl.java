@@ -94,15 +94,6 @@ public class Delegado_EmpleadoImpl extends Delegado_Empleado {
         return portEmpleados.listarEmpleados();
     }
 
-    @Override
-    public String saludar(String nombre) {
-        return this.portEmpleados.saludar(nombre);
-    }
-
-    @Override
-    public boolean loginEmpleado(String email, String pass) throws EmpleadoLoginErroneo, EmpleadoFieldInvalidException, EmpleadoException {
-        return portEmpleados.loginEmpleado(email, pass);
-    }
 
     @Override
     public TEmpleadoCompleto buscarByEmail(String email) throws EmpleadoFieldInvalidException, EmpleadoException {

@@ -3,7 +3,6 @@ package com.rodrigo.TFG_cliente.Negocio.Modulo_Empleado.Delegado;
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Departamento.Delegado.Delegado_Departamento;
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Departamento.Entidad.Transfers.TDepartamentoCompleto;
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Departamento.Excepciones.DepartamentoException;
-import com.rodrigo.TFG_cliente.Negocio.Modulo_Empleado.Entidad.Rol;
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Empleado.Entidad.Transfers.TEmpleado;
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Empleado.Entidad.Transfers.TEmpleadoCompleto;
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Empleado.Entidad.Transfers.TEmpleadoTCompleto;
@@ -89,7 +88,7 @@ class Delegado_EmpleadoImplTest {
         TEmpleadoCompleto aux = deleg.buscarByEmail(nombre.toLowerCase().concat("@gmail.com"));
 
         if (aux == null) {
-            e1 = deleg.crearEmpleado(new TEmpleadoTCompleto(nombre, "1234", Rol.EMPLEADO, dept.getId()));
+            e1 = deleg.crearEmpleado(new TEmpleadoTCompleto(nombre, "1234",  dept.getId()));
 
         } else
             e1 = aux;
@@ -114,11 +113,11 @@ class Delegado_EmpleadoImplTest {
 
 
     @ParameterizedTest
-    @CsvSource({"crear1, 1234, ADMIN", "crear2, 1234, EMPLEADO", "crear3, 1234, EMPLEADO"})
-    void crearEmpleado(String nombre, String pass, String rol) throws EmpleadoException {
+    @CsvSource({"crear1, 1234", "crear2, 1234", "crear3, 1234"})
+    void crearEmpleado(String nombre, String pass) throws EmpleadoException {
 
 
-        TEmpleadoTParcial e = new TEmpleadoTParcial(nombre, pass, Rol.valueOf(rol), dept.getId());
+        TEmpleadoTParcial e = new TEmpleadoTParcial(nombre, pass, dept.getId());
 
         TEmpleadoCompleto empleCreado = deleg.crearEmpleado(e);
 
@@ -140,7 +139,7 @@ class Delegado_EmpleadoImplTest {
     @Test
     void crearEmpleadoExistente() throws EmpleadoException {
 
-        /*Empleado e1 = new EmpleadoTParcial("juan", "1234", Rol.valueOf(rol), dept);
+        /*Empleado e1 = new EmpleadoTParcial("juan", "1234", dept);
 
         log.info("Creando empleado 1");
         e1 = deleg.crearEmpleado(e1);*/
@@ -294,12 +293,12 @@ class Delegado_EmpleadoImplTest {
 
 
     @Test
-    void eliminarEmpleado() throws EmpleadoException {
+    void eliminarEmpleado() throws EmpleadoException, ProyectoException {
         log.info("SA_EmpleadoImplTest.eliminarEmpleado");
 
 
         log.info("Creando empleado");
-        TEmpleadoCompleto e = deleg.crearEmpleado(new TEmpleadoTParcial("Eliminar4", "pass", Rol.EMPLEADO, dept.getId()));
+        TEmpleadoCompleto e = deleg.crearEmpleado(new TEmpleadoTParcial("Eliminar4", "pass", dept.getId()));
 
         log.info("Asignando proyecto a empleado");
         TEmpleadoProyecto ep = Delegado_Proyecto.getInstance().añadirEmpleadoAProyecto(e.getEmpleado(), proy1.getProyecto(), 5);
@@ -354,112 +353,6 @@ class Delegado_EmpleadoImplTest {
     */
 
 
-    /******************************************************************
-     ********************   TEST LOGIN EMPLEADO   *********************
-     ******************************************************************/
-
-
-    //@ParameterizedTest(name = "-> {0}, {1}")
-    //@CsvSource({"emple, 1234, EMPLEADO", "admin, 1234, ADMIN"})
-    @Test
-    void loginTest() throws EmpleadoException {
-        String email = e1.getEmail();
-        String pass = e1.getEmpleado().getPassword();
-
-
-        log.info("Login: {email='" + email + ", pass='" + pass + "'}");
-        Boolean result = deleg.loginEmpleado(email, pass);
-
-        log.debug("result = '" + result + "'");
-        assertTrue(result);
-
-    }
-
-    @Test
-    void loginParamErroneosTest() {
-
-        log.info("Login email erroneo");
-        Throwable ex1 = assertThrows(EmpleadoFieldInvalidException.class, () -> {
-
-            boolean login = deleg.loginEmpleado("kajsdnflaf", "1234");
-
-            assertFalse(login);
-
-        });
-
-        log.info("Excepcion capturada:" + ex1.getMessage());
-
-    }
-
-
-    @Test
-    void loginEmpleadoInexistenteTest() {
-
-        log.info("Login empleado inexistente");
-        Throwable ex1 = assertThrows(EmpleadoLoginErroneo.class, () -> {
-
-            boolean login = deleg.loginEmpleado("kajsdnflaf@gmail.com", "1234");
-            assertFalse(login);
-
-        });
-
-        log.info("Excepcion capturada:" + ex1.getMessage());
-
-    }
-
-    @Test
-    void loginEmailNulloVacioTest() {
-
-        log.info("Login email null");
-        Throwable ex1 = assertThrows(EmpleadoFieldInvalidException.class, () -> {
-
-            boolean login = deleg.loginEmpleado(null, "1234");
-
-            assertFalse(login);
-
-        });
-
-        log.info("Excepcion capturada:" + ex1.getMessage());
-
-
-        log.info("Login email vacio");
-        Throwable ex2 = assertThrows(EmpleadoFieldInvalidException.class, () -> {
-
-            boolean login = deleg.loginEmpleado("", "1234");
-
-            assertFalse(login);
-
-        });
-
-        log.info("Excepcion capturada:" + ex2.getMessage());
-
-
-    }
-
-    @Test
-    void loginPassNulloVacioTest() {
-
-        log.info("Login pass null");
-        Throwable ex1 = assertThrows(EmpleadoFieldInvalidException.class, () -> {
-
-            boolean login = deleg.loginEmpleado("kajsdnflaf", null);
-            assertFalse(login);
-
-        });
-
-        log.info("Excepcion capturada:" + ex1.getMessage());
-
-        log.info("Login pass vacia");
-        Throwable ex2 = assertThrows(EmpleadoFieldInvalidException.class, () -> {
-
-            boolean login = deleg.loginEmpleado("kajsdnflaf", "");
-            assertFalse(login);
-
-        });
-
-        log.info("Excepcion capturada:" + ex2.getMessage());
-
-    }
 
 
     /******************************************************************
@@ -467,9 +360,9 @@ class Delegado_EmpleadoImplTest {
      ******************************************************************/
 
     @ParameterizedTest
-    @CsvSource({"buscar1, 1234, EMPLEADO", "buscar2, 1234, EMPLEADO"})
-    void buscarByEmail(String nombre, String pass, String rol) throws EmpleadoException {
-        TEmpleadoCompleto nuevo, e1 = new TEmpleadoCompleto(new TEmpleadoTParcial(nombre, pass, Rol.valueOf(rol), dept.getId()), dept.getDepartamento());
+    @CsvSource({"buscar1, 1234", "buscar2, 1234"})
+    void buscarByEmail(String nombre, String pass) throws EmpleadoException {
+        TEmpleadoCompleto nuevo, e1 = new TEmpleadoCompleto(new TEmpleadoTParcial(nombre, pass,  dept.getId()), dept.getDepartamento());
         dept.getEmpleados().put(e1.getId(), e1.getEmpleado());
 
         String email = e1.getEmail();

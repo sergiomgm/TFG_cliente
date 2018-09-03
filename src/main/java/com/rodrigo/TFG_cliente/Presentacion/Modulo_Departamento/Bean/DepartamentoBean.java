@@ -5,7 +5,8 @@ import com.rodrigo.TFG_cliente.Negocio.Modulo_Departamento.Entidad.Transfers.TDe
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Departamento.Entidad.Transfers.TDepartamentoCompleto;
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Departamento.Excepciones.DepartamentoException;
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Departamento.Excepciones.DepartamentoFieldInvalidException;
-import com.rodrigo.TFG_cliente.Presentacion.actions.AccionVista;
+import com.rodrigo.TFG_cliente.Negocio.Modulo_Departamento.Excepciones.DepartamentoYaExisteExcepcion;
+import com.rodrigo.TFG_cliente.Presentacion.AccionVista;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -36,9 +37,11 @@ public class DepartamentoBean implements Serializable {
 
     private Long id;
 
+    private String nombre;
+
     private String siglas;
 
-    private TDepartamentoCompleto departamentoCompleto;
+    private TDepartamentoCompleto departamentoCompleto = new TDepartamentoCompleto();
 
     private List<TDepartamento> listaDepartamento;
 
@@ -52,10 +55,60 @@ public class DepartamentoBean implements Serializable {
     public String crearDepartamento() {
         //super.accionVista = AccionEnum.BUSCAR_DEPARTAMENTO_ID;
         System.out.println(accionVista);
-        iniciarAtributos();
+        //iniciarAtributos();
+
+        TDepartamento departNuevo;
+
+        if(nombre != null && nombre.trim() != ""){
+
+            if(siglas != null && siglas.trim() != ""){
+                departNuevo = new TDepartamento(nombre, siglas);
+            }else{
+                departNuevo = new TDepartamento(nombre);
+            }
+
+
+            try {
+
+                departamentoCompleto.setDepartamento(Delegado_Departamento.getInstance().crearDepartamento(departNuevo));
+
+            } catch (DepartamentoYaExisteExcepcion e1) {
+
+                log.error("EXCEPCION!!", e1);
+                accionVista.setHayError(true);
+                accionVista.setMensajeError(e1.getMessage());
+
+            } catch (DepartamentoFieldInvalidException e2){
+
+                log.error("EXCEPCION!!", e2);
+                accionVista.setHayError(true);
+                accionVista.setMensajeError(e2.getMessage());
+
+            } catch (DepartamentoException e3){
+
+                log.error("EXCEPCION!!", e3);
+                accionVista.setHayError(true);
+                accionVista.setMensajeError(e3.getMessage());
+
+            }
+
+
+        }else{
+            accionVista.setMensajeWarning("Debe escribirse un nombre de departamento");
+        }
+
+
+
+        if (accionVista.getHayError()) {
+                accionVista.setAccion(AccionVista.AccionEnum.ACCION_CREAR_DEPARTAMENTO);
+        } else {
+            accionVista.setAccion(AccionVista.AccionEnum.ACCION_MOSTRAR_DEPARTAMENTO);
+            accionVista.setMensajeSuccess("Departamento creado correctamente");
+        }
+
 
         System.out.println(viewRequest);
-
+        System.out.println("accionVista = [" + accionVista + "]");
 
         return viewRequest;
     }
@@ -219,6 +272,14 @@ public class DepartamentoBean implements Serializable {
         this.id = id;
     }
 
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
     public String getSiglas() {
         return siglas;
     }
@@ -255,7 +316,7 @@ public class DepartamentoBean implements Serializable {
 
         this.accionVista.setAccion(AccionVista.AccionEnum.valueOf(accion));
 
-        iniciarAtributos();
+        //iniciarAtributos();
         log.info(viewRequest);
         return viewRequest;
     }
@@ -263,6 +324,7 @@ public class DepartamentoBean implements Serializable {
 
     private void iniciarAtributos() {
 
+        this.nombre = null;
         this.siglas = null;
         this.id = null;
         this.departamentoCompleto = null;
