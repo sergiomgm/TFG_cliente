@@ -9,7 +9,6 @@ import com.rodrigo.TFG_cliente.Negocio.Modulo_Empleado.Entidad.Transfers.TEmplea
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Empleado.Entidad.Transfers.TEmpleadoTParcial;
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Empleado.Excepciones.EmpleadoException;
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Empleado.Excepciones.EmpleadoFieldInvalidException;
-import com.rodrigo.TFG_cliente.Negocio.Modulo_Empleado.Excepciones.EmpleadoLoginErroneo;
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Empleado.Excepciones.EmpleadoYaExisteExcepcion;
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Proyecto.Delegado.Delegado_Proyecto;
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Proyecto.Entidad.Transfers.TEmpleadoProyecto;
@@ -31,6 +30,11 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * @Author Rodrigo de Miguel González
+ * @Date 2017-2018
+ * TFG - Atravesando las Capas de una Aplicación Empresarial: Demostrador Tecnológico J2EE
+ */
 class Delegado_EmpleadoImplTest {
 
     static Delegado_Empleado deleg;
@@ -301,7 +305,7 @@ class Delegado_EmpleadoImplTest {
         TEmpleadoCompleto e = deleg.crearEmpleado(new TEmpleadoTParcial("Eliminar4", "pass", dept.getId()));
 
         log.info("Asignando proyecto a empleado");
-        TEmpleadoProyecto ep = Delegado_Proyecto.getInstance().añadirEmpleadoAProyecto(e.getEmpleado(), proy1.getProyecto(), 5);
+        TEmpleadoProyecto ep = Delegado_Proyecto.getInstance().agregarEmpleadoAProyecto(e.getEmpleado(), proy1.getProyecto(), 5);
 
         proy1.agregarEmpleadoProyecto(ep, e.getEmpleado());
         e.agregarEmpleadoProyecto(ep, proy1.getProyecto());

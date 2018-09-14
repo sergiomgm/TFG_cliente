@@ -15,6 +15,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * @Author Rodrigo de Miguel González
+ * @Date 2017-2018
+ * TFG - Atravesando las Capas de una Aplicación Empresarial: Demostrador Tecnológico J2EE
+ */
 public class LoginModule implements javax.security.auth.spi.LoginModule {
 
     final static Logger log = LoggerFactory.getLogger(LoginModule.class);
@@ -52,7 +57,6 @@ public class LoginModule implements javax.security.auth.spi.LoginModule {
 
             log.info("name = '" + email + "' -- " + " password = '" + password + "'");
 
-            //TODO  Validar el email con la clase pertinente
             if (new EmailValidator().validate(email)) {
                 loginOk = FactoriaSA.getInstance().crearSA_Usuario().loginUsuario(email, password);
 
@@ -60,10 +64,8 @@ public class LoginModule implements javax.security.auth.spi.LoginModule {
                     log.info("LOGIN CORRECTO");
                     Usuario usuario = FactoriaSA.getInstance().crearSA_Usuario().buscarByEmail(email);
                     login = usuario.getEmail();
-//                    login = email;
                     userGroups = new ArrayList<String>();
                     userGroups.add(usuario.getRol().toString());
-//                    userGroups.add(Rol.ADMIN.toString());
                     log.info("name = " + email);
                 }
 

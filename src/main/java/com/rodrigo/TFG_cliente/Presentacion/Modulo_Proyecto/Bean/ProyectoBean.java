@@ -21,6 +21,11 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * @Author Rodrigo de Miguel González
+ * @Date 2017-2018
+ * TFG - Atravesando las Capas de una Aplicación Empresarial: Demostrador Tecnológico J2EE
+ */
 @ManagedBean(name = "ProyectoBean")
 @SessionScoped
 public class ProyectoBean implements Serializable {
@@ -72,9 +77,7 @@ public class ProyectoBean implements Serializable {
 
     public String crearProyecto() {
         accionVista.setAccion(AccionVista.AccionEnum.ACCION_CREAR_PROYECTO);
-        //super.accionVista = AccionEnum.BUSCAR_DEPARTAMENTO_ID;
         System.out.println(accionVista);
-        //iniciarAtributos();
 
         TProyecto proyNuevo;
 
@@ -141,9 +144,7 @@ public class ProyectoBean implements Serializable {
     public String buscarById() {
         accionVista.setAccion(AccionVista.AccionEnum.ACCION_BUSCAR_PROYECTO_ID);
         System.out.println(accionVista);
-//        Long id = this.id;
         log.info("id = '" + id + "'");
-//        iniciarAtributos();
 
         if (id != null && id > 0) {
 
@@ -184,9 +185,7 @@ public class ProyectoBean implements Serializable {
     public String buscarByNombre() {
         accionVista.setAccion(AccionVista.AccionEnum.ACCION_BUSCAR_PROYECTO_NOMBRE);
         System.out.println(accionVista);
-//        String nombre = this.nombre;
         log.info("nombre = '" + nombre + "'");
-//        iniciarAtributos();
 
         if (nombre != null && !nombre.trim().equals("")) {
 
@@ -225,9 +224,7 @@ public class ProyectoBean implements Serializable {
 
     public String eliminarProyecto() {
         System.out.println(accionVista);
-//        Long id = this.id;
         log.info("id = '" + id + "'");
-//        iniciarAtributos();
 
         if (id != null && id > 0) {
 
@@ -265,7 +262,6 @@ public class ProyectoBean implements Serializable {
     public String listarProyectos() {
         accionVista.setAccion(AccionVista.AccionEnum.ACCION_LISTAR_PROYECTOS);
         log.info(accionVista.toString());
-//        iniciarAtributos();
 
         log.info(viewRequest);
 
@@ -276,7 +272,7 @@ public class ProyectoBean implements Serializable {
     }
 
 
-    public String añadirEmpleadoAProyecto() {
+    public String agregarEmpleadoAProyecto() {
         accionVista.setAccion(AccionVista.AccionEnum.ACCION_ASIGNAR_EMPELADO_A_PROYECTO);
         log.info(accionVista.toString());
 
@@ -292,7 +288,7 @@ public class ProyectoBean implements Serializable {
 
             try {
 
-                tep = Delegado_Proyecto.getInstance().añadirEmpleadoAProyecto(emple, proy, Integer.valueOf(horas));
+                tep = Delegado_Proyecto.getInstance().agregarEmpleadoAProyecto(emple, proy, Integer.valueOf(horas));
 
 
             } catch (ProyectoException e1) {
@@ -338,14 +334,8 @@ public class ProyectoBean implements Serializable {
         accionVista.setAccion(AccionVista.AccionEnum.ACCION_ELIMINAR_EMPLEADO_DE_PROYECTO);
         log.info(accionVista.toString());
 
-        TEmpleado emple;
-        TProyecto proy;
-
         if (idEmpleado != null && Long.valueOf(idEmpleado) > 0L &&
                 idProyecto != null && Long.valueOf(idProyecto) > 0L) {
-
-            proy = new TProyecto(Long.valueOf(idProyecto));
-            emple = new TEmpleado(Long.valueOf(idEmpleado));
 
             try {
 
@@ -471,13 +461,6 @@ public class ProyectoBean implements Serializable {
         this.horas = horas;
     }
 
-    public TEmpleadoProyecto getTep() {
-        return tep;
-    }
-
-    public void setTep(TEmpleadoProyecto tep) {
-        this.tep = tep;
-    }
 
     public TProyectoCompleto getProyectoCompleto() {
         return proyectoCompleto;

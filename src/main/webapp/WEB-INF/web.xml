@@ -4,7 +4,14 @@
          xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
          id="WebApp_ID" version="3.0">
 
+
+    <!--
+    * @Author Rodrigo de Miguel González
+    * @Date 2017-2018
+    * TFG - Atravesando las Capas de una Aplicación Empresarial: Demostrador Tecnológico J2EE
+    -->
     <display-name>TFG_cliente</display-name>
+
 
 
     <!-- ********* WELLCOME ********* -->

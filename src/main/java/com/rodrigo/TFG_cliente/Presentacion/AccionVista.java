@@ -4,6 +4,11 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import java.io.Serializable;
 
+/**
+ * @Author Rodrigo de Miguel González
+ * @Date 2017-2018
+ * TFG - Atravesando las Capas de una Aplicación Empresarial: Demostrador Tecnológico J2EE
+ */
 @ManagedBean(name = "AccionVista")
 @SessionScoped
 public class AccionVista implements Serializable {

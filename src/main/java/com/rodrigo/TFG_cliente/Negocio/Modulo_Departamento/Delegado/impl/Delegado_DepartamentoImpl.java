@@ -13,10 +13,25 @@ import javax.ws.rs.NotFoundException;
 import javax.ws.rs.client.*;
 import javax.ws.rs.core.Response;
 
-
+/**
+ * @Author Rodrigo de Miguel González
+ * @Date 2017-2018
+ * TFG - Atravesando las Capas de una Aplicación Empresarial: Demostrador Tecnológico J2EE
+ */
 public class Delegado_DepartamentoImpl extends Delegado_Departamento {
 
     private Logger log = LoggerFactory.getLogger(Delegado_DepartamentoImpl.class);
+
+    private String HOST = "https://localhost" ;
+
+    private String PORT = "8443";
+
+    private String APP_URI = "/TFG_server/services";
+
+    private final String SERVICE_NAME = "/SA_Departamento/departamento";
+
+    private final String URL_SERVICIO = HOST + ":" + PORT + APP_URI + SERVICE_NAME;
+
 
 
     private Client cliente;
@@ -45,7 +60,7 @@ public class Delegado_DepartamentoImpl extends Delegado_Departamento {
             throw new DepartamentoFieldInvalidException();
         }
 
-        String urlFinal = URL;
+        String urlFinal = URL_SERVICIO;
         System.out.println("urlFinal = [" + urlFinal + "]");
 
         Response res = cliente
@@ -78,7 +93,7 @@ public class Delegado_DepartamentoImpl extends Delegado_Departamento {
         log.info("Delegado_DepartamentoImpl.buscarDepartamentoByID");
         log.info("id = [" + id + "]");
 
-        String urlFinal = URL + "";
+        String urlFinal = URL_SERVICIO + "";
 
         System.out.println("urlFinal = [" + urlFinal + "/" + id.toString() + "]");
 
@@ -112,7 +127,7 @@ public class Delegado_DepartamentoImpl extends Delegado_Departamento {
         log.info("id = [" + id + "]");
         log.info("id = [" + String.valueOf(id) + "]");
         boolean result = false;
-        String urlFinal = URL + "";
+        String urlFinal = URL_SERVICIO + "";
 
         System.out.println("urlFinal = [" + urlFinal + "/" + id + "]");
 
@@ -144,7 +159,7 @@ public class Delegado_DepartamentoImpl extends Delegado_Departamento {
     public TDepartamento[] listarDepartamentos() {
         log.info("Delegado_DepartamentoImpl.listarDepartamentos");
 
-        String urlFinal = URL + "/listar";
+        String urlFinal = URL_SERVICIO + "/listar";
 
         System.out.println("urlFinal = [" + urlFinal + "]");
 
@@ -159,36 +174,12 @@ public class Delegado_DepartamentoImpl extends Delegado_Departamento {
         return res;
     }
 
-    @Override
-    public String saludar(String nombre) {
-
-        //Client client = ClientBuilder.newBuilder().newClient();
-       /* WebTarget target = client.target("http://localhost:8080/rs");
-        target = target.path("service").queryParam("a", "avalue");
-
-        Invocation.Builder builder = target.request();
-        Response response = builder.get();
-        Book book = builder.get(Book.class);*/
-
-        String urlFinal = URL + "/saludo/" + nombre;
-        System.out.println("urlFinal = [" + urlFinal + "]");
-
-        String res = cliente
-                .target(urlFinal)
-                .request()
-                .get(String.class);
-
-        System.out.println("res = [" + res + "]");
-
-
-        return res;
-    }
 
 
     @Override
     public TDepartamentoCompleto buscarBySiglas(String siglas) throws DepartamentoException {
         log.info("Buscando por siglas: [" + String.valueOf(siglas) + "]");
-        String urlFinal = URL + "/bySiglas";
+        String urlFinal = URL_SERVICIO + "/bySiglas";
 
         System.out.println("urlFinal = [" + urlFinal + "/" + String.valueOf(siglas) + "]");
 

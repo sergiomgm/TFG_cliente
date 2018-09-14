@@ -13,7 +13,11 @@ import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-
+/**
+ * @Author Rodrigo de Miguel González
+ * @Date 2017-2018
+ * TFG - Atravesando las Capas de una Aplicación Empresarial: Demostrador Tecnológico J2EE
+ */
 public class EmpleadoBeanEnumTest {
 
     final static Logger log = LoggerFactory.getLogger(EmpleadoBeanEnumTest.class);

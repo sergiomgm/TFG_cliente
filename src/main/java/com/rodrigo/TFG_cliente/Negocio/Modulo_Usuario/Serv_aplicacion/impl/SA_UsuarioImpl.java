@@ -2,8 +2,8 @@ package com.rodrigo.TFG_cliente.Negocio.Modulo_Usuario.Serv_aplicacion.impl;
 
 
 import com.rodrigo.TFG_cliente.Integracion.EMFSingleton;
-import com.rodrigo.TFG_cliente.Negocio.Modulo_Usuario.Excepciones.*;
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Usuario.Entidad.Usuario;
+import com.rodrigo.TFG_cliente.Negocio.Modulo_Usuario.Excepciones.*;
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Usuario.Serv_aplicacion.SA_Usuario;
 import com.rodrigo.TFG_cliente.Negocio.Utils.EmailValidator;
 import org.hibernate.PropertyValueException;
@@ -16,7 +16,9 @@ import javax.persistence.PersistenceException;
 import java.util.List;
 
 /**
- * The type Sa usuario.
+ * @Author Rodrigo de Miguel González
+ * @Date 2017-2018
+ * TFG - Atravesando las Capas de una Aplicación Empresarial: Demostrador Tecnológico J2EE
  */
 public class SA_UsuarioImpl implements SA_Usuario {
 
@@ -41,7 +43,7 @@ public class SA_UsuarioImpl implements SA_Usuario {
             throw new UsuarioException("El usuario para persistir en null", new UsuarioNullException("El usuario para persistir en null"));
         }
 
-        if (usuarioNuevo.getEmail() == null || usuarioNuevo.getEmail() == "") {
+        if (usuarioNuevo.getEmail() == null || usuarioNuevo.getEmail().equals("")) {
             log.error("Email de usuario es null");
 
             try {

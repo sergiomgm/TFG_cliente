@@ -1,7 +1,5 @@
 package com.rodrigo.TFG_cliente.Negocio.Modulo_Usuario.Entidad;
 
-import org.hibernate.annotations.ColumnTransformer;
-
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
@@ -10,7 +8,11 @@ import java.io.Serializable;
 import java.util.Base64;
 import java.util.Objects;
 
-
+/**
+ * @Author Rodrigo de Miguel González
+ * @Date 2017-2018
+ * TFG - Atravesando las Capas de una Aplicación Empresarial: Demostrador Tecnológico J2EE
+ */
 @Entity
 @NamedQueries({
         @NamedQuery(name = "Usuario.listar", query = "FROM Usuario"),
@@ -34,7 +36,7 @@ public class Usuario implements Serializable {
     @Email
     protected String email;
 
-//    @ColumnTransformer(read = "pgp_sym_decrypt(password, ‘mySecretKey’)",
+    //    @ColumnTransformer(read = "pgp_sym_decrypt(password, ‘mySecretKey’)",
 //            write = "pgp_sym_encrypt(?, ‘mySecretKey’)")
     @Column(nullable = false)
     private String password;
@@ -113,19 +115,28 @@ public class Usuario implements Serializable {
         this.nombre = nombre;
     }
 
-    /** Retorna la password desencriptada
+    /**
+     * Retorna la password desencriptada
      *
      * @return password
      */
     public String getPassword() {
         // Decode data on other side, by processing encoded data
-        byte[] valueDecoded = Base64.getDecoder().decode(this.password);
+        if (this.password != null) {
+            byte[] valueDecoded = Base64.getDecoder().decode(this.password);
 //        System.out.println("this.password = [" + this.password + "]");
 //        System.out.println("Decoded pass is [" + new String(valueDecoded) + "]");
-        return new String(valueDecoded);
+            return new String(valueDecoded);
+
+        } else {
+            return null;
+
+        }
+
     }
 
-    /** Acutaliza la password y la mantiene encriptada
+    /**
+     * Acutaliza la password y la mantiene encriptada
      *
      * @param password
      */

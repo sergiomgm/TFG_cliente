@@ -1,13 +1,14 @@
 package com.rodrigo.TFG_cliente.Negocio.Modulo_Usuario.Serv_aplicacion;
 
-import com.rodrigo.TFG_cliente.Negocio.Modulo_Usuario.Excepciones.UsuarioException;
-import com.rodrigo.TFG_cliente.Negocio.Modulo_Usuario.Excepciones.UsuarioFieldNullException;
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Usuario.Entidad.Usuario;
+import com.rodrigo.TFG_cliente.Negocio.Modulo_Usuario.Excepciones.UsuarioException;
 
 import java.util.List;
 
 /**
- * Created by Rodrigo de Miguel on 06/05/2017.
+ * @Author Rodrigo de Miguel González
+ * @Date 2017-2018
+ * TFG - Atravesando las Capas de una Aplicación Empresarial: Demostrador Tecnológico J2EE
  */
 public interface SA_Usuario {
 

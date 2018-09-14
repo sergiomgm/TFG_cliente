@@ -12,7 +12,6 @@ El proyecto forma parte de mi TFG [Trabajo de Final de Grado](https://hunzagit.g
  - **Java** 8
  - **JDK** 1.8.0_152
  - **JSF** 2.2
- - **Mojarra** 2.2.1
  - **PrimeFaces** 6.1
  - **JSTL** 1.2
  - **Apache Tomcat** 8.5.23
@@ -20,7 +19,7 @@ El proyecto forma parte de mi TFG [Trabajo de Final de Grado](https://hunzagit.g
  - **Hibernate** 4.2.21
  - **MySQL** 5.0.11
  - **Jenkins** 2.92
- - **IntelliJ IDEA** 2017.3
+ - **IntelliJ IDEA** 2018.1
  
 
 ## Branches

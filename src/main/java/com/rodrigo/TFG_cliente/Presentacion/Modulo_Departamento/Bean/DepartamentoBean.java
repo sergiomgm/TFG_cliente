@@ -17,6 +17,11 @@ import java.io.Serializable;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * @Author Rodrigo de Miguel González
+ * @Date 2017-2018
+ * TFG - Atravesando las Capas de una Aplicación Empresarial: Demostrador Tecnológico J2EE
+ */
 @ManagedBean(name = "DepartamentoBean")
 @SessionScoped
 public class DepartamentoBean implements Serializable {
@@ -53,9 +58,7 @@ public class DepartamentoBean implements Serializable {
 
 
     public String crearDepartamento() {
-        //super.accionVista = AccionEnum.BUSCAR_DEPARTAMENTO_ID;
         System.out.println(accionVista);
-        //iniciarAtributos();
 
         TDepartamento departNuevo;
 
@@ -118,7 +121,6 @@ public class DepartamentoBean implements Serializable {
         System.out.println(accionVista);
         log.info("this.id = '" + this.id + "'");
         log.info("id = '" + id + "'");
-//        iniciarAtributos();
 
 
 
@@ -160,7 +162,6 @@ public class DepartamentoBean implements Serializable {
     public String eliminarDepartamento() {
         System.out.println(accionVista);
         log.info("id = '" + id + "'");
-//        iniciarAtributos();
 
         if (id != null && id > 0) {
 
@@ -198,7 +199,6 @@ public class DepartamentoBean implements Serializable {
     public String listarDepartamentos() {
         accionVista.setAccion(AccionVista.AccionEnum.ACCION_LISTAR_DEPARTAMENTOS);
         System.out.println(accionVista);
-//        iniciarAtributos();
 
         System.out.println(viewRequest);
 
@@ -213,7 +213,6 @@ public class DepartamentoBean implements Serializable {
         accionVista.setAccion(AccionVista.AccionEnum.ACCION_BUSCAR_DEPARTAMENTO_SIGLAS);
         System.out.println(accionVista);
         log.info("siglas = '" + siglas + "'");
-//        iniciarAtributos();
 
         if (siglas != null && !siglas.trim().equals("")) {
 
@@ -304,9 +303,6 @@ public class DepartamentoBean implements Serializable {
         this.listaDepartamento = listaDepartamentos;
     }
 
-//    public String getAccionVista() {
-//        return String.valueOf(this.accionVista.getAccionVista());
-//    }
     public AccionVista getAccionVista() {
         return this.accionVista;
     }
@@ -316,7 +312,6 @@ public class DepartamentoBean implements Serializable {
 
         this.accionVista.setAccion(AccionVista.AccionEnum.valueOf(accion));
 
-        //iniciarAtributos();
         log.info(viewRequest);
         return viewRequest;
     }

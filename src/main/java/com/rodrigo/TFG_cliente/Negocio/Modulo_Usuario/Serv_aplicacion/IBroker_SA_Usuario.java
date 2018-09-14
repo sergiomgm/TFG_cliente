@@ -1,15 +1,17 @@
 package com.rodrigo.TFG_cliente.Negocio.Modulo_Usuario.Serv_aplicacion;
 
-import com.rodrigo.TFG_cliente.Negocio.Modulo_Usuario.Excepciones.UsuarioException;
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Usuario.Entidad.Usuario;
+import com.rodrigo.TFG_cliente.Negocio.Modulo_Usuario.Excepciones.UsuarioException;
 
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
 import java.util.List;
 
-/*
-@WebService
-*/
+/**
+ * @Author Rodrigo de Miguel González
+ * @Date 2017-2018
+ * TFG - Atravesando las Capas de una Aplicación Empresarial: Demostrador Tecnológico J2EE
+ */
 public interface IBroker_SA_Usuario {
 
     @WebMethod(operationName="crearUsuario")

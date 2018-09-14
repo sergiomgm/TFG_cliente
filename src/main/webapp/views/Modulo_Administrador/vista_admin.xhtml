@@ -1,5 +1,10 @@
 <!DOCTYPE html PUBLIC "-//W3C/DTD XHTML 1.0 Transitional//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+        <!--
+        * @Author Rodrigo de Miguel González
+        * @Date 2017-2018
+        * TFG - Atravesando las Capas de una Aplicación Empresarial: Demostrador Tecnológico J2EE
+        -->
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
@@ -56,17 +61,25 @@
                             <h:commandButton styleClass="btn btn-primary" value="Buscar por email"
                                              action="#{EmpleadoBean.setAccion('ACCION_BUSCAR_EMPLEADO_EMAIL')}"
                             /> <br/>
-                            <h:commandButton styleClass="btn btn-primary" value="Crear T Completo"
-                                             action="#{EmpleadoBean.setAccion('ACCION_CREAR_EMPLEADO_TIEMPO_COMPLETO')}"/>
-
-                            <h:commandButton styleClass="btn btn-primary" value="Crear T Parcial"
-                                             action="#{EmpleadoBean.setAccion('ACCION_CREAR_EMPLEADO_TIEMPO_PARCIAL')}"/><br/>
                             <h:commandButton styleClass="btn btn-primary" value="Eliminar"
                                              action="#{EmpleadoBean.setAccion('ACCION_ELIMINAR_EMPLEADO')}"
                             /><br/>
                             <h:commandButton styleClass="btn btn-primary" value="Listar"
                                              action="#{EmpleadoBean.listarEmpleados}"
-                            /><br/>
+                            />
+                            <hr/>
+                            <h4>Empleado Tiempo Completo</h4>
+                            <h:commandButton styleClass="btn btn-primary" value="Crear T Completo"
+                                             action="#{EmpleadoBean.setAccion('ACCION_CREAR_EMPLEADO_TIEMPO_COMPLETO')}"/>
+                            <h:commandButton styleClass="btn btn-primary" value="Modificar T Completo"
+                                             action="#{EmpleadoBean.setAccion('ACCION_CREAR_EMPLEADO_TIEMPO_COMPLETO')}"/><br/>
+
+                            <hr/>
+                            <h4>Empleado Tiempo Parcial</h4>
+                            <h:commandButton styleClass="btn btn-primary" value="Crear T Parcial"
+                                             action="#{EmpleadoBean.setAccion('ACCION_CREAR_EMPLEADO_TIEMPO_PARCIAL')}"/>
+                            <h:commandButton styleClass="btn btn-primary" value="Modificar T Parcial"
+                                             action="#{EmpleadoBean.setAccion('ACCION_CREAR_EMPLEADO_TIEMPO_PARCIAL')}"/><br/>
                         </div>
 
                     </div>
@@ -87,6 +100,9 @@
                                              action="#{DepartamentoBean.setAccion('ACCION_BUSCAR_DEPARTAMENTO_SIGLAS')}"
                             /><br/>
                             <h:commandButton styleClass="btn btn-primary" value="Crear"
+                                             action="#{DepartamentoBean.setAccion('ACCION_CREAR_DEPARTAMENTO')}"
+                            /><br/>
+                            <h:commandButton styleClass="btn btn-primary" value="Modificar"
                                              action="#{DepartamentoBean.setAccion('ACCION_CREAR_DEPARTAMENTO')}"
                             /><br/>
                             <h:commandButton styleClass="btn btn-primary" value="Eliminar"
@@ -117,6 +133,9 @@
                             <h:commandButton styleClass="btn btn-primary" value="Crear"
                                              action="#{ProyectoBean.setAccion('ACCION_CREAR_PROYECTO')}"
                             /><br/>
+                            <h:commandButton styleClass="btn btn-primary" value="Modificar"
+                                             action="#{ProyectoBean.setAccion('ACCION_CREAR_PROYECTO')}"
+                            /><br/>
                             <h:commandButton styleClass="btn btn-primary" value="Eliminar"
                                              action="#{ProyectoBean.setAccion('ACCION_ELIMINAR_PROYECTO')}"
                             /><br/>
@@ -124,6 +143,7 @@
                                              action="#{ProyectoBean.listarProyectos}"
                             /><br/>
                             <hr/>
+                            <h4>Gestión de empleados en proyectos</h4>
 
                             <h:commandButton styleClass="btn btn-primary" value="Asignar empleado"
                                              action="#{ProyectoBean.setAccion('ACCION_ASIGNAR_EMPELADO_A_PROYECTO')}"/>
@@ -137,7 +157,7 @@
             </h:form>
         </div>
 
-
+<hr/>
         <div id=" contenido">
 
             <!--******************************************************************************************************************************-->
@@ -601,38 +621,6 @@
                         </h:form>
                     </div>
 
-
-                    <c:if test="#{DepartamentoBean.departamentoCompleto != null}">
-                        <div class="mostrarInfo">
-                            <strong>ID: </strong><h:outputText
-                                value="#{DepartamentoBean.departamentoCompleto.departamento.id}"/>
-                            <br/>
-                            <strong>Nombre: </strong><h:outputText
-                                value="#{DepartamentoBean.departamentoCompleto.departamento.nombre}"/> <br/>
-                            <strong>Siglas:</strong> <h:outputText
-                                value="#{DepartamentoBean.departamentoCompleto.departamento.siglas}"/> <br/>
-                            <strong>Nomina mensual: </strong><h:outputText
-                                value="#{DepartamentoBean.departamentoCompleto.departamento.nominaMes}"/> €
-                            <br/>
-
-                            <c:if test="#{DepartamentoBean.departamentoCompleto.empleados.size() > 0}">
-                                <strong>Empleados:</strong>
-                                <ul>
-                                    <ui:repeat
-                                            value="#{DepartamentoBean.departamentoCompleto.empleados.entrySet().toArray()}"
-                                            var="entry">
-
-                                        <li>[#<h:outputText value="#{entry.value.id}"/>]
-                                            <h:outputText value="#{entry.value.nombre}"/> -
-                                        </li>
-                                    </ui:repeat>
-                                </ul>
-                            </c:if>
-                            <c:if test="#{DepartamentoBean.departamentoCompleto.empleados.size() == 0}">
-                                <strong>Empleados: </strong> No tiene empleados asignados.
-                            </c:if>
-                        </div>
-                    </c:if>
 
 
                 </c:if>
@@ -1112,7 +1100,7 @@
 
 
                             <h:commandButton styleClass="btn btn-primary" value="Agregar empleado a proyecto"
-                                             action="#{ProyectoBean.añadirEmpleadoAProyecto}"/>
+                                             action="#{ProyectoBean.agregarEmpleadoAProyecto}"/>
 
                         </div>
                         <br/>

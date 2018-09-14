@@ -15,24 +15,14 @@ import org.slf4j.LoggerFactory;
 
 import java.util.List;
 
+/**
+ * @Author Rodrigo de Miguel González
+ * @Date 2017-2018
+ * TFG - Atravesando las Capas de una Aplicación Empresarial: Demostrador Tecnológico J2EE
+ */
 public abstract class Delegado_Proyecto  {
 
     private final static Logger log = LoggerFactory.getLogger(Delegado_Proyecto.class);
-
-    String HOST = "http://localhost" ;
-//    String HOST = "https://127.0.0.1" ;
-
-    String PORT = "8080";
-//    String PORT = "8443";
-
-    String APP_URI = "/TFG_server/services";
-
-
-    protected final String URL_WSDL = HOST + ":" + PORT + APP_URI +  "/SA_Proyecto?wsdl";
-
-    protected final String NAMESPACE_URI = "http://impl.Serv_aplicacion.Modulo_Proyecto.Negocio.TFG_server.rodrigo.com/";
-
-    protected final String SERVICE_NAME = "Broker_SA_ProyectoImpl";
 
 
 
@@ -64,7 +54,7 @@ public abstract class Delegado_Proyecto  {
 
     public abstract List<TProyecto> listarProyectos();
 
-    public abstract TEmpleadoProyecto añadirEmpleadoAProyecto( TEmpleado e, TProyecto p, int horas) throws ProyectoException, EmpleadoException;
+    public abstract TEmpleadoProyecto agregarEmpleadoAProyecto(TEmpleado e, TProyecto p, int horas) throws ProyectoException, EmpleadoException;
 
     public abstract boolean eliminarEmpleadoAProyecto(Long idEmple, Long idProy) throws ProyectoException, EmpleadoException;
 

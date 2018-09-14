@@ -15,6 +15,11 @@ import javax.jws.WebParam;
 import javax.jws.WebService;
 import java.util.List;
 
+/**
+ * @Author Rodrigo de Miguel González
+ * @Date 2017-2018
+ * TFG - Atravesando las Capas de una Aplicación Empresarial: Demostrador Tecnológico J2EE
+ */
 @WebService(
         targetNamespace = "http://impl.Serv_aplicacion.Modulo_Proyecto.Negocio.TFG_server.rodrigo.com/",
         name = "Broker_SA_ProyectoImpl")
@@ -33,13 +38,12 @@ public interface IBroker_SA_Proyecto {
     @WebMethod(operationName="eliminarProyecto")
     public boolean eliminarProyecto(@WebParam(name = "id") Long id) throws ProyectoConEmpleadosException, ProyectoFieldInvalidException, ProyectoException;
 
-
     @WebMethod(operationName="listarProyectos")
     public List<TProyecto> listarProyectos();
 
 
-    @WebMethod(operationName="añadirEmpleadoAProyecto")
-    TEmpleadoProyecto añadirEmpleadoAProyecto(@WebParam(name = "e") TEmpleado e, @WebParam(name = "p") TProyecto p, @WebParam(name = "horas") int horas)  throws ProyectoException, EmpleadoException;;
+    @WebMethod(operationName="agregarEmpleadoAProyecto")
+    TEmpleadoProyecto agregarEmpleadoAProyecto(@WebParam(name = "e") TEmpleado e, @WebParam(name = "p") TProyecto p, @WebParam(name = "horas") int horas)  throws ProyectoException, EmpleadoException;;
 
     @WebMethod(operationName="eliminarEmpleadoAProyecto")
     boolean eliminarEmpleadoAProyecto(Long idEmple, Long idProy) throws ProyectoException, EmpleadoException;

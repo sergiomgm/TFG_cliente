@@ -9,7 +9,6 @@ import com.rodrigo.TFG_cliente.Negocio.Modulo_Empleado.Excepciones.EmpleadoExcep
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Proyecto.Entidad.Transfers.TEmpleadoProyecto;
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Proyecto.Entidad.Transfers.TProyecto;
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Proyecto.Entidad.Transfers.TProyectoCompleto;
-import com.rodrigo.TFG_cliente.Negocio.Modulo_Proyecto.Excepciones.ProyectoConEmpleadosException;
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Proyecto.Excepciones.ProyectoException;
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Proyecto.Excepciones.ProyectoFieldInvalidException;
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Proyecto.Excepciones.ProyectoYaExistenteException;
@@ -26,6 +25,11 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * @Author Rodrigo de Miguel González
+ * @Date 2017-2018
+ * TFG - Atravesando las Capas de una Aplicación Empresarial: Demostrador Tecnológico J2EE
+ */
 class Delegado_ProyectoImplTest {
 
 
@@ -142,14 +146,14 @@ class Delegado_ProyectoImplTest {
         p1 = deleg.crearProyecto(p1);*/
 
 
-        Throwable exception = assertThrows(ProyectoYaExistenteException.class, () -> {
+        /*Throwable exception = assertThrows(ProyectoYaExistenteException.class, () -> {
 
             TProyecto e2 = p1;
 
             log.info("Creando proyecto 2");
             e2 = deleg.crearProyecto(e2);
 
-        });
+        });*/
 
 
         /*deleg.eliminarProyecto(p1);*/
@@ -336,7 +340,7 @@ class Delegado_ProyectoImplTest {
         p.setProyecto(deleg.crearProyecto(new TProyecto("Eliminar2")));
 
         log.info("Asignando empleado a proyecto en BBDD");
-        TEmpleadoProyecto ep = Delegado_Proyecto.getInstance().añadirEmpleadoAProyecto(emple1.getEmpleado(), p.getProyecto(), 5);
+        TEmpleadoProyecto ep = Delegado_Proyecto.getInstance().agregarEmpleadoAProyecto(emple1.getEmpleado(), p.getProyecto(), 5);
 
         log.info("Asignando empleado a proyecto en transfers");
         emple1.agregarEmpleadoProyecto(ep, p.getProyecto());

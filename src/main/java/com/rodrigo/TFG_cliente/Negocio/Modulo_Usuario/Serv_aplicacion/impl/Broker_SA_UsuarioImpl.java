@@ -1,18 +1,18 @@
 package com.rodrigo.TFG_cliente.Negocio.Modulo_Usuario.Serv_aplicacion.impl;
 
 
-
-import com.rodrigo.TFG_cliente.Negocio.Modulo_Usuario.Excepciones.UsuarioException;
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Usuario.Entidad.Usuario;
+import com.rodrigo.TFG_cliente.Negocio.Modulo_Usuario.Excepciones.UsuarioException;
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Usuario.Serv_aplicacion.IBroker_SA_Usuario;
 
 import javax.jws.WebParam;
 import java.util.List;
 
-/*@WebService(
-        endpointInterface= "com.rodrigo.TFG_server.Negocio.Modulo_Usuario.Serv_aplicacion.IBroker_SA_Usuario",
-        serviceName="Broker_SA_UsuarioImpl")
-*/
+/**
+ * @Author Rodrigo de Miguel González
+ * @Date 2017-2018
+ * TFG - Atravesando las Capas de una Aplicación Empresarial: Demostrador Tecnológico J2EE
+ */
 public class Broker_SA_UsuarioImpl implements IBroker_SA_Usuario {
 
     public Broker_SA_UsuarioImpl() {}

@@ -23,7 +23,11 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-
+/**
+ * @Author Rodrigo de Miguel González
+ * @Date 2017-2018
+ * TFG - Atravesando las Capas de una Aplicación Empresarial: Demostrador Tecnológico J2EE
+ */
 @ManagedBean(name = "EmpleadoBean")
 @SessionScoped
 public class EmpleadoBean implements Serializable {
@@ -62,14 +66,6 @@ public class EmpleadoBean implements Serializable {
 
     private String idDepart;
 
-
-    private static Map<String, Object> roles;
-
-    static {
-        roles = new LinkedHashMap<String, Object>();
-        roles.put("EMPLEADO", "EMPLEADO"); //label, value
-        roles.put("ADMIN", "ADMIN");
-    }
 
 
     private TEmpleadoCompleto empleadoCompleto;
@@ -163,10 +159,8 @@ public class EmpleadoBean implements Serializable {
 
 
     public String buscarById() {
-        //super.accionVista = AccionEnum.BUSCAR_EMPLEADO_ID;
         System.out.println(accionVista);
         log.info("id = '" + id + "'");
-//        iniciarAtributos();
 
         if (id != null && id > 0) {
 
@@ -207,10 +201,8 @@ public class EmpleadoBean implements Serializable {
 
 
     public String buscarByEmail() {
-        //super.accionVista = AccionEnum.BUSCAR_EMPLEADO_ID;
         System.out.println(accionVista);
         log.info("email = '" + email + "'");
-//        iniciarAtributos();
 
         if (email != null && (new EmailValidator().validate(email.trim()))) {
 
@@ -251,10 +243,8 @@ public class EmpleadoBean implements Serializable {
 
 
     public String eliminarEmpleado() {
-        //super.accionVista = AccionEnum.ELIMINAR_EMPLEADO;
         System.out.println(accionVista);
         log.info("id = '" + id + "'");
-//        iniciarAtributos();
 
         if (id != null && id > 0) {
 
@@ -293,7 +283,6 @@ public class EmpleadoBean implements Serializable {
     public String listarEmpleados() {
         accionVista.setAccion(AccionVista.AccionEnum.ACCION_LISTAR_EMPLEADOS);
         log.info(accionVista.toString());
-//        iniciarAtributos();
 
         log.info(viewRequest);
 
@@ -365,10 +354,6 @@ public class EmpleadoBean implements Serializable {
         this.password = password;
     }
 
-    public Map<String, Object> getRoles() {
-        return roles;
-    }
-
 
     public String getAntiguedad() {
         return antiguedad;
@@ -418,9 +403,6 @@ public class EmpleadoBean implements Serializable {
         this.listaDepartamentos = listaDepartamentos;
     }
 
-    //    public String getAccionVista() {
-//        return String.valueOf(accionVista.getAccionVista());
-//    }
 
     public AccionVista getAccionVista() {
         return this.accionVista;

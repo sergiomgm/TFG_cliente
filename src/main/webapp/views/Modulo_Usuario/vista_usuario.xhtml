@@ -1,10 +1,16 @@
 <!DOCTYPE html PUBLIC "-//W3C/DTD XHTML 1.0 Transitional//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!--
+* @Author Rodrigo de Miguel González
+* @Date 2017-2018
+* TFG - Atravesando las Capas de una Aplicación Empresarial: Demostrador Tecnológico J2EE
+-->
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:c="http://java.sun.com/jsp/jstl/core">
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
 
 
 <h:head>
@@ -12,27 +18,28 @@
     <h:outputStylesheet library="css" name="style.css"/>
     <h:outputStylesheet library="css" name="bootstrap.min.css"/>
 
-    #{numerosAction.viewRequest = "vista_usuario"}
-    #{EmpleadoAction.viewRequest = "vista_usuario"}
-    #{ProyectoAction.viewRequest = "vista_usuario"}
-    #{DepartamentoAction.viewRequest = "vista_usuario"}
+
 </h:head>
 
 <h:body styleClass="body">
+    <p style="color:#f4f4f4">
+
+        #{EmpleadoBean.viewRequest = "vista_usuario"}
+        #{ProyectoBean.viewRequest = "vista_usuario"}
+        #{DepartamentoBean.viewRequest = "vista_usuario"}
+
+    </p>
 
     <div class="container">
 
-        <div class="row border">
-            <div class="text-left col-md-6">
+        <div class="row border accionesBox">
+            <div class="text-left col-md-6 textoHeader">
                 <a href="#{request.contextPath}">Volver al Index</a>
             </div>
 
-            <div class="text-right col-md-6">
-                <p>
-                    <!--#{request.getRemoteUser()} -->
-                    <!-- user@ucm.es &#45;&#45 -->
-                    #{request.getRemoteUser()} -- <a href="#{request.contextPath}/logout">Logout</a>
-                </p>
+            <div class="text-right col-md-6 textoHeader">
+                <!--admin@ucm.es -->
+                <strong>#{request.getRemoteUser()}</strong> -- <a href="#{request.contextPath}/logout">Logout</a>
             </div>
         </div>
 
@@ -45,17 +52,19 @@
 
                             <h2>Empleados</h2>
                         </div>
+                        <hr/>
                         <div class="acciones">
 
-                            <h:commandButton styleClass="btn btn-success" value="Buscar por ID"
-                                             action="#{EmpleadoAction.setAccion('ACCION_BUSCAR_EMPLEADO_ID')}"
+                            <h:commandButton styleClass="btn btn-primary" value="Buscar por ID"
+                                             action="#{EmpleadoBean.setAccion('ACCION_BUSCAR_EMPLEADO_ID')}"
                             /> <br/>
-                            <h:commandButton styleClass="btn btn-success" value="Buscar por email"
-                                             action="#{EmpleadoAction.setAccion('ACCION_BUSCAR_EMPLEADO_EMAIL')}"
+                            <h:commandButton styleClass="btn btn-primary" value="Buscar por email"
+                                             action="#{EmpleadoBean.setAccion('ACCION_BUSCAR_EMPLEADO_EMAIL')}"
                             /> <br/>
-                            <h:commandButton styleClass="btn btn-success" value="Listar"
-                                             action="#{EmpleadoAction.listarEmpleados}"
-                            /><br/>
+                            <h:commandButton styleClass="btn btn-primary" value="Listar"
+                                             action="#{EmpleadoBean.listarEmpleados}"
+                            />
+                            <hr/>
                         </div>
 
                     </div>
@@ -67,15 +76,16 @@
 
                             <h2>Departamentos</h2>
                         </div>
+                        <hr/>
                         <div class="acciones">
-                            <h:commandButton styleClass="btn btn-success" value="Buscar por ID"
-                                             action="#{DepartamentoAction.setAccion('ACCION_BUSCAR_DEPARTAMENTO_ID')}"
+                            <h:commandButton styleClass="btn btn-primary" value="Buscar por ID"
+                                             action="#{DepartamentoBean.setAccion('ACCION_BUSCAR_DEPARTAMENTO_ID')}"
                             /><br/>
-                            <h:commandButton styleClass="btn btn-success" value="Buscar por siglas"
-                                             action="#{DepartamentoAction.setAccion('ACCION_BUSCAR_DEPARTAMENTO_SIGLAS')}"
+                            <h:commandButton styleClass="btn btn-primary" value="Buscar por siglas"
+                                             action="#{DepartamentoBean.setAccion('ACCION_BUSCAR_DEPARTAMENTO_SIGLAS')}"
                             /><br/>
-                            <h:commandButton styleClass="btn btn-success" value="Listar"
-                                             action="#{DepartamentoAction.listarDepartamentos}"
+                            <h:commandButton styleClass="btn btn-primary" value="Listar"
+                                             action="#{DepartamentoBean.listarDepartamentos}"
                             /><br/>
 
                         </div>
@@ -88,16 +98,18 @@
                         <div class="titulo">
                             <h2>Proyectos</h2>
                         </div>
+                        <hr/>
                         <div class="acciones">
-                            <h:commandButton styleClass="btn btn-success" value="Buscar por ID"
-                                             action="#{ProyectoAction.setAccion('ACCION_BUSCAR_PROYECTO_ID')}"
+                            <h:commandButton styleClass="btn btn-primary" value="Buscar por ID"
+                                             action="#{ProyectoBean.setAccion('ACCION_BUSCAR_PROYECTO_ID')}"
                             /><br/>
-                            <h:commandButton styleClass="btn btn-success" value="Buscar por nombre"
-                                             action="#{ProyectoAction.setAccion('ACCION_BUSCAR_PROYECTO_NOMBRE')}"
+                            <h:commandButton styleClass="btn btn-primary" value="Buscar por nombre"
+                                             action="#{ProyectoBean.setAccion('ACCION_BUSCAR_PROYECTO_NOMBRE')}"
                             /><br/>
-                            <h:commandButton styleClass="btn btn-success" value="Listar"
-                                             action="#{ProyectoAction.listarProyectos}"
+                            <h:commandButton styleClass="btn btn-primary" value="Listar"
+                                             action="#{ProyectoBean.listarProyectos}"
                             /><br/>
+                            <hr/>
 
                         </div>
                     </div>
@@ -105,8 +117,8 @@
             </h:form>
         </div>
 
-
-        <div id="contenido">
+        <hr/>
+        <div id=" contenido">
 
             <!--******************************************************************************************************************************-->
             <!--******************************************************************************************************************************-->
@@ -116,31 +128,28 @@
             <div id="infoEmpleados">
 
 
-                <c:if test="#{EmpleadoAction.accion == 'ACCION_MOSTRAR_EMPLEADO'}">
+                <c:if test="#{EmpleadoBean.accionVista.getAccion() == 'ACCION_MOSTRAR_EMPLEADO'}">
                     ACCION_MOSTRAR_EMPLEADO
 
-                    <c:if test="#{EmpleadoAction.empleadoCompleto != null}">
+                    <c:if test="#{EmpleadoBean.empleadoCompleto != null}">
                         <div class="mostrarInfo">
                             <strong>ID: </strong><h:outputText
-                                value="#{EmpleadoAction.empleadoCompleto.empleado.id}"/>
+                                value="#{EmpleadoBean.empleadoCompleto.empleado.id}"/>
                             <br/>
                             <strong>Nombre: </strong><h:outputText
-                                value="#{EmpleadoAction.empleadoCompleto.empleado.nombre}"/> <br/>
+                                value="#{EmpleadoBean.empleadoCompleto.empleado.nombre}"/> <br/>
                             <strong>Email:</strong> <h:outputText
-                                value="#{EmpleadoAction.empleadoCompleto.empleado.email}"/> <br/>
-                            <strong>Rol: </strong><h:outputText
-                                value="#{EmpleadoAction.empleadoCompleto.empleado.rol}"/>
-                            <br/>
+                                value="#{EmpleadoBean.empleadoCompleto.empleado.email}"/> <br/>
                             <strong>Departamento: </strong><h:outputText
-                                value="#{EmpleadoAction.empleadoCompleto.departamento.nombre}"/> (<h:outputText
-                                value="#{EmpleadoAction.empleadoCompleto.departamento.siglas}"/>) <br/>
+                                value="#{EmpleadoBean.empleadoCompleto.departamento.nombre}"/> (<h:outputText
+                                value="#{EmpleadoBean.empleadoCompleto.departamento.siglas}"/>) <br/>
 
 
-                            <c:if test="#{EmpleadoAction.empleadoCompleto.proyectos.size() > 0}">
+                            <c:if test="#{EmpleadoBean.empleadoCompleto.proyectos.size() > 0}">
                                 <strong>Proyectos:</strong>
                                 <ul>
                                     <ui:repeat
-                                            value="#{EmpleadoAction.empleadoCompleto.proyectos.entrySet().toArray()}"
+                                            value="#{EmpleadoBean.empleadoCompleto.proyectos.entrySet().toArray()}"
                                             var="entry">
 
                                         <li>Nombre: <h:outputText value="#{entry.value.nombre}"/></li>
@@ -148,7 +157,7 @@
                                     </ui:repeat>
                                 </ul>
                             </c:if>
-                            <c:if test="#{EmpleadoAction.empleadoCompleto.proyectos.size() == 0}">
+                            <c:if test="#{EmpleadoBean.empleadoCompleto.proyectos.size() == 0}">
                                 <strong>Proyectos: </strong> No tiene proyectos asignados.
                             </c:if>
                         </div>
@@ -162,45 +171,42 @@
                 <!--******************************************************************************************************************************-->
 
 
-
-                <c:if test="#{EmpleadoAction.accion == 'ACCION_BUSCAR_EMPLEADO_ID'}">
+                <c:if test="#{EmpleadoBean.accionVista.getAccion() == 'ACCION_BUSCAR_EMPLEADO_ID'}">
                     BUSCAR_EMPLEADO_ID
 
                     <div class="form-inline">
                         <h:form styleClass="form-group" prependId="false">
                             <p>
                                 ID empleado: <h:inputText styleClass="form-control"
-                                                          value="#{EmpleadoAction.id}"/>
+                                                          value="#{EmpleadoBean.id}"
+                                                          a:autofocus="true"/>
                                 <h:commandButton styleClass="btn btn-primary" value="Buscar"
-                                                 action="#{EmpleadoAction.buscarById}"/>
+                                                 action="#{EmpleadoBean.buscarById}"/>
 
                             </p>
                         </h:form>
                     </div>
 
-
-                    <c:if test="#{EmpleadoAction.empleadoCompleto != null}">
+                    <c:if test="#{EmpleadoBean.empleadoCompleto != null}">
                         <div class="mostrarInfo">
                             <strong>ID: </strong><h:outputText
-                                value="#{EmpleadoAction.empleadoCompleto.empleado.id}"/>
+                                value="#{EmpleadoBean.empleadoCompleto.empleado.id}"/>
                             <br/>
                             <strong>Nombre: </strong><h:outputText
-                                value="#{EmpleadoAction.empleadoCompleto.empleado.nombre}"/> <br/>
+                                value="#{EmpleadoBean.empleadoCompleto.empleado.nombre}"/> <br/>
                             <strong>Email:</strong> <h:outputText
-                                value="#{EmpleadoAction.empleadoCompleto.empleado.email}"/> <br/>
-                            <strong>Rol: </strong><h:outputText
-                                value="#{EmpleadoAction.empleadoCompleto.empleado.rol}"/>
+                                value="#{EmpleadoBean.empleadoCompleto.empleado.email}"/> <br/>
                             <br/>
                             <strong>Departamento: </strong><h:outputText
-                                value="#{EmpleadoAction.empleadoCompleto.departamento.nombre}"/> (<h:outputText
-                                value="#{EmpleadoAction.empleadoCompleto.departamento.siglas}"/>) <br/>
+                                value="#{EmpleadoBean.empleadoCompleto.departamento.nombre}"/> (<h:outputText
+                                value="#{EmpleadoBean.empleadoCompleto.departamento.siglas}"/>) <br/>
 
 
-                            <c:if test="#{EmpleadoAction.empleadoCompleto.proyectos.size() > 0}">
+                            <c:if test="#{EmpleadoBean.empleadoCompleto.proyectos.size() > 0}">
                                 <strong>Proyectos:</strong>
                                 <ul>
                                     <ui:repeat
-                                            value="#{EmpleadoAction.empleadoCompleto.proyectos.entrySet().toArray()}"
+                                            value="#{EmpleadoBean.empleadoCompleto.proyectos.entrySet().toArray()}"
                                             var="entry">
 
                                         <li>Nombre: <h:outputText value="#{entry.value.nombre}"/></li>
@@ -208,12 +214,11 @@
                                     </ui:repeat>
                                 </ul>
                             </c:if>
-                            <c:if test="#{EmpleadoAction.empleadoCompleto.proyectos.size() == 0}">
+                            <c:if test="#{EmpleadoBean.empleadoCompleto.proyectos.size() == 0}">
                                 <strong>Proyectos: </strong> No tiene proyectos asignados.
                             </c:if>
                         </div>
                     </c:if>
-
 
 
                 </c:if>
@@ -224,44 +229,42 @@
                 <!--******************************************************************************************************************************-->
 
 
-                <c:if test="#{EmpleadoAction.accion == 'ACCION_BUSCAR_EMPLEADO_EMAIL'}">
+                <c:if test="#{EmpleadoBean.accionVista.getAccion() == 'ACCION_BUSCAR_EMPLEADO_EMAIL'}">
                     BUSCAR_EMPLEADO_EMAIL
 
                     <div class="form-inline">
                         <h:form styleClass="form-group" prependId="false">
                             <p>
                                 Email empleado: <h:inputText styleClass="form-control"
-                                                             value="#{EmpleadoAction.email}"/>
+                                                             value="#{EmpleadoBean.email}"
+                                                             a:autofocus="true"/>
                                 <h:commandButton styleClass="btn btn-primary" value="Buscar"
-                                                 action="#{EmpleadoAction.buscarByEmail}"/>
+                                                 action="#{EmpleadoBean.buscarByEmail}"/>
 
                             </p>
                         </h:form>
                     </div>
 
-
-                    <c:if test="#{EmpleadoAction.empleadoCompleto != null}">
+                    <c:if test="#{EmpleadoBean.empleadoCompleto != null}">
                         <div class="mostrarInfo">
                             <strong>ID: </strong><h:outputText
-                                value="#{EmpleadoAction.empleadoCompleto.empleado.id}"/>
+                                value="#{EmpleadoBean.empleadoCompleto.empleado.id}"/>
                             <br/>
                             <strong>Nombre: </strong><h:outputText
-                                value="#{EmpleadoAction.empleadoCompleto.empleado.nombre}"/> <br/>
+                                value="#{EmpleadoBean.empleadoCompleto.empleado.nombre}"/> <br/>
                             <strong>Email:</strong> <h:outputText
-                                value="#{EmpleadoAction.empleadoCompleto.empleado.email}"/> <br/>
-                            <strong>Rol: </strong><h:outputText
-                                value="#{EmpleadoAction.empleadoCompleto.empleado.rol}"/>
+                                value="#{EmpleadoBean.empleadoCompleto.empleado.email}"/> <br/>
                             <br/>
                             <strong>Departamento: </strong><h:outputText
-                                value="#{EmpleadoAction.empleadoCompleto.departamento.nombre}"/> (<h:outputText
-                                value="#{EmpleadoAction.empleadoCompleto.departamento.siglas}"/>) <br/>
+                                value="#{EmpleadoBean.empleadoCompleto.departamento.nombre}"/> (<h:outputText
+                                value="#{EmpleadoBean.empleadoCompleto.departamento.siglas}"/>) <br/>
 
 
-                            <c:if test="#{EmpleadoAction.empleadoCompleto.proyectos.size() > 0}">
+                            <c:if test="#{EmpleadoBean.empleadoCompleto.proyectos.size() > 0}">
                                 <strong>Proyectos:</strong>
                                 <ul>
                                     <ui:repeat
-                                            value="#{EmpleadoAction.empleadoCompleto.proyectos.entrySet().toArray()}"
+                                            value="#{EmpleadoBean.empleadoCompleto.proyectos.entrySet().toArray()}"
                                             var="entry">
 
                                         <li>Nombre: <h:outputText value="#{entry.value.nombre}"/></li>
@@ -269,58 +272,71 @@
                                     </ui:repeat>
                                 </ul>
                             </c:if>
-                            <c:if test="#{EmpleadoAction.empleadoCompleto.proyectos.size() == 0}">
+                            <c:if test="#{EmpleadoBean.empleadoCompleto.proyectos.size() == 0}">
                                 <strong>Proyectos: </strong> No tiene proyectos asignados.
                             </c:if>
                         </div>
                     </c:if>
 
 
-
                 </c:if>
 
 
+
                 <!--******************************************************************************************************************************-->
                 <!--******************************************************************************************************************************-->
                 <!--******************************************************************************************************************************-->
 
 
-
-                <c:if test="#{EmpleadoAction.accion == 'ACCION_LISTAR_EMPLEADOS'}">
+                <c:if test="#{EmpleadoBean.accionVista.getAccion() == 'ACCION_LISTAR_EMPLEADOS'}">
                     LISTAR_EMPLEADOS
 
-                    <c:if test="#{EmpleadoAction.listaEmpleados != null}">
+                    <c:if test="#{EmpleadoBean.listaEmpleados != null}">
                         <div class="mostrarInfo">
-                            <ol>
-                                <ui:repeat value="#{EmpleadoAction.listaEmpleados}" var="itemE">
+                            <ul>
+                                <ui:repeat value="#{EmpleadoBean.listaEmpleados}" var="itemE">
 
-                                    <li>#{itemE}</li>
+                                    <li>
+                                        <div>
+                                            <strong>[#</strong><h:outputText value="#{itemE.id}"/><strong>] - </strong>
+                                            <h:outputText
+                                                    value="#{itemE.nombre}"/>
+                                            <br/>
+                                            <strong>Email: </strong> <h:outputText value="#{itemE.email}"/>
+                                            <br/>
+                                            <strong>Departamento: </strong> <h:outputText
+                                                value="#{itemE.departamento}"/>
 
+                                            <c:if test="#{itemE.sueldoBase != null}">
+
+                                                <strong>Sueldo Base: </strong>
+                                                <h:outputText value="#{itemE.sueldoBase}"/>
+                                                <br/>
+                                                <strong>Antiguedad: </strong>
+                                                <h:outputText value="#{itemE.antiguedad}"/>
+                                                <br/>
+
+                                            </c:if>
+
+                                            <c:if test="#{itemE.horasJornada != null}">
+
+                                                <strong>Horas de jornada: </strong>
+                                                <h:outputText value="#{itemE.horasJornada}"/>
+                                                <br/>
+                                                <strong>Precio hora: </strong>
+                                                <h:outputText value="#{itemE.precioHora}"/>
+                                                <br/>
+                                            </c:if>
+
+                                        </div>
+                                    </li>
+                                    <br/>
                                 </ui:repeat>
-                            </ol>
+                            </ul>
                         </div>
                     </c:if>
 
                 </c:if>
-
-                <!--************   ALERT ERROR *****************-->
-                <!--<br/>
-                <c:if test="#{EmpleadoBean.mensajeSuccess != null}">
-                    <div class="alert alert-success">
-                        <strong>Emple: </strong><h:outputText value="#{EmpleadoBean.mensajeSuccess}"/>
-                    </div>
-                </c:if>
-                <c:if test="#{EmpleadoBean.mensajeWarning != null}">
-                    <div class="alert alert-warning">
-                        <strong>Emple: </strong><h:outputText value="#{EmpleadoBean.mensajeWarning}"/>
-                    </div>
-                </c:if>
-                <c:if test="#{EmpleadoBean.hayError == true}">
-                    <div class="alert alert-danger">
-                        <strong>Emple: </strong><h:outputText value="#{EmpleadoBean.mensajeError}"/>
-                    </div>
-                </c:if>
-                -->
 
 
             </div>
@@ -333,54 +349,22 @@
 
             <div id="infoDepartamentos">
 
-                <c:if test="#{DepartamentoAction.accion == 'ACCION_BUSCAR_DEPARTAMENTO_ID'}">
+                <c:if test="#{DepartamentoBean.accionVista.getAccion() == 'ACCION_BUSCAR_DEPARTAMENTO_ID'}">
                     BUSCAR_DEPARTAMENTO_ID
 
                     <div class="form-inline">
                         <h:form styleClass="form-group" prependId="false">
                             <p>
                                 ID departamento: <h:inputText styleClass="form-control"
-                                                              value="#{DepartamentoAction.id}"/>
+                                                              value="#{DepartamentoBean.id}"
+                                                              a:autofocus="true"/>
                                 <h:commandButton styleClass="btn btn-primary" value="Buscar"
-                                                 action="#{DepartamentoAction.buscarById}"/>
+                                                 action="#{DepartamentoBean.buscarById}"/>
 
                             </p>
                         </h:form>
                     </div>
 
-
-                    <c:if test="#{DepartamentoAction.departamentoCompleto != null}">
-                        <div class="mostrarInfo">
-                            <strong>ID: </strong><h:outputText
-                                value="#{DepartamentoAction.departamentoCompleto.departamento.id}"/>
-                            <br/>
-                            <strong>Nombre: </strong><h:outputText
-                                value="#{DepartamentoAction.departamentoCompleto.departamento.nombre}"/> <br/>
-                            <strong>Siglas:</strong> <h:outputText
-                                value="#{DepartamentoAction.departamentoCompleto.departamento.siglas}"/> <br/>
-                            <strong>Nomina mensual: </strong><h:outputText
-                                value="#{DepartamentoAction.departamentoCompleto.departamento.nominaMes}"/> €
-                            <br/>
-
-                            <c:if test="#{DepartamentoAction.departamentoCompleto.empleados.size() > 0}">
-                                <strong>Empleados:</strong>
-                                <ul>
-                                    <ui:repeat
-                                            value="#{DepartamentoAction.departamentoCompleto.empleados.entrySet().toArray()}"
-                                            var="entry">
-
-                                        <li>[#<h:outputText value="#{entry.value.id}"/>]
-                                            <h:outputText value="#{entry.value.nombre}"/> -
-                                            <h:outputText value="#{entry.value.rol}"/> -
-                                        </li>
-                                    </ui:repeat>
-                                </ul>
-                            </c:if>
-                            <c:if test="#{DepartamentoAction.departamentoCompleto.empleados.size() == 0}">
-                                <strong>Empleados: </strong> No tiene empleados asignados.
-                            </c:if>
-                        </div>
-                    </c:if>
 
 
                 </c:if>
@@ -391,7 +375,7 @@
                 <!--******************************************************************************************************************************-->
 
 
-                <c:if test="#{DepartamentoAction.accion == 'ACCION_BUSCAR_DEPARTAMENTO_SIGLAS'}">
+                <c:if test="#{DepartamentoBean.accionVista.getAccion() == 'ACCION_BUSCAR_DEPARTAMENTO_SIGLAS'}">
                     BUSCAR_DEPARTAMENTO_SIGLAS
 
 
@@ -399,43 +383,43 @@
                         <h:form styleClass="form-group" prependId="false">
                             <p>
                                 Siglas departamento: <h:inputText styleClass="form-control"
-                                                                  value="#{DepartamentoAction.siglas}"/>
+                                                                  value="#{DepartamentoBean.siglas}"
+                                                                  a:autofocus="true"/>
                                 <h:commandButton styleClass="btn btn-primary" value="Buscar"
-                                                 action="#{DepartamentoAction.buscarBySiglas}"/>
+                                                 action="#{DepartamentoBean.buscarBySiglas}"/>
 
                             </p>
                         </h:form>
                     </div>
 
 
-                    <c:if test="#{DepartamentoAction.departamentoCompleto != null}">
+                    <c:if test="#{DepartamentoBean.departamentoCompleto != null}">
                         <div class="mostrarInfo">
                             <strong>ID: </strong><h:outputText
-                                value="#{DepartamentoAction.departamentoCompleto.departamento.id}"/>
+                                value="#{DepartamentoBean.departamentoCompleto.departamento.id}"/>
                             <br/>
                             <strong>Nombre: </strong><h:outputText
-                                value="#{DepartamentoAction.departamentoCompleto.departamento.nombre}"/> <br/>
+                                value="#{DepartamentoBean.departamentoCompleto.departamento.nombre}"/> <br/>
                             <strong>Siglas:</strong> <h:outputText
-                                value="#{DepartamentoAction.departamentoCompleto.departamento.siglas}"/> <br/>
+                                value="#{DepartamentoBean.departamentoCompleto.departamento.siglas}"/> <br/>
                             <strong>Nomina mensual: </strong><h:outputText
-                                value="#{DepartamentoAction.departamentoCompleto.departamento.nominaMes}"/> €
+                                value="#{DepartamentoBean.departamentoCompleto.departamento.nominaMes}"/> €
                             <br/>
 
-                            <c:if test="#{DepartamentoAction.departamentoCompleto.empleados.size() > 0}">
+                            <c:if test="#{DepartamentoBean.departamentoCompleto.empleados.size() > 0}">
                                 <strong>Empleados:</strong>
                                 <ul>
                                     <ui:repeat
-                                            value="#{DepartamentoAction.departamentoCompleto.empleados.entrySet().toArray()}"
+                                            value="#{DepartamentoBean.departamentoCompleto.empleados.entrySet().toArray()}"
                                             var="entry">
 
                                         <li>[#<h:outputText value="#{entry.value.id}"/>]
                                             <h:outputText value="#{entry.value.nombre}"/> -
-                                            <h:outputText value="#{entry.value.rol}"/>
                                         </li>
                                     </ui:repeat>
                                 </ul>
                             </c:if>
-                            <c:if test="#{DepartamentoAction.departamentoCompleto.empleados.size() == 0}">
+                            <c:if test="#{DepartamentoBean.departamentoCompleto.empleados.size() == 0}">
                                 <strong>Empleados: </strong> No tiene empleados asignados.
                             </c:if>
                         </div>
@@ -450,43 +434,80 @@
                 <!--******************************************************************************************************************************-->
 
 
-                <c:if test="#{DepartamentoAction.accion == 'ACCION_LISTAR_DEPARTAMENTOS'}">
+                <c:if test="#{DepartamentoBean.accionVista.getAccion() == 'ACCION_MOSTRAR_DEPARTAMENTO'}">
+                    MOSTRAR_DEPARTAMENTO
+
+                    <c:if test="#{DepartamentoBean.departamentoCompleto != null}">
+                        <div class="mostrarInfo">
+                            <strong>ID: </strong><h:outputText
+                                value="#{DepartamentoBean.departamentoCompleto.departamento.id}"/>
+                            <br/>
+                            <strong>Nombre: </strong><h:outputText
+                                value="#{DepartamentoBean.departamentoCompleto.departamento.nombre}"/> <br/>
+                            <strong>Siglas: </strong> <h:outputText
+                                value="#{DepartamentoBean.departamentoCompleto.departamento.siglas}"/> <br/>
+                            <strong>Nomina mensual: </strong><h:outputText
+                                value="#{DepartamentoBean.departamentoCompleto.departamento.nominaMes}"/> €
+                            <br/>
+
+                            <c:if test="#{DepartamentoBean.departamentoCompleto.empleados.size() > 0}">
+                                <strong>Empleados:</strong>
+                                <ul>
+                                    <ui:repeat
+                                            value="#{DepartamentoBean.departamentoCompleto.empleados.entrySet().toArray()}"
+                                            var="entry">
+
+                                        <li>[#<h:outputText value="#{entry.value.id}"/>]
+                                            <h:outputText value="#{entry.value.nombre}"/> -
+                                        </li>
+                                    </ui:repeat>
+                                </ul>
+                            </c:if>
+                            <c:if test="#{DepartamentoBean.departamentoCompleto.empleados.size() == 0}">
+                                <strong>Empleados: </strong> No tiene empleados asignados.
+                            </c:if>
+                        </div>
+                    </c:if>
+
+
+                </c:if>
+
+
+
+                <!--******************************************************************************************************************************-->
+                <!--******************************************************************************************************************************-->
+                <!--******************************************************************************************************************************-->
+
+
+                <c:if test="#{DepartamentoBean.accionVista.getAccion() == 'ACCION_LISTAR_DEPARTAMENTOS'}">
                     LISTAR_DEPARTAMENTOS
 
-                    <c:if test="#{DepartamentoAction.listaDepartamentos != null}">
+                    <c:if test="#{DepartamentoBean.listaDepartamentos != null}">
                         <div class="mostrarInfo">
-                            <ol>
-                                <ui:repeat value="#{DepartamentoAction.listaDepartamentos}" var="itemD">
+                            <ul>
+                                <ui:repeat value="#{DepartamentoBean.listaDepartamentos}" var="itemD">
 
-                                    <li>#{itemD}</li>
+                                    <li>
+                                        <div>
+                                            <strong>[#</strong><h:outputText
+                                                value="#{itemD.id}"/><strong>] - </strong>
+                                            <h:outputText value="#{itemD.nombre}"/>
+                                            <br/>
+                                            <strong>Siglas: </strong> <h:outputText
+                                                value="#{itemD.siglas}"/> <br/>
+                                            <strong>Nomina Mes: </strong> <h:outputText
+                                                value="#{itemD.nominaMes}"/> <br/>
 
+                                        </div>
+                                    </li>
+                                    <br/>
                                 </ui:repeat>
-                            </ol>
+                            </ul>
                         </div>
                     </c:if>
 
                 </c:if>
 
-
-                <!--************   ALERT ERROR *****************-->
-                <!--
-                <br/>
-                <c:if test="#{DepartamentoBean.mensajeSuccess != null}">
-                    <div class="alert alert-success">
-                        <strong>Depart: </strong><h:outputText value="#{DepartamentoBean.mensajeSuccess}"/>
-                    </div>
-                </c:if>
-                <c:if test="#{DepartamentoBean.mensajeWarning != null}">
-                    <div class="alert alert-warning">
-                        <strong>Depart: </strong><h:outputText value="#{DepartamentoBean.mensajeWarning}"/>
-                    </div>
-                </c:if>
-                <c:if test="#{DepartamentoBean.hayError}">
-                    <div class="alert alert-danger">
-                        <strong>Depart: </strong><h:outputText value="#{DepartamentoBean.mensajeError}"/>
-                    </div>
-                </c:if>
-                <br/>-->
 
             </div>
 
@@ -499,62 +520,21 @@
             <!--******************************************************************************************************************************-->
 
             <div id="infoPoryectos">
-                <c:if test="#{ProyectoAction.accion == 'ACCION_BUSCAR_PROYECTO_ID'}">
+                <c:if test="#{ProyectoBean.accionVista.getAccion() == 'ACCION_BUSCAR_PROYECTO_ID'}">
                     BUSCAR_PROYECTO_ID
 
                     <div class="form-inline">
                         <h:form styleClass="form-group" prependId="false">
                             <p>
                                 ID proyecto: <h:inputText styleClass="form-control"
-                                                          value="#{ProyectoAction.id}"/>
+                                                          value="#{ProyectoBean.id}"
+                                                          a:autofocus="true"/>
                                 <h:commandButton styleClass="btn btn-primary" value="Buscar"
-                                                 action="#{ProyectoAction.buscarById}"/>
+                                                 action="#{ProyectoBean.buscarById}"/>
 
                             </p>
                         </h:form>
                     </div>
-
-
-                    <c:if test="#{ProyectoAction.proyectoCompleto != null}">
-                        <div class="mostrarInfo">
-                            <strong>ID: </strong><h:outputText
-                                value="#{ProyectoAction.proyectoCompleto.proyecto.id}"/>
-                            <br/>
-                            <strong>Nombre: </strong><h:outputText
-                                value="#{ProyectoAction.proyectoCompleto.proyecto.nombre}"/> <br/>
-                            <strong>Inicio: </strong><h:outputText
-                                value="#{ProyectoAction.proyectoCompleto.proyecto.fechaInicio}">
-                            <f:convertDateTime pattern="dd-MM-yyyy" type="date"/>
-                        </h:outputText> <br/>
-                            <strong>Fin: </strong><h:outputText
-                                value="#{ProyectoAction.proyectoCompleto.proyecto.fechafin}">
-                            <f:convertDateTime pattern="dd-MM-yyyy" type="date"/>
-                        </h:outputText> <br/>
-
-                            <strong>Descripción:</strong> <h:outputText
-                                value="#{ProyectoAction.proyectoCompleto.proyecto.descripcion}"/> <br/>
-
-
-                            <c:if test="#{ProyectoAction.proyectoCompleto.empleados.size() > 0}">
-                                <strong>Empleados:</strong>
-                                <ul>
-                                    <ui:repeat
-                                            value="#{ProyectoAction.proyectoCompleto.empleados.entrySet().toArray()}"
-                                            var="entry">
-
-                                        <li>[#<h:outputText value="#{entry.value.id}"/>]
-                                            <h:outputText value="#{entry.value.nombre}"/> -
-                                            <h:outputText value="#{entry.value.rol}"/>
-                                        </li>
-
-                                    </ui:repeat>
-                                </ul>
-                            </c:if>
-                            <c:if test="#{ProyectoAction.proyectoCompleto.empleados.size() == 0}">
-                                <strong>Empleados: </strong> No tiene empleados asignados.
-                            </c:if>
-                        </div>
-                    </c:if>
 
 
                 </c:if>
@@ -565,7 +545,7 @@
                 <!--******************************************************************************************************************************-->
 
 
-                <c:if test="#{ProyectoAction.accion == 'ACCION_BUSCAR_PROYECTO_NOMBRE'}">
+                <c:if test="#{ProyectoBean.accionVista.getAccion() == 'ACCION_BUSCAR_PROYECTO_NOMBRE'}">
                     BUSCAR_PROYECTO_NOMBRE
 
                     <div class="form-inline">
@@ -573,52 +553,61 @@
                         <h:form class="form-group" prependId="false">
                             <p>
                                 Nombre proyecto: <h:inputText styleClass="form-control"
-                                                              value="#{ProyectoAction.nombre}"/>
+                                                              value="#{ProyectoBean.nombre}"
+                                                              a:autofocus="true"/>
                                 <h:commandButton styleClass="btn btn-primary" value="Buscar"
-                                                 action="#{ProyectoAction.buscarByNombre}"/>
+                                                 action="#{ProyectoBean.buscarByNombre}"/>
 
                             </p>
                         </h:form>
                     </div>
 
 
-                    <c:if test="#{ProyectoAction.proyectoCompleto != null}">
+                </c:if>
+
+                <!--******************************************************************************************************************************-->
+                <!--******************************************************************************************************************************-->
+                <!--******************************************************************************************************************************-->
+
+
+                <c:if test="#{DepartamentoBean.accionVista.getAccion() == 'ACCION_MOSTRAR_PROYECTO'}">
+                    MOSTRAR_PROYECTO
+
+                    <c:if test="#{ProyectoBean.proyectoCompleto != null}">
                         <div class="mostrarInfo">
                             <strong>ID: </strong><h:outputText
-                                value="#{ProyectoAction.proyectoCompleto.proyecto.id}"/>
+                                value="#{ProyectoBean.proyectoCompleto.proyecto.id}"/>
                             <br/>
                             <strong>Nombre: </strong><h:outputText
-                                value="#{ProyectoAction.proyectoCompleto.proyecto.nombre}"/> <br/>
-                            <strong>Inicio: </strong>
-                            <h:outputText value="#{ProyectoAction.proyectoCompleto.proyecto.fechaInicio}">
-                                <f:convertDateTime pattern="dd-MM-yyyy" type="date"/>
-                            </h:outputText> <br/>
+                                value="#{ProyectoBean.proyectoCompleto.proyecto.nombre}"/> <br/>
+                            <strong>Inicio: </strong><h:outputText
+                                value="#{ProyectoBean.proyectoCompleto.proyecto.fechaInicio}">
+                            <f:convertDateTime pattern="dd-MM-yyyy" type="date"/>
+                        </h:outputText> <br/>
+                            <strong>Fin: </strong><h:outputText
+                                value="#{ProyectoBean.proyectoCompleto.proyecto.fechaFin}">
+                            <f:convertDateTime pattern="dd-MM-yyyy" type="date"/>
+                        </h:outputText> <br/>
 
-                            <strong>Fin: </strong>
-                            <h:outputText value="#{ProyectoAction.proyectoCompleto.proyecto.fechafin}">
-                                <f:convertDateTime pattern="dd-MM-yyyy" type="date"/>
-                            </h:outputText> <br/>
-
-                            <strong>Descripción: </strong> <h:outputText
-                                value="#{ProyectoAction.proyectoCompleto.proyecto.descripcion}"/> <br/>
+                            <strong>Descripción:</strong> <h:outputText
+                                value="#{ProyectoBean.proyectoCompleto.proyecto.descripcion}"/> <br/>
 
 
-                            <c:if test="#{ProyectoAction.proyectoCompleto.empleados.size() > 0}">
+                            <c:if test="#{ProyectoBean.proyectoCompleto.empleados.size() > 0}">
                                 <strong>Empleados:</strong>
                                 <ul>
                                     <ui:repeat
-                                            value="#{ProyectoAction.proyectoCompleto.empleados.entrySet().toArray()}"
+                                            value="#{ProyectoBean.proyectoCompleto.empleados.entrySet().toArray()}"
                                             var="entry">
 
                                         <li>[#<h:outputText value="#{entry.value.id}"/>]
                                             <h:outputText value="#{entry.value.nombre}"/> -
-                                            <h:outputText value="#{entry.value.rol}"/>
                                         </li>
 
                                     </ui:repeat>
                                 </ul>
                             </c:if>
-                            <c:if test="#{ProyectoAction.proyectoCompleto.empleados.size() == 0}">
+                            <c:if test="#{ProyectoBean.proyectoCompleto.empleados.size() == 0}">
                                 <strong>Empleados: </strong> No tiene empleados asignados.
                             </c:if>
                         </div>
@@ -628,80 +617,94 @@
                 </c:if>
 
 
+
                 <!--******************************************************************************************************************************-->
                 <!--******************************************************************************************************************************-->
                 <!--******************************************************************************************************************************-->
 
 
-
-                <c:if test="#{ProyectoAction.accion == 'ACCION_LISTAR_PROYECTOS'}">
+                <c:if test="#{ProyectoBean.accionVista.getAccion() == 'ACCION_LISTAR_PROYECTOS'}">
                     LISTAR_PROYECTOS
 
-                    <c:if test="#{ProyectoAction.listaProyectos != null}">
+                    <c:if test="#{ProyectoBean.listaProyectos != null}">
                         <div class="mostrarInfo">
-                            <ol>
-                                <ui:repeat value="#{ProyectoAction.listaProyectos}" var="itemP">
+                            <ul>
+                                <ui:repeat value="#{ProyectoBean.listaProyectos}" var="itemP">
 
-                                    <li>#{itemP}</li>
+                                    <li>
+                                        <div>
+                                            <strong>[#</strong><h:outputText value="#{itemP.id}"/><strong>] - </strong>
+                                            <h:outputText
+                                                    value="#{itemP.nombre}"/> <br/>
+                                            <strong>Fechas: </strong>
+                                            <h:outputText
+                                                    value="#{itemP.fechaInicio}">
+                                                <f:convertDateTime pattern="dd-MM-yyyy" type="date"/>
+                                            </h:outputText>
+                                            -
+                                            <h:outputText
+                                                    value="#{itemP.fechaFin}">
+                                                <f:convertDateTime pattern="dd-MM-yyyy" type="date"/>
+                                            </h:outputText>
+                                            <br/>
 
+                                            <strong>Descripción: </strong> <h:outputText
+                                                value="#{itemP.descripcion}"/> <br/>
+
+
+                                        </div>
+                                    </li>
+                                    <br/>
                                 </ui:repeat>
-                            </ol>
+                            </ul>
                         </div>
                     </c:if>
                 </c:if>
 
 
-            </div>
+                <!--******************************************************************************************************************************-->
+                <!--******************************************************************************************************************************-->
+                <!--******************************************************************************************************************************-->
 
-            <!--************   ALERTS *****************-->
-            <!--
-            <br/>
-            <c:if test="#{ProyectoBean.mensajeSuccess != null}">
-                <div class="alert alert-success">
-                    <strong>Proy: </strong><h:outputText value="#{ProyectoBean.mensajeSuccess}"/>
-                </div>
-            </c:if>
-            <c:if test="#{ProyectoBean.mensajeWarning != null}">
-                <div class="alert alert-warning">
-                    <strong>Proy: </strong><h:outputText value="#{ProyectoBean.mensajeWarning}"/>
-                </div>
-            </c:if>
-            <c:if test="#{ProyectoBean.hayError}">
-                <div class="alert alert-danger">
-                    <strong>Proy: </strong><h:outputText value="#{ProyectoBean.mensajeError}"/>
-                </div>
-            </c:if>
-            <br/>
-            -->
-        </div>
 
+
+
+                <!--************   ALERTS *****************-->
+
+
+            </div> <!-- fin infoProyectos -->
+
+        </div> <!-- fin contenido -->
+
+
+        <br/>
+
+        <!--************   ALERT ERROR *****************-->
         <div id="alerts">
 
-            <br/>
-            <c:if test="#{Action.mensajeSuccess != null}">
+            <c:if test="#{ AccionVista.getMensajeSuccess() != null}">
                 <div class="alert alert-success">
-                    <h:outputText value="#{Action.mensajeSuccess}"/>
+                    <strong>Accion: </strong><h:outputText value="#{ AccionVista.getMensajeSuccess()}"/>
                 </div>
             </c:if>
-            <c:if test="#{Action.mensajeWarning != null}">
+            <c:if test="#{ AccionVista.getMensajeWarning() != null}">
                 <div class="alert alert-warning">
-                    <strong>Atención! </strong><h:outputText value="#{Action.mensajeWarning}"/>
+                    <strong>Accion: </strong><h:outputText value="#{ AccionVista.getMensajeWarning()}"/>
                 </div>
             </c:if>
-            <c:if test="#{Action.hayError}">
+            <c:if test="#{ AccionVista.getHayError() == true}">
                 <div class="alert alert-danger">
-                    <strong>Error: </strong><h:outputText value="#{Action.mensajeError}"/>
+                    <strong>Accion: </strong><h:outputText value="#{ AccionVista.getMensajeError()}"/>
                 </div>
             </c:if>
             <br/>
         </div>
 
-    </div>
 
+    </div> <!-- fin container -->
 
     <br/>
     <br/>
 </h:body>
 
 </html>
-

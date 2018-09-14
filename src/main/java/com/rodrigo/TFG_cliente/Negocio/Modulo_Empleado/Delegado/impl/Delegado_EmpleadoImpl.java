@@ -1,13 +1,12 @@
 package com.rodrigo.TFG_cliente.Negocio.Modulo_Empleado.Delegado.impl;
 
+import com.rodrigo.TFG_cliente.Negocio.Modulo_Empleado.Delegado.Delegado_Empleado;
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Empleado.Entidad.Transfers.TEmpleado;
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Empleado.Entidad.Transfers.TEmpleadoCompleto;
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Empleado.Excepciones.EmpleadoException;
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Empleado.Excepciones.EmpleadoFieldInvalidException;
-import com.rodrigo.TFG_cliente.Negocio.Modulo_Empleado.Excepciones.EmpleadoLoginErroneo;
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Empleado.Excepciones.EmpleadoYaExisteExcepcion;
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Empleado.Serv_aplicacion.IBroker_SA_Empleado;
-import com.rodrigo.TFG_cliente.Negocio.Modulo_Empleado.Delegado.Delegado_Empleado;
 import com.rodrigo.TFG_cliente.Presentacion.Proxy.Excepciones.ProxyException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,13 +19,32 @@ import java.net.URL;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * @Author Rodrigo de Miguel González
+ * @Date 2017-2018
+ * TFG - Atravesando las Capas de una Aplicación Empresarial: Demostrador Tecnológico J2EE
+ */
 public class Delegado_EmpleadoImpl extends Delegado_Empleado {
 
     private static Logger log = LoggerFactory.getLogger(Delegado_EmpleadoImpl.class);
 
     private IBroker_SA_Empleado portEmpleados;
 
+    private String HOST = "https://localhost" ;
 
+    private String PORT = "8443";
+
+    private String APP_URI = "/TFG_server/services";
+
+
+    private final String URL_WSDL = "http://localhost:8080/TFG_server/wsdl/SA_Empleado.wsdl";
+
+    private final String URL_SERVICE = HOST + ":"+ PORT + APP_URI + "/SA_Empleado";
+
+
+    private final String NAMESPACE_URI = "http://impl.Serv_aplicacion.Modulo_Empleado.Negocio.TFG_server.rodrigo.com/";
+
+    private final String SERVICE_NAME = "Broker_SA_EmpleadoImpl";
 
 
     public Delegado_EmpleadoImpl() throws ProxyException {
@@ -39,9 +57,8 @@ public class Delegado_EmpleadoImpl extends Delegado_Empleado {
         log.info("URL_WSDL: " + URL_WSDL);
         URL wsdlURLEmpleados;
         try {
-//            wsdlURLEmpleados = new URL(URL_WSDL);
 
-            wsdlURLEmpleados = new URL("http://localhost:8080/TFG_server/wsdl/SA_Empleado.wsdl");
+            wsdlURLEmpleados = new URL(URL_WSDL);
             log.info("wsdlURLEmpleados = '" + wsdlURLEmpleados + "'");
         } catch (MalformedURLException e) {
             log.error("Error al crear el WSDL", e);
@@ -60,13 +77,12 @@ public class Delegado_EmpleadoImpl extends Delegado_Empleado {
 
 
         log.info("Asignando usuario y contraseña");
-        //el servicio 2 requiere usuario y contraseña
+        //
         Map<String, Object> req_ctx2= ((BindingProvider) portEmpleados).getRequestContext();
         req_ctx2.put(BindingProvider.USERNAME_PROPERTY, "usuario");
         req_ctx2.put(BindingProvider.PASSWORD_PROPERTY, "contra");
 
-        String endPoint2= "https://localhost:8443/TFG_server/services/SA_Empleado";
-        req_ctx2.put(BindingProvider.ENDPOINT_ADDRESS_PROPERTY, endPoint2);
+        req_ctx2.put(BindingProvider.ENDPOINT_ADDRESS_PROPERTY, URL_SERVICE);
 
 
 
@@ -101,8 +117,4 @@ public class Delegado_EmpleadoImpl extends Delegado_Empleado {
     }
 
 
-    @Override
-    public TEmpleadoCompleto buscarByIDTransfer(Long id) throws EmpleadoFieldInvalidException, EmpleadoException {
-        return portEmpleados.buscarByIDTransfer(id);
-    }
 }
