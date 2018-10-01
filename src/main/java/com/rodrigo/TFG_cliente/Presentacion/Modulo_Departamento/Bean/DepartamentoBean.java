@@ -74,6 +74,7 @@ public class DepartamentoBean implements Serializable {
             try {
 
                 departamentoCompleto.setDepartamento(Delegado_Departamento.getInstance().crearDepartamento(departNuevo));
+                accionVista.setHayError(false);
 
             } catch (DepartamentoYaExisteExcepcion e1) {
 
@@ -155,6 +156,7 @@ public class DepartamentoBean implements Serializable {
         System.out.println("*********************");
 
         System.out.println(viewRequest);
+        accionVista.setAccion(AccionVista.AccionEnum.ACCION_MOSTRAR_DEPARTAMENTO);
         return viewRequest;
     }
 
