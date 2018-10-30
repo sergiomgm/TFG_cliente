@@ -100,7 +100,7 @@ public class Delegado_EmpleadoImpl extends Delegado_Empleado {
         */	
 	    
     	
-		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("classpath*:cxf.xml");
+		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("cxf.xml");
 		
 		portEmpleados = (IBroker_SA_Empleado) context.getBean("SA_Empleado");
 		

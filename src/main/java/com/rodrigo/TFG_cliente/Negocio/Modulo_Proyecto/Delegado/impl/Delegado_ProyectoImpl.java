@@ -92,7 +92,7 @@ public class Delegado_ProyectoImpl extends Delegado_Proyecto {
         req_ctx2.put(BindingProvider.ENDPOINT_ADDRESS_PROPERTY, URL_SERVICE);
 		*/
         
-		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("classpath*:cxf.xml");
+		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("cxf.xml");
 		
 		portProyecto = (IBroker_SA_Proyecto) context.getBean("SA_Proyecto");
 		
