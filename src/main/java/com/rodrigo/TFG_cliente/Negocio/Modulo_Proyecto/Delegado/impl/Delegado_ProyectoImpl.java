@@ -2,6 +2,7 @@ package com.rodrigo.TFG_cliente.Negocio.Modulo_Proyecto.Delegado.impl;
 
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Empleado.Entidad.Transfers.TEmpleado;
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Empleado.Excepciones.EmpleadoException;
+import com.rodrigo.TFG_cliente.Negocio.Modulo_Empleado.Serv_aplicacion.IBroker_SA_Empleado;
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Proyecto.Delegado.Delegado_Proyecto;
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Proyecto.Entidad.Transfers.TEmpleadoProyecto;
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Proyecto.Entidad.Transfers.TProyecto;
@@ -13,6 +14,7 @@ import com.rodrigo.TFG_cliente.Negocio.Modulo_Proyecto.Serv_aplicacion.IBroker_S
 import com.rodrigo.TFG_cliente.Presentacion.Proxy.Excepciones.ProxyException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import javax.xml.namespace.QName;
 import javax.xml.ws.BindingProvider;
@@ -56,7 +58,7 @@ public class Delegado_ProyectoImpl extends Delegado_Proyecto {
 
     public Delegado_ProyectoImpl() throws ProxyException {
         log.info("Creando DelegadoDelNegocio");
-
+        /*
         log.debug("Creando Qname del servicio");
         QName SERVICE_PROYECTO = new QName(NAMESPACE_URI, SERVICE_NAME);
 
@@ -88,7 +90,14 @@ public class Delegado_ProyectoImpl extends Delegado_Proyecto {
         req_ctx2.put(BindingProvider.PASSWORD_PROPERTY, "contra");
 
         req_ctx2.put(BindingProvider.ENDPOINT_ADDRESS_PROPERTY, URL_SERVICE);
-
+		*/
+        
+		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("classpath*:cxf.xml");
+		
+		portProyecto = (IBroker_SA_Proyecto) context.getBean("SA_Proyecto");
+		
+		((BindingProvider) portProyecto).getRequestContext().put(BindingProvider.USERNAME_PROPERTY, "usuario");
+		((BindingProvider) portProyecto).getRequestContext().put(BindingProvider.PASSWORD_PROPERTY, "contra");
 
         log.info("DelegadoDelNegocio creado");
     }

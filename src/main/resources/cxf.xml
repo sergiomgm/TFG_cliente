@@ -44,4 +44,45 @@
               </bean>
 		</jaxws:outInterceptors>	
 	</jaxws:client>
+	
+	<jaxws:client
+		id="SA_Proyecto"
+		serviceClass="com.rodrigo.TFG_cliente.Negocio.Modulo_Proyecto.Serv_aplicacion.IBroker_SA_Proyecto"
+		address="https://localhost:8443/TFG_server/services/SA_Proyecto"
+		endpointName="Broker_SA_ProyectoImplPort"
+		serviceName="Broker_SA_ProyectoImpl">
+		
+		<jaxws:features>
+			<bean class="org.apache.cxf.feature.LoggingFeature" />
+		</jaxws:features>
+		
+		<jaxws:inInterceptors>
+              <bean class="org.apache.cxf.ws.security.wss4j.WSS4JInInterceptor">
+                 <constructor-arg>
+                    <map>
+                       <entry key="user" value="clienttestkey"/>
+                       <entry key="action" value="Encrypt"/>
+                       <entry key="passwordType" value="PasswordText"/>
+                       <entry key="encryptionPropFile" value="clientkeystore.properties"/>
+                       <entry key="decryptionPropFile" value="clientkeystore.properties"/>
+                       <entry key="passwordCallbackClass" value="com.eduardosergio.TFG_cliente.seguridad.ClientPasswordCallback"/>
+                    </map>
+                 </constructor-arg>
+              </bean>
+		</jaxws:inInterceptors>
+		<jaxws:outInterceptors>
+              <bean class="org.apache.cxf.ws.security.wss4j.WSS4JOutInterceptor">
+                 <constructor-arg>
+                    <map>
+                       <entry key="user" value="testkey"/>
+                       <entry key="action" value="Encrypt"/> 
+                       <entry key="passwordType" value="PasswordText"/>
+                       <entry key="encryptionPropFile" value="clientkeystore.properties"/>
+              		   <entry key="encryptionParts" value="{Content}{http://schemas.xmlsoap.org/soap/envelope/}Body"/>
+                       <entry key="passwordCallbackClass" value="com.eduardosergio.TFG_cliente.seguridad.ClientPasswordCallback"/>             
+           			</map>
+                 </constructor-arg>
+              </bean>
+		</jaxws:outInterceptors>	
+	</jaxws:client>
 </beans>

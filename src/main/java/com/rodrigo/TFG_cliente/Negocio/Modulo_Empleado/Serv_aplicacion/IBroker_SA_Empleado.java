@@ -18,6 +18,7 @@ import java.util.List;
  * TFG - Atravesando las Capas de una Aplicación Empresarial: Demostrador Tecnológico J2EE
  */
 @WebService(
+		//He tenido que quitar el impl.
         targetNamespace = "http://Serv_aplicacion.Modulo_Empleado.Negocio.TFG_server.rodrigo.com/",
         name = "Broker_SA_EmpleadoImpl")
 public interface IBroker_SA_Empleado {

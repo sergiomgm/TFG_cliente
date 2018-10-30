@@ -15,8 +15,8 @@ import java.util.Objects;
  */
 @Entity
 @NamedQueries({
-        @NamedQuery(name = "Usuario.listar", query = "FROM Usuario"),
-        @NamedQuery(name = "Usuario.buscarPorEmail", query = "from Usuario e where e.email = :email")
+        @NamedQuery(name = "Usuario.listar", query = "select obj FROM Usuario obj"),
+        @NamedQuery(name = "Usuario.buscarPorEmail", query = "select e from Usuario e where e.email = :email")
 
 })
 public class Usuario implements Serializable {
