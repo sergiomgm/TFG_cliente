@@ -16,7 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-public class ValidatorFilter implements Filter {
+public class SQLFilter implements Filter {
 
 	FilterConfig filterConfig= null;
 	
@@ -41,9 +41,6 @@ public class ValidatorFilter implements Filter {
 		Iterator it = request.getParameterMap().entrySet().iterator();
 		
 		boolean isSafe = true;
-		
-		Pattern p = Pattern.compile("[\\w@\\-\\./_\\s]+");
-		Matcher m = null;
 
 		while (it.hasNext() && isSafe)
 		{
@@ -53,12 +50,7 @@ public class ValidatorFilter implements Filter {
 				String[] parametro = (String[]) par.getValue();
 				
 				for (int i=0; i<parametro.length ; i++) {
-					
-					m = p.matcher(parametro[i]);
-					
-					if (!m.matches()) {
-						isSafe = false;
-					}
+					isSafe = isSafe= SQLParser.getInstance().isSafe(parametro[i]);
 				}
 			}
 		}

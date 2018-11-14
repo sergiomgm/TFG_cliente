@@ -1,2 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<pageflow:Pageflow xmlns:pageflow="http://www.sybase.com/suade/pageflow" id="pf15408457672790" configfile="/TFG_cliente/src/main/webapp/WEB-INF/faces-config.xml"/>
+<pageflow:Pageflow xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:pageflow="http://www.sybase.com/suade/pageflow" id="pf15408457672790" configfile="/TFG_cliente/src/main/webapp/WEB-INF/faces-config.xml">
+  <nodes xsi:type="pageflow:PFPage" name="views/index.xhtml" x="338" y="562" id="pf15422135225080" referenceLink="//@navigationRule.5/@navigationCase.0/@toViewId|" outlinks="pf15422135225081 pf15422135225082 pf15422135225093 pf15422135225094" inlinks="pf15422135225081 pf15422135225095 pf15422135225096" path="/views/index.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="views/Modulo_Usuario/vista_usuario.xhtml" x="554" y="178" id="pf15422135225097" referenceLink="//@navigationRule.1/@navigationCase.0/@toViewId|" inlinks="pf15422135225082" path="/views/Modulo_Usuario/vista_usuario.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="views/Modulo_Administrador/vista_admin.xhtml" x="554" y="562" id="pf15422135225098" referenceLink="//@navigationRule.3/@navigationCase.0/@toViewId|" inlinks="pf15422135225093 pf15422135225094" path="/views/Modulo_Administrador/vista_admin.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="views/Login/indiceRedireccion.xhtml" x="122" y="562" id="pf15422135225099" referenceLink="//@navigationRule.5/@fromViewId|" outlinks="pf15422135225095" path="/views/Login/indiceRedireccion.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="views/Errors/*" id="pf154221352250910" referenceLink="//@navigationRule.5/@fromViewId|" outlinks="pf15422135225096" path="/views/Errors/*"/>
+  <links id="pf15422135225082" target="pf15422135225097" source="pf15422135225080" outcome="a_modulo_usuario" redirect="true"/>
+  <links id="pf15422135225093" target="pf15422135225098" source="pf15422135225080" outcome="a_modulo_administrador" redirect="true"/>
+  <links id="pf15422135225094" target="pf15422135225098" source="pf15422135225080" outcome="a_admin2" redirect="true"/>
+  <links id="pf15422135225095" target="pf15422135225080" source="pf15422135225099" outcome="indice" redirect="true"/>
+  <links id="pf15422135225081" target="pf15422135225080" source="pf15422135225080" outcome="indice" redirect="true">
+    <bendPoints d1Height="-36" d2Height="-36"/>
+    <bendPoints d1Width="-64" d1Height="-36" d2Width="-64" d2Height="-36"/>
+    <bendPoints d1Width="-64" d2Width="-64"/>
+  </links>
+  <links id="pf15422135225096" target="pf15422135225080" source="pf154221352250910" outcome="indice" redirect="true"/>
+</pageflow:Pageflow>
