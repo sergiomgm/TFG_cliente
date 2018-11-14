@@ -39,25 +39,37 @@ public class ValidatorFilter implements Filter {
 		
 		boolean isSafe = true;
 		
-		Pattern p = Pattern.compile("[\\w@\\-]");
+		Pattern p = Pattern.compile("[\\w@\\-\\.\\+/=\\s]+");
 		Matcher m = null;
 		
 		while (it.hasNext() && isSafe)
 		{
 			String [] arrayParametros= it.next();
-		
-			if (arrayParametros != null)
-			{ 
+			
+			System.out.println("En el bucle while");
+			if (arrayParametros != null) { 
 				int longitud= arrayParametros.length;
 			
-				for (int i=0; i<longitud ; i++)
+				for (int i=0; i<longitud ; i++) {
+					System.out.println(arrayParametros[i]);
 					m = p.matcher(arrayParametros[i]);
+					
 					if (!m.matches()) {
 						isSafe = false;
 					}
+				}
 			}
 		}
+		
+		if (!isSafe) {
+			try {
+				HttpServletRequest req = (HttpServletRequest) request;
+				String vista = "/views/Errors/403-error.xhtml";
+				System.out.println(vista);
+				req.getRequestDispatcher(vista).forward(request, response);
 			
-		chain.doFilter(request, response);
+			} catch (Exception e) { e.printStackTrace(); }
+			
+		} else chain.doFilter(request, response);
 	}
 }
