@@ -63,10 +63,10 @@ public class ValidatorFilter implements Filter {
 		
 		if (!isSafe) {
 			try {
-				HttpServletRequest req = (HttpServletRequest) request;
-				String vista = "/views/Errors/403-error.xhtml";
-				System.out.println(vista);
-				req.getRequestDispatcher(vista).forward(request, response);
+				HttpServletResponse resp = (HttpServletResponse) response;
+				
+				
+				resp.sendError(403);
 			
 			} catch (Exception e) { e.printStackTrace(); }
 			
