@@ -1,6 +1,6 @@
-package com.rodrigo.TFG_cliente.Presentacion.seguridad.filters;
+package com.eduardosergio.TFG_cliente.presentacion.seguridad.filters;
 
-import com.rodrigo.TFG_cliente.Presentacion.seguridad.filters.imp.SQLParserImp;
+import com.eduardosergio.TFG_cliente.presentacion.seguridad.filters.imp.SQLParserImp;
 
 public abstract class SQLParser {
 	
