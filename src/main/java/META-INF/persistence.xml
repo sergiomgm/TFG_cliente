@@ -19,47 +19,9 @@
 
             <!-- <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" /> -->
             <property name="javax.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>
-            <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost/TFG_BBDD_cliente?serverTimezone=UTC"/>
+            <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost/TFG_BBDD_cliente?serverTimezone=UTC&amp;useSSL=true&amp;requireSSL=true&amp;verifyServerCertificate=true"/>
             <property name="javax.persistence.jdbc.user" value="root"/>
             <property name="javax.persistence.jdbc.password" value="1234"/>
-
-
-            <property name="hibernate.c3p0.min_size" value="10"/>
-            <property name="hibernate.c3p0.max_size" value="30"/>
-            <!-- <property name="hibernate.c3p0.timeout" value="300" /> -->
-            <!-- <property name="hibernate.c3p0.max_statements" value="50" /> -->
-            <!-- <property name="hibernate.c3p0.idle_test_period" value="3000" /> -->
-
-
-            <property name="hibernate.connection.autocommit" value="false"/>
-            <!--OTRAS PROPIEDADES-->
-            <property name="hibernate.show.sql" value="false"/>
-            <property name="hibernate.format_sql" value="false"/>
-            <property name="hibernate.hbm2ddl.auto" value="update"/>
-            <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5Dialect"/>
-            <property name="hibernate.use_sql_comments" value="true"/>
-            <property name="hibernate.jdbc.wrap_result_sets" value="true"/>
-            <property name="hibernate.hibernate.cache.use_query_cache" value="true" />
-
-            <!--<property name="hibernate.hbm2ddl.auto" value="create-drop" />-->
-            <!--<property name="hibernate.hbm2ddl.import_files" value="import.sql"/>-->
-        </properties>
-    </persistence-unit>
-    
-    <persistence-unit name="SecureLogger" transaction-type="RESOURCE_LOCAL">
-        <provider>org.hibernate.ejb.HibernatePersistence</provider>
-        <!-- <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider> -->
-        <class>com.rodrigo.TFG_cliente.Negocio.Modulo_Usuario.Entidad.Usuario</class>
-
-        <properties>
-            <!--MYSQL-REMOTO-->
-
-            <!-- <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" /> -->
-            <property name="javax.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>
-            <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost/TFG_BBDD_logs?serverTimezone=UTC"/>
-            <property name="javax.persistence.jdbc.user" value="root"/>
-            <property name="javax.persistence.jdbc.password" value="1234"/>
-
 
             <property name="hibernate.c3p0.min_size" value="10"/>
             <property name="hibernate.c3p0.max_size" value="30"/>
