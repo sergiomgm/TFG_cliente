@@ -15,3 +15,5 @@ public abstract class SecureLogger {
 	
 	public abstract void log(String message);
 }
+
+

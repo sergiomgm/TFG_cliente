@@ -9,5 +9,4 @@ public class LogFactoryImp extends LogFactory {
 	public Logger makeLogger() {
 		return new LoggerImp();
 	}
-
 }

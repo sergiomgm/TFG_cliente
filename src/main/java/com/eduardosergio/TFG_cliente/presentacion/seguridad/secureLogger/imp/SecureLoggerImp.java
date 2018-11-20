@@ -8,8 +8,6 @@ public class SecureLoggerImp extends SecureLogger {
 	@Override
 	public void log(String message) {
 		
-		
-		
 		LogManager logManager = LogManager.getInstance();
 		logManager.log(message);
 	}
