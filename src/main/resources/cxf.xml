@@ -24,7 +24,7 @@
                        <entry key="passwordType" value="PasswordText"/>
                        <entry key="encryptionPropFile" value="clientkeystore.properties"/>
                        <entry key="decryptionPropFile" value="clientkeystore.properties"/>
-                       <entry key="passwordCallbackClass" value="com.eduardosergio.TFG_cliente.presentacion.seguridad.callback.ClientPasswordCallback"/>
+                       <entry key="passwordCallbackClass" value="com.eduardosergio.TFG_cliente.seguridad.ClientPasswordCallback"/>
                     </map>
                  </constructor-arg>
               </bean>
@@ -38,7 +38,7 @@
                        <entry key="passwordType" value="PasswordText"/>
                        <entry key="encryptionPropFile" value="clientkeystore.properties"/>
               		   <entry key="encryptionParts" value="{Content}{http://schemas.xmlsoap.org/soap/envelope/}Body"/>
-                       <entry key="passwordCallbackClass" value="com.eduardosergio.TFG_cliente.presentacion.seguridad.callback.ClientPasswordCallback"/>             
+                       <entry key="passwordCallbackClass" value="com.eduardosergio.TFG_cliente.seguridad.ClientPasswordCallback"/>             
            			</map>
                  </constructor-arg>
               </bean>
@@ -65,7 +65,7 @@
                        <entry key="passwordType" value="PasswordText"/>
                        <entry key="encryptionPropFile" value="clientkeystore.properties"/>
                        <entry key="decryptionPropFile" value="clientkeystore.properties"/>
-                       <entry key="passwordCallbackClass" value="com.eduardosergio.TFG_cliente.presentacion.seguridad.callback.ClientPasswordCallback"/>
+                       <entry key="passwordCallbackClass" value="com.eduardosergio.TFG_cliente.seguridad.ClientPasswordCallback"/>
                     </map>
                  </constructor-arg>
               </bean>
@@ -79,7 +79,7 @@
                        <entry key="passwordType" value="PasswordText"/>
                        <entry key="encryptionPropFile" value="clientkeystore.properties"/>
               		   <entry key="encryptionParts" value="{Content}{http://schemas.xmlsoap.org/soap/envelope/}Body"/>
-                       <entry key="passwordCallbackClass" value="com.eduardosergio.TFG_cliente.presentacion.seguridad.callback.ClientPasswordCallback"/>             
+                       <entry key="passwordCallbackClass" value="com.eduardosergio.TFG_cliente.seguridad.ClientPasswordCallback"/>             
            			</map>
                  </constructor-arg>
               </bean>
