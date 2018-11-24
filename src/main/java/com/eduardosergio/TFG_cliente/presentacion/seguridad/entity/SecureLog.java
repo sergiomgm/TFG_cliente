@@ -1,4 +1,4 @@
-package entity;
+package com.eduardosergio.TFG_cliente.presentacion.seguridad.entity;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
@@ -6,6 +6,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Base64;
+import java.util.Date;
 import java.util.Objects;
 
 @Entity
@@ -24,13 +25,19 @@ public class SecureLog implements Serializable {
     @Column(nullable = false, unique = true)
     @Email
     protected String email;
-
+    
+    @NotBlank
     @Column(nullable = false)
-    private String log;
+    protected String rol;
+
 
     @NotNull
     @Column(nullable = false)
-    private String fecha;
+    private Date fecha;
+    
+    @NotNull
+    @Column(nullable = false)
+    private String operacion;
 
     @Version
     protected long version;
@@ -40,19 +47,16 @@ public class SecureLog implements Serializable {
      ******* CONSTRUCTORES ******
      ****************************/
 
-
-    public SecureLog(String email) {
+    
+    public SecureLog(String email, String rol, String operacion) {
         this.email = email;
+        this.fecha = new Date();
+        this.rol = rol;
+        this.operacion = operacion;
     }
     
-    public SecureLog(String email, String log, String fecha) {
-        this.email = email;
-        this.log = log;
-        this.fecha = fecha;
-    }
+    public SecureLog() {}
 
-    public SecureLog() {
-    }
 
     /****************************
      **** GETTERS AND SETTERS ***
@@ -64,14 +68,6 @@ public class SecureLog implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public String getLog() {
-        return log;
-    }
-
-    public void setLog(String log) {
-        this.log = log;
     }
 
     public long getVersion() {
@@ -90,11 +86,27 @@ public class SecureLog implements Serializable {
         this.email = email;
     }
     
-    public void setFecha(String fecha) {
-        this.fecha = fecha;
+    public String getRol() {
+        return this.rol;
     }
 
-    public String getFecha() {
+    public void setRol(String rol) {
+        this.rol = rol;
+    }
+    
+    public String getOperacion() {
+        return this.operacion;
+    }
+
+    public void setOperacion(String operacion) {
+        this.operacion = operacion;
+    }
+    
+    public void setFecha(String fecha) {
+        this.fecha = new Date(fecha);
+    }
+
+    public Date getFecha() {
         return fecha;
     }
 
@@ -108,8 +120,9 @@ public class SecureLog implements Serializable {
         return "SecureLog{" +
                 "  id=" + id +
                 ", mail='" + email + '\'' +
-                ", log='" + log + '\'' +
-                ", fecha='" + fecha + '\'' +
+                ", rol ='" + rol + '\'' +
+                ", operacion ='" + operacion + '\'' +
+                ", fecha='" + fecha.toString() + '\'' +
                 ", version=" + version +
                 '}';
     }
@@ -122,8 +135,9 @@ public class SecureLog implements Serializable {
         SecureLog secureLogger = (SecureLog) o;
         return getVersion() == secureLogger.getVersion() &&
                 Objects.equals(getId(), secureLogger.getId()) &&
-                Objects.equals(getLog(), secureLogger.getLog()) &&
                 Objects.equals(getEmail(), secureLogger.getEmail()) &&
+                Objects.equals(getRol(), secureLogger.getRol()) &&
+                Objects.equals(getOperacion(), secureLogger.getOperacion()) &&
                 Objects.equals(getFecha(), secureLogger.getFecha());
     }
 
@@ -132,14 +146,15 @@ public class SecureLog implements Serializable {
         if (!(o instanceof SecureLog)) return false;
         SecureLog secureLogger = (SecureLog) o;
         return Objects.equals(getId(), secureLogger.getId()) &&
-                Objects.equals(getLog(), secureLogger.getLog()) &&
                 Objects.equals(getEmail(), secureLogger.getEmail()) &&
+                Objects.equals(getRol(), secureLogger.getRol()) &&
+                Objects.equals(getOperacion(), secureLogger.getOperacion()) &&
                 Objects.equals(getFecha(), secureLogger.getFecha());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getLog(), getFecha(), getVersion());
+        return Objects.hash(getId(), getFecha(), getVersion());
     }
 }
 

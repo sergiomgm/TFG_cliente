@@ -1,5 +1,6 @@
 package com.eduardosergio.TFG_cliente.presentacion.seguridad.secureLogger;
 
+import com.eduardosergio.TFG_cliente.presentacion.seguridad.entity.SecureLog;
 import com.eduardosergio.TFG_cliente.presentacion.seguridad.secureLogger.imp.LogManagerImp;
 
 public abstract class LogManager {
@@ -13,5 +14,5 @@ public abstract class LogManager {
 		return instance;
 	}
 	
-	public abstract void log(String message);
+	public abstract void log(SecureLog log);
 }

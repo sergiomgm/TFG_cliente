@@ -24,5 +24,10 @@ public class UserPrincipal implements Principal {
 	public String getName() {
 		return name;
 	}
+	
+	@Override
+	public String toString() {
+		return "UserPrincipal";
+	}
 
 }

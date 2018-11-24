@@ -1,5 +1,6 @@
 package com.rodrigo.TFG_cliente.Presentacion.Modulo_Empleado.Bean;
 
+import com.eduardosergio.TFG_cliente.presentacion.seguridad.secureLogger.SecureLogger;
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Departamento.Delegado.Delegado_Departamento;
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Departamento.Entidad.Transfers.TDepartamento;
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Empleado.Delegado.Delegado_Empleado;
@@ -18,6 +19,9 @@ import org.slf4j.LoggerFactory;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpServletRequest;
+
 import java.io.Serializable;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -285,12 +289,19 @@ public class EmpleadoBean implements Serializable {
         log.info(accionVista.toString());
 
         log.info(viewRequest);
-
-
+        
+       
+        HttpServletRequest origRequest = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+        SecureLogger secureLogger = SecureLogger.getInstance();
+        secureLogger.log(origRequest.getRemoteUser(), origRequest.getUserPrincipal().toString(), "listarEmpleados");
+        
+     
         listaEmpleados = Delegado_Empleado.getInstance().listarEmpleados();
 
         return viewRequest;
     }
+    
+   
 
 
     /****************************
