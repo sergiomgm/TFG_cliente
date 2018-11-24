@@ -22,7 +22,7 @@ public class SecureLog implements Serializable {
     protected Long id;
 
     @NotBlank
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false)
     @Email
     protected String email;
     
