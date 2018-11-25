@@ -15,7 +15,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
-import javax.servlet.http.HttpServletRequest;
+
 
 import java.io.Serializable;
 import java.util.Arrays;
@@ -77,9 +77,8 @@ public class DepartamentoBean implements Serializable {
 
             try {
             	
-            	HttpServletRequest origRequest = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
                 SecureLogger secureLogger = SecureLogger.getInstance();
-                secureLogger.log(origRequest.getRemoteUser(), origRequest.getUserPrincipal().toString(), "Crear nuevo departamento");
+                secureLogger.log("Crear nuevo departamento");
                 
                 departamentoCompleto.setDepartamento(Delegado_Departamento.getInstance().crearDepartamento(departNuevo));
                 accionVista.setHayError(false);
@@ -137,9 +136,8 @@ public class DepartamentoBean implements Serializable {
 
 
             try {
-            	HttpServletRequest origRequest = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
                 SecureLogger secureLogger = SecureLogger.getInstance();
-                secureLogger.log(origRequest.getRemoteUser(), origRequest.getUserPrincipal().toString(), "Buscar departamento con id " + id);
+                secureLogger.log("Buscar departamento con id " + id);
                 
                 departamentoCompleto = Delegado_Departamento.getInstance().buscarByID(id);
                 if (departamentoCompleto == null) {
@@ -181,9 +179,8 @@ public class DepartamentoBean implements Serializable {
 
 
             try {
-            	HttpServletRequest origRequest = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
                 SecureLogger secureLogger = SecureLogger.getInstance();
-                secureLogger.log(origRequest.getRemoteUser(), origRequest.getUserPrincipal().toString(), "Eliminar departamento con id " + id);
+                secureLogger.log("Eliminar departamento con id " + id);
                 
                 boolean result  = Delegado_Departamento.getInstance().eliminarDepartamento(id);
                 if(result){
@@ -220,9 +217,8 @@ public class DepartamentoBean implements Serializable {
 
         System.out.println(viewRequest);
         
-        HttpServletRequest origRequest = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
         SecureLogger secureLogger = SecureLogger.getInstance();
-        secureLogger.log(origRequest.getRemoteUser(), origRequest.getUserPrincipal().toString(), "Listar departamentos");
+        secureLogger.log("Listar departamentos");
         
         listaDepartamento = Arrays.asList(Delegado_Departamento.getInstance().listarDepartamentos());
 
@@ -240,9 +236,8 @@ public class DepartamentoBean implements Serializable {
 
 
             try {
-            	HttpServletRequest origRequest = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
                 SecureLogger secureLogger = SecureLogger.getInstance();
-                secureLogger.log(origRequest.getRemoteUser(), origRequest.getUserPrincipal().toString(), "Buscar departamento con siglas " + siglas);
+                secureLogger.log("Buscar departamento con siglas " + siglas);
                 
                 departamentoCompleto = Delegado_Departamento.getInstance().buscarBySiglas(siglas.trim());
                 if (departamentoCompleto == null) {

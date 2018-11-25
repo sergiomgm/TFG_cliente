@@ -19,7 +19,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
-import javax.servlet.http.HttpServletRequest;
+
 
 import java.io.Serializable;
 import java.util.Date;
@@ -98,9 +98,9 @@ public class ProyectoBean implements Serializable {
                 proyNuevo = new TProyecto(nombre, descripcion, fechaInicio, fechafin);
 
                 try {
-                	HttpServletRequest origRequest = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+                	
                     SecureLogger secureLogger = SecureLogger.getInstance();
-                    secureLogger.log(origRequest.getRemoteUser(), origRequest.getUserPrincipal().toString(), "Crear nuevo proyecto");
+                    secureLogger.log("Crear nuevo proyecto");
                     
                     proyectoCompleto.setProyecto(Delegado_Proyecto.getInstance().crearProyecto(proyNuevo));
 
@@ -157,9 +157,9 @@ public class ProyectoBean implements Serializable {
 
 
             try {
-            	HttpServletRequest origRequest = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+            	
                 SecureLogger secureLogger = SecureLogger.getInstance();
-                secureLogger.log(origRequest.getRemoteUser(), origRequest.getUserPrincipal().toString(), "Buscar proyecto con id " + id);
+                secureLogger.log("Buscar proyecto con id " + id);
                 
                 proyectoCompleto = Delegado_Proyecto.getInstance().buscarByID(id);
                 if (proyectoCompleto == null) {
@@ -202,9 +202,9 @@ public class ProyectoBean implements Serializable {
 
             try {
             	
-            	HttpServletRequest origRequest = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+            	
                 SecureLogger secureLogger = SecureLogger.getInstance();
-                secureLogger.log(origRequest.getRemoteUser(), origRequest.getUserPrincipal().toString(), "Buscar proyecto con nombre " + nombre);
+                secureLogger.log("Buscar proyecto con nombre " + nombre);
                 
                 proyectoCompleto = Delegado_Proyecto.getInstance().buscarByNombre(nombre.trim());
                 if (proyectoCompleto == null) {
@@ -246,9 +246,9 @@ public class ProyectoBean implements Serializable {
 
 
             try {
-            	HttpServletRequest origRequest = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+            	
                 SecureLogger secureLogger = SecureLogger.getInstance();
-                secureLogger.log(origRequest.getRemoteUser(), origRequest.getUserPrincipal().toString(), "Eliminar proyecto con id " + id);
+                secureLogger.log("Eliminar proyecto con id " + id);
                 
                 boolean result = Delegado_Proyecto.getInstance().eliminarProyecto(id);
                 if (result) {
@@ -285,9 +285,9 @@ public class ProyectoBean implements Serializable {
 
         log.info(viewRequest);
         
-        HttpServletRequest origRequest = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+        
         SecureLogger secureLogger = SecureLogger.getInstance();
-        secureLogger.log(origRequest.getRemoteUser(), origRequest.getUserPrincipal().toString(), "Listar proyectos");
+        secureLogger.log("Listar proyectos");
         
         listaProyectos = Delegado_Proyecto.getInstance().listarProyectos();
 
@@ -311,9 +311,9 @@ public class ProyectoBean implements Serializable {
             emple = new TEmpleado(Long.valueOf(idEmpleado));
 
             try {
-            	HttpServletRequest origRequest = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+            	
                 SecureLogger secureLogger = SecureLogger.getInstance();
-                secureLogger.log(origRequest.getRemoteUser(), origRequest.getUserPrincipal().toString(), "Agregar empleado con id " + idEmpleado + " al proyecto con id " + idProyecto);
+                secureLogger.log("Agregar empleado con id " + idEmpleado + " al proyecto con id " + idProyecto);
                 
                 tep = Delegado_Proyecto.getInstance().agregarEmpleadoAProyecto(emple, proy, Integer.valueOf(horas));
 
@@ -344,9 +344,9 @@ public class ProyectoBean implements Serializable {
         } else {
             accionVista.setAccion(AccionVista.AccionEnum.ACCION_MOSTRAR_PROYECTO);
             try {
-            	HttpServletRequest origRequest = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+            	
                 SecureLogger secureLogger = SecureLogger.getInstance();
-                secureLogger.log(origRequest.getRemoteUser(), origRequest.getUserPrincipal().toString(), "Buscar proyecto con id " + tep.getProyecto());
+                secureLogger.log("Buscar proyecto con id " + tep.getProyecto());
                 
                 this.proyectoCompleto = Delegado_Proyecto.getInstance().buscarByID(tep.getProyecto());
             } catch (ProyectoException e) {
@@ -369,9 +369,9 @@ public class ProyectoBean implements Serializable {
                 idProyecto != null && Long.valueOf(idProyecto) > 0L) {
 
             try {
-            	HttpServletRequest origRequest = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+            	
                 SecureLogger secureLogger = SecureLogger.getInstance();
-                secureLogger.log(origRequest.getRemoteUser(), origRequest.getUserPrincipal().toString(), "Eliminar empleado con  id " + idEmpleado + " del proyecto con id " + idProyecto);
+                secureLogger.log("Eliminar empleado con  id " + idEmpleado + " del proyecto con id " + idProyecto);
                 
                 boolean resutl = Delegado_Proyecto.getInstance().eliminarEmpleadoAProyecto(Long.valueOf(idEmpleado), Long.valueOf(idProyecto));
 
@@ -404,9 +404,9 @@ public class ProyectoBean implements Serializable {
 
             accionVista.setAccion(AccionVista.AccionEnum.ACCION_MOSTRAR_PROYECTO);
             try {
-            	HttpServletRequest origRequest = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+            	
                 SecureLogger secureLogger = SecureLogger.getInstance();
-                secureLogger.log(origRequest.getRemoteUser(), origRequest.getUserPrincipal().toString(), "Buscar proyecto con id " + idProyecto);
+                secureLogger.log("Buscar proyecto con id " + idProyecto);
                 
                 this.proyectoCompleto = Delegado_Proyecto.getInstance().buscarByID(Long.valueOf(idProyecto));
             } catch (ProyectoException e) {
@@ -535,18 +535,18 @@ public class ProyectoBean implements Serializable {
         this.accionVista.setAccion(AccionVista.AccionEnum.valueOf(accion));
 
         if (AccionVista.AccionEnum.valueOf(accion) == AccionVista.AccionEnum.ACCION_ASIGNAR_EMPELADO_A_PROYECTO) {
-        	HttpServletRequest origRequest = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+        	
             SecureLogger secureLogger = SecureLogger.getInstance();
-            secureLogger.log(origRequest.getRemoteUser(), origRequest.getUserPrincipal().toString(), "Listar proyectos");
+            secureLogger.log("Listar proyectos");
             
             listaProyectos = Delegado_Proyecto.getInstance().listarProyectos();
             listaEmpleados = Delegado_Empleado.getInstance().listarEmpleados();
         }
 
         if (AccionVista.AccionEnum.valueOf(accion) == AccionVista.AccionEnum.ACCION_ELIMINAR_EMPLEADO_DE_PROYECTO) {
-        	HttpServletRequest origRequest = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+        	
             SecureLogger secureLogger = SecureLogger.getInstance();
-            secureLogger.log(origRequest.getRemoteUser(), origRequest.getUserPrincipal().toString(), "Listar proyectos");
+            secureLogger.log("Listar proyectos");
             
             listaProyectos = Delegado_Proyecto.getInstance().listarProyectos();
             listaEmpleados = Delegado_Empleado.getInstance().listarEmpleados();

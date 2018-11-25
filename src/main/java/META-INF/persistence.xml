@@ -33,7 +33,7 @@
 
             <property name="hibernate.connection.autocommit" value="false"/>
             <!--OTRAS PROPIEDADES-->
-            <property name="hibernate.show.sql" value="false"/>
+            <property name="hibernate.show.sql" value="true"/>
             <property name="hibernate.format_sql" value="false"/>
             <property name="hibernate.hbm2ddl.auto" value="update"/>
             <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5Dialect"/>

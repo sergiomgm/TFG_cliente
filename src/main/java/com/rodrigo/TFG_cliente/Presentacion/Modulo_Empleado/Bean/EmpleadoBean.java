@@ -20,7 +20,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
-import javax.servlet.http.HttpServletRequest;
+
 
 import java.io.Serializable;
 import java.util.LinkedHashMap;
@@ -117,9 +117,9 @@ public class EmpleadoBean implements Serializable {
 
                 try {
                     log.info("Creando Empleado en el sistema");
-                    HttpServletRequest origRequest = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+               
                     SecureLogger secureLogger = SecureLogger.getInstance();
-                    secureLogger.log(origRequest.getRemoteUser(), origRequest.getUserPrincipal().toString(), "Crear nuevo empleado a tiempo completo");
+                    secureLogger.log("Crear nuevo empleado a tiempo completo");
                     
                     
                     empleadoCompleto = Delegado_Empleado.getInstance().crearEmpleado(emple);
@@ -175,10 +175,8 @@ public class EmpleadoBean implements Serializable {
 
 
             try {
-            	
-            	HttpServletRequest origRequest = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
                 SecureLogger secureLogger = SecureLogger.getInstance();
-                secureLogger.log(origRequest.getRemoteUser(), origRequest.getUserPrincipal().toString(), "Buscar empleado con id " + id);
+                secureLogger.log("Buscar empleado con id " + id);
                 
                 empleadoCompleto = Delegado_Empleado.getInstance().buscarByID(id);
                 if (empleadoCompleto == null) {
@@ -222,9 +220,8 @@ public class EmpleadoBean implements Serializable {
 
 
             try {
-            	HttpServletRequest origRequest = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
                 SecureLogger secureLogger = SecureLogger.getInstance();
-                secureLogger.log(origRequest.getRemoteUser(), origRequest.getUserPrincipal().toString(), "Buscar empleado con email " + email);
+                secureLogger.log("Buscar empleado con email " + email);
                 
                 empleadoCompleto = Delegado_Empleado.getInstance().buscarByEmail(email.trim());
                 if (empleadoCompleto == null) {
@@ -268,9 +265,8 @@ public class EmpleadoBean implements Serializable {
 
 
             try {
-            	HttpServletRequest origRequest = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
                 SecureLogger secureLogger = SecureLogger.getInstance();
-                secureLogger.log(origRequest.getRemoteUser(), origRequest.getUserPrincipal().toString(), "Eliminar empleado con id " + id);
+                secureLogger.log("Eliminar empleado con id " + id);
                 
                 boolean result = Delegado_Empleado.getInstance().eliminarEmpleado(id);
                 if (result) {
@@ -308,10 +304,8 @@ public class EmpleadoBean implements Serializable {
 
         log.info(viewRequest);
         
-       
-        HttpServletRequest origRequest = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
         SecureLogger secureLogger = SecureLogger.getInstance();
-        secureLogger.log(origRequest.getRemoteUser(), origRequest.getUserPrincipal().toString(), "Listar empleados");
+        secureLogger.log("Listar empleados");
         
      
         listaEmpleados = Delegado_Empleado.getInstance().listarEmpleados();

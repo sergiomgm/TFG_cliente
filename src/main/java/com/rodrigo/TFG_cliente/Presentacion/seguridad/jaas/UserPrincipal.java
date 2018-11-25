@@ -29,5 +29,4 @@ public class UserPrincipal implements Principal {
 	public String toString() {
 		return "UserPrincipal";
 	}
-
 }

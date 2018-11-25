@@ -13,7 +13,7 @@ public abstract class SecureLogger {
 		return instance;
 	}
 	
-	public abstract void log(String user, String role, String operation);
+	public abstract void log(String operation);
 
 	
 }
