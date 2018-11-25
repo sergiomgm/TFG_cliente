@@ -117,6 +117,11 @@ public class EmpleadoBean implements Serializable {
 
                 try {
                     log.info("Creando Empleado en el sistema");
+                    HttpServletRequest origRequest = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+                    SecureLogger secureLogger = SecureLogger.getInstance();
+                    secureLogger.log(origRequest.getRemoteUser(), origRequest.getUserPrincipal().toString(), "Crear nuevo empleado a tiempo completo");
+                    
+                    
                     empleadoCompleto = Delegado_Empleado.getInstance().crearEmpleado(emple);
 
 
@@ -170,6 +175,11 @@ public class EmpleadoBean implements Serializable {
 
 
             try {
+            	
+            	HttpServletRequest origRequest = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+                SecureLogger secureLogger = SecureLogger.getInstance();
+                secureLogger.log(origRequest.getRemoteUser(), origRequest.getUserPrincipal().toString(), "Buscar empleado con id " + id);
+                
                 empleadoCompleto = Delegado_Empleado.getInstance().buscarByID(id);
                 if (empleadoCompleto == null) {
                     accionVista.setMensajeWarning("Empleado no encontrado en la BBDD");
@@ -212,6 +222,10 @@ public class EmpleadoBean implements Serializable {
 
 
             try {
+            	HttpServletRequest origRequest = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+                SecureLogger secureLogger = SecureLogger.getInstance();
+                secureLogger.log(origRequest.getRemoteUser(), origRequest.getUserPrincipal().toString(), "Buscar empleado con email " + email);
+                
                 empleadoCompleto = Delegado_Empleado.getInstance().buscarByEmail(email.trim());
                 if (empleadoCompleto == null) {
                     accionVista.setMensajeWarning("Empleado no encontrado en la BBDD");
@@ -254,6 +268,10 @@ public class EmpleadoBean implements Serializable {
 
 
             try {
+            	HttpServletRequest origRequest = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+                SecureLogger secureLogger = SecureLogger.getInstance();
+                secureLogger.log(origRequest.getRemoteUser(), origRequest.getUserPrincipal().toString(), "Eliminar empleado con id " + id);
+                
                 boolean result = Delegado_Empleado.getInstance().eliminarEmpleado(id);
                 if (result) {
                     accionVista.setMensajeSuccess("Empleado borrado correctamente");
@@ -293,7 +311,7 @@ public class EmpleadoBean implements Serializable {
        
         HttpServletRequest origRequest = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
         SecureLogger secureLogger = SecureLogger.getInstance();
-        secureLogger.log(origRequest.getRemoteUser(), origRequest.getUserPrincipal().toString(), "listarEmpleados");
+        secureLogger.log(origRequest.getRemoteUser(), origRequest.getUserPrincipal().toString(), "Listar empleados");
         
      
         listaEmpleados = Delegado_Empleado.getInstance().listarEmpleados();

@@ -17,7 +17,6 @@ import java.util.Objects;
 public class SecureLog implements Serializable {
 
     @GeneratedValue(strategy = GenerationType.AUTO) //IDENTITY
-    @Column()
     @Id
     protected Long id;
 

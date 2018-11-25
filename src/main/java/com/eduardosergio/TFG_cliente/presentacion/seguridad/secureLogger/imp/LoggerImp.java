@@ -20,6 +20,7 @@ public class LoggerImp implements Logger {
 			em.getTransaction().begin();
 			
 			
+			
 			em.persist(log);
 				
 				
