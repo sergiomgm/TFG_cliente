@@ -155,12 +155,12 @@
 	
 	<filter>
 		<filter-name>validator</filter-name>
-		<filter-class>com.rodrigo.TFG_cliente.Presentacion.seguridad.filters.ValidatorFilter</filter-class>
+		<filter-class>com.eduardosergio.TFG_cliente.presentacion.seguridad.filters.ValidatorFilter</filter-class>
 	</filter>
 	
 	<filter>
 		<filter-name>sql</filter-name>
-		<filter-class>com.rodrigo.TFG_cliente.Presentacion.seguridad.filters.SQLFilter</filter-class>
+		<filter-class>com.eduardosergio.TFG_cliente.presentacion.seguridad.filters.SQLFilter</filter-class>
 	</filter>
 	
 	<filter-mapping>
