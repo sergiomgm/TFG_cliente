@@ -1,5 +1,6 @@
 package com.rodrigo.TFG_cliente.Presentacion.Modulo_Departamento.Bean;
 
+import com.eduardosergio.TFG_cliente.presentacion.seguridad.secureLogger.SecureLogger;
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Departamento.Delegado.Delegado_Departamento;
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Departamento.Entidad.Transfers.TDepartamento;
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Departamento.Entidad.Transfers.TDepartamentoCompleto;
@@ -13,6 +14,9 @@ import org.slf4j.LoggerFactory;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
+
+
 import java.io.Serializable;
 import java.util.Arrays;
 import java.util.List;
@@ -72,7 +76,10 @@ public class DepartamentoBean implements Serializable {
 
 
             try {
-
+            	
+                SecureLogger secureLogger = SecureLogger.getInstance();
+                secureLogger.log("Crear nuevo departamento");
+                
                 departamentoCompleto.setDepartamento(Delegado_Departamento.getInstance().crearDepartamento(departNuevo));
                 accionVista.setHayError(false);
 
@@ -129,6 +136,9 @@ public class DepartamentoBean implements Serializable {
 
 
             try {
+                SecureLogger secureLogger = SecureLogger.getInstance();
+                secureLogger.log("Buscar departamento con id " + id);
+                
                 departamentoCompleto = Delegado_Departamento.getInstance().buscarByID(id);
                 if (departamentoCompleto == null) {
                     accionVista.setMensajeWarning("Departamento no encontrado en la BBDD");
@@ -169,6 +179,9 @@ public class DepartamentoBean implements Serializable {
 
 
             try {
+                SecureLogger secureLogger = SecureLogger.getInstance();
+                secureLogger.log("Eliminar departamento con id " + id);
+                
                 boolean result  = Delegado_Departamento.getInstance().eliminarDepartamento(id);
                 if(result){
                     accionVista.setMensajeSuccess("Departamento borrado correctamente");
@@ -203,7 +216,10 @@ public class DepartamentoBean implements Serializable {
         System.out.println(accionVista);
 
         System.out.println(viewRequest);
-
+        
+        SecureLogger secureLogger = SecureLogger.getInstance();
+        secureLogger.log("Listar departamentos");
+        
         listaDepartamento = Arrays.asList(Delegado_Departamento.getInstance().listarDepartamentos());
 
 
@@ -220,6 +236,9 @@ public class DepartamentoBean implements Serializable {
 
 
             try {
+                SecureLogger secureLogger = SecureLogger.getInstance();
+                secureLogger.log("Buscar departamento con siglas " + siglas);
+                
                 departamentoCompleto = Delegado_Departamento.getInstance().buscarBySiglas(siglas.trim());
                 if (departamentoCompleto == null) {
                     accionVista.setMensajeWarning("Departamento no encontrado en la BBDD");
