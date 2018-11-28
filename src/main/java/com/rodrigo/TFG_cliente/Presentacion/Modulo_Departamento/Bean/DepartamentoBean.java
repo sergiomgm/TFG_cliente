@@ -1,5 +1,6 @@
 package com.rodrigo.TFG_cliente.Presentacion.Modulo_Departamento.Bean;
 
+import com.eduardosergio.TFG_cliente.negocio.delegado.Delegado_DepartamentoSOAP;
 import com.eduardosergio.TFG_cliente.presentacion.seguridad.secureLogger.SecureLogger;
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Departamento.Delegado.Delegado_Departamento;
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Departamento.Entidad.Transfers.TDepartamento;
@@ -175,14 +176,12 @@ public class DepartamentoBean implements Serializable {
         log.info("this.id = '" + this.id + "'");
         log.info("id = '" + id + "'");
 
-
-
         if (id != null && id > 0) {
 
 
             try {
                 SecureLogger secureLogger = SecureLogger.getInstance();
-                secureLogger.log("Buscar departamento con id " + id);
+                secureLogger.log("Buscar departamento con id " + id + " mediante SOAP");
                 
                 departamentoCompleto = Delegado_DepartamentoSOAP.getInstance().buscarByID(id);
                 if (departamentoCompleto == null) {
