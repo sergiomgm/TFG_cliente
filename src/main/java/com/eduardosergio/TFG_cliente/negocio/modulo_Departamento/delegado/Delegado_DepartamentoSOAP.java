@@ -1,9 +1,9 @@
-package com.eduardosergio.TFG_cliente.negocio.delegado;
+package com.eduardosergio.TFG_cliente.negocio.modulo_Departamento.delegado;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.eduardosergio.TFG_cliente.negocio.delegado.impl.Delegado_DepartamentoSOAPImpl;
+import com.eduardosergio.TFG_cliente.negocio.modulo_Departamento.delegado.impl.Delegado_DepartamentoSOAPImpl;
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Departamento.Entidad.Transfers.TDepartamentoCompleto;
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Departamento.Excepciones.DepartamentoException;
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Empleado.Delegado.Delegado_Empleado;

@@ -1,6 +1,6 @@
 package com.rodrigo.TFG_cliente.Presentacion.Modulo_Departamento.Bean;
 
-import com.eduardosergio.TFG_cliente.negocio.delegado.Delegado_DepartamentoSOAP;
+import com.eduardosergio.TFG_cliente.negocio.modulo_Departamento.delegado.Delegado_DepartamentoSOAP;
 import com.eduardosergio.TFG_cliente.presentacion.seguridad.secureLogger.SecureLogger;
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Departamento.Delegado.Delegado_Departamento;
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Departamento.Entidad.Transfers.TDepartamento;

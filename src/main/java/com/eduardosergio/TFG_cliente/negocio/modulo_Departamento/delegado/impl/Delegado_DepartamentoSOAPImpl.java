@@ -1,4 +1,4 @@
-package com.eduardosergio.TFG_cliente.negocio.delegado.impl;
+package com.eduardosergio.TFG_cliente.negocio.modulo_Departamento.delegado.impl;
 
 import javax.xml.ws.BindingProvider;
 
@@ -6,12 +6,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import com.eduardosergio.TFG_cliente.negocio.delegado.Delegado_DepartamentoSOAP;
-import com.eduardosergio.TFG_cliente.negocio.serv_aplicacion.SSP_SA_Departamento;
+import com.eduardosergio.TFG_cliente.negocio.modulo_Departamento.delegado.Delegado_DepartamentoSOAP;
+import com.eduardosergio.TFG_cliente.negocio.modulo_Departamento.serv_aplicacion.SSP_SA_Departamento;
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Departamento.Entidad.Transfers.TDepartamentoCompleto;
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Departamento.Excepciones.DepartamentoException;
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Empleado.Delegado.impl.Delegado_EmpleadoImpl;
-import com.rodrigo.TFG_cliente.Negocio.Modulo_Empleado.Serv_aplicacion.IBroker_SA_Empleado;
 import com.rodrigo.TFG_cliente.Presentacion.Proxy.Excepciones.ProxyException;
 
 public class Delegado_DepartamentoSOAPImpl extends Delegado_DepartamentoSOAP {
@@ -29,17 +28,15 @@ public class Delegado_DepartamentoSOAPImpl extends Delegado_DepartamentoSOAP {
 
     private final String URL_WSDL = "http://localhost:8080/TFG_server/wsdl/SA_Departamento.wsdl";
 
-    private final String URL_SERVICE = HOST + ":"+ PORT + APP_URI + "/SA_Departamento";
+    private final String URL_SERVICE = HOST + ":"+ PORT + APP_URI + "/SA_DepartamentoSOAP";
 
-
-    private final String NAMESPACE_URI = "http://Serv_aplicacion.modulo_departamento.negocio.TFG_server.eduardosergio.com/";
+    private final String NAMESPACE_URI = "http://impl.Serv_aplicacion.modulo_departamento.negocio.TFG_server.eduardosergio.com/";
 
     private final String SERVICE_NAME = "Broker_SA_DepartamentoImpl";
 	
 	@Override
 	public TDepartamentoCompleto buscarByID(Long id) throws DepartamentoException {
-		// TODO Auto-generated method stub
-		return null;
+		return portDepartamento.buscarByID(id);
 	}
 	
 	public Delegado_DepartamentoSOAPImpl() throws ProxyException {
