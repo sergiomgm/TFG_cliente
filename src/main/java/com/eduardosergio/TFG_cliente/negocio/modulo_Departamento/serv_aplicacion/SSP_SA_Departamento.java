@@ -18,7 +18,7 @@ import java.util.List;
 
 @WebService(
 		//He tenido que quitar el impl.
-        targetNamespace = "http://Serv_aplicacion.modulo_departamento.negocio.TFG_server.eduardosergio.com/",
+        targetNamespace = "http://serv_aplicacion.modulo_Departamento.negocio.TFG_server.eduardosergio.com/",
         name = "SSP_SA_DepartamentoImpl")
 public interface SSP_SA_Departamento {
 
