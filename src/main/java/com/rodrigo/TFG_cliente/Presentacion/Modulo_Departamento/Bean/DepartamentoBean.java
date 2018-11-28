@@ -169,6 +169,51 @@ public class DepartamentoBean implements Serializable {
         accionVista.setAccion(AccionVista.AccionEnum.ACCION_MOSTRAR_DEPARTAMENTO);
         return viewRequest;
     }
+    
+    public String buscarByIdSOAP() {
+        System.out.println(accionVista);
+        log.info("this.id = '" + this.id + "'");
+        log.info("id = '" + id + "'");
+
+
+
+        if (id != null && id > 0) {
+
+
+            try {
+                SecureLogger secureLogger = SecureLogger.getInstance();
+                secureLogger.log("Buscar departamento con id " + id);
+                
+                departamentoCompleto = Delegado_DepartamentoSOAP.getInstance().buscarByID(id);
+                if (departamentoCompleto == null) {
+                    accionVista.setMensajeWarning("Departamento no encontrado en la BBDD");
+                }
+            } catch (DepartamentoFieldInvalidException e) {
+                e.printStackTrace();
+
+                accionVista.setHayError(true);
+                accionVista.setMensajeError(e.getMessage());
+
+            } catch (DepartamentoException e) {
+                e.printStackTrace();
+                accionVista.setHayError(true);
+                accionVista.setMensajeError(e.getMessage());
+            }
+
+        } else {
+            accionVista.setHayError(true);
+            accionVista.setMensajeError("El ID debe ser un número positivo");
+        }
+
+        System.out.println("*********************");
+        System.out.println("hayError = [" + accionVista.getHayError() + "]");
+        System.out.println("mensajeError = [" + accionVista.getMensajeError() + "]");
+        System.out.println("*********************");
+
+        System.out.println(viewRequest);
+        accionVista.setAccion(AccionVista.AccionEnum.ACCION_MOSTRAR_DEPARTAMENTO);
+        return viewRequest;
+    }
 
 
     public String eliminarDepartamento() {
