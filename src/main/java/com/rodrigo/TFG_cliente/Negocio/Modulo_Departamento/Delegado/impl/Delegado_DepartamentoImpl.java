@@ -1,5 +1,6 @@
 package com.rodrigo.TFG_cliente.Negocio.Modulo_Departamento.Delegado.impl;
 
+import com.eduardosergio.TFG_cliente.negocio.seguridad.departamento.ObfuscatedTransferObjectDepartamento;
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Departamento.Delegado.Authenticator;
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Departamento.Delegado.Delegado_Departamento;
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Departamento.Entidad.Transfers.TDepartamento;
@@ -62,11 +63,17 @@ public class Delegado_DepartamentoImpl extends Delegado_Departamento {
 
         String urlFinal = URL_SERVICIO;
         System.out.println("urlFinal = [" + urlFinal + "]");
+        
+        ObfuscatedTransferObjectDepartamento departamentoOfuscado = new ObfuscatedTransferObjectDepartamento();
+        departamentoOfuscado.setProtectedData("id", departamentoNuevo.getId());
+        departamentoOfuscado.setProtectedData("nominaMes", departamentoNuevo.getNominaMes());
+        departamentoOfuscado.setPublicData("siglas", departamentoNuevo.getSiglas());
+        departamentoOfuscado.setPublicData("nombre", departamentoNuevo.getNombre());
 
         Response res = cliente
                 .target(urlFinal)
                 .request()
-                .put(Entity.xml(departamentoNuevo));
+                .put(Entity.xml(departamentoOfuscado));
 
         System.out.println("res.getStatus() = [" + res.getStatus() + "]");
 

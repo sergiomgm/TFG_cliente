@@ -1,5 +1,6 @@
 package com.rodrigo.TFG_cliente.Negocio.Modulo_Departamento.Delegado;
 
+import com.eduardosergio.TFG_cliente.negocio.seguridad.departamento.ObfuscatedTransferObjectDepartamento;
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Departamento.Delegado.impl.Delegado_DepartamentoImpl;
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Departamento.Entidad.Transfers.TDepartamento;
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Departamento.Entidad.Transfers.TDepartamentoCompleto;
@@ -23,6 +24,8 @@ public abstract class Delegado_Departamento  {
         return ourInstance;
     }
 
+  
+    
     public abstract TDepartamento crearDepartamento(TDepartamento departamentoNuevo) throws DepartamentoYaExisteExcepcion, DepartamentoException;
 
     public abstract TDepartamentoCompleto buscarByID(Long id) throws DepartamentoException;
