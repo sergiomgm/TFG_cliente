@@ -1,5 +1,6 @@
 package com.rodrigo.TFG_cliente.Negocio.Modulo_Proyecto.Delegado.impl;
 
+import com.eduardosergio.TFG_cliente.presentacion.seguridad.secureLogger.SecureLoggerBusiness;
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Empleado.Entidad.Transfers.TEmpleado;
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Empleado.Excepciones.EmpleadoException;
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Empleado.Serv_aplicacion.IBroker_SA_Empleado;
@@ -105,39 +106,51 @@ public class Delegado_ProyectoImpl extends Delegado_Proyecto {
 
     @Override
     public TProyecto crearProyecto(TProyecto proyectoNuevo) throws ProyectoYaExistenteException, ProyectoFieldInvalidException, ProyectoException {
+    	SecureLoggerBusiness secureLogger = SecureLoggerBusiness.getInstance();
+    	secureLogger.log(((BindingProvider) portProyecto).getRequestContext().get(BindingProvider.USERNAME_PROPERTY).toString(), "crearProyecto");
         return portProyecto.crearProyecto(proyectoNuevo);
     }
 
     @Override
     public TProyectoCompleto buscarByID(Long id) throws ProyectoFieldInvalidException, ProyectoException {
+    	SecureLoggerBusiness secureLogger = SecureLoggerBusiness.getInstance();
+    	secureLogger.log(((BindingProvider) portProyecto).getRequestContext().get(BindingProvider.USERNAME_PROPERTY).toString(), "buscarByID");
         return portProyecto.buscarByID(id);
     }
 
     @Override
     public TProyectoCompleto buscarByNombre( String nombre) throws ProyectoFieldInvalidException, ProyectoException{
+    	SecureLoggerBusiness secureLogger = SecureLoggerBusiness.getInstance();
+    	secureLogger.log(((BindingProvider) portProyecto).getRequestContext().get(BindingProvider.USERNAME_PROPERTY).toString(), "buscarByNombre");
         return portProyecto.buscarByNombre(nombre);
-
     }
 
     @Override
     public boolean eliminarProyecto(Long id) throws ProyectoFieldInvalidException, ProyectoException {
+    	SecureLoggerBusiness secureLogger = SecureLoggerBusiness.getInstance();
+    	secureLogger.log(((BindingProvider) portProyecto).getRequestContext().get(BindingProvider.USERNAME_PROPERTY).toString(), "eliminarProyecto");
         return portProyecto.eliminarProyecto(id);
     }
 
     @Override
     public List<TProyecto> listarProyectos() {
+    	SecureLoggerBusiness secureLogger = SecureLoggerBusiness.getInstance();
+    	secureLogger.log(((BindingProvider) portProyecto).getRequestContext().get(BindingProvider.USERNAME_PROPERTY).toString(), "listarProyectos");
         return portProyecto.listarProyectos();
     }
 
     @Override
     public TEmpleadoProyecto agregarEmpleadoAProyecto(TEmpleado e, TProyecto p, int horas) throws EmpleadoException, ProyectoException {
+    	SecureLoggerBusiness secureLogger = SecureLoggerBusiness.getInstance();
+    	secureLogger.log(((BindingProvider) portProyecto).getRequestContext().get(BindingProvider.USERNAME_PROPERTY).toString(), "agregarEmpleadoAProyecto");
         return portProyecto.agregarEmpleadoAProyecto(e, p, horas);
     }
 
     @Override
     public boolean eliminarEmpleadoAProyecto(Long idEmple, Long idProy) throws ProyectoException, EmpleadoException{
+    	SecureLoggerBusiness secureLogger = SecureLoggerBusiness.getInstance();
+    	secureLogger.log(((BindingProvider) portProyecto).getRequestContext().get(BindingProvider.USERNAME_PROPERTY).toString(), "eliminarEmpleadoAProyecto");
         return portProyecto.eliminarEmpleadoAProyecto(idEmple, idProy);
-
     }
 
 }

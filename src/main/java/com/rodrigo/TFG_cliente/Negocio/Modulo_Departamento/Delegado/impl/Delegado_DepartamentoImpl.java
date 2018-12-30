@@ -1,6 +1,7 @@
 package com.rodrigo.TFG_cliente.Negocio.Modulo_Departamento.Delegado.impl;
 
 import com.eduardosergio.TFG_cliente.negocio.seguridad.departamento.ObfuscatedTransferObjectDepartamento;
+import com.eduardosergio.TFG_cliente.presentacion.seguridad.secureLogger.SecureLoggerBusiness;
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Departamento.Delegado.Authenticator;
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Departamento.Delegado.Delegado_Departamento;
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Departamento.Entidad.Transfers.TDepartamento;
@@ -80,6 +81,7 @@ public class Delegado_DepartamentoImpl extends Delegado_Departamento {
         if (res.getStatus() == Response.Status.CREATED.getStatusCode()) {
             System.out.println("res.readEntity(TDepartamento.class) = [" + res.readEntity(TDepartamento.class) + "]");
             System.out.println("res = [" + res + "]");
+            
             return res.readEntity(TDepartamento.class);
 
         } else if (res.getStatus() == Response.Status.BAD_REQUEST.getStatusCode()) {
@@ -110,7 +112,9 @@ public class Delegado_DepartamentoImpl extends Delegado_Departamento {
             wt = wt.path(id.toString());
             Invocation.Builder b = wt.request();
             TDepartamentoCompleto dept = b.get(TDepartamentoCompleto.class);
-
+            
+            System.out.println("CLIENTE!!!!!! " + cliente.getSslContext().getServerSessionContext());
+            
             System.out.println("dept = [" + dept + "]");
             return dept;
 

@@ -14,7 +14,7 @@ import java.util.Objects;
        //@NamedQuery(name = "SecureLogger.insertar", query = "insert obj into logs obj"),
 
 })
-public class SecureLog implements Serializable {
+public class SecureLogBusiness implements Serializable {
 
     @GeneratedValue(strategy = GenerationType.AUTO) //IDENTITY
     @Id
@@ -22,13 +22,7 @@ public class SecureLog implements Serializable {
 
     @NotBlank
     @Column(nullable = false)
-    @Email
-    protected String email;
-    
-    @NotBlank
-    @Column(nullable = false)
-    protected String rol;
-
+    protected String user;
 
     @NotNull
     @Column(nullable = false)
@@ -47,14 +41,13 @@ public class SecureLog implements Serializable {
      ****************************/
 
     
-    public SecureLog(String email, String rol, String operacion) {
-        this.email = email;
+    public SecureLogBusiness(String user, String operacion) {
+        this.user = user;
         this.fecha = new Date();
-        this.rol = rol;
         this.operacion = operacion;
     }
     
-    public SecureLog() {}
+    public SecureLogBusiness() {}
 
 
 	/****************************
@@ -77,20 +70,12 @@ public class SecureLog implements Serializable {
         this.version = version;
     }
 
-    public String getEmail() {
-        return email;
+    public String getUser() {
+        return user;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
-    
-    public String getRol() {
-        return this.rol;
-    }
-
-    public void setRol(String rol) {
-        this.rol = rol;
+    public void setUser(String user) {
+        this.user = user;
     }
     
     public String getOperacion() {
@@ -118,8 +103,7 @@ public class SecureLog implements Serializable {
     public String toString() {
         return "SecureLog{" +
                 "  id=" + id +
-                ", mail='" + email + '\'' +
-                ", rol ='" + rol + '\'' +
+                ", user='" + user + '\'' +
                 ", operacion ='" + operacion + '\'' +
                 ", fecha='" + fecha.toString() + '\'' +
                 ", version=" + version +
@@ -130,23 +114,21 @@ public class SecureLog implements Serializable {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof SecureLog)) return false;
-        SecureLog secureLogger = (SecureLog) o;
+        if (!(o instanceof SecureLogBusiness)) return false;
+        SecureLogBusiness secureLogger = (SecureLogBusiness) o;
         return getVersion() == secureLogger.getVersion() &&
                 Objects.equals(getId(), secureLogger.getId()) &&
-                Objects.equals(getEmail(), secureLogger.getEmail()) &&
-                Objects.equals(getRol(), secureLogger.getRol()) &&
+                Objects.equals(getUser(), secureLogger.getUser()) &&
                 Objects.equals(getOperacion(), secureLogger.getOperacion()) &&
                 Objects.equals(getFecha(), secureLogger.getFecha());
     }
 
     public boolean equalsWithOutVersion(Object o) {
         if (this == o) return true;
-        if (!(o instanceof SecureLog)) return false;
-        SecureLog secureLogger = (SecureLog) o;
+        if (!(o instanceof SecureLogBusiness)) return false;
+        SecureLogBusiness secureLogger = (SecureLogBusiness) o;
         return Objects.equals(getId(), secureLogger.getId()) &&
-                Objects.equals(getEmail(), secureLogger.getEmail()) &&
-                Objects.equals(getRol(), secureLogger.getRol()) &&
+                Objects.equals(getUser(), secureLogger.getUser()) &&
                 Objects.equals(getOperacion(), secureLogger.getOperacion()) &&
                 Objects.equals(getFecha(), secureLogger.getFecha());
     }
