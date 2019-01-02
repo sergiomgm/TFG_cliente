@@ -7,7 +7,6 @@ import javax.persistence.Persistence;
 import com.eduardosergio.TFG_cliente.presentacion.seguridad.entity.SecureLog;
 import com.eduardosergio.TFG_cliente.presentacion.seguridad.entity.SecureLogBusiness;
 import com.eduardosergio.TFG_cliente.presentacion.seguridad.secureLogger.Logger;
-import com.rodrigo.TFG_cliente.Integracion.EMFSingleton;
 
 public class LoggerImp implements Logger {
 
@@ -40,7 +39,7 @@ public class LoggerImp implements Logger {
 	
 	@Override
 	public void write(SecureLogBusiness log) {
-		EntityManagerFactory emf = EMFSingleton.getInstance();
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("TFG_cliente");
 		EntityManager em = emf.createEntityManager();
 		
 		
