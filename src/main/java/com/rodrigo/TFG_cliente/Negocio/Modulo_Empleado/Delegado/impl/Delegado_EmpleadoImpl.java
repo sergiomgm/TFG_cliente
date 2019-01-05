@@ -1,6 +1,7 @@
 package com.rodrigo.TFG_cliente.Negocio.Modulo_Empleado.Delegado.impl;
 
 import com.eduardosergio.TFG_cliente.presentacion.seguridad.callback.ClientPasswordCallback;
+import com.eduardosergio.TFG_cliente.presentacion.seguridad.secureLogger.SecureLoggerBusiness;
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Empleado.Delegado.Delegado_Empleado;
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Empleado.Entidad.Transfers.TEmpleado;
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Empleado.Entidad.Transfers.TEmpleadoCompleto;
@@ -109,34 +110,43 @@ public class Delegado_EmpleadoImpl extends Delegado_Empleado {
 		
 		((BindingProvider) portEmpleados).getRequestContext().put(BindingProvider.ENDPOINT_ADDRESS_PROPERTY, URL_SERVICE);
 
-
         log.info("DelegadoDelNegocio creado");
     }
 
 
     @Override
     public TEmpleadoCompleto crearEmpleado(TEmpleado empleadoNuevo) throws EmpleadoYaExisteExcepcion, EmpleadoFieldInvalidException, EmpleadoException{
-        return portEmpleados.crearEmpleado(empleadoNuevo);
+    	SecureLoggerBusiness secureLogger = SecureLoggerBusiness.getInstance();
+    	secureLogger.log(((BindingProvider) portEmpleados).getRequestContext().get(BindingProvider.USERNAME_PROPERTY).toString(), "crearEmpleado");
+    	return portEmpleados.crearEmpleado(empleadoNuevo);
     }
 
     @Override
     public TEmpleadoCompleto buscarByID(Long id) throws EmpleadoException {
+    	SecureLoggerBusiness secureLogger = SecureLoggerBusiness.getInstance();
+    	secureLogger.log(((BindingProvider) portEmpleados).getRequestContext().get(BindingProvider.USERNAME_PROPERTY).toString(), "buscarByID");
         return portEmpleados.buscarByID(id);
     }
 
     @Override
     public boolean eliminarEmpleado(Long id) throws EmpleadoFieldInvalidException, EmpleadoException {
+    	SecureLoggerBusiness secureLogger = SecureLoggerBusiness.getInstance();
+    	secureLogger.log(((BindingProvider) portEmpleados).getRequestContext().get(BindingProvider.USERNAME_PROPERTY).toString(), "eliminarEmpleado");
         return portEmpleados.eliminarEmpleado(id);
     }
 
     @Override
     public List<TEmpleado> listarEmpleados() {
+    	SecureLoggerBusiness secureLogger = SecureLoggerBusiness.getInstance();
+    	secureLogger.log(((BindingProvider) portEmpleados).getRequestContext().get(BindingProvider.USERNAME_PROPERTY).toString(), "listarEmpleados");
         return portEmpleados.listarEmpleados();
     }
 
 
     @Override
     public TEmpleadoCompleto buscarByEmail(String email) throws EmpleadoFieldInvalidException, EmpleadoException {
+    	SecureLoggerBusiness secureLogger = SecureLoggerBusiness.getInstance();
+    	secureLogger.log(((BindingProvider) portEmpleados).getRequestContext().get(BindingProvider.USERNAME_PROPERTY).toString(), "buscarByEmail");
         return portEmpleados.buscarByEmail(email);
     }
 

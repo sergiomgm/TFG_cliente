@@ -1,5 +1,7 @@
 package com.rodrigo.TFG_cliente.Negocio.Modulo_Departamento.Delegado.impl;
 
+import com.eduardosergio.TFG_cliente.negocio.seguridad.departamento.ObfuscatedTransferObjectDepartamento;
+import com.eduardosergio.TFG_cliente.presentacion.seguridad.secureLogger.SecureLoggerBusiness;
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Departamento.Delegado.Authenticator;
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Departamento.Delegado.Delegado_Departamento;
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Departamento.Entidad.Transfers.TDepartamento;
@@ -12,6 +14,7 @@ import javax.ws.rs.BadRequestException;
 import javax.ws.rs.NotFoundException;
 import javax.ws.rs.client.*;
 import javax.ws.rs.core.Response;
+import javax.xml.ws.BindingProvider;
 
 /**
  * @Author Rodrigo de Miguel González
@@ -41,10 +44,13 @@ public class Delegado_DepartamentoImpl extends Delegado_Departamento {
         log.info("Creando DelegadoDelNegocio");
 
         log.info("Creando cliente");
+        
+        String user = "user";
+        
         cliente = ClientBuilder
                 .newBuilder()
                 .newClient()
-                .register(new Authenticator("user", "pass"));
+                .register(new Authenticator(user, "pass")).property("user", user);
 
         log.info("DelegadoDelNegocio creado");
     }
@@ -62,17 +68,27 @@ public class Delegado_DepartamentoImpl extends Delegado_Departamento {
 
         String urlFinal = URL_SERVICIO;
         System.out.println("urlFinal = [" + urlFinal + "]");
+        
+        ObfuscatedTransferObjectDepartamento departamentoOfuscado = new ObfuscatedTransferObjectDepartamento();
+        departamentoOfuscado.setProtectedData("id", departamentoNuevo.getId());
+        departamentoOfuscado.setProtectedData("nominaMes", departamentoNuevo.getNominaMes());
+        departamentoOfuscado.setPublicData("siglas", departamentoNuevo.getSiglas());
+        departamentoOfuscado.setPublicData("nombre", departamentoNuevo.getNombre());
 
         Response res = cliente
                 .target(urlFinal)
                 .request()
-                .put(Entity.xml(departamentoNuevo));
+                .put(Entity.xml(departamentoOfuscado));
 
         System.out.println("res.getStatus() = [" + res.getStatus() + "]");
 
         if (res.getStatus() == Response.Status.CREATED.getStatusCode()) {
             System.out.println("res.readEntity(TDepartamento.class) = [" + res.readEntity(TDepartamento.class) + "]");
             System.out.println("res = [" + res + "]");
+
+            SecureLoggerBusiness secureLogger = SecureLoggerBusiness.getInstance();
+        	secureLogger.log((String) cliente.target(urlFinal).getConfiguration().getProperty("user"), "crearDepartamento");
+        	
             return res.readEntity(TDepartamento.class);
 
         } else if (res.getStatus() == Response.Status.BAD_REQUEST.getStatusCode()) {
@@ -100,10 +116,14 @@ public class Delegado_DepartamentoImpl extends Delegado_Departamento {
 
         try {
             WebTarget wt = cliente.target(urlFinal);
+            
             wt = wt.path(id.toString());
             Invocation.Builder b = wt.request();
             TDepartamentoCompleto dept = b.get(TDepartamentoCompleto.class);
-
+            
+            SecureLoggerBusiness secureLogger = SecureLoggerBusiness.getInstance();
+        	secureLogger.log((String) wt.getConfiguration().getProperty("user"), "buscarById");
+        	
             System.out.println("dept = [" + dept + "]");
             return dept;
 
@@ -143,6 +163,9 @@ public class Delegado_DepartamentoImpl extends Delegado_Departamento {
 
         if (res.getStatus() == Response.Status.OK.getStatusCode()) {
             result = true;
+            
+            SecureLoggerBusiness secureLogger = SecureLoggerBusiness.getInstance();
+        	secureLogger.log((String) cliente.target(urlFinal).getConfiguration().getProperty("user"), "eliminarDepartamento");
         } else if (res.getStatus() == Response.Status.INTERNAL_SERVER_ERROR.getStatusCode()) {
             result = false;
         } else if (res.getStatus() == Response.Status.BAD_REQUEST.getStatusCode()) {
@@ -168,7 +191,10 @@ public class Delegado_DepartamentoImpl extends Delegado_Departamento {
                 .path("")
                 .request()
                 .get(TDepartamento[].class);
-
+        
+        SecureLoggerBusiness secureLogger = SecureLoggerBusiness.getInstance();
+    	secureLogger.log((String) cliente.target(urlFinal).getConfiguration().getProperty("user"), "listarDepartamentos");
+    	
         System.out.println("res = [" + res + "]");
 
         return res;
@@ -189,8 +215,12 @@ public class Delegado_DepartamentoImpl extends Delegado_Departamento {
                     .path(String.valueOf(siglas))
                     .request()
                     .get(TDepartamentoCompleto.class);
-
+            
             System.out.println("dept = [" + dept + "]");
+            
+            SecureLoggerBusiness secureLogger = SecureLoggerBusiness.getInstance();
+        	secureLogger.log((String) cliente.target(urlFinal).getConfiguration().getProperty("user"), "buscarBySiglas");
+        	
             return dept;
 
         } catch (BadRequestException e) {

@@ -14,6 +14,7 @@
         <!-- <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider> -->
         <class>com.rodrigo.TFG_cliente.Negocio.Modulo_Usuario.Entidad.Usuario</class>
         <class>com.eduardosergio.TFG_cliente.presentacion.seguridad.entity.SecureLog</class>
+        <class>com.eduardosergio.TFG_cliente.presentacion.seguridad.entity.SecureLogBusiness</class>
 
         <properties>
             <!--MYSQL-REMOTO-->

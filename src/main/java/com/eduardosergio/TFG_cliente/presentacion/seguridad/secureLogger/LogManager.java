@@ -1,6 +1,7 @@
 package com.eduardosergio.TFG_cliente.presentacion.seguridad.secureLogger;
 
 import com.eduardosergio.TFG_cliente.presentacion.seguridad.entity.SecureLog;
+import com.eduardosergio.TFG_cliente.presentacion.seguridad.entity.SecureLogBusiness;
 import com.eduardosergio.TFG_cliente.presentacion.seguridad.secureLogger.imp.LogManagerImp;
 
 public abstract class LogManager {
@@ -15,4 +16,6 @@ public abstract class LogManager {
 	}
 	
 	public abstract void log(SecureLog log);
+	
+	public abstract void log(SecureLogBusiness log);
 }
