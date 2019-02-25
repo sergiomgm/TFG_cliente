@@ -85,4 +85,45 @@
               </bean>
 		</jaxws:outInterceptors>	
 	</jaxws:client>
+
+	<jaxws:client
+		id="SA_Departamento"
+		serviceClass="com.eduardosergio.TFG_cliente.negocio.modulo_Departamento.serv_aplicacion.SSP_SA_Departamento"
+		address="https://localhost:8443/TFG_server/services/SA_DepartamentoSOAP"
+		endpointName="SSP_SA_DepartamentoImplPort"
+		serviceName="SSP_SA_DepartamentoImpl">
+		
+		<jaxws:features>
+			<bean class="org.apache.cxf.feature.LoggingFeature" />
+		</jaxws:features>
+		
+		<jaxws:inInterceptors>
+              <bean class="org.apache.cxf.ws.security.wss4j.WSS4JInInterceptor">
+                 <constructor-arg>
+                    <map>
+                       <entry key="user" value="clienttestkey"/>
+                       <entry key="action" value="Encrypt"/>
+                       <entry key="passwordType" value="PasswordText"/>
+                       <entry key="encryptionPropFile" value="clientkeystore.properties"/>
+                       <entry key="decryptionPropFile" value="clientkeystore.properties"/>
+                        <entry key="passwordCallbackClass" value="com.eduardosergio.TFG_cliente.presentacion.seguridad.callback.ClientPasswordCallback"/>
+                    </map>
+                 </constructor-arg>
+              </bean>
+		</jaxws:inInterceptors>
+		<jaxws:outInterceptors>
+              <bean class="org.apache.cxf.ws.security.wss4j.WSS4JOutInterceptor">
+                 <constructor-arg>
+                    <map>
+                       <entry key="user" value="testkey"/>
+                       <entry key="action" value="Encrypt"/> 
+                       <entry key="passwordType" value="PasswordText"/>
+                       <entry key="encryptionPropFile" value="clientkeystore.properties"/>
+              		   <entry key="encryptionParts" value="{Content}{http://schemas.xmlsoap.org/soap/envelope/}Body"/>
+                        <entry key="passwordCallbackClass" value="com.eduardosergio.TFG_cliente.presentacion.seguridad.callback.ClientPasswordCallback"/>
+           			</map>
+                 </constructor-arg>
+              </bean>
+		</jaxws:outInterceptors>	
+	</jaxws:client>
 </beans>

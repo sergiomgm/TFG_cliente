@@ -96,6 +96,9 @@
                             <h:commandButton styleClass="btn btn-primary" value="Buscar por ID"
                                              action="#{DepartamentoBean.setAccion('ACCION_BUSCAR_DEPARTAMENTO_ID')}"
                             /><br/>
+                            <h:commandButton styleClass="btn btn-primary" value="Buscar por ID SOAP"
+                                             action="#{DepartamentoBean.setAccion('ACCION_BUSCAR_DEPARTAMENTO_ID_SOAP')}"
+                            /><br/>
                             <h:commandButton styleClass="btn btn-primary" value="Buscar por siglas"
                                              action="#{DepartamentoBean.setAccion('ACCION_BUSCAR_DEPARTAMENTO_SIGLAS')}"
                             /><br/>
@@ -629,7 +632,32 @@
                 <!--******************************************************************************************************************************-->
                 <!--******************************************************************************************************************************-->
                 <!--******************************************************************************************************************************-->
+				
+				<c:if test="#{DepartamentoBean.accionVista.getAccion() == 'ACCION_BUSCAR_DEPARTAMENTO_ID_SOAP'}">
+                    BUSCAR_DEPARTAMENTO_ID_SOAP
 
+                    <div class="form-inline">
+                        <h:form styleClass="form-group" prependId="false">
+                            <p>
+                                ID departamento: <h:inputText styleClass="form-control"
+                                                              value="#{DepartamentoBean.id}"
+                                                              a:autofocus="true"/>
+                                <h:commandButton styleClass="btn btn-primary" value="Buscar"
+                                                 action="#{DepartamentoBean.buscarByIdSOAP}"/>
+
+                            </p>
+                        </h:form>
+                    </div>
+
+
+
+                </c:if>
+
+
+                <!--******************************************************************************************************************************-->
+                <!--******************************************************************************************************************************-->
+                <!--******************************************************************************************************************************-->
+				
 
                 <c:if test="#{DepartamentoBean.accionVista.getAccion() == 'ACCION_BUSCAR_DEPARTAMENTO_SIGLAS'}">
                     BUSCAR_DEPARTAMENTO_SIGLAS
