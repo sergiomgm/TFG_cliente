@@ -40,10 +40,6 @@ public class Delegado_HelloWorldImpl extends Delegado_HelloWorld {
 		
 		portHello = (HelloWorld) context.getBean("HelloWorld");
 		
-		((BindingProvider) portHello).getRequestContext().put(BindingProvider.USERNAME_PROPERTY, "usuario");
-		((BindingProvider) portHello).getRequestContext().put(BindingProvider.PASSWORD_PROPERTY, "contra");
-		
-		((BindingProvider) portHello).getRequestContext().put(BindingProvider.ENDPOINT_ADDRESS_PROPERTY, URL_SERVICE);
 
         log.info("DelegadoDelNegocio creado");
     }
