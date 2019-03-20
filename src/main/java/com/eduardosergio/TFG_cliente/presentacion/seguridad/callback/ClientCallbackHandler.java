@@ -10,6 +10,9 @@ public class ClientCallbackHandler implements CallbackHandler {
 
     public void handle(Callback[] callbacks) throws IOException,
             UnsupportedCallbackException {
+    	System.out.println("--------------------");
+    	System.out.println("En el ClientCallbackHandler");
+    	System.out.println("--------------------");
         for (int i = 0; i < callbacks.length; i++) {
             if (callbacks[i] instanceof WSPasswordCallback) {
                 WSPasswordCallback pc = (WSPasswordCallback) callbacks[i];

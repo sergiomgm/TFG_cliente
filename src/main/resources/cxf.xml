@@ -32,7 +32,7 @@
             <entry key="ws-security.sts.client">
                 <bean class="org.apache.cxf.ws.security.trust.STSClient">
                     <constructor-arg ref="cxf"/>
-                    <property name="wsdlLocation" value="http://localhost:80/TFG_STS/STS?wsdl" />
+                    <property name="wsdlLocation" value="https://localhost:8443/TFG_STS/STS?wsdl" />
                     <property name="serviceName" value="{http://docs.oasis-open.org/ws-sx/ws-trust/200512/}SecurityTokenService" />
                     <property name="endpointName" value="{http://docs.oasis-open.org/ws-sx/ws-trust/200512/}STS_Port" />
                     <property name="properties">
