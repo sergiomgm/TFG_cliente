@@ -17,12 +17,9 @@
 	
 	
 	<jaxws:client
-		name="{http://helloWorld.negocio.TFG_server.eduardosergio.com/}HelloWorldPort"
 		id="HelloWorld"
 		serviceClass="com.eduardosergio.TFG_cliente.negocio.helloWorld.Serv_aplicacion.HelloWorld"
-		address="https://localhost:8443/TFG_server/services/helloworld"
-		endpointName="HelloWorldPort"
-		serviceName="HelloWorldService">
+		address="https://localhost:8443/TFG_server/services/helloworld">
 		
 		<jaxws:features>
 			<bean class="org.apache.cxf.feature.LoggingFeature" />
