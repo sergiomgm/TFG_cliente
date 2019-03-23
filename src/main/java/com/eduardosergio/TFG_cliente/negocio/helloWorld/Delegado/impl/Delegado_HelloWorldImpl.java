@@ -8,7 +8,13 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.net.MalformedURLException;
+import java.net.URL;
+
+import javax.xml.namespace.QName;
 import javax.xml.ws.BindingProvider;
+import javax.xml.ws.Service;
+import javax.xml.ws.soap.SOAPBinding;
 
 public class Delegado_HelloWorldImpl extends Delegado_HelloWorld {
 
@@ -35,11 +41,16 @@ public class Delegado_HelloWorldImpl extends Delegado_HelloWorld {
 
     public Delegado_HelloWorldImpl() throws ProxyException {
         log.info("Creando Delegado_HelloWorld");
-    	
-		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("cxf.xml");
-		
-		portHello = (HelloWorld) context.getBean("HelloWorld");
-		
+        
+        Service service;
+		try {
+			service = Service.create(new URL("https://localhost:8443/TFG_server/services/helloworld?wsdl"), new QName("http://impl.helloWorld.negocio.TFG_server.eduardosergio.com/", "HelloWorldImplService"));
+
+			portHello = service.getPort(new QName("http://impl.helloWorld.negocio.TFG_server.eduardosergio.com/", "HelloWorldImplPort"), HelloWorld.class);
+		} catch (MalformedURLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}	
 
         log.info("DelegadoDelNegocio creado");
     }

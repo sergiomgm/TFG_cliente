@@ -8,71 +8,54 @@
 	http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd
 	http://cxf.apache.org/core http://cxf.apache.org/schemas/core.xsd
 	">
-	
-	<cxf:bus>
+
+    <cxf:bus>
         <cxf:features>
-            <cxf:logging/>
+            <cxf:logging />
         </cxf:features>
     </cxf:bus>
 	
-	
 	<jaxws:client
-		id="HelloWorld"
-		serviceClass="com.eduardosergio.TFG_cliente.negocio.helloWorld.Serv_aplicacion.HelloWorld"
-		address="https://localhost:8443/TFG_server/services/helloworld">
-		
+		name="{http://impl.helloWorld.negocio.TFG_server.eduardosergio.com/}HelloWorldImplPort" 
+		createdFromAPI="true"
+		>
+		<!--
+		address="https://localhost:8443/TFG_server/services/helloworld"
+		name="{http://impl.helloWorld.negocio.TFG_server.eduardosergio.com/}HelloWorldImplPort" 
+		createdFromAPI="false"-->
+
+		<jaxws:properties>
+			<entry key="ws-security.signature.properties" value="cliKeystore.properties"/>
+           	<entry key="ws-security.signature.username" value="myclientkey"/>
+           	<entry key="ws-security.callback-handler" 
+                  value="com.eduardosergio.TFG_cliente.presentacion.seguridad.callback.ClientCallbackHandler"/>
+           	<entry key="ws-security.encryption.properties" value="cliKeystore.properties"/> 
+          	<entry key="ws-security.encryption.username" value="myservicekey"/>
+			<entry key="ws-security.sts.client">
+				<bean class="org.apache.cxf.ws.security.trust.STSClient">
+				    <constructor-arg ref="cxf"/>
+				    <property name="wsdlLocation" value="https://localhost:8443/TFG_STS/STS?wsdl" />
+				    <property name="serviceName" value="{http://docs.oasis-open.org/ws-sx/ws-trust/200512/}SecurityTokenService" />
+				    <property name="endpointName" value="{http://docs.oasis-open.org/ws-sx/ws-trust/200512/}STS_Port" />
+				    <property name="properties">
+				        <map>
+				            <entry key="ws-security.username" value="alice" />
+				            <entry key="ws-security.callback-handler" value="com.eduardosergio.TFG_cliente.presentacion.seguridad.callback.ClientCallbackHandler" />
+				            <entry key="ws-security.encryption.properties" value="cliKeystore.properties" />
+				            <entry key="ws-security.encryption.username" value="mystskey" />
+				        </map>
+				    </property>
+				</bean>
+			</entry>
+		</jaxws:properties>
+        
 		<jaxws:features>
 			<bean class="org.apache.cxf.feature.LoggingFeature" />
 		</jaxws:features>
-		
-		<jaxws:properties>
-            <entry key="ws-security.sts.client">
-                <bean class="org.apache.cxf.ws.security.trust.STSClient">
-                    <constructor-arg ref="cxf"/>
-                    <property name="wsdlLocation" value="https://localhost:8443/TFG_STS/STS?wsdl" />
-                    <property name="serviceName" value="{http://docs.oasis-open.org/ws-sx/ws-trust/200512/}SecurityTokenService" />
-                    <property name="endpointName" value="{http://docs.oasis-open.org/ws-sx/ws-trust/200512/}STS_Port" />
-                    <property name="properties">
-                        <map>
-                            <entry key="ws-security.username" value="alice" />
-                            <entry key="ws-security.callback-handler" value="com.eduardosergio.TFG_cliente.presentacion.seguridad.callback.ClientCallbackHandler" />
-                            <entry key="ws-security.encryption.properties" value="cliKeystore.properties" />
-                            <entry key="ws-security.encryption.username" value="mystskey" />
-                        </map>
-                    </property>
-                </bean>
-            </entry>
-        </jaxws:properties>
         
-		<!-- <jaxws:inInterceptors>
-              <bean class="org.apache.cxf.ws.security.wss4j.WSS4JInInterceptor">
-                 <constructor-arg>
-                    <map>
-                       <entry key="user" value="clienttestkey"/>
-                       <entry key="action" value="Encrypt"/>
-                       <entry key="passwordType" value="PasswordText"/>
-                       <entry key="encryptionPropFile" value="clientkeystore.properties"/>
-                       <entry key="decryptionPropFile" value="clientkeystore.properties"/>
-                        <entry key="passwordCallbackClass" value="com.eduardosergio.TFG_cliente.presentacion.seguridad.callback.ClientPasswordCallback"/>
-                    </map>
-                 </constructor-arg>
-              </bean>
-		</jaxws:inInterceptors>
-		<jaxws:outInterceptors>
-              <bean class="org.apache.cxf.ws.security.wss4j.WSS4JOutInterceptor">
-                 <constructor-arg>
-                    <map>
-                       <entry key="user" value="testkey"/>
-                       <entry key="action" value="Encrypt"/> 
-                       <entry key="passwordType" value="PasswordText"/>
-                       <entry key="encryptionPropFile" value="clientkeystore.properties"/>
-              		   <entry key="encryptionParts" value="{Content}{http://schemas.xmlsoap.org/soap/envelope/}Body"/>
-                        <entry key="passwordCallbackClass" value="com.eduardosergio.TFG_cliente.presentacion.seguridad.callback.ClientPasswordCallback"/>
-           			</map>
-                 </constructor-arg>
-              </bean>
-		</jaxws:outInterceptors> -->
 	</jaxws:client>
+	
+	
 	
 	<jaxws:client
 		id="HolaMundo"

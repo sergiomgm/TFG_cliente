@@ -42,6 +42,12 @@
     <!-- ********************************  DEPENDENCIAS  ********************************* -->
     <!-- ********************************************************************************* -->
     <dependencies>
+    
+    <dependency>
+            <groupId>org.apache.cxf</groupId>
+            <artifactId>cxf-rt-ws-mex</artifactId>
+            <version>${cxf.version}</version>
+        </dependency>
 
         <!-- ************************************ -->
         <!-- **********  DEPENDENCIAS  ********** -->
