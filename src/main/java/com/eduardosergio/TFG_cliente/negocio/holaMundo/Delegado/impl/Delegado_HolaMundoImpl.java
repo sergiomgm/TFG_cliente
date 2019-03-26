@@ -10,7 +10,12 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.net.MalformedURLException;
+import java.net.URL;
+
+import javax.xml.namespace.QName;
 import javax.xml.ws.BindingProvider;
+import javax.xml.ws.Service;
 
 public class Delegado_HolaMundoImpl extends Delegado_HolaMundo {
 
@@ -38,14 +43,15 @@ public class Delegado_HolaMundoImpl extends Delegado_HolaMundo {
     public Delegado_HolaMundoImpl() throws ProxyException {
         log.info("Creando Delegado_HelloWorld");
     	
-		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("cxf.xml");
-		
-		portHola = (HolaMundo) context.getBean("HolaMundo");
-		
-		((BindingProvider) portHola).getRequestContext().put(BindingProvider.USERNAME_PROPERTY, "usuario");
-		((BindingProvider) portHola).getRequestContext().put(BindingProvider.PASSWORD_PROPERTY, "contra");
-		
-		((BindingProvider) portHola).getRequestContext().put(BindingProvider.ENDPOINT_ADDRESS_PROPERTY, URL_SERVICE);
+		Service service;
+		try {
+			service = Service.create(new URL("https://localhost:8443/TFG_server/services/holamundo?wsdl"), new QName("http://impl.holaMundo.negocio.TFG_server.eduardosergio.com/", "HolaMundoImplService"));
+
+			portHola = service.getPort(new QName("http://impl.holaMundo.negocio.TFG_server.eduardosergio.com/", "HolaMundoImplPort"), HolaMundo.class);
+		} catch (MalformedURLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}	
 
         log.info("DelegadoDelNegocio creado");
     }
