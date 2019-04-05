@@ -172,12 +172,6 @@
 		<filter-name>sql</filter-name>
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
-	
-	<!--
-	<filter-mapping>
-		<filter-name>validator</filter-name>
-		<url-pattern>/*</url-pattern>
-	</filter-mapping>
-	-->
+
 
 </web-app>

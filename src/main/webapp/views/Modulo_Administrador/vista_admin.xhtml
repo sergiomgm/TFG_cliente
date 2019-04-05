@@ -118,8 +118,7 @@
                         </div>
                     </div>
                 </div>
-
-
+               
                 <div class="col-md-4">
                     <div class="border accionesBox">
                         <div class="titulo">
@@ -153,6 +152,25 @@
 
                             <h:commandButton styleClass="btn btn-primary" value="Eliminar empleado"
                                              action="#{ProyectoBean.setAccion('ACCION_ELIMINAR_EMPLEADO_DE_PROYECTO')}"/>
+
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-4">
+                    <div class="border accionesBox">
+                        <div class="titulo">
+
+                            <h2>SSO</h2>
+                        </div>
+                        <hr/>
+                        <div class="acciones">
+                            <h:commandButton styleClass="btn btn-primary" value="Salute"
+                                             action="#{HelloWorldBean.salute}"
+                            /><br/>
+                            <h:commandButton styleClass="btn btn-primary" value="Saludar"
+                                             action="#{HolaMundoBean.saludar}"
+                            /><br/>
 
                         </div>
                     </div>
