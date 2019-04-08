@@ -161,17 +161,41 @@
                     <div class="border accionesBox">
                         <div class="titulo">
 
-                            <h2>SSO</h2>
+                            <h2>STS</h2>
                         </div>
                         <hr/>
                         <div class="acciones">
-                            <h:commandButton styleClass="btn btn-primary" value="Salute"
+                            <h:commandButton styleClass="btn btn-primary" value="Hello World"
                                              action="#{HelloWorldBean.salute}"
                             /><br/>
-                            <h:commandButton styleClass="btn btn-primary" value="Saludar"
+                            <h:commandButton styleClass="btn btn-primary" value="Hola Mundo"
                                              action="#{HolaMundoBean.saludar}"
                             /><br/>
 
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-4">
+                    <div class="border accionesBox">
+                        <div class="titulo">
+
+                            <h2>SSO Delegator</h2>
+                        </div>
+                        <hr/>
+                        <div class="acciones">
+                            <h:commandButton styleClass="btn btn-primary" value="Hello World"
+                                             action="#{SSODelegatorBean.salute}"
+                            /><br/>
+                            <h:commandButton styleClass="btn btn-primary" value="Hola Mundo"
+                                             action="#{SSODelegatorBean.saludar}"
+                            /><br/>
+                            <h:commandButton styleClass="btn btn-primary" value="Ciao Mondo"
+                                             action="#{SSODelegatorBean.salutare}"
+                            /><br/>
+                            <h:commandButton styleClass="btn btn-primary" value="Listar departamentos"
+                                             action="#{SSODelegatorBean.listarDepartamentos}"
+                            /><br/>
                         </div>
                     </div>
                 </div>
