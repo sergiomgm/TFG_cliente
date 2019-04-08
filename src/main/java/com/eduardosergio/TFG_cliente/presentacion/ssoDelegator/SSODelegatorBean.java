@@ -52,12 +52,10 @@ public class SSODelegatorBean implements Serializable {
     	System.out.println(Delegado.getInstance().salutare());
     }
     
-    public String listarDepartamentos() {    	
-    	accionVista.setAccion(AccionVista.AccionEnum.ACCION_LISTAR_DEPARTAMENTOS);
-    	
+    public void listarDepartamentos() {    	
     	listaDepartamento = Arrays.asList(Delegado.getInstance().listarDepartamentos());
     	
-    	return viewRequest;
+    	System.out.println(listaDepartamento.toString());
     }
 
 

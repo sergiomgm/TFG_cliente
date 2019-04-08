@@ -1,12 +1,12 @@
 package com.eduardosergio.TFG_cliente.negocio.ssoDelegator.Delegado.impl;
 
 import com.eduardosergio.TFG_cliente.negocio.helloWorld.Serv_aplicacion.HelloWorld;
+import com.eduardosergio.TFG_cliente.negocio.seguridad.departamento.credentialTokenizer.CredentialTokenizer;
+import com.eduardosergio.TFG_cliente.negocio.seguridad.departamento.credentialTokenizer.UserToken;
 import com.eduardosergio.TFG_cliente.negocio.ssoDelegator.Delegado.Delegado;
 import com.eduardosergio.TFG_cliente.negocio.ssoDelegator.Serv_aplicacion.CiaoMondo;
 import com.eduardosergio.TFG_cliente.negocio.ssoDelegator.Serv_aplicacion.HolaMundo;
-import com.eduardosergio.TFG_cliente.presentacion.seguridad.secureLogger.SecureLoggerBusiness;
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Departamento.Delegado.Authenticator;
-import com.rodrigo.TFG_cliente.Negocio.Modulo_Departamento.Delegado.impl.Delegado_DepartamentoImpl;
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Departamento.Entidad.Transfers.TDepartamento;
 import com.rodrigo.TFG_cliente.Presentacion.Proxy.Excepciones.ProxyException;
 
@@ -59,13 +59,13 @@ public class DelegadoImpl extends Delegado {
 			service = Service.create(new URL("https://localhost:8443/TFG_server/services/ciaomondo?wsdl"), new QName("http://impl.ciaoMondo.negocio.TFG_server.eduardosergio.com/", "CiaoMondoImplService"));
 
 			portCiao = service.getPort(new QName("http://impl.ciaoMondo.negocio.TFG_server.eduardosergio.com/", "CiaoMondoImplPort"), CiaoMondo.class);
-		
-			String user = "user";
+
+			UserToken credenciales = new CredentialTokenizer().getUserToken();
 	        
 	        cliente = ClientBuilder
 	                .newBuilder()
 	                .newClient()
-	                .register(new Authenticator(user, "pass")).property("user", user);
+	                .register(new Authenticator(credenciales.getUser(), credenciales.getPassword()));
 			} catch (MalformedURLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
