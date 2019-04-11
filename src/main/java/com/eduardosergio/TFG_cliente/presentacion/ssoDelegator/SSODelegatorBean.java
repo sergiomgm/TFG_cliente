@@ -1,7 +1,8 @@
 package com.eduardosergio.TFG_cliente.presentacion.ssoDelegator;
 
-import com.eduardosergio.TFG_cliente.negocio.ssoDelegator.Delegado.Delegado;
-import com.rodrigo.TFG_cliente.Negocio.Modulo_Departamento.Entidad.Transfers.TDepartamento;
+
+
+import com.eduardosergio.TFG_cliente.negocio.ssoDelegator.smr.SMR;
 import com.rodrigo.TFG_cliente.Presentacion.AccionVista;
 
 import org.slf4j.Logger;
@@ -11,7 +12,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import java.io.Serializable;
-import java.util.Arrays;
+
 import java.util.List;
 
 @ManagedBean(name = "SSODelegatorBean")
@@ -32,7 +33,6 @@ public class SSODelegatorBean implements Serializable {
     
     private AccionVista accionVista = new AccionVista();
     
-    private List<TDepartamento> listaDepartamento;
 
     
     /****************************
@@ -40,24 +40,9 @@ public class SSODelegatorBean implements Serializable {
      ****************************/
 
 
-    public void salute() {
-    	System.out.println(Delegado.getInstance().salute());
+    public void invokeServices() {
+    	SMR.getInstance().invokeServices();
     }
-    
-    public void saludar() {
-    	System.out.println(Delegado.getInstance().saludar());
-    }
-    
-    public void salutare() {
-    	System.out.println(Delegado.getInstance().salutare());
-    }
-    
-    public void listarDepartamentos() {    	
-    	listaDepartamento = Arrays.asList(Delegado.getInstance().listarDepartamentos());
-    	
-    	System.out.println(listaDepartamento.toString());
-    }
-
 
 
     /****************************
