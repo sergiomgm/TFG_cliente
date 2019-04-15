@@ -86,6 +86,41 @@
 	</jaxws:client>
 	
 	<jaxws:client
+		name="{http://impl.ciaoMondo.negocio.TFG_server.eduardosergio.com/}CiaoMondoImplPort" 
+		createdFromAPI="true">
+
+		<jaxws:properties>
+			<entry key="ws-security.signature.properties" value="cliKeystore.properties"/>
+           	<entry key="ws-security.signature.username" value="myclientkey"/>
+           	<entry key="ws-security.callback-handler" 
+                  value="com.eduardosergio.TFG_cliente.presentacion.seguridad.callback.ClientCallbackHandler"/>
+           	<entry key="ws-security.encryption.properties" value="cliKeystore.properties"/> 
+          	<entry key="ws-security.encryption.username" value="myservicekey"/>
+			<entry key="ws-security.sts.client">
+				<bean class="org.apache.cxf.ws.security.trust.STSClient">
+				    <constructor-arg ref="cxf"/>
+				    <property name="wsdlLocation" value="https://localhost:8443/TFG_STS2/STS?wsdl" />
+				    <property name="serviceName" value="{http://docs.oasis-open.org/ws-sx/ws-trust/200512/}SecurityTokenService" />
+				    <property name="endpointName" value="{http://docs.oasis-open.org/ws-sx/ws-trust/200512/}STS_Port" />
+				    <property name="properties">
+				        <map>
+				            <entry key="ws-security.username" value="alice" />
+				            <entry key="ws-security.callback-handler" value="com.eduardosergio.TFG_cliente.presentacion.seguridad.callback.ClientCallbackHandler" />
+				            <entry key="ws-security.encryption.properties" value="cliKeystore.properties" />
+				            <entry key="ws-security.encryption.username" value="mystskey" />
+				        </map>
+				    </property>
+				</bean>
+			</entry>
+		</jaxws:properties>
+        
+		<jaxws:features>
+			<bean class="org.apache.cxf.feature.LoggingFeature" />
+		</jaxws:features>
+        
+	</jaxws:client>
+	
+	<jaxws:client
 		id="SA_Empleado"
 		serviceClass="com.rodrigo.TFG_cliente.Negocio.Modulo_Empleado.Serv_aplicacion.IBroker_SA_Empleado"
 		address="https://localhost:8443/TFG_server/services/SA_Empleado"
