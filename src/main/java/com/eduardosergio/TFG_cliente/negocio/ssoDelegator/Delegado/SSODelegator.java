@@ -1,31 +1,31 @@
 package com.eduardosergio.TFG_cliente.negocio.ssoDelegator.Delegado;
 
-import com.eduardosergio.TFG_cliente.negocio.ssoDelegator.Delegado.impl.DelegadoImpl;
+import com.eduardosergio.TFG_cliente.negocio.ssoDelegator.Delegado.impl.SSODelegatorImpl;
 import com.eduardosergio.TFG_cliente.presentacion.seguridad.secureLogger.SecureLoggerBusiness;
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Departamento.Entidad.Transfers.TDepartamento;
 import com.rodrigo.TFG_cliente.Presentacion.Proxy.Excepciones.ProxyException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public abstract class Delegado  {
+public abstract class SSODelegator  {
 
-    private final static Logger log = LoggerFactory.getLogger(Delegado.class);
+    private final static Logger log = LoggerFactory.getLogger(SSODelegator.class);
 
 
 
-    private static DelegadoImpl ourInstance;
+    private static SSODelegatorImpl ourInstance;
 
     static {
 
         try {
-            ourInstance = new DelegadoImpl();
+            ourInstance = new SSODelegatorImpl();
         } catch (ProxyException e) {
             log.error("Error al crear el DelegadoDelNegocio", e);
         }
     }
 
 
-    public static DelegadoImpl getInstance() {
+    public static SSODelegatorImpl getInstance() {
         log.info("retornando instancia ");
         return ourInstance;
     }

@@ -3,9 +3,9 @@ package com.eduardosergio.TFG_cliente.negocio.ssoDelegator.Delegado.impl;
 import com.eduardosergio.TFG_cliente.negocio.helloWorld.Serv_aplicacion.HelloWorld;
 import com.eduardosergio.TFG_cliente.negocio.seguridad.departamento.credentialTokenizer.CredentialTokenizer;
 import com.eduardosergio.TFG_cliente.negocio.seguridad.departamento.credentialTokenizer.UserToken;
-import com.eduardosergio.TFG_cliente.negocio.ssoDelegator.Delegado.Delegado;
+import com.eduardosergio.TFG_cliente.negocio.ssoDelegator.Delegado.SSODelegator;
 import com.eduardosergio.TFG_cliente.negocio.ssoDelegator.Serv_aplicacion.CiaoMondo;
-import com.eduardosergio.TFG_cliente.negocio.ssoDelegator.Serv_aplicacion.HolaMundo;
+import com.eduardosergio.TFG_cliente.negocio.holaMundo.Serv_aplicacion.HolaMundo;
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Departamento.Delegado.Authenticator;
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Departamento.Entidad.Transfers.TDepartamento;
 import com.rodrigo.TFG_cliente.Presentacion.Proxy.Excepciones.ProxyException;
@@ -21,9 +21,9 @@ import javax.ws.rs.client.ClientBuilder;
 import javax.xml.namespace.QName;
 import javax.xml.ws.Service;
 
-public class DelegadoImpl extends Delegado {
+public class SSODelegatorImpl extends SSODelegator {
 
-    private static Logger log = LoggerFactory.getLogger(DelegadoImpl.class);
+    private static Logger log = LoggerFactory.getLogger(SSODelegatorImpl.class);
     
     private String HOST = "https://localhost" ;
 
@@ -43,7 +43,7 @@ public class DelegadoImpl extends Delegado {
     
     private CiaoMondo portCiao;
 
-    public DelegadoImpl() throws ProxyException {
+    public SSODelegatorImpl() throws ProxyException {
         log.info("Creando SSODelegator");
         
         Service service;

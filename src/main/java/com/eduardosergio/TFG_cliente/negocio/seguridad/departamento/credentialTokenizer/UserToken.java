@@ -2,8 +2,8 @@ package com.eduardosergio.TFG_cliente.negocio.seguridad.departamento.credentialT
 
 public class UserToken {
 	
-	String user;
-	String password;
+	private String user;
+	private String password;
 
 	public UserToken(String user, String password) {
 		this.user = user;
