@@ -1,7 +1,6 @@
 package com.eduardosergio.TFG_cliente.negocio.ssoDelegator.Delegado;
 
 import com.eduardosergio.TFG_cliente.negocio.ssoDelegator.Delegado.impl.SSODelegatorImpl;
-import com.eduardosergio.TFG_cliente.presentacion.seguridad.secureLogger.SecureLoggerBusiness;
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Departamento.Entidad.Transfers.TDepartamento;
 import com.rodrigo.TFG_cliente.Presentacion.Proxy.Excepciones.ProxyException;
 import org.slf4j.Logger;

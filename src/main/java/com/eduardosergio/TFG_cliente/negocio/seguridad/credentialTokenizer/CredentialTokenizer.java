@@ -1,4 +1,4 @@
-package com.eduardosergio.TFG_cliente.negocio.seguridad.departamento.credentialTokenizer;
+package com.eduardosergio.TFG_cliente.negocio.seguridad.credentialTokenizer;
 
 public class CredentialTokenizer {
 	private final String USERNAME = "user";

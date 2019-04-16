@@ -1,11 +1,11 @@
 package com.eduardosergio.TFG_cliente.negocio.ssoDelegator.Delegado.impl;
 
 import com.eduardosergio.TFG_cliente.negocio.helloWorld.Serv_aplicacion.HelloWorld;
-import com.eduardosergio.TFG_cliente.negocio.seguridad.departamento.credentialTokenizer.CredentialTokenizer;
-import com.eduardosergio.TFG_cliente.negocio.seguridad.departamento.credentialTokenizer.UserToken;
 import com.eduardosergio.TFG_cliente.negocio.ssoDelegator.Delegado.SSODelegator;
 import com.eduardosergio.TFG_cliente.negocio.ssoDelegator.Serv_aplicacion.CiaoMondo;
 import com.eduardosergio.TFG_cliente.negocio.holaMundo.Serv_aplicacion.HolaMundo;
+import com.eduardosergio.TFG_cliente.negocio.seguridad.credentialTokenizer.CredentialTokenizer;
+import com.eduardosergio.TFG_cliente.negocio.seguridad.credentialTokenizer.UserToken;
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Departamento.Delegado.Authenticator;
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Departamento.Entidad.Transfers.TDepartamento;
 import com.rodrigo.TFG_cliente.Presentacion.Proxy.Excepciones.ProxyException;

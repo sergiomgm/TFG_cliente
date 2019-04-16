@@ -3,7 +3,6 @@ package com.eduardosergio.TFG_cliente.presentacion.ssoDelegator;
 
 
 import com.eduardosergio.TFG_cliente.negocio.ssoDelegator.smr.SMR;
-import com.rodrigo.TFG_cliente.Presentacion.AccionVista;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,14 +12,19 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import java.io.Serializable;
 
-import java.util.List;
 
 @ManagedBean(name = "SSODelegatorBean")
 @SessionScoped
 public class SSODelegatorBean implements Serializable {
 
 
-    /****************************
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -9064926599359384662L;
+
+
+	/****************************
      ********  ATRIBUTOS  *******
      ****************************/
 
@@ -31,7 +35,6 @@ public class SSODelegatorBean implements Serializable {
     @ManagedProperty(value = "#{viewBean}")
     private String viewRequest;
     
-    private AccionVista accionVista = new AccionVista();
     
 
     
