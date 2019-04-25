@@ -30,8 +30,7 @@ public abstract class SSODelegator  {
     }
 
 
-    public abstract String saludar();
-    public abstract String salute();
-    public abstract String salutare();
-    public abstract TDepartamento[] listarDepartamentos();
+    public abstract void syncSts1(String user, String pass);
+    public abstract void syncSts2(String user, String pass);
+    public abstract void syncRest(String user, String pass); 
 }

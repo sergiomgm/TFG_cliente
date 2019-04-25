@@ -160,34 +160,23 @@
                 <div class="col-md-4">
                     <div class="border accionesBox">
                         <div class="titulo">
-
-                            <h2>STS</h2>
+                            <h2>SMR + SSO Delegator + Credential Tokenizer + Password Synchronizer</h2>
                         </div>
                         <hr/>
                         <div class="acciones">
-                            <h:commandButton styleClass="btn btn-primary" value="Hello World"
-                                             action="#{HelloWorldBean.salute}"
-                            /><br/>
-                            <h:commandButton styleClass="btn btn-primary" value="Hola Mundo"
-                                             action="#{HolaMundoBean.saludar}"
-                            /><br/>
-
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="col-md-4">
-                    <div class="border accionesBox">
-                        <div class="titulo">
-
-                            <h2>SSO Delegator</h2>
-                        </div>
-                        <hr/>
-                        <div class="acciones">
-                            <h:commandButton styleClass="btn btn-primary" value="SMR"
+	                        <div class="form-group">
+			                    <label for="user" class="control-label labelLogin">User:</label><br/>
+			                    <h:inputText id="user" value="#{SSODelegatorBean.user}"></h:inputText>
+		                    </div>
+			                <br/>
+		                    <div class="form-group">
+		                        <label for="pass" class="control-label labelLogin">Password:</label><br/>
+		                        <h:inputText id="pass" type="password" value="#{SSODelegatorBean.pass}"></h:inputText>
+		                    </div>
+		                    <br/>
+                            <h:commandButton styleClass="btn btn-primary" value="Sincronizar"
                                              action="#{SSODelegatorBean.invokeServices}"
-                            /><br/>
-                            
+                            /><br/>  
                         </div>
                     </div>
                 </div>

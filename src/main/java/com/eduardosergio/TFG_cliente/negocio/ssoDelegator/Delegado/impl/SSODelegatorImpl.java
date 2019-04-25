@@ -4,6 +4,8 @@ import com.eduardosergio.TFG_cliente.negocio.helloWorld.Serv_aplicacion.HelloWor
 import com.eduardosergio.TFG_cliente.negocio.ssoDelegator.Delegado.SSODelegator;
 import com.eduardosergio.TFG_cliente.negocio.ssoDelegator.Serv_aplicacion.CiaoMondo;
 import com.eduardosergio.TFG_cliente.negocio.holaMundo.Serv_aplicacion.HolaMundo;
+import com.eduardosergio.TFG_cliente.negocio.passwordSynchronizerSTS1.PasswordSynchronizerSTS1;
+import com.eduardosergio.TFG_cliente.negocio.passwordSynchronizerSTS2.PasswordSynchronizerSTS2;
 import com.eduardosergio.TFG_cliente.negocio.seguridad.credentialTokenizer.CredentialTokenizer;
 import com.eduardosergio.TFG_cliente.negocio.seguridad.credentialTokenizer.UserToken;
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Departamento.Delegado.Authenticator;
@@ -18,6 +20,8 @@ import java.net.URL;
 
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
+import javax.ws.rs.client.Entity;
+import javax.ws.rs.core.Form;
 import javax.xml.namespace.QName;
 import javax.xml.ws.Service;
 
@@ -31,41 +35,32 @@ public class SSODelegatorImpl extends SSODelegator {
 
     private String APP_URI = "/TFG_server/services";
 
-    private final String SERVICE_NAME = "/SA_Departamento/departamento";
+    private final String SERVICE_NAME = "/SA_psrest/psrest";
 
     private final String URL_SERVICIO = HOST + ":" + PORT + APP_URI + SERVICE_NAME;
 
     private Client cliente;
 
-    private HelloWorld portHello;
+    private PasswordSynchronizerSTS1 portSTS1;
 
-    private HolaMundo portHola;
-    
-    private CiaoMondo portCiao;
+    private PasswordSynchronizerSTS2 portSTS2;
 
     public SSODelegatorImpl() throws ProxyException {
         log.info("Creando SSODelegator");
         
         Service service;
 		try {
-			service = Service.create(new URL("https://localhost:8443/TFG_server/services/helloworld?wsdl"), new QName("http://impl.helloWorld.negocio.TFG_server.eduardosergio.com/", "HelloWorldImplService"));
+			service = Service.create(new URL("https://localhost:8443/TFG_server/services/pssts1?wsdl"), new QName("http://impl.passwordSynchronizerSTS1.negocio.TFG_server.eduardosergio.com/", "PasswordSynchronizerSTS1ImplService"));
 
-			portHello = service.getPort(new QName("http://impl.helloWorld.negocio.TFG_server.eduardosergio.com/", "HelloWorldImplPort"), HelloWorld.class);
+			portSTS1 = service.getPort(new QName("http://impl.passwordSynchronizerSTS1.negocio.TFG_server.eduardosergio.com/", "PasswordSynchronizerSTS1ImplPort"), PasswordSynchronizerSTS1.class);
 			
-			service = Service.create(new URL("https://localhost:8443/TFG_server/services/holamundo?wsdl"), new QName("http://impl.holaMundo.negocio.TFG_server.eduardosergio.com/", "HolaMundoImplService"));
+			service = Service.create(new URL("https://localhost:8443/TFG_server/services/pssts2?wsdl"), new QName("http://impl.passwordSynchronizerSTS2.negocio.TFG_server.eduardosergio.com/", "PasswordSynchronizerSTS2ImplService"));
 
-			portHola = service.getPort(new QName("http://impl.holaMundo.negocio.TFG_server.eduardosergio.com/", "HolaMundoImplPort"), HolaMundo.class);
-			
-			service = Service.create(new URL("https://localhost:8443/TFG_server/services/ciaomondo?wsdl"), new QName("http://impl.ciaoMondo.negocio.TFG_server.eduardosergio.com/", "CiaoMondoImplService"));
-
-			portCiao = service.getPort(new QName("http://impl.ciaoMondo.negocio.TFG_server.eduardosergio.com/", "CiaoMondoImplPort"), CiaoMondo.class);
+			portSTS2 = service.getPort(new QName("http://impl.passwordSynchronizerSTS2.negocio.TFG_server.eduardosergio.com/", "PasswordSynchronizerSTS2ImplPort"), PasswordSynchronizerSTS2.class);
 
 			UserToken credenciales = new CredentialTokenizer().getUserToken();
 	        
-	        cliente = ClientBuilder
-	                .newBuilder()
-	                .newClient()
-	                .register(new Authenticator(credenciales.getUser(), credenciales.getPassword()));
+	        cliente = ClientBuilder.newClient().register(new Authenticator(credenciales.getUser(), credenciales.getPassword()));
 			} catch (MalformedURLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -76,35 +71,25 @@ public class SSODelegatorImpl extends SSODelegator {
 
 
     @Override
-    public String salute() {
-    	return portHello.salute();
+    public void syncSts1(String user, String pass) {
+    	portSTS1.synchronize(user, pass);
     }
     
     @Override
-    public String saludar() {
-    	return portHola.saludar();
+    public void syncSts2(String user, String pass) {
+    	portSTS2.synchronize(user, pass);
     }
     
     @Override
-    public String salutare() {
-    	return portCiao.saludar();
-    }
-    
-    @Override
-    public TDepartamento[] listarDepartamentos() {
+    public void syncRest(String user, String pass) {
 
-        String urlFinal = URL_SERVICIO + "/listar";
+        String urlFinal = URL_SERVICIO + "/synchronize";
+        
+        Form f = new Form();
+		f.param("user", user);
+		f.param("pass", pass);
 
-        System.out.println("urlFinal = [" + urlFinal + "]");
+        cliente.target(urlFinal).request().post(Entity.form(f), String.class);
 
-        TDepartamento[] res = cliente
-                .target(urlFinal)
-                .path("")
-                .request()
-                .get(TDepartamento[].class);
-    	
-        System.out.println("res = [" + res + "]");
-
-        return res;
     }
 }
