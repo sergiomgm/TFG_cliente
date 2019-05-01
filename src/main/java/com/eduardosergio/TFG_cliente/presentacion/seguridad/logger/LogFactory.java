@@ -1,6 +1,6 @@
-package com.eduardosergio.TFG_cliente.presentacion.seguridad.secureLogger;
+package com.eduardosergio.TFG_cliente.presentacion.seguridad.logger;
 
-import com.eduardosergio.TFG_cliente.presentacion.seguridad.secureLogger.imp.LogFactoryImp;
+import com.eduardosergio.TFG_cliente.presentacion.seguridad.logger.imp.LogFactoryImp;
 
 public abstract class LogFactory {
 	private static  LogFactory instance;

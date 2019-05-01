@@ -1,6 +1,6 @@
-package com.eduardosergio.TFG_cliente.presentacion.seguridad.secureLogger;
+package com.eduardosergio.TFG_cliente.presentacion.seguridad.logger;
 
-import com.eduardosergio.TFG_cliente.presentacion.seguridad.secureLogger.imp.SecureLoggerImp;
+import com.eduardosergio.TFG_cliente.presentacion.seguridad.logger.imp.SecureLoggerImp;
 
 public abstract class SecureLogger {
 	private static SecureLogger instance;

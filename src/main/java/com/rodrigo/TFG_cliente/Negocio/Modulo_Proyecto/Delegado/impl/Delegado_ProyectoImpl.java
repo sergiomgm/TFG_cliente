@@ -1,6 +1,6 @@
 package com.rodrigo.TFG_cliente.Negocio.Modulo_Proyecto.Delegado.impl;
 
-import com.eduardosergio.TFG_cliente.presentacion.seguridad.secureLogger.SecureLoggerBusiness;
+import com.eduardosergio.TFG_cliente.presentacion.seguridad.logger.SecureLoggerBusiness;
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Empleado.Entidad.Transfers.TEmpleado;
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Empleado.Excepciones.EmpleadoException;
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Empleado.Serv_aplicacion.IBroker_SA_Empleado;

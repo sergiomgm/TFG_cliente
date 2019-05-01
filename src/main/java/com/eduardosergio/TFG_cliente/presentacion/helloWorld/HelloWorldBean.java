@@ -1,7 +1,7 @@
 package com.eduardosergio.TFG_cliente.presentacion.helloWorld;
 
 import com.eduardosergio.TFG_cliente.negocio.helloWorld.Delegado.Delegado_HelloWorld;
-import com.eduardosergio.TFG_cliente.presentacion.seguridad.secureLogger.SecureLogger;
+import com.eduardosergio.TFG_cliente.presentacion.seguridad.logger.SecureLogger;
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Departamento.Delegado.Delegado_Departamento;
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Departamento.Entidad.Transfers.TDepartamento;
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Empleado.Delegado.Delegado_Empleado;

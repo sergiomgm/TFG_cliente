@@ -1,7 +1,7 @@
 package com.rodrigo.TFG_cliente.Negocio.Modulo_Empleado.Delegado.impl;
 
 import com.eduardosergio.TFG_cliente.presentacion.seguridad.callback.ClientPasswordCallback;
-import com.eduardosergio.TFG_cliente.presentacion.seguridad.secureLogger.SecureLoggerBusiness;
+import com.eduardosergio.TFG_cliente.presentacion.seguridad.logger.SecureLoggerBusiness;
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Empleado.Delegado.Delegado_Empleado;
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Empleado.Entidad.Transfers.TEmpleado;
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Empleado.Entidad.Transfers.TEmpleadoCompleto;

@@ -1,7 +1,7 @@
 package com.rodrigo.TFG_cliente.Negocio.Modulo_Departamento.Delegado.impl;
 
 import com.eduardosergio.TFG_cliente.negocio.seguridad.departamento.ObfuscatedTransferObjectDepartamento;
-import com.eduardosergio.TFG_cliente.presentacion.seguridad.secureLogger.SecureLoggerBusiness;
+import com.eduardosergio.TFG_cliente.presentacion.seguridad.logger.SecureLoggerBusiness;
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Departamento.Delegado.Authenticator;
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Departamento.Delegado.Delegado_Departamento;
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Departamento.Entidad.Transfers.TDepartamento;

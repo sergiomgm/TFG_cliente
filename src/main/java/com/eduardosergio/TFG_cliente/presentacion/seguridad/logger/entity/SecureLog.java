@@ -1,19 +1,14 @@
-package com.eduardosergio.TFG_cliente.presentacion.seguridad.entity;
+package com.eduardosergio.TFG_cliente.presentacion.seguridad.logger.entity;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
-import java.util.Base64;
 import java.util.Date;
 import java.util.Objects;
 
 @Entity
-@NamedQueries({
-       //@NamedQuery(name = "SecureLogger.insertar", query = "insert obj into logs obj"),
-
-})
 public class SecureLog implements Serializable {
 
     @GeneratedValue(strategy = GenerationType.AUTO) //IDENTITY
@@ -101,7 +96,8 @@ public class SecureLog implements Serializable {
         this.operacion = operacion;
     }
     
-    public void setFecha(String fecha) {
+    @SuppressWarnings("deprecation")
+	public void setFecha(String fecha) {
         this.fecha = new Date(fecha);
     }
 
@@ -140,16 +136,6 @@ public class SecureLog implements Serializable {
                 Objects.equals(getFecha(), secureLogger.getFecha());
     }
 
-    public boolean equalsWithOutVersion(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof SecureLog)) return false;
-        SecureLog secureLogger = (SecureLog) o;
-        return Objects.equals(getId(), secureLogger.getId()) &&
-                Objects.equals(getEmail(), secureLogger.getEmail()) &&
-                Objects.equals(getRol(), secureLogger.getRol()) &&
-                Objects.equals(getOperacion(), secureLogger.getOperacion()) &&
-                Objects.equals(getFecha(), secureLogger.getFecha());
-    }
 
     @Override
     public int hashCode() {

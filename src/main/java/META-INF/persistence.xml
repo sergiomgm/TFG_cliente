@@ -13,8 +13,9 @@
         <provider>org.hibernate.ejb.HibernatePersistence</provider>
         <!-- <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider> -->
         <class>com.rodrigo.TFG_cliente.Negocio.Modulo_Usuario.Entidad.Usuario</class>
-        <class>com.eduardosergio.TFG_cliente.presentacion.seguridad.entity.SecureLog</class>
-        <class>com.eduardosergio.TFG_cliente.presentacion.seguridad.entity.SecureLogBusiness</class>
+        <class>com.eduardosergio.TFG_cliente.presentacion.seguridad.logger.entity.SecureLog</class>
+        <class>com.eduardosergio.TFG_cliente.presentacion.seguridad.logger.entity.SecureLogBusiness</class>
+        <class>com.eduardosergio.TFG_cliente.presentacion.seguridad.logger.entity.PasswordSynchronizerLog</class>
 
         <properties>
             <!--MYSQL-REMOTO-->
