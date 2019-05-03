@@ -16,8 +16,8 @@ public abstract class LogManager {
 		return instance;
 	}
 	
-	public abstract void log(SecureLog log);
-	public abstract void log(SecureLogBusiness log);
+	public abstract void log(String user, String rolDelUsuario, String operation);
+	public abstract void log(String user, String operation);
 	public abstract void log(PasswordSynchronizerLog log);
 	public abstract void deleteLog(PasswordSynchronizerLog log);
 }

@@ -10,15 +10,18 @@ import com.eduardosergio.TFG_cliente.presentacion.seguridad.logger.entity.Secure
 public class LogManagerImp extends LogManager {
 
 	@Override
-	public void log(SecureLog log) {
+	public void log(String user, String rolDelUsuario, String operation) {
 		Logger logger = LogFactory.getInstance().makeLogger();
-		logger.write(log);
+		SecureLog logMessage = new SecureLog(user, rolDelUsuario, operation);
+		
+		logger.write(logMessage);
 	}
 	
 	@Override
-	public void log(SecureLogBusiness log) {
+	public void log(String user, String operation) {
+		SecureLogBusiness logMessage = new SecureLogBusiness(user, operation);
 		Logger logger = LogFactory.getInstance().makeLogger();
-		logger.write(log);
+		logger.write(logMessage);
 	}
 
 	@Override
