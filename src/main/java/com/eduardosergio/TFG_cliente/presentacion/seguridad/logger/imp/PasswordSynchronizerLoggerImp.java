@@ -7,15 +7,21 @@ import com.eduardosergio.TFG_cliente.presentacion.seguridad.logger.entity.Passwo
 public class PasswordSynchronizerLoggerImp extends PasswordSynchronizerLogger {
 
 	@Override
-	public void log(PasswordSynchronizerLog log) {
+	public Long log(String user, String service, String error) {
 		LogManager logManager = LogManager.getInstance();
-		logManager.log(log);
+		return logManager.logPasswordSynchronizer(user, service, error);
 	}
 
 	@Override
-	public void deleteLog(PasswordSynchronizerLog log) {
+	public void deleteLog(Long passwordSynchronizerLogId) {
 		LogManager logManager = LogManager.getInstance();
-		logManager.deleteLog(log);
+		logManager.deleteLog(passwordSynchronizerLogId);
+	}
+
+	@Override
+	public void logError(Long passwordSynchronizerLogId, String error) {
+		LogManager logManager = LogManager.getInstance();
+		logManager.logError(passwordSynchronizerLogId, error);
 	}
 
 }

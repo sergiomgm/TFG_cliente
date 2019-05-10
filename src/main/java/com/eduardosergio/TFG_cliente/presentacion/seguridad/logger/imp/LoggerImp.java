@@ -63,13 +63,13 @@ public class LoggerImp implements Logger {
 	}
 
 	@Override
-	public void delete(PasswordSynchronizerLog log) {
+	public void delete(Long passwordSynchronizerLogId) {
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("TFG_cliente");
 		EntityManager em = emf.createEntityManager();
 		
 		try {
 			em.getTransaction().begin();
-			
+			PasswordSynchronizerLog log = em.find(PasswordSynchronizerLog.class, passwordSynchronizerLogId);
 			
 			if (!em.contains(log)) {
 				log = em.merge(log);
@@ -82,10 +82,27 @@ public class LoggerImp implements Logger {
 			em.close();
 			emf.close();
 		} catch (Exception e) {
-			System.out.println("EXCEPCION AL PERSISTIR EL LOG : " + e.getMessage());
+			System.out.println("EXCEPCION AL BORRAR EL LOG : " + e.getMessage());
 		}
 		
 	}
-	
-	
+
+	@Override
+	public void logError(Long passwordSynchronizerLogId, String error) {
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("TFG_cliente");
+		EntityManager em = emf.createEntityManager();
+		
+		try {
+			em.getTransaction().begin();
+			PasswordSynchronizerLog log = em.find(PasswordSynchronizerLog.class, passwordSynchronizerLogId);
+			
+			log.setError(error);
+			em.getTransaction().commit();
+			
+			em.close();
+			emf.close();
+		} catch (Exception e) {
+			System.out.println("EXCEPCION AL MODIFICAR EL LOG : " + e.getMessage());
+		}
+	}
 }

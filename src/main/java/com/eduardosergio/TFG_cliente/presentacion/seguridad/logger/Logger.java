@@ -10,5 +10,8 @@ public interface Logger {
 	public void write(SecureLogBusiness log);
 	
 	public void write(PasswordSynchronizerLog log);
-	public void delete(PasswordSynchronizerLog log);
+	
+	public void delete(Long passwordSynchronizerLogId);
+	
+	public void logError(Long passwordSynchronizerLogId, String error);
 }

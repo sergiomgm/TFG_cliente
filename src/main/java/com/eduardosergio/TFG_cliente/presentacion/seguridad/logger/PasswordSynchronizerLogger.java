@@ -14,6 +14,7 @@ public abstract class PasswordSynchronizerLogger {
 		return instance;
 	}
 	
-	public abstract void log(PasswordSynchronizerLog log);
-	public abstract void deleteLog(PasswordSynchronizerLog log);
+	public abstract Long log(String user, String service, String error);
+	public abstract void logError(Long passwordSynchronizerLogId, String error);
+	public abstract void deleteLog(Long passwordSynchronizerLogId);
 }

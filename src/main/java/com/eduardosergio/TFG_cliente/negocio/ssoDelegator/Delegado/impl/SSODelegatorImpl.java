@@ -10,6 +10,7 @@ import com.eduardosergio.TFG_cliente.negocio.seguridad.credentialTokenizer.Crede
 import com.eduardosergio.TFG_cliente.negocio.seguridad.credentialTokenizer.UserToken;
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Departamento.Delegado.Authenticator;
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Departamento.Entidad.Transfers.TDepartamento;
+import com.rodrigo.TFG_cliente.Negocio.Modulo_Departamento.Entidad.Transfers.TDepartamentoCompleto;
 import com.rodrigo.TFG_cliente.Presentacion.Proxy.Excepciones.ProxyException;
 
 import org.slf4j.Logger;
@@ -21,6 +22,8 @@ import java.net.URL;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Entity;
+import javax.ws.rs.client.Invocation;
+import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.Form;
 import javax.xml.namespace.QName;
 import javax.xml.ws.Service;
@@ -71,17 +74,17 @@ public class SSODelegatorImpl extends SSODelegator {
 
 
     @Override
-    public void syncSts1(String user, String pass) {
-    	portSTS1.synchronize(user, pass);
+    public Integer syncSts1(String user, String pass) {
+    	return portSTS1.synchronize(user, pass);
     }
     
     @Override
-    public void syncSts2(String user, String pass) {
-    	portSTS2.synchronize(user, pass);
+    public Integer syncSts2(String user, String pass) {
+    	return portSTS2.synchronize(user, pass);
     }
     
     @Override
-    public void syncRest(String user, String pass) {
+    public Integer syncRest(String user, String pass) throws Exception {
 
         String urlFinal = URL_SERVICIO + "/synchronize";
         
@@ -89,7 +92,10 @@ public class SSODelegatorImpl extends SSODelegator {
 		f.param("user", user);
 		f.param("pass", pass);
 
-        cliente.target(urlFinal).request().post(Entity.form(f), String.class);
-
+        WebTarget wt = cliente.target(urlFinal);
+        Invocation.Builder builder = wt.request();
+        builder.post(Entity.form(f), String.class);
+        
+        return builder.get(Integer.class);
     }
 }

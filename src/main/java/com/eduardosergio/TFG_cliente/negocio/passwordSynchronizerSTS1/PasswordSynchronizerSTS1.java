@@ -24,5 +24,5 @@ public interface PasswordSynchronizerSTS1 {
 	})
 	
 	@WebMethod
-	public void synchronize(String user, String pass);
+	public Integer synchronize(String user, String pass);
 }

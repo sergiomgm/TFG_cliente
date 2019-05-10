@@ -18,6 +18,7 @@ public abstract class LogManager {
 	
 	public abstract void log(String user, String rolDelUsuario, String operation);
 	public abstract void log(String user, String operation);
-	public abstract void log(PasswordSynchronizerLog log);
-	public abstract void deleteLog(PasswordSynchronizerLog log);
+	public abstract Long logPasswordSynchronizer(String user, String service, String error);
+	public abstract void deleteLog(Long passwordSynchronizerLogId);
+	public abstract void logError(Long passwordSynchronizerLogId, String error);
 }

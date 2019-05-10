@@ -14,28 +14,45 @@ public class SMRImpl extends SMR {
 	public void synchronize(String user, String pass) {
 		HttpServletRequest origRequest = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
 		String userOfTheRequest = origRequest.getRemoteUser();
+		Integer response;
 		
-		PasswordSynchronizerLog log = new PasswordSynchronizerLog(userOfTheRequest, "sts1", "");
-		PasswordSynchronizerLogger.getInstance().log(log);
-		
-		SSODelegator.getInstance().syncSts1(user, pass);
-		
-		// Si no hay error
-		PasswordSynchronizerLogger.getInstance().deleteLog(log);
-		
-		
-		log = new PasswordSynchronizerLog(userOfTheRequest, "sts2", "");
-		PasswordSynchronizerLogger.getInstance().log(log);
-		SSODelegator.getInstance().syncSts2(user, pass);
-		// Si no hay error
-		PasswordSynchronizerLogger.getInstance().deleteLog(log);
+		Long passwordSynchronizerLogId = PasswordSynchronizerLogger.getInstance().log(userOfTheRequest, "sts1", "");
+		try {
+			response = SSODelegator.getInstance().syncSts1(user, pass);
+			if (response < 0) {
+				PasswordSynchronizerLogger.getInstance().logError(passwordSynchronizerLogId, "Error al modificar las credenciales del STS1");
+			} else {
+				PasswordSynchronizerLogger.getInstance().deleteLog(passwordSynchronizerLogId);
+			}
+		} catch (Exception e) {
+			PasswordSynchronizerLogger.getInstance().logError(passwordSynchronizerLogId, e.getMessage());
+		}
 		
 		
-		log = new PasswordSynchronizerLog(userOfTheRequest, "rest", "");
-		PasswordSynchronizerLogger.getInstance().log(log);
-		SSODelegator.getInstance().syncRest(user, pass);
-		// Si no hay error
-		PasswordSynchronizerLogger.getInstance().deleteLog(log);
+		passwordSynchronizerLogId = PasswordSynchronizerLogger.getInstance().log(userOfTheRequest, "sts2", "");
+		try {
+			response = SSODelegator.getInstance().syncSts2(user, pass);
+			if (response < 0) {
+				PasswordSynchronizerLogger.getInstance().logError(passwordSynchronizerLogId, "Error al modificar las credenciales del STS2");
+			} else {
+				PasswordSynchronizerLogger.getInstance().deleteLog(passwordSynchronizerLogId);
+			}
+		} catch (Exception e) {
+			PasswordSynchronizerLogger.getInstance().logError(passwordSynchronizerLogId, e.getMessage());
+		}
+		
+		
+		passwordSynchronizerLogId = PasswordSynchronizerLogger.getInstance().log(userOfTheRequest, "rest", "");
+		try {
+			response = SSODelegator.getInstance().syncRest(user, pass);
+			if (response < 0) {
+				PasswordSynchronizerLogger.getInstance().logError(passwordSynchronizerLogId, "Error al modificar las credenciales del servicio REST");
+			} else {
+				PasswordSynchronizerLogger.getInstance().deleteLog(passwordSynchronizerLogId);
+			}
+		} catch (Exception e) {
+			PasswordSynchronizerLogger.getInstance().logError(passwordSynchronizerLogId, e.getMessage());
+		}
 	}
 	
 }
