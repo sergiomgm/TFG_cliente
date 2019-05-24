@@ -16,7 +16,7 @@ public class SMRImpl extends SMR {
 		String userOfTheRequest = origRequest.getRemoteUser();
 		Integer response;
 		
-		Long passwordSynchronizerLogId = PasswordSynchronizerLogger.getInstance().log(userOfTheRequest, "sts1", "");
+		Long passwordSynchronizerLogId = PasswordSynchronizerLogger.getInstance().log(user, pass, "sts1", "");
 		try {
 			response = SSODelegator.getInstance().syncSts1(user, pass);
 			if (response < 0) {
@@ -29,7 +29,7 @@ public class SMRImpl extends SMR {
 		}
 		
 		
-		passwordSynchronizerLogId = PasswordSynchronizerLogger.getInstance().log(userOfTheRequest, "sts2", "");
+		passwordSynchronizerLogId = PasswordSynchronizerLogger.getInstance().log(user, pass, "sts2", "");
 		try {
 			response = SSODelegator.getInstance().syncSts2(user, pass);
 			if (response < 0) {
@@ -42,7 +42,7 @@ public class SMRImpl extends SMR {
 		}
 		
 		
-		passwordSynchronizerLogId = PasswordSynchronizerLogger.getInstance().log(userOfTheRequest, "rest", "");
+		passwordSynchronizerLogId = PasswordSynchronizerLogger.getInstance().log(user, pass, "rest", "");
 		try {
 			response = SSODelegator.getInstance().syncRest(user, pass);
 			if (response < 0) {

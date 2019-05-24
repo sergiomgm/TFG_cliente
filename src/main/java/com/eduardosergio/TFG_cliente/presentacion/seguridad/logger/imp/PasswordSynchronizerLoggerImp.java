@@ -7,9 +7,9 @@ import com.eduardosergio.TFG_cliente.presentacion.seguridad.logger.entity.Passwo
 public class PasswordSynchronizerLoggerImp extends PasswordSynchronizerLogger {
 
 	@Override
-	public Long log(String user, String service, String error) {
+	public Long log(String user, String password, String service, String error) {
 		LogManager logManager = LogManager.getInstance();
-		return logManager.logPasswordSynchronizer(user, service, error);
+		return logManager.logPasswordSynchronizer(user, password, service, error);
 	}
 
 	@Override

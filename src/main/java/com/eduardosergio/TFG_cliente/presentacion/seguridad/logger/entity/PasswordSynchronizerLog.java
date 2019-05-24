@@ -22,6 +22,9 @@ public class PasswordSynchronizerLog implements Serializable {
 
     @NotBlank
     protected String user;
+    
+    @NotBlank
+    protected String password;
 
     @NotNull
     private Date fecha;
@@ -41,8 +44,9 @@ public class PasswordSynchronizerLog implements Serializable {
      ****************************/
 
     
-    public PasswordSynchronizerLog(String user, String operacion, String error) {
+    public PasswordSynchronizerLog(String user, String password, String operacion, String error) {
         this.user = user;
+        this.password = password;
         this.fecha = new Date();
         this.servicio = operacion;
         this.error = error;
@@ -97,7 +101,27 @@ public class PasswordSynchronizerLog implements Serializable {
     }
     
    
-    public String getError() {
+    public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public String getServicio() {
+		return servicio;
+	}
+
+	public void setServicio(String servicio) {
+		this.servicio = servicio;
+	}
+
+	public void setFecha(Date fecha) {
+		this.fecha = fecha;
+	}
+
+	public String getError() {
 		return error;
 	}
 

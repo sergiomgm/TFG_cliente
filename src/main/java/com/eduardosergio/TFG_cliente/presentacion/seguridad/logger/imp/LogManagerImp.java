@@ -25,8 +25,8 @@ public class LogManagerImp extends LogManager {
 	}
 
 	@Override
-	public Long logPasswordSynchronizer(String user, String service, String error) {
-		PasswordSynchronizerLog log = new PasswordSynchronizerLog(user, service, error);
+	public Long logPasswordSynchronizer(String user, String password, String service, String error) {
+		PasswordSynchronizerLog log = new PasswordSynchronizerLog(user, password, service, error);
 		Logger logger = LogFactory.getInstance().makeLogger();
 		logger.write(log);
 		return log.getId();
