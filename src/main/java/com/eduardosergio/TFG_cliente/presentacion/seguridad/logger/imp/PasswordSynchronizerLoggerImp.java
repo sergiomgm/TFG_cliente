@@ -19,9 +19,9 @@ public class PasswordSynchronizerLoggerImp extends PasswordSynchronizerLogger {
 	}
 
 	@Override
-	public void logError(Long passwordSynchronizerLogId, String error) {
+	public void logError(Long passwordSynchronizerLogId, String serviciosQueHanFallado, String error) {
 		LogManager logManager = LogManager.getInstance();
-		logManager.logError(passwordSynchronizerLogId, error);
+		logManager.logError(passwordSynchronizerLogId, serviciosQueHanFallado, error);
 	}
 
 }

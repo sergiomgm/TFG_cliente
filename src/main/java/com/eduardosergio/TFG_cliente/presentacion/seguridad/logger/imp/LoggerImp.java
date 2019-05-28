@@ -88,7 +88,7 @@ public class LoggerImp implements Logger {
 	}
 
 	@Override
-	public void logError(Long passwordSynchronizerLogId, String error) {
+	public void logError(Long passwordSynchronizerLogId, String serviciosQueHanFallado, String error) {
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("TFG_cliente");
 		EntityManager em = emf.createEntityManager();
 		
@@ -97,6 +97,7 @@ public class LoggerImp implements Logger {
 			PasswordSynchronizerLog log = em.find(PasswordSynchronizerLog.class, passwordSynchronizerLogId);
 			
 			log.setError(error);
+			log.setServicio(serviciosQueHanFallado);
 			em.getTransaction().commit();
 			
 			em.close();

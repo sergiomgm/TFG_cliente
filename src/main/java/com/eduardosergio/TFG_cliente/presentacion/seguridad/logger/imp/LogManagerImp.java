@@ -39,8 +39,8 @@ public class LogManagerImp extends LogManager {
 	}
 
 	@Override
-	public void logError(Long passwordSynchronizerLogId, String error) {
+	public void logError(Long passwordSynchronizerLogId, String serviciosQueHanFallado, String error) {
 		Logger logger = LogFactory.getInstance().makeLogger();
-		logger.logError(passwordSynchronizerLogId, error);
+		logger.logError(passwordSynchronizerLogId, serviciosQueHanFallado, error);
 	}
 }

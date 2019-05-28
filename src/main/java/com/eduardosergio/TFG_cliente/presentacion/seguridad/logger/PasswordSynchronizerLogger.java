@@ -1,6 +1,5 @@
 package com.eduardosergio.TFG_cliente.presentacion.seguridad.logger;
 
-import com.eduardosergio.TFG_cliente.presentacion.seguridad.logger.entity.PasswordSynchronizerLog;
 import com.eduardosergio.TFG_cliente.presentacion.seguridad.logger.imp.PasswordSynchronizerLoggerImp;
 
 public abstract class PasswordSynchronizerLogger {
@@ -15,6 +14,6 @@ public abstract class PasswordSynchronizerLogger {
 	}
 	
 	public abstract Long log(String user, String password, String service, String error);
-	public abstract void logError(Long passwordSynchronizerLogId, String error);
+	public abstract void logError(Long passwordSynchronizerLogId, String serviciosQueHanFallado, String error);
 	public abstract void deleteLog(Long passwordSynchronizerLogId);
 }

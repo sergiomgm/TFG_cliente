@@ -13,5 +13,5 @@ public interface Logger {
 	
 	public void delete(Long passwordSynchronizerLogId);
 	
-	public void logError(Long passwordSynchronizerLogId, String error);
+	public void logError(Long passwordSynchronizerLogId, String serviciosQueHanFallado, String error);
 }
