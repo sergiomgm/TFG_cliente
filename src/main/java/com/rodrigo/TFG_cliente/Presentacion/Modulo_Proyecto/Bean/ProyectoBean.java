@@ -1,6 +1,6 @@
 package com.rodrigo.TFG_cliente.Presentacion.Modulo_Proyecto.Bean;
 
-import com.eduardosergio.TFG_cliente.presentacion.seguridad.secureLogger.SecureLogger;
+import com.eduardosergio.TFG_cliente.presentacion.seguridad.logger.SecureLogger;
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Empleado.Delegado.Delegado_Empleado;
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Empleado.Entidad.Transfers.TEmpleado;
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Empleado.Excepciones.EmpleadoException;

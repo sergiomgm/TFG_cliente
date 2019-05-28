@@ -17,7 +17,9 @@ import java.io.Serializable;
 @SessionScoped
 public class SSODelegatorBean implements Serializable {
 
-
+	
+	private String user;
+	private String pass;
     /**
 	 * 
 	 */
@@ -44,7 +46,8 @@ public class SSODelegatorBean implements Serializable {
 
 
     public void invokeServices() {
-    	SMR.getInstance().invokeServices();
+    	System.out.println(user + " " + pass);
+    	SMR.getInstance().synchronize(this.user, this.pass);
     }
 
 
@@ -60,5 +63,22 @@ public class SSODelegatorBean implements Serializable {
     public void setViewRequest(String viewRequest) {
         this.viewRequest = viewRequest;
     }
+    
+    public String getUser() {
+    	return this.user;
+    }
+    
+    public void setUser(String user) {
+    	this.user = user;
+    }
+    
+    public String getPass() {
+    	return this.pass;
+    }
+    
+    public void setPass(String pass) {
+    	this.pass = pass;
+    }
+
 
 }

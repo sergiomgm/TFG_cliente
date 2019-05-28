@@ -12,5 +12,5 @@ public abstract class SMR {
 		return instance;
 	}
 	
-	public abstract void invokeServices();
+	public abstract void synchronize(String user, String pass);
 }

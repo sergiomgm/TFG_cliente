@@ -12,7 +12,7 @@ public abstract class SSODelegator  {
 
 
 
-    private static SSODelegatorImpl ourInstance;
+    private static SSODelegator ourInstance;
 
     static {
 
@@ -24,14 +24,13 @@ public abstract class SSODelegator  {
     }
 
 
-    public static SSODelegatorImpl getInstance() {
+    public static SSODelegator getInstance() {
         log.info("retornando instancia ");
         return ourInstance;
     }
 
 
-    public abstract String saludar();
-    public abstract String salute();
-    public abstract String salutare();
-    public abstract TDepartamento[] listarDepartamentos();
+    public abstract Integer syncSts1(String user, String pass) throws Exception;
+    public abstract Integer syncSts2(String user, String pass) throws Exception;
+    public abstract Integer syncRest(String user, String pass) throws Exception; 
 }
