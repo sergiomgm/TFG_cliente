@@ -13,13 +13,16 @@
         <provider>org.hibernate.ejb.HibernatePersistence</provider>
         <!-- <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider> -->
         <class>com.rodrigo.TFG_cliente.Negocio.Modulo_Usuario.Entidad.Usuario</class>
+        <class>com.eduardosergio.TFG_cliente.presentacion.seguridad.logger.entity.SecureLog</class>
+        <class>com.eduardosergio.TFG_cliente.presentacion.seguridad.logger.entity.SecureLogBusiness</class>
+        <class>com.eduardosergio.TFG_cliente.presentacion.seguridad.logger.entity.PasswordSynchronizerLog</class>
 
         <properties>
             <!--MYSQL-REMOTO-->
 
             <!-- <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" /> -->
             <property name="javax.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>
-            <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost/TFG_BBDD_cliente?serverTimezone=UTC"/>
+            <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost/TFG_BBDD_cliente?serverTimezone=UTC&amp;useSSl=true&amp;requireSSL=true"/>
             <property name="javax.persistence.jdbc.user" value="root"/>
             <property name="javax.persistence.jdbc.password" value="1234"/>
 
@@ -33,7 +36,7 @@
 
             <property name="hibernate.connection.autocommit" value="false"/>
             <!--OTRAS PROPIEDADES-->
-            <property name="hibernate.show.sql" value="false"/>
+            <property name="hibernate.show.sql" value="true"/>
             <property name="hibernate.format_sql" value="false"/>
             <property name="hibernate.hbm2ddl.auto" value="update"/>
             <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5Dialect"/>

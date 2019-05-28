@@ -7,7 +7,7 @@ import com.rodrigo.TFG_cliente.Negocio.Modulo_Usuario.Excepciones.UsuarioFieldNu
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Usuario.Excepciones.UsuarioLoginErroneo;
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Usuario.Excepciones.UsuarioYaExisteExcepcion;
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Usuario.Serv_aplicacion.impl.Broker_SA_UsuarioImpl;
-import com.rodrigo.TFG_cliente.Presentacion.Utils.EmailValidatorTest;
+//import com.rodrigo.TFG_cliente.Presentacion.Utils.EmailValidatorTest;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -453,14 +453,12 @@ class Broker_SA_UsuarioTest {
     /******************************************************************
      *********************   METODOS AUXILIARES   *********************
      ******************************************************************/
-
-
+/*
 
     public static Object[][] InvalidEmailProvider() {
         return EmailValidatorTest.InvalidEmailProvider();
     }
-
-
+*/
     @Test
     void buscarUnEmple() throws UsuarioException {
 

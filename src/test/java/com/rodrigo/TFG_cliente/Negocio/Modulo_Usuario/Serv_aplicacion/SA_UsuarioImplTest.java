@@ -7,7 +7,7 @@ import com.rodrigo.TFG_cliente.Negocio.Modulo_Usuario.Excepciones.UsuarioExcepti
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Usuario.Excepciones.UsuarioFieldNullException;
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Usuario.Excepciones.UsuarioLoginErroneo;
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Usuario.Excepciones.UsuarioYaExisteExcepcion;
-import com.rodrigo.TFG_cliente.Presentacion.Utils.EmailValidatorTest;
+//import com.rodrigo.TFG_cliente.Presentacion.Utils.EmailValidatorTest;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -460,12 +460,12 @@ class SA_UsuarioImplTest {
      *********************   METODOS AUXILIARES   *********************
      ******************************************************************/
 
-
+/*
 
     public static Object[][] InvalidEmailProvider() {
         return EmailValidatorTest.InvalidEmailProvider();
     }
-
+*/
 
 
 

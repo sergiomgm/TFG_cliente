@@ -61,6 +61,15 @@
             <redirect/>
         </navigation-case>
     </navigation-rule>
+    
+    <navigation-rule>
+        <from-view-id>/views/Errors/*</from-view-id>
+        <navigation-case>
+            <from-outcome>indice</from-outcome>
+            <to-view-id>/views/index.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
 
 
 

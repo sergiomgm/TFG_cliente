@@ -1,5 +1,6 @@
 package com.rodrigo.TFG_cliente.Presentacion.Modulo_Empleado.Bean;
 
+import com.eduardosergio.TFG_cliente.presentacion.seguridad.logger.SecureLogger;
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Departamento.Delegado.Delegado_Departamento;
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Departamento.Entidad.Transfers.TDepartamento;
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Empleado.Delegado.Delegado_Empleado;
@@ -18,6 +19,9 @@ import org.slf4j.LoggerFactory;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
+
+
 import java.io.Serializable;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -113,6 +117,11 @@ public class EmpleadoBean implements Serializable {
 
                 try {
                     log.info("Creando Empleado en el sistema");
+               
+                    SecureLogger secureLogger = SecureLogger.getInstance();
+                    secureLogger.log("Crear nuevo empleado a tiempo completo");
+                    
+                    
                     empleadoCompleto = Delegado_Empleado.getInstance().crearEmpleado(emple);
 
 
@@ -166,6 +175,9 @@ public class EmpleadoBean implements Serializable {
 
 
             try {
+                SecureLogger secureLogger = SecureLogger.getInstance();
+                secureLogger.log("Buscar empleado con id " + id);
+                
                 empleadoCompleto = Delegado_Empleado.getInstance().buscarByID(id);
                 if (empleadoCompleto == null) {
                     accionVista.setMensajeWarning("Empleado no encontrado en la BBDD");
@@ -208,6 +220,9 @@ public class EmpleadoBean implements Serializable {
 
 
             try {
+                SecureLogger secureLogger = SecureLogger.getInstance();
+                secureLogger.log("Buscar empleado con email " + email);
+                
                 empleadoCompleto = Delegado_Empleado.getInstance().buscarByEmail(email.trim());
                 if (empleadoCompleto == null) {
                     accionVista.setMensajeWarning("Empleado no encontrado en la BBDD");
@@ -250,6 +265,9 @@ public class EmpleadoBean implements Serializable {
 
 
             try {
+                SecureLogger secureLogger = SecureLogger.getInstance();
+                secureLogger.log("Eliminar empleado con id " + id);
+                
                 boolean result = Delegado_Empleado.getInstance().eliminarEmpleado(id);
                 if (result) {
                     accionVista.setMensajeSuccess("Empleado borrado correctamente");
@@ -285,12 +303,17 @@ public class EmpleadoBean implements Serializable {
         log.info(accionVista.toString());
 
         log.info(viewRequest);
-
-
+        
+        SecureLogger secureLogger = SecureLogger.getInstance();
+        secureLogger.log("Listar empleados");
+        
+     
         listaEmpleados = Delegado_Empleado.getInstance().listarEmpleados();
 
         return viewRequest;
     }
+    
+   
 
 
     /****************************

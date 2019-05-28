@@ -1,5 +1,7 @@
 package com.rodrigo.TFG_cliente.Presentacion.Modulo_Departamento.Bean;
 
+import com.eduardosergio.TFG_cliente.negocio.modulo_Departamento.delegado.Delegado_DepartamentoSOAP;
+import com.eduardosergio.TFG_cliente.presentacion.seguridad.logger.SecureLogger;
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Departamento.Delegado.Delegado_Departamento;
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Departamento.Entidad.Transfers.TDepartamento;
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Departamento.Entidad.Transfers.TDepartamentoCompleto;
@@ -13,6 +15,9 @@ import org.slf4j.LoggerFactory;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
+
+
 import java.io.Serializable;
 import java.util.Arrays;
 import java.util.List;
@@ -72,8 +77,12 @@ public class DepartamentoBean implements Serializable {
 
 
             try {
-
+            	
+                SecureLogger secureLogger = SecureLogger.getInstance();
+                secureLogger.log("Crear nuevo departamento");
+                
                 departamentoCompleto.setDepartamento(Delegado_Departamento.getInstance().crearDepartamento(departNuevo));
+                accionVista.setHayError(false);
 
             } catch (DepartamentoYaExisteExcepcion e1) {
 
@@ -128,6 +137,9 @@ public class DepartamentoBean implements Serializable {
 
 
             try {
+                SecureLogger secureLogger = SecureLogger.getInstance();
+                secureLogger.log("Buscar departamento con id " + id);
+                
                 departamentoCompleto = Delegado_Departamento.getInstance().buscarByID(id);
                 if (departamentoCompleto == null) {
                     accionVista.setMensajeWarning("Departamento no encontrado en la BBDD");
@@ -155,6 +167,50 @@ public class DepartamentoBean implements Serializable {
         System.out.println("*********************");
 
         System.out.println(viewRequest);
+        accionVista.setAccion(AccionVista.AccionEnum.ACCION_MOSTRAR_DEPARTAMENTO);
+        return viewRequest;
+    }
+    
+    public String buscarByIdSOAP() {
+        System.out.println(accionVista);
+        log.info("this.id = '" + this.id + "'");
+        log.info("id = '" + id + "'");
+
+        if (id != null && id > 0) {
+
+
+            try {
+                SecureLogger secureLogger = SecureLogger.getInstance();
+                secureLogger.log("Buscar departamento con id " + id + " mediante SOAP");
+                
+                departamentoCompleto = Delegado_DepartamentoSOAP.getInstance().buscarByID(id);
+                if (departamentoCompleto == null) {
+                    accionVista.setMensajeWarning("Departamento no encontrado en la BBDD");
+                }
+            } catch (DepartamentoFieldInvalidException e) {
+                e.printStackTrace();
+
+                accionVista.setHayError(true);
+                accionVista.setMensajeError(e.getMessage());
+
+            } catch (DepartamentoException e) {
+                e.printStackTrace();
+                accionVista.setHayError(true);
+                accionVista.setMensajeError(e.getMessage());
+            }
+
+        } else {
+            accionVista.setHayError(true);
+            accionVista.setMensajeError("El ID debe ser un número positivo");
+        }
+
+        System.out.println("*********************");
+        System.out.println("hayError = [" + accionVista.getHayError() + "]");
+        System.out.println("mensajeError = [" + accionVista.getMensajeError() + "]");
+        System.out.println("*********************");
+
+        System.out.println(viewRequest);
+        accionVista.setAccion(AccionVista.AccionEnum.ACCION_MOSTRAR_DEPARTAMENTO);
         return viewRequest;
     }
 
@@ -167,6 +223,9 @@ public class DepartamentoBean implements Serializable {
 
 
             try {
+                SecureLogger secureLogger = SecureLogger.getInstance();
+                secureLogger.log("Eliminar departamento con id " + id);
+                
                 boolean result  = Delegado_Departamento.getInstance().eliminarDepartamento(id);
                 if(result){
                     accionVista.setMensajeSuccess("Departamento borrado correctamente");
@@ -201,7 +260,10 @@ public class DepartamentoBean implements Serializable {
         System.out.println(accionVista);
 
         System.out.println(viewRequest);
-
+        
+        SecureLogger secureLogger = SecureLogger.getInstance();
+        secureLogger.log("Listar departamentos");
+        
         listaDepartamento = Arrays.asList(Delegado_Departamento.getInstance().listarDepartamentos());
 
 
@@ -218,6 +280,9 @@ public class DepartamentoBean implements Serializable {
 
 
             try {
+                SecureLogger secureLogger = SecureLogger.getInstance();
+                secureLogger.log("Buscar departamento con siglas " + siglas);
+                
                 departamentoCompleto = Delegado_Departamento.getInstance().buscarBySiglas(siglas.trim());
                 if (departamentoCompleto == null) {
                     accionVista.setMensajeWarning("Departamento no encontrado en la BBDD");

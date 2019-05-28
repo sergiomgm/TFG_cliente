@@ -27,6 +27,10 @@ public class Authenticator implements ClientRequestFilter {
         headers.add("Authorization", basicAuthentication);
 
     }
+    
+    public String getUser() {
+    	return this.user;
+    }
 
     private String getBasicAuthentication() {
         String token = this.user + ":" + this.password;

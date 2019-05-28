@@ -52,6 +52,7 @@ public class AccionVista implements Serializable {
 
 
         ACCION_BUSCAR_DEPARTAMENTO_ID,
+        ACCION_BUSCAR_DEPARTAMENTO_ID_SOAP,
         ACCION_BUSCAR_DEPARTAMENTO_SIGLAS,
         ACCION_MOSTRAR_DEPARTAMENTO,
         ACCION_CREAR_DEPARTAMENTO,
@@ -60,6 +61,7 @@ public class AccionVista implements Serializable {
 
 
         BUSCAR_DEPARTAMENTO_ID,
+        BUSCAR_DEPARTAMENTO_ID_SOAP,
         BUSCAR_DEPARTAMENTO_SIGLAS,
         CREAR_DEPARTAMENTO,
         ELIMINAR_DEPARTAMENTO,

@@ -1,5 +1,6 @@
 package com.rodrigo.TFG_cliente.Presentacion.Modulo_Proyecto.Bean;
 
+import com.eduardosergio.TFG_cliente.presentacion.seguridad.logger.SecureLogger;
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Empleado.Delegado.Delegado_Empleado;
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Empleado.Entidad.Transfers.TEmpleado;
 import com.rodrigo.TFG_cliente.Negocio.Modulo_Empleado.Excepciones.EmpleadoException;
@@ -17,6 +18,9 @@ import org.slf4j.LoggerFactory;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
+
+
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
@@ -94,7 +98,10 @@ public class ProyectoBean implements Serializable {
                 proyNuevo = new TProyecto(nombre, descripcion, fechaInicio, fechafin);
 
                 try {
-
+                	
+                    SecureLogger secureLogger = SecureLogger.getInstance();
+                    secureLogger.log("Crear nuevo proyecto");
+                    
                     proyectoCompleto.setProyecto(Delegado_Proyecto.getInstance().crearProyecto(proyNuevo));
 
                 } catch (ProyectoYaExistenteException e1) {
@@ -150,6 +157,10 @@ public class ProyectoBean implements Serializable {
 
 
             try {
+            	
+                SecureLogger secureLogger = SecureLogger.getInstance();
+                secureLogger.log("Buscar proyecto con id " + id);
+                
                 proyectoCompleto = Delegado_Proyecto.getInstance().buscarByID(id);
                 if (proyectoCompleto == null) {
                     accionVista.setMensajeWarning("Proyecto no encontrado en la BBDD");
@@ -190,6 +201,11 @@ public class ProyectoBean implements Serializable {
         if (nombre != null && !nombre.trim().equals("")) {
 
             try {
+            	
+            	
+                SecureLogger secureLogger = SecureLogger.getInstance();
+                secureLogger.log("Buscar proyecto con nombre " + nombre);
+                
                 proyectoCompleto = Delegado_Proyecto.getInstance().buscarByNombre(nombre.trim());
                 if (proyectoCompleto == null) {
                     accionVista.setMensajeWarning("Proyecto no encontrado en la BBDD");
@@ -230,6 +246,10 @@ public class ProyectoBean implements Serializable {
 
 
             try {
+            	
+                SecureLogger secureLogger = SecureLogger.getInstance();
+                secureLogger.log("Eliminar proyecto con id " + id);
+                
                 boolean result = Delegado_Proyecto.getInstance().eliminarProyecto(id);
                 if (result) {
                     accionVista.setMensajeSuccess("Proyecto borrado correctamente");
@@ -264,7 +284,11 @@ public class ProyectoBean implements Serializable {
         log.info(accionVista.toString());
 
         log.info(viewRequest);
-
+        
+        
+        SecureLogger secureLogger = SecureLogger.getInstance();
+        secureLogger.log("Listar proyectos");
+        
         listaProyectos = Delegado_Proyecto.getInstance().listarProyectos();
 
 
@@ -287,7 +311,10 @@ public class ProyectoBean implements Serializable {
             emple = new TEmpleado(Long.valueOf(idEmpleado));
 
             try {
-
+            	
+                SecureLogger secureLogger = SecureLogger.getInstance();
+                secureLogger.log("Agregar empleado con id " + idEmpleado + " al proyecto con id " + idProyecto);
+                
                 tep = Delegado_Proyecto.getInstance().agregarEmpleadoAProyecto(emple, proy, Integer.valueOf(horas));
 
 
@@ -317,6 +344,10 @@ public class ProyectoBean implements Serializable {
         } else {
             accionVista.setAccion(AccionVista.AccionEnum.ACCION_MOSTRAR_PROYECTO);
             try {
+            	
+                SecureLogger secureLogger = SecureLogger.getInstance();
+                secureLogger.log("Buscar proyecto con id " + tep.getProyecto());
+                
                 this.proyectoCompleto = Delegado_Proyecto.getInstance().buscarByID(tep.getProyecto());
             } catch (ProyectoException e) {
                 log.error("EXCEPCION!!", e);
@@ -338,7 +369,10 @@ public class ProyectoBean implements Serializable {
                 idProyecto != null && Long.valueOf(idProyecto) > 0L) {
 
             try {
-
+            	
+                SecureLogger secureLogger = SecureLogger.getInstance();
+                secureLogger.log("Eliminar empleado con  id " + idEmpleado + " del proyecto con id " + idProyecto);
+                
                 boolean resutl = Delegado_Proyecto.getInstance().eliminarEmpleadoAProyecto(Long.valueOf(idEmpleado), Long.valueOf(idProyecto));
 
 
@@ -370,6 +404,10 @@ public class ProyectoBean implements Serializable {
 
             accionVista.setAccion(AccionVista.AccionEnum.ACCION_MOSTRAR_PROYECTO);
             try {
+            	
+                SecureLogger secureLogger = SecureLogger.getInstance();
+                secureLogger.log("Buscar proyecto con id " + idProyecto);
+                
                 this.proyectoCompleto = Delegado_Proyecto.getInstance().buscarByID(Long.valueOf(idProyecto));
             } catch (ProyectoException e) {
                 log.error("EXCEPCION!!", e);
@@ -497,11 +535,19 @@ public class ProyectoBean implements Serializable {
         this.accionVista.setAccion(AccionVista.AccionEnum.valueOf(accion));
 
         if (AccionVista.AccionEnum.valueOf(accion) == AccionVista.AccionEnum.ACCION_ASIGNAR_EMPELADO_A_PROYECTO) {
+        	
+            SecureLogger secureLogger = SecureLogger.getInstance();
+            secureLogger.log("Listar proyectos");
+            
             listaProyectos = Delegado_Proyecto.getInstance().listarProyectos();
             listaEmpleados = Delegado_Empleado.getInstance().listarEmpleados();
         }
 
         if (AccionVista.AccionEnum.valueOf(accion) == AccionVista.AccionEnum.ACCION_ELIMINAR_EMPLEADO_DE_PROYECTO) {
+        	
+            SecureLogger secureLogger = SecureLogger.getInstance();
+            secureLogger.log("Listar proyectos");
+            
             listaProyectos = Delegado_Proyecto.getInstance().listarProyectos();
             listaEmpleados = Delegado_Empleado.getInstance().listarEmpleados();
         }

@@ -96,6 +96,9 @@
                             <h:commandButton styleClass="btn btn-primary" value="Buscar por ID"
                                              action="#{DepartamentoBean.setAccion('ACCION_BUSCAR_DEPARTAMENTO_ID')}"
                             /><br/>
+                            <h:commandButton styleClass="btn btn-primary" value="Buscar por ID SOAP"
+                                             action="#{DepartamentoBean.setAccion('ACCION_BUSCAR_DEPARTAMENTO_ID_SOAP')}"
+                            /><br/>
                             <h:commandButton styleClass="btn btn-primary" value="Buscar por siglas"
                                              action="#{DepartamentoBean.setAccion('ACCION_BUSCAR_DEPARTAMENTO_SIGLAS')}"
                             /><br/>
@@ -115,8 +118,7 @@
                         </div>
                     </div>
                 </div>
-
-
+               
                 <div class="col-md-4">
                     <div class="border accionesBox">
                         <div class="titulo">
@@ -151,6 +153,30 @@
                             <h:commandButton styleClass="btn btn-primary" value="Eliminar empleado"
                                              action="#{ProyectoBean.setAccion('ACCION_ELIMINAR_EMPLEADO_DE_PROYECTO')}"/>
 
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-4">
+                    <div class="border accionesBox">
+                        <div class="titulo">
+                            <h2>SMR + SSO Delegator + Credential Tokenizer + Password Synchronizer</h2>
+                        </div>
+                        <hr/>
+                        <div class="acciones">
+	                        <div class="form-group">
+			                    <label for="user" class="control-label labelLogin">User:</label><br/>
+			                    <h:inputText id="user" value="#{SSODelegatorBean.user}"></h:inputText>
+		                    </div>
+			                <br/>
+		                    <div class="form-group">
+		                        <label for="pass" class="control-label labelLogin">Password:</label><br/>
+		                        <h:inputText id="pass" type="password" value="#{SSODelegatorBean.pass}"></h:inputText>
+		                    </div>
+		                    <br/>
+                            <h:commandButton styleClass="btn btn-primary" value="Sincronizar"
+                                             action="#{SSODelegatorBean.invokeServices}"
+                            /><br/>  
                         </div>
                     </div>
                 </div>
@@ -629,7 +655,32 @@
                 <!--******************************************************************************************************************************-->
                 <!--******************************************************************************************************************************-->
                 <!--******************************************************************************************************************************-->
+				
+				<c:if test="#{DepartamentoBean.accionVista.getAccion() == 'ACCION_BUSCAR_DEPARTAMENTO_ID_SOAP'}">
+                    BUSCAR_DEPARTAMENTO_ID_SOAP
 
+                    <div class="form-inline">
+                        <h:form styleClass="form-group" prependId="false">
+                            <p>
+                                ID departamento: <h:inputText styleClass="form-control"
+                                                              value="#{DepartamentoBean.id}"
+                                                              a:autofocus="true"/>
+                                <h:commandButton styleClass="btn btn-primary" value="Buscar"
+                                                 action="#{DepartamentoBean.buscarByIdSOAP}"/>
+
+                            </p>
+                        </h:form>
+                    </div>
+
+
+
+                </c:if>
+
+
+                <!--******************************************************************************************************************************-->
+                <!--******************************************************************************************************************************-->
+                <!--******************************************************************************************************************************-->
+				
 
                 <c:if test="#{DepartamentoBean.accionVista.getAccion() == 'ACCION_BUSCAR_DEPARTAMENTO_SIGLAS'}">
                     BUSCAR_DEPARTAMENTO_SIGLAS
