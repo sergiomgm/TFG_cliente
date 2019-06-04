@@ -83,7 +83,7 @@ La contraseña MTIzNA== es el resultado de encriptar 1234.
 INSERT INTO tfg_bbdd_cliente.usuario (id, nombre, email, password, rol, version) VALUES (1, 'Sergio', 'administrador@gmail.com', 'MTIzNA==', 1, 1);
 ```
 
-#### Tomcat
+### Tomcat
 
 Es necesario añadir al server.xml el siguiente Realm:
 
