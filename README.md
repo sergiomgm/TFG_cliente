@@ -20,7 +20,7 @@ Proyecto con el frontend del TFG "Patrones de seguridad software en el contexto 
  
 ## Dependencias
 
-Esta aplicacion depende de la [aplicación backend](https://github.com/sergiomgm/TFG_servidor)que expone los servicios del negocio con **WSDL** y **REST** y de los Security Service Token,disponibles en los repositorios [https://github.com/eduarrom/TFG_STS](https://github.com/eduarrom/TFG_STS) y [https://github.com/eduarrom/TFG_STS2](https://github.com/eduarrom/TFG_STS2).
+Esta aplicacion depende de la [aplicación backend](https://github.com/sergiomgm/TFG_servidor) que expone los servicios del negocio con **WSDL** y **REST** y de los Security Service Token,disponibles en los repositorios [https://github.com/eduarrom/TFG_STS](https://github.com/eduarrom/TFG_STS) y [https://github.com/eduarrom/TFG_STS2](https://github.com/eduarrom/TFG_STS2).
 
 ## Despliegue del proyecto
 
